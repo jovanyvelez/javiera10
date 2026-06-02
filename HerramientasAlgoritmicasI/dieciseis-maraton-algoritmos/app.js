@@ -189,54 +189,48 @@ function configurarCopiarCodigo() {
 function configurarTodosLosRetos() {
   document.querySelectorAll('.reto').forEach(reto => {
     const idReto = parseInt(reto.dataset.reto, 10);
+
+    // Si ya estaba completado en una sesión anterior, restaurarlo
     if (estado.retos.has(idReto)) {
       reto.classList.add('completado');
-      const opciones = reto.querySelectorAll('.opcion');
-      opciones.forEach(op => {
+      reto.querySelectorAll('.opcion').forEach(op => {
         if (op.dataset.correcta === 'true') op.classList.add('correcta');
         op.disabled = true;
       });
       const resultado = reto.querySelector('.resultado-reto');
       if (resultado) {
-        resultado.style.display = 'block';
-        resultado.className = 'resultado-reto';
-        resultado.style.cssText = 'display:block; margin-top:0.5rem; padding:0.5rem 0.8rem; background:rgba(16,185,129,0.10); border-left:3px solid var(--verde); border-radius:6px; color:var(--verde); font-size:0.88rem;';
-        resultado.innerHTML = '✅ Ya completado en una sesión anterior. +8 XP';
+        resultado.classList.add('ok');
+        resultado.textContent = '✅ Ya completado en una sesión anterior. +8 XP';
       }
     }
 
-    const opciones = reto.querySelectorAll('.opcion');
-    opciones.forEach(op => {
+    reto.querySelectorAll('.opcion').forEach(op => {
       op.addEventListener('click', () => {
         if (reto.dataset.respondido === 'true') return;
         reto.dataset.respondido = 'true';
 
-        const correcta = op.dataset.correcta === 'true';
+        const esCorrecta = op.dataset.correcta === 'true';
 
-        opciones.forEach(o => {
+        // Marcar opciones: verde la correcta, rojo la elegida incorrecta
+        reto.querySelectorAll('.opcion').forEach(o => {
           o.disabled = true;
           if (o.dataset.correcta === 'true') o.classList.add('correcta');
         });
+        if (!esCorrecta) op.classList.add('incorrecta');
 
-        if (!correcta) op.classList.add('incorrecta');
-
+        // Mostrar feedback
         const resultado = reto.querySelector('.resultado-reto');
-        resultado.style.display = 'block';
-
-        if (correcta) {
-          resultado.className = 'resultado-reto';
-          resultado.style.cssText = 'display:block; margin-top:0.5rem; padding:0.5rem 0.8rem; background:rgba(16,185,129,0.10); border-left:3px solid var(--verde); border-radius:6px; color:var(--verde); font-size:0.88rem;';
-          resultado.innerHTML = '✅ ¡Correcto! +8 XP';
-
+        if (esCorrecta) {
+          resultado.classList.add('ok');
+          resultado.textContent = '✅ ¡Correcto! +8 XP';
           if (!estado.retos.has(idReto)) {
             estado.retos.add(idReto);
             addXP(XP_POR_RETO);
             reto.classList.add('completado');
           }
         } else {
-          resultado.className = 'resultado-reto';
-          resultado.style.cssText = 'display:block; margin-top:0.5rem; padding:0.5rem 0.8rem; background:rgba(239,68,68,0.10); border-left:3px solid var(--azul-claro); border-radius:6px; color:var(--azul-claro); font-size:0.88rem;';
-          resultado.innerHTML = '❌ Incorrecto. La respuesta correcta está marcada en verde. No te castigues, anota tu duda para el Módulo 5.';
+          resultado.classList.add('no');
+          resultado.textContent = '❌ Incorrecto. La respuesta correcta está marcada en verde. No te castigues, anota tu duda para el Módulo 5.';
         }
 
         actualizarStatsMaraton();
@@ -249,30 +243,22 @@ function configurarTodosLosRetos() {
 }
 
 function actualizarStatsMaraton() {
-  // Maratón 1: retos 6, 7, 8
-  ['m1-stat-1', 'm1-stat-2', 'm1-stat-3'].forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const retoNum = 6 + i;
-    if (estado.retos.has(retoNum)) {
-      el.textContent = `⚡ Reto ${i + 1}: ✓ listo`;
-      el.style.color = 'var(--verde)';
-      el.style.borderColor = 'var(--verde)';
-      el.style.background = 'rgba(16,185,129,0.10)';
-    }
-  });
+  // Configuración visual de los chips de la maratón
+  const chips = [
+    { ids: ['m1-stat-1', 'm1-stat-2', 'm1-stat-3'], icono: '⚡', desde: 6 },
+    { ids: ['m2-stat-1', 'm2-stat-2', 'm2-stat-3'], icono: '🦾', desde: 9 }
+  ];
 
-  // Maratón 2: retos 9, 10, 11
-  ['m2-stat-1', 'm2-stat-2', 'm2-stat-3'].forEach((id, i) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    const retoNum = 9 + i;
-    if (estado.retos.has(retoNum)) {
-      el.textContent = `🦾 Reto ${i + 1}: ✓ listo`;
-      el.style.color = 'var(--verde)';
-      el.style.borderColor = 'var(--verde)';
-      el.style.background = 'rgba(16,185,129,0.10)';
-    }
+  chips.forEach(grupo => {
+    grupo.ids.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const retoNum = grupo.desde + i;
+      if (estado.retos.has(retoNum)) {
+        el.textContent = `${grupo.icono} Reto ${i + 1}: ✓ listo`;
+        el.classList.add('done');   // clase CSS para el estado "completado"
+      }
+    });
   });
 }
 
@@ -347,14 +333,16 @@ function calcularRubrica() {
   const barras = document.getElementById('barras-rubrica');
   const recs = document.getElementById('recomendaciones');
 
-  // Determinar nivel general
-  let nivel = 'Principiante', clase = 'var(--azul-claro)';
-  if (promedio >= 4.5)      { nivel = 'Experto / Mentor'; clase = 'var(--dorado)'; }
-  else if (promedio >= 3.8) { nivel = 'Avanzado';        clase = 'var(--lima)'; }
-  else if (promedio >= 3.0) { nivel = 'Competente';      clase = 'var(--naranja)'; }
-  else if (promedio >= 2.0) { nivel = 'En desarrollo';  clase = 'var(--coral)'; }
-
-  nivelTexto.innerHTML = `<span style="color: ${clase}">${nivel}</span> (${promedio.toFixed(1)}/5)`;
+  // Determinar nivel general — usando tabla de búsqueda (más legible que if/else)
+  const NIVELES = [
+    { min: 4.5, nombre: 'Experto / Mentor', color: 'var(--dorado)' },
+    { min: 3.8, nombre: 'Avanzado',        color: 'var(--lima)' },
+    { min: 3.0, nombre: 'Competente',      color: 'var(--naranja)' },
+    { min: 2.0, nombre: 'En desarrollo',  color: 'var(--coral)' },
+    { min: 0.0, nombre: 'Principiante',   color: 'var(--azul-claro)' }
+  ];
+  const nivelObj = NIVELES.find(n => promedio >= n.min);
+  nivelTexto.innerHTML = `<span style="color: ${nivelObj.color}">${nivelObj.nombre}</span> (${promedio.toFixed(1)}/5)`;
 
   // Barras visuales
   const labels = { 1: 'Corrección', 2: 'Eficiencia', 3: 'Claridad', 4: 'Elegancia', 5: 'Completitud' };
@@ -371,32 +359,26 @@ function calcularRubrica() {
     `;
   }
 
-  // Recomendaciones basadas en el criterio más bajo
-  const masBaja = Object.entries(estado.rubrica).sort((a, b) => a[1] - b[1])[0];
-  const recsMap = {
+  // Recomendaciones basadas en los criterios con puntaje bajo
+  const RECS = {
     1: 'Vuelve a la clase 12 (Contadores, Acumuladores, Banderas) y practica los simuladores. La base sólida hace todo lo demás más fácil.',
     2: 'Revisa la clase 14 (Validación). Aprender a evitar trabajo innecesario hace tu código más rápido y tu mente más clara.',
     3: 'Trabaja con un cuaderno al lado: antes de programar, escribe en español qué quieres hacer. La planificación esclarece.',
     4: 'Busca soluciones de otros programadores a problemas similares. Con el tiempo, irás reconociendo los "trucos" elegantes.',
     5: 'Termina los retos pendientes antes de seguir. La completitud construye confianza, y la confianza construye más completitud.'
   };
+  const areasDebiles = Object.entries(estado.rubrica).filter(([, v]) => v <= 3);
 
-  const recsList = Object.entries(estado.rubrica)
-    .filter(([k, v]) => v <= 3)
-    .map(([k, v]) => `<li><strong>${labels[k]}:</strong> ${recsMap[k]}</li>`)
-    .join('');
+  if (areasDebiles.length > 0) {
+    const lista = areasDebiles
+      .map(([k]) => `<li><strong>${labels[k]}:</strong> ${RECS[k]}</li>`)
+      .join('');
+    recs.innerHTML = `<h4>🎯 Áreas para reforzar (puntaje ≤ 3):</h4><ul>${lista}</ul>`;
+  } else {
+    recs.innerHTML = '<h4>🌟 ¡Excelente!</h4><p>Todos tus criterios están sobre 3. Estás listo para temas más avanzados.</p>';
+  }
 
-  recs.innerHTML = recsList
-    ? `<h4>🎯 Áreas para reforzar (puntaje ≤ 3):</h4><ul>${recsList}</ul>`
-    : '<h4>🌟 ¡Excelente!</h4><p>Todos tus criterios están sobre 3. Estás listo para temas más avanzados.</p>';
-
-  // Recomputar después de mostrar
-  setTimeout(() => {
-    barras.querySelectorAll('.barra-fill').forEach(el => {
-      el.style.width = el.style.width;
-    });
-  }, 50);
-
+  // Mostrar el resultado
   resultado.style.display = 'block';
 
   // XP por completar la rúbrica

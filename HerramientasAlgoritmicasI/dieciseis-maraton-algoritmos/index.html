@@ -408,7 +408,9 @@
     {
         <span class="kw">if</span> (arr[j] &gt; arr[j+<span class="num">1</span>])
         {
-            <span class="kw">int</span> t = arr[j]; arr[j] = arr[j+<span class="num">1</span>]; arr[j+<span class="num">1</span>] = t;
+            <span class="kw">int</span> t = arr[j];
+            arr[j] = arr[j + <span class="num">1</span>];
+            arr[j + <span class="num">1</span>] = t;
             huboSwap = <span class="kw">true</span>;
         }
     }
