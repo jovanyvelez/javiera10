@@ -35,6 +35,9 @@
   --ha-12-a:         #fbbf24;   /* Clase 12 — ámbar/esmeralda (inventario) */
   --ha-12-b:         #10b981;
 
+  --ha-14-a:         #6366f1;   /* Clase 14 — índigo/violeta (validación) */
+  --ha-14-b:         #8b5cf6;
+
   --so-a:            #22d3ee;   /* Sistemas Operativos — terminal/verde-azul */
   --so-b:            #00ff9d;
 
@@ -357,10 +360,15 @@ main {
 
 .clase-card.ha::before    { background: linear-gradient(90deg, var(--ha-a), var(--ha-b)); }
 .clase-card.ha-12::before { background: linear-gradient(90deg, var(--ha-12-a), var(--ha-12-b)); }
+.clase-card.ha-14::before { background: linear-gradient(90deg, var(--ha-14-a), var(--ha-14-b)); }
 
 .clase-card.ha-12 .clase-badge { background: linear-gradient(135deg, var(--ha-12-a), var(--ha-12-b)); }
 .clase-card.ha-12 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--ha-12-a), var(--ha-12-b)); }
 .clase-card.ha-12:hover { border-color: var(--ha-12-a); }
+
+.clase-card.ha-14 .clase-badge { background: linear-gradient(135deg, var(--ha-14-a), var(--ha-14-b)); }
+.clase-card.ha-14 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--ha-14-a), var(--ha-14-b)); }
+.clase-card.ha-14:hover { border-color: var(--ha-14-a); }
 
 .clase-card:hover {
   transform: translateY(-4px);

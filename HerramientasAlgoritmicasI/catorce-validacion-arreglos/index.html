@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🛡️ El Escudo del Programador · Validación de Datos en Arreglos</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🛡️</span>
+    <div>
+      <h1>El Escudo del Programador</h1>
+      <p class="subtitulo">Validación de datos en arreglos · C#</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 500 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🚨 Errores</button>
+  <button class="btn-modulo" data-modulo="2">🚧 Índices</button>
+  <button class="btn-modulo" data-modulo="3">🔍 Valores</button>
+  <button class="btn-modulo" data-modulo="4">🏰 Universal</button>
+  <button class="btn-modulo" data-modulo="5">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🛡️ ¡Bienvenido/a, defensor de datos!</h2>
+    <p class="lead">Cada vez que un usuario escribe un valor, tu programa recibe datos <strong>crudos, sin filtrar, potencialmente peligrosos</strong>. Validarlos antes de usarlos es lo que separa un programa que funciona de uno que <em>explota en producción</em>. Aquí aprenderás a blindar tus arreglos como un verdadero ingeniero.</p>
+
+    <div class="batalla">
+      <div class="batalla-lado ataque">
+        <span class="batalla-emoji">👾</span>
+        <div class="batalla-label">Datos crudos</div>
+      </div>
+      <div class="batalla-vs">VS</div>
+      <div class="batalla-lado defensa">
+        <span class="batalla-emoji">🛡️</span>
+        <div class="batalla-label">Validación</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>3 horas y 45 minutos en 6 módulos cortos. Puedes detenerte y continuar después.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Aprender a prevenir los 5 errores más comunes al trabajar con arreglos en C# usando validaciones lógicas.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Saber declarar arreglos, usar índices y bucles <code>for</code> en C#. Aquí aprenderás a <em>no romperlos</em>.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de defensa</h3>
+  <div class="caja-destacada">
+    <ol style="padding-left:1.2rem; color: var(--texto-suave);">
+      <li><strong style="color:var(--rosa)">Módulo 1 (45 min):</strong> 🚨 Los 5 errores que revientan tus programas</li>
+      <li><strong style="color:var(--azul-claro)">Módulo 2 (45 min):</strong> 🚧 Validador de índices (los límites del arreglo)</li>
+      <li><strong style="color:var(--verde)">Módulo 3 (45 min):</strong> 🔍 Validador de valores (rangos y tipos)</li>
+      <li><strong style="color:var(--violeta-claro)">Módulo 4 (45 min):</strong> 🏰 El Validador Universal (integración)</li>
+      <li><strong style="color:var(--naranja)">Módulo 5 (45 min):</strong> 🛠️ Taller — blinda el código</li>
+    </ol>
+  </div>
+
+  <h3>💥 ¿Qué pasa si NO validas?</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">💀</span>
+      <h3>Programa se cae</h3>
+      <p>Un solo índice fuera de rango tira abajo toda la app. El usuario ve una pantalla de error y se va.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🤕</span>
+      <h3>Datos corruptos</h3>
+      <p>Si dejas entrar una edad "-50", tu promedio de notas queda loco. Los reportes ya no sirven.</p>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">🛡️</span>
+      <h3>Pero se puede evitar</h3>
+      <p>Con unas pocas líneas de validación, tu programa se vuelve <strong>a prueba de balas</strong>.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Mentalidad del programador defensivo</h4>
+    <p>Un buen ingeniero <strong>nunca confía en los datos que recibe</strong>. Ni del usuario, ni de la base de datos, ni de una API externa. Siempre valida. Esto se llama <em>defensive programming</em> y es lo que te separa de un programador junior.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Los Errores →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — LOS 5 ERRORES CLÁSICOS
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🚨 Los 5 Errores Clásicos</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · Los bugs que más cuesta encontrar (y más fácil es prevenir)</p>
+
+  <div class="caja-concepto">
+    <h3>🎭 ¿Por qué tantos programas fallan?</h3>
+    <p>El 90% de los errores con arreglos vienen de <strong>5 patrones repetidos</strong>. Si los conoces, los puedes evitar siempre. Son como los 5 villanos de una película: ya sabes quiénes son, ya sabes cómo derrotarlos.</p>
+  </div>
+
+  <h3>👾 Villano #1: Índice fuera de rango</h3>
+  <div class="error-card">
+    <div class="error-titulo">💥 IndexOutOfRangeException</div>
+    <p>Tratas de acceder a una posición que <strong>no existe</strong> en el arreglo. El arreglo tiene 5 elementos (índices 0-4) y tú pides el índice 7.</p>
+    <div class="error-codigo"><span class="kw">int</span>[] notas = { <span class="num">85</span>, <span class="num">90</span>, <span class="num">78</span> };  <span class="cm">// 3 elementos (0,1,2)</span>
+Console.WriteLine(notas[<span class="num">7</span>]);  <span class="cm">// 💥 ¡BOOM! No existe la posición 7</span></div>
+    <p><strong>Solución:</strong> siempre valida que el índice esté entre <code>0</code> y <code>arreglo.Length - 1</code>.</p>
+  </div>
+
+  <h3>👾 Villano #2: Arreglo vacío</h3>
+  <div class="error-card">
+    <div class="error-titulo">💥 Acceder a un arreglo que no tiene elementos</div>
+    <p>Tu programa crea un arreglo pero nadie le metió datos. El arreglo "existe" pero su <code>Length</code> es 0.</p>
+    <div class="error-codigo"><span class="kw">int</span>[] notas = <span class="kw">new int</span>[<span class="num">0</span>];  <span class="cm">// arreglo vacío</span>
+Console.WriteLine(notas[<span class="num">0</span>]);  <span class="cm">// 💥 No hay posición 0, no hay NADA</span></div>
+    <p><strong>Solución:</strong> antes de acceder, verifica que <code>arreglo.Length &gt; 0</code>.</p>
+  </div>
+
+  <h3>👾 Villano #3: Tipo de dato incorrecto</h3>
+  <div class="error-card">
+    <div class="error-titulo">💥 El usuario escribió "perro" en vez de 25</div>
+    <p>Tu variable espera un número, pero el usuario escribió texto. <code>int.Parse("perro")</code> explota.</p>
+    <div class="error-codigo">Console.Write(<span class="str">"Edad: "</span>);
+<span class="kw">int</span> edad = <span class="kw">int</span>.Parse(Console.ReadLine());  <span class="cm">// si escribe "perro" → 💥</span></div>
+    <p><strong>Solución:</strong> usa <code>int.TryParse()</code> en vez de <code>int.Parse()</code>. Devuelve <code>true</code>/<code>false</code> en vez de explotar.</p>
+  </div>
+
+  <h3>👾 Villano #4: Valor fuera de rango válido</h3>
+  <div class="error-card">
+    <div class="error-titulo">💥 El usuario metió una edad negativa o un porcentaje de 200%</div>
+    <p>El dato <em>técnicamente</em> es válido (es un número), pero <strong>no tiene sentido</strong> en tu contexto.</p>
+    <div class="error-codigo">edad = -<span class="num">50</span>;     <span class="cm">// 💥 nadie tiene -50 años</span>
+nota  = <span class="num">200</span>;     <span class="cm">// 💥 una nota no puede ser 200%</span>
+porcentaje = <span class="num">1.5</span>;  <span class="cm">// 💥 los % no superan 1.0</span></div>
+    <p><strong>Solución:</strong> valida rangos lógicos. <code>if (edad &lt; 0 || edad &gt; 120) rechazar()</code>.</p>
+  </div>
+
+  <h3>👾 Villano #5: Modificar mientras recorres</h3>
+  <div class="error-card">
+    <div class="error-titulo">💥 Borrar o agregar elementos durante un bucle</div>
+    <p>Tu <code>for</code> asume que el arreglo tiene 10 elementos, pero tú borraste uno a la mitad del recorrido. El índice se descontrola.</p>
+    <div class="error-codigo"><span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; items.Length; i++)
+{
+    <span class="kw">if</span> (items[i].EsInvalido)
+        items.RemoveAt(i);  <span class="cm">// 💥 ¡acabas de cambiar items.Length!</span>
+}</div>
+    <p><strong>Solución:</strong> recorre hacia atrás, o usa una lista temporal, o usa <code>Where()</code> con LINQ.</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h3>📊 Los 5 villanos en resumen</h3>
+    <div class="contenedor-tabla">
+      <table class="tabla-compara">
+        <thead>
+          <tr><th>#</th><th>Error</th><th>Causa</th><th>Defensa</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>IndexOutOfRange</td><td>Índice ≥ Length</td><td>Validar <code>0 ≤ i &lt; Length</code></td></tr>
+          <tr><td>2</td><td>Arreglo vacío</td><td>Length == 0</td><td>Verificar <code>Length &gt; 0</code></td></tr>
+          <tr><td>3</td><td>Tipo incorrecto</td><td>El usuario escribió texto</td><td>Usar <code>TryParse</code></td></tr>
+          <tr><td>4</td><td>Valor fuera de rango</td><td>Edad = -50, nota = 200</td><td>Validar rangos lógicos</td></tr>
+          <tr><td>5</td><td>Modificar en bucle</td><td>Remove/Add dentro de for</td><td>Recorrer al revés o lista temp</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Rompe el Arreglo</h3>
+  <p>Intenta atacar este arreglo de 5 notas con un índice cualquiera. Verás si el <strong>Escudo</strong> lo bloquea o si logra colarse.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🛡️ Arena de validación — Arreglo de 5 notas</div>
+
+    <div class="rompe-arena">
+      <div class="rompe-arreglo" id="rompeArreglo"></div>
+      <div class="rompe-controles">
+        <span style="color:var(--texto-suave); font-size:0.85rem">Ingresa un índice (puede ser negativo, gigante o válido):</span>
+        <input type="number" class="rompe-input" id="rompeInput" placeholder="?" value="3">
+        <button class="btn primary" id="rompeAtacar">⚔️ Atacar</button>
+        <button class="btn success" id="rompeProteger">🛡️ Activar Escudo</button>
+        <button class="btn ghost" id="rompeReset">🔄 Reset</button>
+      </div>
+      <div class="rompe-resultado info" id="rompeResultado">Escribe un índice y presiona <strong>Atacar</strong> para ver qué pasa.</div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El costo real de NO validar</h4>
+    <p>Un error de índice puede cerrar tu programa en producción. Esto se llama <em>crash</em> y los usuarios <strong>nunca vuelven</strong> después de un crash. Validar es cuidar tu reputación y la de tu empresa.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> Tienes un arreglo de 4 elementos. ¿Cuál índice causa <code>IndexOutOfRangeException</code>?</p>
+      <button class="opcion" data-op="a">2</button>
+      <button class="opcion" data-op="b">5</button>
+      <button class="opcion" data-op="c">0</button>
+      <button class="opcion" data-op="d">3</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál es la mejor forma de leer un número del usuario sin que el programa explote?</p>
+      <button class="opcion" data-op="a">int.Parse(Console.ReadLine())</button>
+      <button class="opcion" data-op="b">Convert.ToInt32(Console.ReadLine())</button>
+      <button class="opcion" data-op="c">int.TryParse(Console.ReadLine(), out int n)</button>
+      <button class="opcion" data-op="d">No se puede, siempre explota</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Validador de Índices →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — VALIDADOR DE ÍNDICES
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>🚧 Validador de Índices</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · El portero del arreglo: nada entra sin estar en la lista</p>
+
+  <div class="caja-concepto">
+    <h3>🚪 Analogía: El portero del club</h3>
+    <p>Imagina un club con 5 personas adentro (índices 0, 1, 2, 3, 4). El portero tiene una lista con esos 5 números. Si alguien llega con el número "7", el portero dice: <strong>"7 no está en la lista, no puedes entrar"</strong>. Eso es validar índices.</p>
+  </div>
+
+  <h3>📐 La regla de oro</h3>
+  <div class="caja-destacada">
+    <h3 style="color: var(--azul-claro)">Para acceder a un índice <code>i</code> de un arreglo <code>arr</code>:</h3>
+    <p style="font-size: 1.2rem; text-align: center; margin: 1rem 0; font-family: 'JetBrains Mono', monospace; color: var(--verde); font-weight: 700;">
+      <code>0 &lt;= i &lt; arr.Length</code>
+    </p>
+    <p>El índice <strong>nunca</strong> puede ser negativo, y <strong>nunca</strong> puede ser igual o mayor que <code>Length</code>.</p>
+  </div>
+
+  <h3>🛡️ El patrón de validación de 3 pasos</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta">
+      <span class="emoji">1️⃣</span>
+      <h3>Paso 1: ¿El índice es válido?</h3>
+      <p>Verifica que <code>i &gt;= 0</code> y que <code>i &lt; arr.Length</code>. Si no, rechazas inmediatamente.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">2️⃣</span>
+      <h3>Paso 2: ¿El arreglo tiene datos?</h3>
+      <p>Verifica que <code>arr.Length &gt; 0</code>. Si está vacío, no hay nada que acceder.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">3️⃣</span>
+      <h3>Paso 3: Usa try-catch de red de seguridad</h3>
+      <p>Aunque valides, usa <code>try/catch</code> como <em>airbag</em> por si acaso.</p>
+    </div>
+  </div>
+
+  <h3>📝 Las dos formas: sin escudo y con escudo</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta">
+      <h3>❌ Sin validación (peligroso)</h3>
+      <div class="code-live">
+<span class="kw">static int</span> <span class="fn">ObtenerNota</span>(<span class="kw">int</span>[] notas, <span class="kw">int</span> i)
+{
+    <span class="hl-bad"><span class="kw">return</span> notas[i];  <span class="cm">// 💥 boom si i está fuera</span></span>
+}
+      </div>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <h3>✅ Con validación (seguro)</h3>
+      <div class="code-live">
+<span class="kw">static int</span> <span class="fn">ObtenerNota</span>(<span class="kw">int</span>[] notas, <span class="kw">int</span> i)
+{
+    <span class="hl-good"><span class="kw">if</span> (i &lt; <span class="num">0</span> || i &gt;= notas.Length)</span>
+    {
+        Console.WriteLine(<span class="str">"Índice fuera de rango"</span>);
+        <span class="kw">return</span> -<span class="num">1</span>;  <span class="cm">// valor centinela</span>
+    }
+    <span class="kw">return</span> notas[i];  <span class="cm">// ahora sí es seguro</span>
+}
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: La frontera del arreglo</h3>
+  <p>Mueve el deslizador para ver qué índices son <strong>seguros</strong> (verdes) y cuáles son <strong>peligrosos</strong> (rojos). El arreglo tiene 5 elementos.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🚧 Inspector de fronteras</div>
+
+    <div class="rompe-arena">
+      <div class="rompe-arreglo" id="fronteraArreglo"></div>
+
+      <div style="text-align: center; margin: 1rem 0;">
+        <label style="color: var(--texto-suave); font-size: 0.85rem; display: block; margin-bottom: 0.4rem;">Índice a inspeccionar:</label>
+        <input type="range" id="fronteraSlider" min="-3" max="8" value="3" style="width: 100%; max-width: 400px; accent-color: var(--azul-claro);">
+        <div style="margin-top: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: 700;" id="fronteraValor">3</div>
+      </div>
+
+      <div class="rompe-resultado" id="fronteraResultado"></div>
+    </div>
+  </div>
+
+  <h3>💻 Función segura para obtener un elemento</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>ValidadorIndices.cs</div>
+      <button class="copy-btn" data-copy="indices">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class ValidadorIndices
+{
+    static void Main()
+    {
+        int[] notas = { 85, 90, 78, 92, 88 };
+
+        // Probemos varios índices
+        int[] pruebas = { -1, 0, 2, 5, 100 };
+
+        foreach (int i in pruebas)
+        {
+            int resultado = ObtenerSeguro(notas, i);
+            Console.WriteLine($"notas[{i}] = {resultado}");
+        }
+    }
+
+    /// &lt;summary&gt;
+    /// Obtiene un elemento del arreglo de forma SEGURA.
+    /// Devuelve -1 si el índice es inválido.
+    /// &lt;/summary&gt;
+    static int ObtenerSeguro(int[] arr, int i)
+    {
+        // ══════════════════════════════════════
+        // VALIDACIÓN DE 3 PASOS
+        // ══════════════════════════════════════
+        if (arr == null)
+        {
+            Console.WriteLine("❌ El arreglo es null");
+            return -1;
+        }
+
+        if (arr.Length == 0)
+        {
+            Console.WriteLine("❌ El arreglo está vacío");
+            return -1;
+        }
+
+        if (i &lt; 0 || i &gt;= arr.Length)
+        {
+            Console.WriteLine($"❌ Índice {i} fuera de rango (0 a {arr.Length - 1})");
+            return -1;
+        }
+
+        // Si llegamos aquí, es seguro acceder
+        return arr[i];
+    }
+}</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El truco del "valor centinela"</h4>
+    <p>Cuando la validación falla, devolvemos un valor <strong>imposible</strong> (como -1 para notas que van de 0-100). El que llama a la función <em>sabe</em> que -1 significa "no se pudo". Es mejor que lanzar una excepción porque te deja manejar el error con un <code>if</code>.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es la condición correcta para validar un índice antes de acceder?</p>
+      <button class="opcion" data-op="a">if (i &lt;= arr.Length)</button>
+      <button class="opcion" data-op="b">if (i &gt;= 0 &amp;&amp; i &lt; arr.Length)</button>
+      <button class="opcion" data-op="c">if (i != arr.Length)</button>
+      <button class="opcion" data-op="d">if (i &gt; 0)</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué es un "valor centinela"?</p>
+      <button class="opcion" data-op="a">Una variable que se autodestruye</button>
+      <button class="opcion" data-op="b">Una variable que cuenta elementos</button>
+      <button class="opcion" data-op="c">Un valor imposible que devuelve una función cuando algo sale mal</button>
+      <button class="opcion" data-op="d">Un tipo de comentario</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Validador de Valores →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — VALIDADOR DE VALORES
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🔍 Validador de Valores</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · El inspector de calidad: nada se guarda sin estar en rango</p>
+
+  <div class="caja-concepto">
+    <h3>🏭 Analogía: La fábrica de galletas</h3>
+    <p>Imagina una fábrica de galletas. Antes de meter una galleta a la caja, un inspector verifica: <em>¿está bien horneada? ¿tiene el peso correcto? ¿no está rota?</em>. Si falla <strong>cualquier</strong> revisión, no entra. Lo mismo hacemos con los datos antes de meterlos a un arreglo.</p>
+  </div>
+
+  <h3>📋 Las 4 validaciones típicas</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta">
+      <span class="emoji">📏</span>
+      <h3>1. Rango numérico</h3>
+      <p>El número está entre el mínimo y máximo esperado.<br><code>if (edad &gt;= 0 &amp;&amp; edad &lt;= 120)</code></p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">📝</span>
+      <h3>2. No vacío</h3>
+      <p>El texto no es vacío ni solo espacios.<br><code>if (!string.IsNullOrWhiteSpace(nombre))</code></p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">📏</span>
+      <h3>3. Longitud del texto</h3>
+      <p>El texto tiene el largo esperado (ni muy corto, ni muy largo).<br><code>if (nombre.Length &gt;= 3 &amp;&amp; nombre.Length &lt;= 50)</code></p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>4. Formato</h3>
+      <p>El texto cumple un patrón (email, teléfono, código postal).<br><code>if (email.Contains("@"))</code></p>
+    </div>
+  </div>
+
+  <h3>📝 Ejemplo: validar 4 campos de un estudiante</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta">
+      <h3>❌ Sin validación (acepta cualquier cosa)</h3>
+      <div class="code-live">
+<span class="cm">// Esto acepta: nombre="" edad=-50 nota=200</span>
+estudiantes.Add(<span class="kw">new</span> Estudiante
+{
+    Nombre = nombre,
+    Edad   = edad,    <span class="hl-bad"><span class="cm">// puede ser -50 💥</span></span>
+    Nota   = nota     <span class="hl-bad"><span class="cm">// puede ser 999 💥</span></span>
+});
+      </div>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <h3>✅ Con validación (rechaza datos malos)</h3>
+      <div class="code-live">
+<span class="kw">if</span> (EsValido(nombre, edad, nota, <span class="kw">out string</span> error))
+{
+    estudiantes.Add(<span class="kw">new</span> Estudiante { ... });
+}
+<span class="kw">else</span>
+{
+    Console.WriteLine(<span class="str">"❌ "</span> + error);
+}
+
+<span class="kw">static bool</span> EsValido(...)
+{
+    <span class="kw">if</span> (string.IsNullOrWhiteSpace(nombre))
+        { error = <span class="str">"nombre vacío"</span>; <span class="kw">return false</span>; }
+    <span class="kw">if</span> (edad &lt; <span class="num">0</span> || edad &gt; <span class="num">120</span>)
+        { error = <span class="str">"edad fuera de rango"</span>; <span class="kw">return false</span>; }
+    <span class="kw">if</span> (nota &lt; <span class="num">0</span> || nota &gt; <span class="num">100</span>)
+        { error = <span class="str">"nota fuera de rango"</span>; <span class="kw">return false</span>; }
+    <span class="kw">return true</span>;
+}
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Inspector de calidad en vivo</h3>
+  <p>Intenta meter datos de un estudiante. El inspector te dirá <strong>en tiempo real</strong> si cada campo es válido o no, y por qué.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔍 Formulario de estudiante con validación</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+      <div>
+        <div class="form-grupo">
+          <label for="val-nombre">Nombre</label>
+          <input type="text" class="form-input" id="val-nombre" placeholder="Ej: Ana García" value="Ana García">
+          <div class="form-feedback" id="val-nombre-fb"></div>
+        </div>
+
+        <div class="form-grupo">
+          <label for="val-edad">Edad</label>
+          <input type="number" class="form-input" id="val-edad" placeholder="0-120" value="16">
+          <div class="form-feedback" id="val-edad-fb"></div>
+        </div>
+
+        <div class="form-grupo">
+          <label for="val-nota">Nota final (0-100)</label>
+          <input type="number" class="form-input" id="val-nota" placeholder="0-100" value="85">
+          <div class="form-feedback" id="val-nota-fb"></div>
+        </div>
+
+        <div class="form-grupo">
+          <label for="val-email">Email</label>
+          <input type="email" class="form-input" id="val-email" placeholder="ejemplo@correo.com" value="ana@colegio.edu">
+          <div class="form-feedback" id="val-email-fb"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn success big" id="val-guardar" style="flex: 1;">✅ Guardar estudiante</button>
+        </div>
+      </div>
+
+      <div>
+        <div style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 12px; padding: 1rem; min-height: 200px;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--azul-claro); margin-bottom: 0.75rem;">📋 Lista de estudiantes válidos</div>
+          <div id="val-lista" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--texto-suave);">Aún no has agregado estudiantes.</div>
+        </div>
+
+        <div id="val-mensaje" class="form-mensaje" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ No valides "después"</h4>
+    <p>El error clásico es: guardar el dato, hacer cálculos, y <em>después</em> validar. Si la validación falla, ya tienes basura en tu sistema. La validación debe ser <strong>al momento de la entrada</strong> — antes de tocar el arreglo.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cómo verificas que un texto no esté vacío ni solo tenga espacios?</p>
+      <button class="opcion" data-op="a">if (texto == "")</button>
+      <button class="opcion" data-op="b">if (!string.IsNullOrWhiteSpace(texto))</button>
+      <button class="opcion" data-op="c">if (texto.Length &gt; 0)</button>
+      <button class="opcion" data-op="d">if (texto != null)</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> Para validar que una nota esté entre 0 y 100, ¿cuál es la condición correcta?</p>
+      <button class="opcion" data-op="a">if (nota &gt; 0 &amp;&amp; nota &lt; 100)</button>
+      <button class="opcion" data-op="b">if (nota &gt;= 0 || nota &lt;= 100)</button>
+      <button class="opcion" data-op="c">if (nota &gt;= 0 &amp;&amp; nota &lt;= 100)</button>
+      <button class="opcion" data-op="d">if (nota != 0 &amp;&amp; nota != 100)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: El Validador Universal →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — EL VALIDADOR UNIVERSAL
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>🏰 El Validador Universal</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · Las 3 capas de defensa trabajando juntas</p>
+
+  <div class="caja-concepto">
+    <h3>🛡️ Las 3 capas de un sistema a prueba de balas</h3>
+    <p>Un programa profesional no se protege con una sola validación. Tiene <strong>3 capas de defensa</strong>, como un castillo medieval: foso, muralla, y arqueros. Si una falla, la otra contiene el ataque.</p>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🛡️</span>
+      <h3>Capa 1: Validar entrada</h3>
+      <p>Antes de tocar el arreglo: ¿el índice es válido? ¿el valor está en rango? ¿el texto no está vacío?</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🔒</span>
+      <h3>Capa 2: Validar estado</h3>
+      <p>Antes de operar: ¿el arreglo tiene datos? ¿hay espacio? ¿el estado es coherente?</p>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">🪖</span>
+      <h3>Capa 3: try-catch</h3>
+      <p>Red de seguridad final. Si algo se escapa, lo capturamos y mostramos un mensaje amable.</p>
+    </div>
+  </div>
+
+  <h3>🏗️ Sistema de registro de estudiantes completo</h3>
+  <p>Aquí está el <strong>código profesional</strong> que combina las 3 capas. Léelo con calma — es un patrón que vas a usar toda tu carrera.</p>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>SistemaEstudiantes.cs</div>
+      <button class="copy-btn" data-copy="sistema">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+using System.Collections.Generic;
+
+class SistemaEstudiantes
+{
+    // Arreglo con capacidad máxima de 100 estudiantes
+    static string[] nombres = new string[100];
+    static int[]    edades  = new int[100];
+    static double[] notas   = new double[100];
+    static int contador = 0;  // cuántos estudiantes hay realmente
+
+    static void Main()
+    {
+        // Registramos varios estudiantes (algunos con datos malos a propósito)
+        string[][] pruebas = {
+            new[] {"Ana",      "16", "85"},   // ✓ válido
+            new[] {"",         "20", "90"},   // ✗ nombre vacío
+            new[] {"Pedro",    "-5", "75"},   // ✗ edad negativa
+            new[] {"Lucía",    "17", "200"},  // ✗ nota fuera de rango
+            new[] {"Carlos",   "150", "70"},  // ✗ edad > 120
+            new[] {"Sofía",    "15", "92.5"}  // ✓ válido
+        };
+
+        foreach (var datos in pruebas)
+        {
+            if (RegistrarEstudiante(datos[0], int.Parse(datos[1]), double.Parse(datos[2])))
+                Console.WriteLine($"✅ {datos[0]} registrado");
+            else
+                Console.WriteLine($"❌ {datos[0]} rechazado");
+        }
+
+        // Mostrar los que sí quedaron
+        Console.WriteLine($"\n════ Total registrados: {contador} ════");
+        for (int i = 0; i &lt; contador; i++)
+            Console.WriteLine($"{i + 1}. {nombres[i]} ({edades[i]} años) — Nota: {notas[i]}");
+    }
+
+    static bool RegistrarEstudiante(string nombre, int edad, double nota)
+    {
+        // ══════════════════════════════════════
+        // CAPA 1: VALIDAR ENTRADA
+        // ══════════════════════════════════════
+        if (string.IsNullOrWhiteSpace(nombre))
+        {
+            Console.WriteLine($"   ⚠️ Nombre vacío");
+            return false;
+        }
+        if (nombre.Length &lt; 3 || nombre.Length &gt; 50)
+        {
+            Console.WriteLine($"   ⚠️ Nombre debe tener entre 3 y 50 caracteres");
+            return false;
+        }
+        if (edad &lt; 0 || edad &gt; 120)
+        {
+            Console.WriteLine($"   ⚠️ Edad {edad} fuera de rango (0-120)");
+            return false;
+        }
+        if (nota &lt; 0 || nota &gt; 100)
+        {
+            Console.WriteLine($"   ⚠️ Nota {nota} fuera de rango (0-100)");
+            return false;
+        }
+
+        // ══════════════════════════════════════
+        // CAPA 2: VALIDAR ESTADO (arreglo)
+        // ══════════════════════════════════════
+        if (contador &gt;= nombres.Length)
+        {
+            Console.WriteLine("   ⚠️ Arreglo lleno, no se puede registrar más");
+            return false;
+        }
+
+        // ══════════════════════════════════════
+        // CAPA 3: TRY-CATCH (red de seguridad)
+        // ══════════════════════════════════════
+        try
+        {
+            nombres[contador] = nombre;
+            edades[contador]  = edad;
+            notas[contador]   = nota;
+            contador++;
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"   ⚠️ Error inesperado: {ex.Message}");
+            return false;
+        }
+    }
+}</code></pre>
+  </div>
+
+  <div class="caja-destacada">
+    <h3>🎓 El patrón de las 3 capas — siempre</h3>
+    <p>Este patrón <strong>se usa en toda la industria</strong>. Cada vez que recibas datos externos (de un usuario, de un archivo, de internet), aplícalo. Con el tiempo lo harás sin pensar.</p>
+  </div>
+
+  <h3>🎮 Simulador: El Validador Universal en vivo</h3>
+  <p>Aquí puedes ver las 3 capas trabajando juntas. Intenta meter datos extremos.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🏰 Sistema blindado de registro</div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+      <div>
+        <div class="form-grupo">
+          <label>Producto a registrar</label>
+          <input type="text" class="form-input" id="univ-nombre" placeholder="Nombre del producto" value="Laptop Gamer">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+          <div class="form-grupo">
+            <label>Cantidad (0-9999)</label>
+            <input type="number" class="form-input" id="univ-cantidad" value="50">
+          </div>
+          <div class="form-grupo">
+            <label>Precio (0-99999)</label>
+            <input type="number" class="form-input" id="univ-precio" value="1500">
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label>Categoría (solo letras, 3-20 caracteres)</label>
+          <input type="text" class="form-input" id="univ-categoria" placeholder="Ej: Tecnología" value="Tecnología">
+        </div>
+
+        <div class="btn-row">
+          <button class="btn primary big" id="univ-guardar" style="flex: 1;">🛡️ Registrar con validación</button>
+          <button class="btn ghost" id="univ-limpiar">🗑️</button>
+        </div>
+      </div>
+
+      <div>
+        <div style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 12px; padding: 1rem; min-height: 200px;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--violeta-claro); margin-bottom: 0.75rem;">📦 Inventario validado</div>
+          <div id="univ-lista" style="font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--texto-suave);">El inventario está vacío.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="univ-log" style="margin-top: 1rem; max-height: 150px; overflow-y: auto; background: var(--fondo-claro); border: 1px solid var(--tarjeta-borde); border-radius: 8px; padding: 0.75rem; font-family: 'JetBrains Mono', monospace; font-size: 0.82rem; color: var(--texto-suave);">
+      <div style="color: var(--texto-dim); font-style: italic;">Los eventos aparecerán aquí...</div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué 3 capas?</h4>
+    <p>Si solo validas la entrada pero no usas try-catch, un bug interno puede tumbar tu app. Si solo usas try-catch, el usuario ve mensajes feos. Las 3 capas juntas: <strong>previenen, contienen, y comunican</strong>. Es la diferencia entre un junior y un senior.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 4 -->
+  <div class="quiz" data-quiz="4">
+    <h3>🎯 Mini-Quiz del Módulo 4</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuáles son las 3 capas de defensa en el orden correcto?</p>
+      <button class="opcion" data-op="a">try-catch → validar entrada → validar estado</button>
+      <button class="opcion" data-op="b">Validar entrada → validar estado → try-catch</button>
+      <button class="opcion" data-op="c">Validar estado → try-catch → validar entrada</button>
+      <button class="opcion" data-op="d">Las 3 son lo mismo, da igual el orden</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Por qué validar el estado del arreglo (no solo los datos)?</p>
+      <button class="opcion" data-op="a">Porque el compilador lo exige</button>
+      <button class="opcion" data-op="b">Para que el programa sea más lento</button>
+      <button class="opcion" data-op="c">Porque el arreglo puede estar lleno, vacío o nulo, y cada caso necesita una respuesta distinta</button>
+      <button class="opcion" data-op="d">No es necesario, validar la entrada es suficiente</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Taller Final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🛠️ Taller del Escudo</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · Blindar el código real con validaciones</p>
+
+  <div class="caja-concepto">
+    <h3>🎬 Tu misión</h3>
+    <p>Vas a <strong>completar código real en C#</strong> agregando las validaciones que faltan. Cada reto te pide un tipo distinto de defensa. Presiona "Validar" para obtener feedback inmediato.</p>
+  </div>
+
+  <!-- RETO 1: Validar índice -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <div class="challenge-title">🚧 Valida el índice antes de acceder</div>
+    </div>
+    <p>Completa la condición que verifica si el índice <code>i</code> está dentro del rango válido del arreglo:</p>
+    <div class="ws-code">
+<span class="kw">static int</span> <span class="fn">ObtenerSeguro</span>(<span class="kw">int</span>[] arr, <span class="kw">int</span> i)
+{
+    <span class="kw">if</span> (<input class="ws-input" data-ans="i &lt; 0 || i &gt;= arr.Length" data-ws="1" placeholder="?">)
+    {
+        <span class="kw">return</span> -<span class="num">1</span>;  <span class="cm">// valor centinela</span>
+    }
+    <span class="kw">return</span> arr[i];
+}
+    </div>
+    <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+    <div class="resultado-ws" id="ws-fb-1"></div>
+  </div>
+
+  <!-- RETO 2: Validar rango numérico -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <div class="challenge-title">📏 Valida el rango de una nota (0-100)</div>
+    </div>
+    <p>Completa la condición que verifica si la nota está en el rango válido:</p>
+    <div class="ws-code">
+<span class="kw">static bool</span> <span class="fn">NotaValida</span>(<span class="kw">double</span> nota)
+{
+    <span class="kw">return</span> <input class="ws-input" data-ans="nota &gt;= 0 &amp;&amp; nota &lt;= 100" data-ws="2" placeholder="?">;
+}
+    </div>
+    <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+    <div class="resultado-ws" id="ws-fb-2"></div>
+  </div>
+
+  <!-- RETO 3: Validar texto no vacío -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <div class="challenge-title">📝 Valida que el nombre no esté vacío</div>
+    </div>
+    <p>Completa la condición que verifica que el nombre no sea null, vacío ni solo espacios:</p>
+    <div class="ws-code">
+<span class="kw">static bool</span> <span class="fn">NombreValido</span>(<span class="kw">string</span> nombre)
+{
+    <span class="kw">return</span> <input class="ws-input" data-ans="!string.IsNullOrWhiteSpace(nombre)" data-ws="3" placeholder="?">;
+}
+    </div>
+    <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+    <div class="resultado-ws" id="ws-fb-3"></div>
+  </div>
+
+  <!-- RETO 4: Try-catch final -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Reto 4 · Jefe Final</span>
+      <div class="challenge-title">🛡️ Completa el sistema con las 3 capas</div>
+    </div>
+    <p>Completa cada hueco: validación, try-catch, y el incremento del contador:</p>
+    <div class="ws-code">
+<span class="kw">static bool</span> <span class="fn">Agregar</span>(<span class="kw">int</span>[] arr, <span class="kw">ref int</span> count, <span class="kw">int</span> valor)
+{
+    <span class="cm">// Capa 1: validar valor</span>
+    <span class="kw">if</span> (valor <input class="ws-input" data-ans="&lt; 0" data-ws="4" placeholder="?">) <span class="kw">return false</span>;
+
+    <span class="cm">// Capa 2: validar estado del arreglo</span>
+    <span class="kw">if</span> (count <input class="ws-input" data-ans="&gt;= arr.Length" data-ws="4" placeholder="?">) <span class="kw">return false</span>;
+
+    <span class="cm">// Capa 3: try-catch</span>
+    <span class="kw">try</span>
+    {
+        arr[count] = valor;
+        count<input class="ws-input" data-ans="++" data-ws="4" placeholder="?">;
+        <span class="kw">return true</span>;
+    }
+    <span class="kw">catch</span>
+    {
+        <span class="kw">return false</span>;
+    }
+}
+    </div>
+    <button class="btn pink big" data-check-ws="4">🏆 Validar Reto Final</button>
+    <div class="resultado-ws" id="ws-fb-4"></div>
+  </div>
+
+  <div class="cierre" style="margin-top: 2.5rem;">
+    <h2>🏆 ¡Misión cumplida, Escudo del Programador!</h2>
+    <p class="lead">Si completaste los 4 retos, ya sabes blindar un programa contra los errores más comunes. Las 3 capas de defensa (validar entrada, validar estado, try-catch) son tu <strong>caja de herramientas de por vida</strong>. Cada programa serio que escribas de aquí en adelante las va a tener.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🛡️ El Escudo del Programador · Plataforma de Autoaprendizaje</div>
+  <div>Validación de Datos en Arreglos · 3h 45min · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem">Hecho con 💜 para jóvenes que quieren escribir código a prueba de balas.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

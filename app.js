@@ -30,11 +30,12 @@ function mostrarFecha() {
 /* ---------- LEER PROGRESO DE CADA CLASE ---------- */
 function cargarProgresoPorClase() {
   // Total de módulos por clase (lo que se puede marcar como completado)
-  // Para SortLab: 6 módulos totales (0..5), pero el módulo 5 (taller) no se marca
+  // Para cada clase: 6 módulos totales (0..5), pero el módulo 5 (taller) no se marca
   // automáticamente, así que se cuentan los 5 primeros
   const TOTALES_MODULOS = {
     'curso-contadores-acum-banderas': 5,
-    'curso-ordenacion-sortlab': 5
+    'curso-ordenacion-sortlab': 5,
+    'curso-validacion-arreglos': 5
   };
 
   let totalGlobal = 0;
@@ -96,7 +97,7 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 3,   800);
-  animarNumero(document.getElementById('stat-clases'),  0, 2,   900);
+  animarNumero(document.getElementById('stat-clases'),  0, 3,   900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
@@ -151,11 +152,16 @@ document.addEventListener('keydown', (e) => {
     const card = document.querySelector('.clase-card.ha');
     if (card) card.click();
   }
+  // Tecla 3 → Clase 14
+  if (e.key === '3') {
+    const card = document.querySelector('.clase-card.ha-14');
+    if (card) card.click();
+  }
 });
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos'];
 
   let tienePrograma = false;
 
@@ -174,7 +180,7 @@ window.addEventListener('load', () => {
     }, 600);
   } else {
     setTimeout(() => {
-      mostrarToast('💡 Tip: usa las teclas 1-2 para saltar a una clase disponible.');
+      mostrarToast('💡 Tip: usa las teclas 1-3 para saltar a una clase disponible.');
     }, 1200);
   }
 });
