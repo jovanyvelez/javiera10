@@ -41,6 +41,9 @@
   --ha-15-a:         #14b8a6;   /* Clase 15 — teal/lima (integración) */
   --ha-15-b:         #84cc16;
 
+  --ha-16-a:         #ef4444;   /* Clase 16 — rojo/naranja/oro (maratón) */
+  --ha-16-b:         #facc15;
+
   --so-a:            #22d3ee;   /* Sistemas Operativos — terminal/verde-azul */
   --so-b:            #00ff9d;
 
@@ -365,6 +368,7 @@ main {
 .clase-card.ha-12::before { background: linear-gradient(90deg, var(--ha-12-a), var(--ha-12-b)); }
 .clase-card.ha-14::before { background: linear-gradient(90deg, var(--ha-14-a), var(--ha-14-b)); }
 .clase-card.ha-15::before { background: linear-gradient(90deg, var(--ha-15-a), var(--ha-15-b)); }
+.clase-card.ha-16::before { background: linear-gradient(90deg, var(--ha-16-a), var(--ha-16-b)); }
 
 .clase-card.ha-12 .clase-badge { background: linear-gradient(135deg, var(--ha-12-a), var(--ha-12-b)); }
 .clase-card.ha-12 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--ha-12-a), var(--ha-12-b)); }
@@ -377,6 +381,10 @@ main {
 .clase-card.ha-15 .clase-badge { background: linear-gradient(135deg, var(--ha-15-a), var(--ha-15-b)); }
 .clase-card.ha-15 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--ha-15-a), var(--ha-15-b)); }
 .clase-card.ha-15:hover { border-color: var(--ha-15-a); }
+
+.clase-card.ha-16 .clase-badge { background: linear-gradient(135deg, var(--ha-16-a), var(--ha-16-b)); }
+.clase-card.ha-16 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--ha-16-a), var(--ha-16-b)); }
+.clase-card.ha-16:hover { border-color: var(--ha-16-a); }
 
 .clase-card:hover {
   transform: translateY(-4px);

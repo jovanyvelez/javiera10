@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏁 La Maratón del Código · Retos Integradores en C#</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🏁</span>
+    <div>
+      <h1>La Maratón del Código</h1>
+      <p class="subtitulo">Retos integradores · Rúbrica · Sesión de dudas · C#</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 500 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🔥 Calentamiento</button>
+  <button class="btn-modulo" data-modulo="2">⚡ Maratón 1</button>
+  <button class="btn-modulo" data-modulo="3">🦾 Maratón 2</button>
+  <button class="btn-modulo" data-modulo="4">🏅 Rúbrica</button>
+  <button class="btn-modulo" data-modulo="5">❓ Dudas</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🏁 ¡Hoy es la gran maratón!</h2>
+    <p class="lead">Llevas <strong>15 clases</strong> de práctica. Hoy es el día de ponerlo todo junto: vas a enfrentar <strong>retos complejos</strong>, auto-evaluarte con honestidad, y resolver tus últimas dudas. Al final serás oficialmente un <em>maratonista del código</em>.</p>
+
+    <div class="cronometro-hero">
+      <span class="icono">⏱️</span>
+      <span id="cronometro-hero">00:00:00</span>
+    </div>
+
+    <div class="fases-maraton">
+      <div class="fase-maraton">
+        <span class="num">1</span>
+        <strong>Calentamiento</strong>
+        <small>Repaso rápido</small>
+      </div>
+      <div class="fase-maraton">
+        <span class="num">2</span>
+        <strong>Maratón 1</strong>
+        <small>3 retos básicos</small>
+      </div>
+      <div class="fase-maraton">
+        <span class="num">3</span>
+        <strong>Maratón 2</strong>
+        <small>3 retos avanzados</small>
+      </div>
+      <div class="fase-maraton">
+        <span class="num">4</span>
+        <strong>Rúbrica + Dudas</strong>
+        <small>Autoevaluación</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>3 horas y 45 minutos de retos, autoevaluación y cierre. Sin pausas largas.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Integrar TODO lo aprendido: if, ciclos, arreglos, contadores, acumuladores, banderas, validación.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Tu cerebro, lo que aprendiste en las clases 11-15, y ganas de competir contigo mismo.</p>
+    </div>
+  </div>
+
+  <h3>🏅 Las 3 reglas de la maratón</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta tarjeta-dorado">
+      <span class="emoji">1️⃣</span>
+      <h3>Honestidad ante todo</h3>
+      <p>No se trata de "ganar". Se trata de saber <strong>qué dominas y qué no</strong>. La rúbrica final te lo dirá con claridad.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">2️⃣</span>
+      <h3>Sin ayuda externa</h3>
+      <p>Intenta resolver cada reto solo. Si te quedas atascado más de 5 min, anota tu duda para la sesión final.</p>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">3️⃣</span>
+      <h3>Celebra cada paso</h3>
+      <p>No importa si resuelves 6 de 6 o 3 de 6: lo que importa es <strong>entender tu nivel real</strong> y seguir mejorando.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Mentalidad de maratón</h4>
+    <p>Un maratón real no se trata de correr rápido: se trata de <strong>llegar a la meta</strong>. Aquí pasa igual: no importa el tiempo, importa que completes el recorrido. Si un reto te cuesta, respira, relee, y vuelve. Eres más fuerte de lo que crees.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Calentamiento →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — CALENTAMIENTO
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🔥 El Calentamiento</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · 5 retos cortos para entrar en calor antes de la maratón</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 Antes de la maratón, estira los músculos</h3>
+    <p>Como todo maratonista, necesitas <strong>calentar</strong> antes de empezar. Estos 5 retos son cortos (menos de 1 minuto cada uno) pero tocan los 5 temas clave. Si los resuelves bien, estás listo. Si fallas en alguno, ese es tu foco de estudio.</p>
+  </div>
+
+  <h3>🎯 Los 5 retos relámpago</h3>
+
+  <div class="reto" data-reto="1">
+    <div class="reto-head">
+      <span class="reto-num">1</span>
+      <div class="reto-titulo">🚪 El Contador Final</div>
+      <span class="reto-tiempo">⏱️ 30s</span>
+    </div>
+    <p>¿Cuánto vale <code>contador</code> al final?</p>
+    <div class="reto-codigo">
+<span class="kw">int</span> contador = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; <span class="num">5</span>; i++)
+{
+    <span class="kw">if</span> (i % <span class="num">2</span> == <span class="num">0</span>)
+        contador++;
+}
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Cuántas veces se incrementó <code>contador</code>?</p>
+      <button class="opcion" data-correcta="false">2 (i=0, i=2)</button>
+      <button class="opcion" data-correcta="true">3 (i=0, i=2, i=4)</button>
+      <button class="opcion" data-correcta="false">5 (todas las iteraciones)</button>
+      <button class="opcion" data-correcta="false">0 (nunca se incrementó)</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="2">
+    <div class="reto-head">
+      <span class="reto-num">2</span>
+      <div class="reto-titulo">🛒 El Acumulador Inteligente</div>
+      <span class="reto-tiempo">⏱️ 30s</span>
+    </div>
+    <p>¿Cuánto vale <code>total</code> al final?</p>
+    <div class="reto-codigo">
+<span class="kw">double</span>[] precios = { <span class="num">10</span>, <span class="num">20</span>, <span class="num">30</span> };
+<span class="kw">double</span> total = <span class="num">0</span>;
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; precios.Length; i++)
+    total += precios[i];
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Cuánto suma <code>total</code>?</p>
+      <button class="opcion" data-correcta="false">30 (solo el último)</button>
+      <button class="opcion" data-correcta="false">60 (los dos últimos)</button>
+      <button class="opcion" data-correcta="true">60 (10+20+30)</button>
+      <button class="opcion" data-correcta="false">10 (solo el primero)</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="3">
+    <div class="reto-head">
+      <span class="reto-num">3</span>
+      <div class="reto-titulo">🚨 La Bandera Equivocada</div>
+      <span class="reto-tiempo">⏱️ 30s</span>
+    </div>
+    <p>¿Qué tiene de malo este código?</p>
+    <div class="reto-codigo">
+<span class="kw">bool</span> encontrado = <span class="kw">true</span>;
+<span class="kw">foreach</span> (<span class="kw">var</span> x <span class="kw">in</span> datos)
+{
+    <span class="kw">if</span> (x == buscado)
+    {
+        encontrado = <span class="kw">false</span>;
+        <span class="kw">break</span>;
+    }
+}
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Qué falla?</p>
+      <button class="opcion" data-correcta="false">Falta el <code>return</code></button>
+      <button class="opcion" data-correcta="true">La bandera empieza en <code>true</code> en vez de <code>false</code></button>
+      <button class="opcion" data-correcta="false">El <code>break</code> está mal puesto</button>
+      <button class="opcion" data-correcta="false">No tiene nada de malo</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="4">
+    <div class="reto-head">
+      <span class="reto-num">4</span>
+      <div class="reto-titulo">🛡️ El Validador Faltante</div>
+      <span class="reto-tiempo">⏱️ 45s</span>
+    </div>
+    <p>¿Qué validación falta?</p>
+    <div class="reto-codigo">
+<span class="kw">int</span> edad = <span class="kw">int</span>.Parse(Console.ReadLine());
+<span class="cm">// Validar que esté en rango</span>
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Qué línea de validación falta?</p>
+      <button class="opcion" data-correcta="false">Falta un <code>for</code></button>
+      <button class="opcion" data-correcta="false">Falta un <code>return</code></button>
+      <button class="opcion" data-correcta="true">Falta <code>if (edad &lt; 0 || edad &gt; 120) rechazar()</code></button>
+      <button class="opcion" data-correcta="false">Falta un <code>Console.WriteLine</code></button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="5">
+    <div class="reto-head">
+      <span class="reto-num">5</span>
+      <div class="reto-titulo">🔍 El Buscador</div>
+      <span class="reto-tiempo">⏱️ 30s</span>
+    </div>
+    <p>¿Cuántas veces se imprime "Encontré"?</p>
+    <div class="reto-codigo">
+<span class="kw">int</span>[] nums = { <span class="num">3</span>, <span class="num">7</span>, <span class="num">3</span>, <span class="num">9</span> };
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; nums.Length; i++)
+    <span class="kw">if</span> (nums[i] == <span class="num">3</span>) Console.Write(<span class="str">"Encontré "</span>);
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Cuántas veces se imprime "Encontré"?</p>
+      <button class="opcion" data-correcta="true">2 (nums[0] y nums[2])</button>
+      <button class="opcion" data-correcta="false">1 (solo el primero)</button>
+      <button class="opcion" data-correcta="false">3</button>
+      <button class="opcion" data-correcta="false">4 (todas las iteraciones)</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="caja-destacada">
+    <h3>📊 ¿Cómo te fue en el calentamiento?</h3>
+    <ul style="color: var(--texto-suave);">
+      <li><strong style="color: var(--dorado)">5/5 correcto:</strong> estás listo. Sigue a la Maratón 1.</li>
+      <li><strong style="color: var(--naranja)">3-4/5 correcto:</strong> vas bien, repasa el que fallaste.</li>
+      <li><strong style="color: var(--azul-claro)">0-2/5 correcto:</strong> antes de seguir, vuelve a la clase del tema que fallaste.</li>
+    </ul>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Maratón Bloque 1 →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — MARATÓN BLOQUE 1
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>⚡ Maratón Bloque 1: Retos Básicos</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · 3 retos de dificultad media — usa todo lo aprendido</p>
+
+  <div class="caja-concepto">
+    <h3>🏃 La maratón empieza</h3>
+    <p>Estos 3 retos son un paso arriba del calentamiento. Cada uno combina <strong>2 o más</strong> de las estructuras que aprendiste. Tómate tu tiempo, pero intenta resolverlos <strong>sin mirar el código de clases anteriores</strong>.</p>
+  </div>
+
+  <h3>🏁 Maratón en vivo</h3>
+  <div style="background: var(--tarjeta); border: 1px solid var(--tarjeta-borde); border-radius: var(--radio); padding: 1.25rem; margin-bottom: 1.5rem; text-align: center;">
+    <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--texto); margin-bottom: 0.4rem;">📊 Tu progreso en la Maratón 1</div>
+    <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+      <div class="sim-stat" id="m1-stat-1" style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 8px; padding: 0.4rem 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--texto-suave);">⚡ Reto 1: pendiente</div>
+      <div class="sim-stat" id="m1-stat-2" style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 8px; padding: 0.4rem 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--texto-suave);">⚡ Reto 2: pendiente</div>
+      <div class="sim-stat" id="m1-stat-3" style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 8px; padding: 0.4rem 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--texto-suave);">⚡ Reto 3: pendiente</div>
+    </div>
+  </div>
+
+  <div class="reto" data-reto="6">
+    <div class="reto-head">
+      <span class="reto-num">6</span>
+      <div class="reto-titulo">📊 El Detector de Moda</div>
+      <span class="reto-tiempo">⏱️ 4 min</span>
+    </div>
+    <p>La <strong>moda</strong> de un arreglo es el número que más se repite. Encuentra la moda en <code>{4, 7, 4, 9, 4, 7, 2}</code>.</p>
+    <div class="caja-tip" style="margin: 0.75rem 0;">
+      <h4 style="margin: 0 0 0.4rem; color: var(--dorado);">💡 Pista</h4>
+      <p style="margin: 0; font-size: 0.9rem;">Usa dos ciclos anidados: el primero elige un candidato, el segundo cuenta cuántas veces aparece. La moda es el que tenga el mayor conteo.</p>
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Cuál es la moda?</p>
+      <button class="opcion" data-correcta="false">7</button>
+      <button class="opcion" data-correcta="true">4 (aparece 3 veces)</button>
+      <button class="opcion" data-correcta="false">9</button>
+      <button class="opcion" data-correcta="false">2</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="7">
+    <div class="reto-head">
+      <span class="reto-num">7</span>
+      <div class="reto-titulo">🔄 El Inversor de Arreglo</div>
+      <span class="reto-tiempo">⏱️ 4 min</span>
+    </div>
+    <p>Dado <code>arr = {1, 2, 3, 4, 5}</code>, ¿cuál es la <strong>lógica</strong> correcta para invertirlo a <code>{5, 4, 3, 2, 1}</code>?</p>
+    <div class="caja-tip" style="margin: 0.75rem 0;">
+      <h4 style="margin: 0 0 0.4rem; color: var(--dorado);">💡 Pista</h4>
+      <p style="margin: 0; font-size: 0.9rem;">Tienes que intercambiar el primer elemento con el último, el segundo con el penúltimo, etc. ¿Hasta dónde llegas?</p>
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Qué condición de parada es correcta?</p>
+      <button class="opcion" data-correcta="false">i &lt; arr.Length</button>
+      <button class="opcion" data-correcta="false">i &lt;= arr.Length</button>
+      <button class="opcion" data-correcta="true">i &lt; arr.Length / 2</button>
+      <button class="opcion" data-correcta="false">i &gt; arr.Length</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="8">
+    <div class="reto-head">
+      <span class="reto-num">8</span>
+      <div class="reto-titulo">🚫 El Filtro VIP</div>
+      <span class="reto-tiempo">⏱️ 4 min</span>
+    </div>
+    <p>Un usuario es VIP si su <code>edad ≥ 18</code> Y su <code>compras &gt; 5</code>. ¿Cuál de estos usuarios es VIP?</p>
+    <div class="reto-codigo">
+<span class="kw">string</span>[] nombres = { <span class="str">"Ana"</span>, <span class="str">"Luis"</span>, <span class="str">"Sofía"</span>, <span class="str">"Pedro"</span> };
+<span class="kw">int</span>[]    edades  = { <span class="num">25</span>, <span class="num">16</span>, <span class="num">20</span>, <span class="num">30</span> };
+<span class="kw">int</span>[]    compras = { <span class="num">10</span>, <span class="num">8</span>,  <span class="num">3</span>,  <span class="num">6</span>  };
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Quién(es) son VIP?</p>
+      <button class="opcion" data-correcta="false">Solo Luis (16 años, 8 compras)</button>
+      <button class="opcion" data-correcta="false">Solo Sofía (20 años, 3 compras)</button>
+      <button class="opcion" data-correcta="true">Ana (25,10) y Pedro (30,6)</button>
+      <button class="opcion" data-correcta="false">Todos</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Si fallaste, no te preocupes</h4>
+    <p>Anota qué tipo de reto te costó (lógica, sintaxis, lectura de código). Esa será tu guía de estudio para el Módulo 5 (sesión de dudas).</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Maratón Bloque 2 →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — MARATÓN BLOQUE 2
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🦾 Maratón Bloque 2: Retos Avanzados</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · 3 retos de dificultad alta — esto es la recta final</p>
+
+  <div class="caja-concepto">
+    <h3>🔥 La prueba de fuego</h3>
+    <p>Estos 3 retos combinan <strong>3 o más</strong> conceptos. Requieren pensar antes de escribir. Si resuelves aunque sea 1, ya eres un maratonista. Si resuelves 3, eres <strong>crack</strong>.</p>
+  </div>
+
+  <h3>🏁 Maratón 2 en vivo</h3>
+  <div style="background: var(--tarjeta); border: 1px solid var(--tarjeta-borde); border-radius: var(--radio); padding: 1.25rem; margin-bottom: 1.5rem; text-align: center;">
+    <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; color: var(--texto); margin-bottom: 0.4rem;">📊 Tu progreso en la Maratón 2</div>
+    <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+      <div class="sim-stat" id="m2-stat-1" style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 8px; padding: 0.4rem 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--texto-suave);">🦾 Reto 1: pendiente</div>
+      <div class="sim-stat" id="m2-stat-2" style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 8px; padding: 0.4rem 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--texto-suave);">🦾 Reto 2: pendiente</div>
+      <div class="sim-stat" id="m2-stat-3" style="background: var(--tarjeta-alt); border: 1px solid var(--tarjeta-borde); border-radius: 8px; padding: 0.4rem 0.8rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--texto-suave);">🦾 Reto 3: pendiente</div>
+    </div>
+  </div>
+
+  <div class="reto" data-reto="9">
+    <div class="reto-head">
+      <span class="reto-num">9</span>
+      <div class="reto-titulo">🔀 Ordenamiento con Bandera</div>
+      <span class="reto-tiempo">⏱️ 5 min</span>
+    </div>
+    <p>¿Cuántas <strong>pasadas</strong> completas hace el siguiente código antes de que termine?</p>
+    <div class="reto-codigo">
+<span class="kw">int</span>[] arr = { <span class="num">3</span>, <span class="num">1</span>, <span class="num">2</span> };
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; arr.Length; i++)
+{
+    <span class="kw">bool</span> huboSwap = <span class="kw">false</span>;
+    <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; arr.Length - i - <span class="num">1</span>; j++)
+    {
+        <span class="kw">if</span> (arr[j] &gt; arr[j+<span class="num">1</span>])
+        {
+            <span class="kw">int</span> t = arr[j]; arr[j] = arr[j+<span class="num">1</span>]; arr[j+<span class="num">1</span>] = t;
+            huboSwap = <span class="kw">true</span>;
+        }
+    }
+    <span class="kw">if</span> (!huboSwap) <span class="kw">break</span>;
+}
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Cuántas pasadas externas ejecuta?</p>
+      <button class="opcion" data-correcta="false">3 (todas)</button>
+      <button class="opcion" data-correcta="true">2 (en la 2ª pasada no hay swaps y sale)</button>
+      <button class="opcion" data-correcta="false">1 (sale inmediatamente)</button>
+      <button class="opcion" data-correcta="false">4</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="10">
+    <div class="reto-head">
+      <span class="reto-num">10</span>
+      <div class="reto-titulo">🛡️ Validador de Cédula</div>
+      <span class="reto-tiempo">⏱️ 5 min</span>
+    </div>
+    <p>Una cédula colombiana tiene <strong>10 dígitos</strong>. ¿Cuál de estos códigos <strong>rechaza correctamente</strong> una cédula inválida?</p>
+    <div class="reto-codigo">
+<span class="cm">// Opción A</span>
+<span class="kw">if</span> (cedula.Length == <span class="num">10</span>) Console.Write(<span class="str">"OK"</span>);
+
+<span class="cm">// Opción B</span>
+<span class="kw">if</span> (cedula.Length != <span class="num">10</span> || !cedula.All(<span class="fn">char</span>.IsDigit))
+    Console.Write(<span class="str">"Rechazada"</span>);
+
+<span class="cm">// Opción C</span>
+<span class="kw">if</span> (cedula.Length &lt;= <span class="num">10</span>) Console.Write(<span class="str">"OK"</span>);
+
+<span class="cm">// Opción D</span>
+<span class="kw">if</span> (cedula.Length &gt; <span class="num">10</span>) Console.Write(<span class="str">"Rechazada"</span>);
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Cuál opción es la más completa?</p>
+      <button class="opcion" data-correcta="false">A (solo longitud)</button>
+      <button class="opcion" data-correcta="true">B (longitud Y que sean todos dígitos)</button>
+      <button class="opcion" data-correcta="false">C (acepta también cédulas con menos de 10)</button>
+      <button class="opcion" data-correcta="false">D (solo bloquea las largas)</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="reto" data-reto="11">
+    <div class="reto-head">
+      <span class="reto-num">11</span>
+      <div class="reto-titulo">🏆 El Boss Final</div>
+      <span class="reto-tiempo">⏱️ 6 min</span>
+    </div>
+    <p>Dado un arreglo de <strong>notas</strong>, cuenta: <strong>(1)</strong> aprobadas, <strong>(2)</strong> reprobadas, <strong>(3)</strong> suma total, <strong>(4)</strong> nota máxima, <strong>(5)</strong> y si hay alguna nota perfecta (=100). ¿Cuál es la <strong>salida</strong> del siguiente programa con <code>notas = {85, 100, 45, 92, 60}</code>?</p>
+    <div class="reto-codigo">
+<span class="kw">int</span>    aprobadas = <span class="num">0</span>, reprobadas = <span class="num">0</span>;
+<span class="kw">double</span> suma = <span class="num">0</span>, max = notas[<span class="num">0</span>;
+<span class="kw">bool</span>   hayPerfecta = <span class="kw">false</span>;
+
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; notas.Length; i++)
+{
+    suma += notas[i];
+    <span class="kw">if</span> (notas[i] &gt;= <span class="num">60</span>) aprobadas++;
+    <span class="kw">else</span> reprobadas++;
+    <span class="kw">if</span> (notas[i] &gt; max) max = notas[i];
+    <span class="kw">if</span> (notas[i] == <span class="num">100</span>) hayPerfecta = <span class="kw">true</span>;
+}
+    </div>
+    <div class="reto-pregunta">
+      <p>¿Cuál es la salida correcta?</p>
+      <button class="opcion" data-correcta="true">Aprobadas: 3, Reprobadas: 2, Suma: 382, Max: 100, Perfecta: SÍ</button>
+      <button class="opcion" data-correcta="false">Aprobadas: 2, Reprobadas: 3, Suma: 382, Max: 100, Perfecta: SÍ</button>
+      <button class="opcion" data-correcta="false">Aprobadas: 3, Reprobadas: 2, Suma: 285, Max: 92, Perfecta: NO</button>
+      <button class="opcion" data-correcta="false">El programa tiene un bug</button>
+    </div>
+    <div class="resultado-reto" style="display:none;"></div>
+  </div>
+
+  <div class="caja-destacada">
+    <h3>🎓 Sobre el Boss Final</h3>
+    <p>Este programa es lo que llamamos un <strong>"análisis completo"</strong>: en un solo recorrido, calcula 5 cosas. Es el mismo patrón que usan las hojas de cálculo para resumir datos: en una sola pasada, todo. Los programadores senior viven de estos trucos.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: La Rúbrica →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — LA RÚBRICA
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>🏅 La Rúbrica de Autoevaluación</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · Mide tu nivel con honestidad — sin puntos extras por mentir</p>
+
+  <div class="caja-concepto">
+    <h3>📋 ¿Qué es una rúbrica de desempeño?</h3>
+    <p>Una rúbrica es una <strong>tabla de criterios</strong> que se usan para evaluar el trabajo. Aquí vas a <strong>evaluarte a ti mismo</strong> con honestidad en 5 criterios. No hay nota numérica ni castigo: el objetivo es que <strong>tú sepas tu nivel real</strong> y qué áreas reforzar.</p>
+  </div>
+
+  <h3>🎯 Los 5 criterios</h3>
+
+  <div class="rubrica">
+    <div class="criterio" data-criterio="1">
+      <div class="criterio-nombre">✅ 1. Corrección</div>
+      <div class="criterio-desc">¿Tu código hace exactamente lo que pide el problema? ¿Los resultados son correctos?</div>
+      <div class="criterio-botones">
+        <button class="criterio-btn" data-valor="1">1</button>
+        <button class="criterio-btn" data-valor="2">2</button>
+        <button class="criterio-btn" data-valor="3">3</button>
+        <button class="criterio-btn" data-valor="4">4</button>
+        <button class="criterio-btn" data-valor="5">5</button>
+      </div>
+      <div class="criterio-actual"></div>
+    </div>
+
+    <div class="criterio" data-criterio="2">
+      <div class="criterio-nombre">⚡ 2. Eficiencia</div>
+      <div class="criterio-desc">¿Tu código hace el menor trabajo posible? ¿Evita recorrer arreglos más veces de lo necesario?</div>
+      <div class="criterio-botones">
+        <button class="criterio-btn" data-valor="1">1</button>
+        <button class="criterio-btn" data-valor="2">2</button>
+        <button class="criterio-btn" data-valor="3">3</button>
+        <button class="criterio-btn" data-valor="4">4</button>
+        <button class="criterio-btn" data-valor="5">5</button>
+      </div>
+      <div class="criterio-actual"></div>
+    </div>
+
+    <div class="criterio" data-criterio="3">
+      <div class="criterio-nombre">📖 3. Claridad</div>
+      <div class="criterio-desc">¿Un compañero de clase podría leer tu código y entender qué hace sin que le expliques?</div>
+      <div class="criterio-botones">
+        <button class="criterio-btn" data-valor="1">1</button>
+        <button class="criterio-btn" data-valor="2">2</button>
+        <button class="criterio-btn" data-valor="3">3</button>
+        <button class="criterio-btn" data-valor="4">4</button>
+        <button class="criterio-btn" data-valor="5">5</button>
+      </div>
+      <div class="criterio-actual"></div>
+    </div>
+
+    <div class="criterio" data-criterio="4">
+      <div class="criterio-nombre">✨ 4. Elegancia</div>
+      <div class="criterio-desc">¿Tu solución es simple y bonita? ¿Un programador senior la miraría y diría "esto está bien hecho"?</div>
+      <div class="criterio-botones">
+        <button class="criterio-btn" data-valor="1">1</button>
+        <button class="criterio-btn" data-valor="2">2</button>
+        <button class="criterio-btn" data-valor="3">3</button>
+        <button class="criterio-btn" data-valor="4">4</button>
+        <button class="criterio-btn" data-valor="5">5</button>
+      </div>
+      <div class="criterio-actual"></div>
+    </div>
+
+    <div class="criterio" data-criterio="5">
+      <div class="criterio-nombre">🏁 5. Completitud</div>
+      <div class="criterio-desc">¿Terminaste todos los retos de la maratón? ¿Pusiste atención hasta el final?</div>
+      <div class="criterio-botones">
+        <button class="criterio-btn" data-valor="1">1</button>
+        <button class="criterio-btn" data-valor="2">2</button>
+        <button class="criterio-btn" data-valor="3">3</button>
+        <button class="criterio-btn" data-valor="4">4</button>
+        <button class="criterio-btn" data-valor="5">5</button>
+      </div>
+      <div class="criterio-actual"></div>
+    </div>
+  </div>
+
+  <div class="btn-row" style="justify-content: center; margin-top: 1.5rem;">
+    <button class="btn primary big" id="calcular-rubrica">📊 Ver mi nivel general</button>
+    <button class="btn ghost" id="reset-rubrica">🔄 Limpiar rúbrica</button>
+  </div>
+
+  <div class="resultado-rubrica" id="resultado-rubrica" style="display: none;">
+    <h3>🏆 Tu nivel general</h3>
+    <div class="nivel-general">Nivel: <strong id="nivel-texto">—</strong></div>
+    <div class="barras-rubrica" id="barras-rubrica"></div>
+    <div class="recomendaciones" id="recomendaciones"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Escala de referencia</h4>
+    <p><strong style="color: var(--dorado)">5 — Experto:</strong> enseñas a otros. <strong style="color: var(--lima)">4 — Avanzado:</strong> resuelves cualquier reto. <strong style="color: var(--naranja)">3 — Competente:</strong> sabes lo esencial. <strong style="color: var(--coral)">2 — En desarrollo:</strong> necesitas más práctica. <strong style="color: var(--azul-claro)">1 — Principiante:</strong> vuelve a las bases.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Sesión de Dudas →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — SESIÓN DE DUDAS + CIERRE
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>❓ Sesión de Dudas Abiertas</h2>
+  <p class="meta-modulo">⏱️ 20 minutos · 10 dudas comunes respondidas + el cierre del módulo</p>
+
+  <div class="caja-concepto">
+    <h3>💬 ¿Qué es una sesión de dudas?</h3>
+    <p>Es un espacio donde <strong>tú preguntas</strong> y el profesor (o este material) responde. Aquí recopilamos las <strong>10 dudas más comunes</strong> de estudiantes de tu edad. Haz clic en cada una para ver la respuesta. Si tu duda no está, anótala y pregunta a tu profesor.</p>
+  </div>
+
+  <h3>❓ Las 10 dudas más frecuentes</h3>
+
+  <div class="faq-lista" id="faq-lista">
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="1">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Cómo sé si mi código es eficiente?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Una señal clara: el número de ciclos anidados.</strong> Si tienes un <code>for</code> dentro de otro <code>for</code>, tu algoritmo es <strong>O(n²)</strong>: si tienes 100 datos, hace 10.000 operaciones. Si los datos crecen a 1.000, hace 1.000.000. Una solución más eficiente recorre el arreglo <strong>una sola vez</strong> usando un solo <code>for</code>. Mientras menos ciclos anidados, mejor.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="2">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Cuándo uso <code>for</code> y cuándo <code>while</code>?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Usa <code>for</code> cuando sabes CUÁNTAS veces repetir</strong> (ej: recorrer un arreglo de 10 elementos). <strong>Usa <code>while</code> cuando NO sabes cuántas veces</strong> (ej: pedir datos hasta que el usuario escriba "salir", o un juego hasta que el jugador gane). <code>foreach</code> es para recorrer colecciones sin preocuparte por el índice.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="3">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Por qué mi arreglo dice "null" si lo acabo de crear?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Porque lo creaste pero nunca le asignaste valores.</strong> En C#, <code>int[] nums = new int[5]</code> crea 5 espacios con valor <code>0</code>, pero <code>string[] nombres = new string[5]</code> los crea con valor <code>null</code>. Siempre inicializa tus arreglos con valores reales: <code>string[] nombres = { "Ana", "Luis" }</code>, o asigna cada posición en un bucle.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="4">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Cómo encuentro un error si el programa no explota pero da resultado raro?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Usa <code>Console.WriteLine</code> en puntos clave.</strong> Pon un print antes y después de la línea sospechosa para ver qué valores tienen tus variables. Si el valor antes es correcto y después no, el bug está en esa línea. Es la técnica más antigua y efectiva del mundo. Los programadores senior la usan todos los días.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="5">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Qué hago si el programa "se queda pegado" en un ciclo infinito?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Ctrl + C en la consola, o cerrar la ventana.</strong> Un ciclo infinito pasa cuando la condición de salida nunca se vuelve falsa. Casi siempre es: olvidaste el <code>i++</code> en un <code>for</code>, o la variable del <code>while</code> nunca cambia. Revisa siempre: "¿mi contador se actualiza dentro del ciclo?"
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="6">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Cómo paso de la idea al código?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Escribe en español ANTES de programar.</strong> Por ejemplo: "1. Crear un arreglo. 2. Recorrerlo con un for. 3. Si el número es par, sumarlo." Una vez que tienes los pasos en español, traducir a C# es fácil. Los programadores profesionales no escriben código de una: primero planean, después escriben.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="7">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Por qué mi ciclo cuenta de más o de menos?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>El 90% de las veces es la condición de parada.</strong> ¿Usas <code>&lt;</code> o <code>&lt;=</code>? ¿El rango empieza en 0 o en 1? ¿Te pasaste un elemento? Truco: si quieres recorrer TODO el arreglo, usa <code>i &lt; arr.Length</code> (sin <code>=</code>). Si quieres incluir el último, <code>i &lt;= arr.Length - 1</code>.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="8">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Es mejor usar varios <code>if</code> o un <code>switch</code>?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Depende de qué comparas.</strong> Si comparas la misma variable contra varios valores literales (ej: <code>opcion == "a"</code>, <code>opcion == "b"</code>...), usa <code>switch</code> (más limpio). Si las condiciones son complejas o diferentes entre sí (ej: <code>edad &gt; 18</code> Y <code>compras &gt; 5</code>), usa <code>if</code>. La regla: <strong>si tienes más de 3 <code>if</code> sobre la misma variable, considera <code>switch</code></strong>.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="9">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Cómo organizo un programa largo?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>En bloques con comentarios.</strong> Un programa profesional se ve así: <code>// 1. DECLARAR VARIABLES</code>, <code>// 2. LEER DATOS</code>, <code>// 3. PROCESAR</code>, <code>// 4. MOSTRAR RESULTADOS</code>. Los comentarios no son para "tontos": son para que tu yo del futuro (y tus compañeros) entiendan el código. Un buen programa se lee casi como una receta de cocina.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-pregunta" data-faq="10">
+        <span class="emoji">🤔</span>
+        <span class="texto">¿Qué sigue después de este curso?</span>
+        <span class="flecha">▶</span>
+      </button>
+      <div class="faq-respuesta">
+        <strong>Tres caminos posibles, todos válidos.</strong> (1) <strong>Algoritmos más avanzados:</strong> ordenamiento avanzado (Merge Sort, Quick Sort), búsquedas eficientes, recursividad. (2) <strong>Programación orientada a objetos:</strong> clases, objetos, herencia — la base de todo software moderno. (3) <strong>Desarrollo web:</strong> HTML, CSS, JavaScript — para crear páginas y apps reales. Cualquiera que elijas te espera con los brazos abiertos.
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>📌 ¿Tu duda no está aquí?</h4>
+    <p>Anótala en tu cuaderno y pregunta a tu profesor en la próxima clase. También puedes probar buscar en Google: <em>"C# cómo hacer X"</em>. Buscar respuestas es una habilidad esencial del programador.</p>
+  </div>
+
+  <div class="cierre" style="margin-top: 2.5rem;">
+    <h2>🏆 ¡Maratón completada!</h2>
+    <p class="lead">Has enfrentado <strong>11 retos</strong>, te has autoevaluado con honestidad en <strong>5 criterios</strong>, y has resuelto <strong>10 dudas comunes</strong>. Eso es ser un maratonista del código de verdad.</p>
+    <p style="margin: 1rem 0;"><strong style="color: var(--dorado);">Lo que aprendiste en las 16 clases</strong> te da las bases para enfrentar cualquier programa en C#. Lo que viene después es solo <em>más grande</em> de lo mismo.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🏁 La Maratón del Código · Plataforma de Autoaprendizaje</div>
+  <div>Retos integradores · Rúbrica · Sesión de dudas en C# · 3h 45min</div>
+  <div style="margin-top:.5rem;font-size:.78rem">Hecho con 🧡 para maratonistas del código que no se rinden.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
