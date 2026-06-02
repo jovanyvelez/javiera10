@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 Master del Inventario · Contadores, Acumuladores y Banderas en C#</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🎮</span>
+    <div>
+      <h1>Master del Inventario</h1>
+      <p class="subtitulo">Contadores · Acumuladores · Banderas en C#</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 500 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🚪 Contador</button>
+  <button class="btn-modulo" data-modulo="2">🛒 Acumulador</button>
+  <button class="btn-modulo" data-modulo="3">🚨 Bandera</button>
+  <button class="btn-modulo" data-modulo="4">💰 Cajero</button>
+  <button class="btn-modulo" data-modulo="5">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>👋 ¡Bienvenido/a al Master del Inventario!</h2>
+    <p class="lead">Tres herramientas que dominan el 90% de los algoritmos del mundo real: <strong>Contadores</strong> para saber cuántos, <strong>Acumuladores</strong> para saber cuánto, y <strong>Banderas</strong> para saber si pasó algo. Aprende a pensar como un ingeniero de verdad.</p>
+
+    <div class="hero-vars">
+      <div class="hero-var pulse-var">
+        <span class="type">int</span>
+        <span class="name">contador</span>
+        <span class="val" id="hero-counter">0</span>
+      </div>
+      <div class="hero-var pulse-var" style="animation-delay:.3s">
+        <span class="type">double</span>
+        <span class="name">total</span>
+        <span class="val" id="hero-total">$0.00</span>
+      </div>
+      <div class="hero-var pulse-var" style="animation-delay:.6s">
+        <span class="type">bool</span>
+        <span class="name">esVIP</span>
+        <span class="val" id="hero-flag">false</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>3 horas y 30 minutos en 6 módulos cortos. Puedes detenerte y continuar después.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Dominar las 3 herramientas fundamentales del estado en C#: contador, acumulador y bandera.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Conocer variables, tipos básicos y bucles <code>for</code> en C#. Aquí aprenderás a <em>pensar en estado</em>.</p>
+    </div>
+  </div>
+
+  <h3>🔍 Las tres herramientas de un vistazo</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🚪 Contador</h4>
+      <p><strong>¿Para qué?</strong> Saber CUÁNTOS.<br><strong>¿Cómo?</strong> Suma de 1 en 1.<br><strong>Ejemplo:</strong> Clientes, intentos, vueltas.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🛒 Acumulador</h4>
+      <p><strong>¿Para qué?</strong> Saber CUÁNTO.<br><strong>¿Cómo?</strong> Suma valores variables.<br><strong>Ejemplo:</strong> Totales, promedios, sumas.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🚨 Bandera</h4>
+      <p><strong>¿Para qué?</strong> Saber SI PASÓ algo.<br><strong>¿Cómo?</strong> Variable true/false.<br><strong>Ejemplo:</strong> Alarmas, búsquedas, validaciones.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip de Ingeniero Senior</h4>
+    <p>Estas tres herramientas se usan <strong>juntas en el 90% de los algoritmos reales</strong>. Desde calcular el promedio de tus notas hasta detectar fraudes bancarios. Dominarlas es como aprender a usar el martillo, el destornillador y la llave inglesa: básicas, pero imprescindibles.</p>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Herramienta</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · El Portero del Club</td><td style="color:var(--azul-claro)">Contador</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>02 · El Carrito de Compras</td><td style="color:var(--rosa)">Acumulador</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>03 · El Sensor de Seguridad</td><td style="color:var(--naranja)">Bandera</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>04 · El Reto del Cajero</td><td style="color:var(--amarillo)">Integración</td><td>60 min</td><td>150 XP</td></tr>
+        <tr><td>05 · Code Master</td><td style="color:var(--morado)">Taller final</td><td>45 min</td><td>200 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: El Contador →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — EL CONTADOR
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🚪 El Contador</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "El Portero del Club" — cuenta de uno en uno</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina que eres el portero de un club y tienes un <strong>clic-counter manual</strong> (esos aparatitos que hacen "clic" cada vez que entra alguien). Cada vez que pasa una persona, aprietas el botón y el número sube en 1. Nunca sube en 2, ni en 5. <strong>Siempre de 1 en 1</strong>. Eso es un contador.</p>
+    <p>Un <strong>contador</strong> es una variable (normalmente <code>int</code>) que se <strong>inicializa en 0</strong> y se incrementa de a <strong>1 en 1</strong> cada vez que ocurre un evento que quieres contar.</p>
+  </div>
+
+  <h3>📝 Las dos formas de escribirlo</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta">
+      <h3>✨ Forma corta (profesional)</h3>
+      <div class="code-live">
+<span class="kw">int</span> contador = <span class="num">0</span>;  <span class="cm">// inicialización</span>
+
+<span class="cm">// Dentro de un bucle o evento:</span>
+contador++;  <span class="cm">// suma 1</span>
+      </div>
+    </div>
+    <div class="tarjeta">
+      <h3>📝 Forma explícita</h3>
+      <div class="code-live">
+<span class="kw">int</span> contador = <span class="num">0</span>;  <span class="cm">// inicialización</span>
+
+<span class="cm">// Dentro de un bucle o evento:</span>
+contador = contador + <span class="num">1</span>;  <span class="cm">// suma 1</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Son iguales?</h4>
+    <p>Sí, hacen exactamente lo mismo. Pero <code>contador++</code> es la forma que usan los programadores profesionales. También existe <code>contador += 1</code>, que es una versión intermedia. Las tres son válidas.</p>
+  </div>
+
+  <h3>🎮 Simulador: El Portero del Club</h3>
+  <p>Presiona el botón <strong>"Entra cliente"</strong>. Observa cómo el contador sube y cómo se refleja en el código C# de la derecha.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🚪 Club Nocturno — Contador en vivo</div>
+
+    <div class="memory-panel">
+      <div class="memory-title">Memoria del programa</div>
+      <div class="memory-grid">
+        <div class="mem-cell" id="mem-counter">
+          <div class="label">Variable</div>
+          <span class="var-type">int</span>
+          <span class="var-name">contador</span>
+          <span class="var-val" id="mem-counter-val">0</span>
+        </div>
+        <div class="mem-cell">
+          <div class="label">Aforo máximo</div>
+          <span class="var-type">const int</span>
+          <span class="var-name">AFORO</span>
+          <span class="var-val">20</span>
+        </div>
+        <div class="mem-cell" id="mem-estado">
+          <div class="label">Estado</div>
+          <span class="var-type">string</span>
+          <span class="var-name">estado</span>
+          <span class="var-val" id="mem-estado-val">Abierto</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="counter-display">
+      <div class="counter-visual">
+        <div class="counter-label">Personas dentro</div>
+        <div class="counter-num" id="counterNum">0</div>
+        <div class="counter-people" id="counterPeople"></div>
+      </div>
+      <div>
+        <div class="code-live">
+<span class="kw">using</span> System;
+
+<span class="kw">class</span> <span class="ty">Portero</span>
+{
+    <span class="kw">static void</span> <span class="fn">Main</span>()
+    {
+        <span class="cm">// 1. Inicializar el contador</span>
+        <span class="kw">int</span> contador = <span class="num">0</span>;
+        <span class="kw">const int</span> AFORO = <span class="num">20</span>;
+
+        <span class="cm">// 2. Simular 5 clientes entrando</span>
+        <span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; <span class="num">5</span>; i++)
+        {
+            Console.<span class="fn">WriteLine</span>(<span class="str">"¡Entra un cliente!"</span>);
+            <span id="counterLine" class="hl-line">contador++;  <span class="cm">// ← suma 1</span></span>
+            Console.<span class="fn">WriteLine</span>(<span class="str">$"Dentro: {contador}"</span>);
+        }
+
+        <span class="cm">// 3. Mostrar resultado final</span>
+        Console.<span class="fn">WriteLine</span>(<span class="str">$"Total: {contador}"</span>);
+    }
+}
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="counterAdd">🚶 Entra cliente</button>
+      <button class="btn" id="counterSub">🚪 Sale cliente</button>
+      <button class="btn ghost" id="counterReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <h3>💻 Código completo en C#</h3>
+  <p>Así se vería el portero real, contando clientes durante toda la noche:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>PorteroClub.cs</div>
+      <button class="copy-btn" data-copy="portero">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class PorteroClub
+{
+    static void Main()
+    {
+        // ══════════════════════════════════════
+        // 1. DECLARAR E INICIALIZAR EL CONTADOR
+        // ══════════════════════════════════════
+        int contador = 0;           // Empieza en CERO
+        const int AFORO = 100;      // Capacidad máxima
+
+        Console.WriteLine("🎉 Bienvenido al Club Neón");
+        Console.WriteLine($"Aforo máximo: {AFORO} personas\n");
+
+        // ══════════════════════════════════════
+        // 2. SIMULAR LA NOCHE (bucle)
+        // ══════════════════════════════════════
+        bool clubAbierto = true;
+
+        while (clubAbierto &amp;&amp; contador &lt; AFORO)
+        {
+            Console.Write("¿Entra alguien? (s/n): ");
+            string respuesta = Console.ReadLine();
+
+            if (respuesta == "s")
+            {
+                contador++;   // ← AQUÍ ESTÁ EL CONTADOR
+                Console.WriteLine($"🚶 Persona #{contador} entró. " +
+                    $"Quedan {AFORO - contador} lugares.");
+            }
+            else if (respuesta == "n")
+            {
+                clubAbierto = false;
+            }
+        }
+
+        // ══════════════════════════════════════
+        // 3. MOSTRAR EL RESULTADO FINAL
+        // ══════════════════════════════════════
+        Console.WriteLine($"\n🎊 Noche terminada.");
+        Console.WriteLine($"Total de clientes: {contador}");
+    }
+}</code></pre>
+  </div>
+
+  <h3>⚡ 5 usos típicos del contador</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Caso de uso</th><th>Ejemplo de código</th><th>¿Qué cuenta?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🔁 Vueltas de un bucle</td><td><code>for (int i=0; i&lt;10; i++)</code></td><td>Iteraciones</td></tr>
+        <tr><td>👥 Personas o eventos</td><td><code>clientes++</code></td><td>Entradas</td></tr>
+        <tr><td>❌ Intentos fallidos</td><td><code>intentos++</code></td><td>Errores</td></tr>
+        <tr><td>✅ Coincidencias</td><td><code>if (esPar) pares++</code></td><td>Casos que cumplen condición</td></tr>
+        <tr><td>🎯 Posición actual</td><td><code>posicion++</code></td><td>Avance en una lista</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error de principiante #1</h4>
+    <p>Olvidar <strong>inicializar el contador en 0</strong>. Si declaras <code>int contador;</code> sin asignarle valor y lo usas, en C# no compilará (es una protección del lenguaje). Siempre inicializa tus variables.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace la expresión <code>contador++</code> en C#?</p>
+      <button class="opcion" data-op="a">Suma 2 al contador</button>
+      <button class="opcion" data-op="b">Suma 1 al contador</button>
+      <button class="opcion" data-op="c">Reinicia el contador a 0</button>
+      <button class="opcion" data-op="d">Multiplica el contador por 2</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Con qué valor se debe inicializar un contador?</p>
+      <button class="opcion" data-op="a">Con 1</button>
+      <button class="opcion" data-op="b">Con -1</button>
+      <button class="opcion" data-op="c">Con 0</button>
+      <button class="opcion" data-op="d">Con null</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: El Acumulador →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — EL ACUMULADOR
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>🛒 El Acumulador</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "El Carrito de Compras" — suma valores variables</p>
+
+  <div class="caja-concepto">
+    <h3>🐷 Analogía: La alcancía mágica</h3>
+    <p>Imagina una alcancía donde metes monedas de <strong>diferentes valores</strong>: a veces $5, a veces $20, a veces $1. Cada vez que metes una moneda, <strong>se suma al total que ya tenías</strong>. El contador siempre suma 1; el acumulador suma <strong>lo que tú le eches</strong>.</p>
+  </div>
+
+  <h3>🧠 La diferencia clave con el contador</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🚪 Contador</h4>
+      <p>Siempre suma <strong>1</strong><br><code>contador++;</code><br><code>contador += 1;</code></p>
+    </div>
+    <div class="compare-card b">
+      <h4>🛒 Acumulador</h4>
+      <p>Suma <strong>valores variables</strong><br><code>total += precio;</code><br><code>suma = suma + valor;</code></p>
+    </div>
+  </div>
+
+  <h3>📝 Las dos formas de escribirlo</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta">
+      <h3>✨ Forma corta</h3>
+      <div class="code-live">
+<span class="kw">double</span> total = <span class="num">0</span>;  <span class="cm">// inicia en 0</span>
+
+<span class="cm">// Dentro del bucle:</span>
+total += precio;  <span class="cm">// suma el precio</span>
+      </div>
+    </div>
+    <div class="tarjeta">
+      <h3>📝 Forma explícita</h3>
+      <div class="code-live">
+<span class="kw">double</span> total = <span class="num">0</span>;  <span class="cm">// inicia en 0</span>
+
+<span class="cm">// Dentro del bucle:</span>
+total = total + precio;  <span class="cm">// suma el precio</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Tienda de Gadgets</h3>
+  <p>Haz clic en los productos para añadirlos al carrito. Observa cómo el acumulador <code>total</code> va sumando precios diferentes.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🛒 GadgetStore — Acumulador en vivo</div>
+
+    <div class="memory-panel">
+      <div class="memory-title">Memoria del programa</div>
+      <div class="memory-grid">
+        <div class="mem-cell" id="mem-total">
+          <div class="label">Acumulador</div>
+          <span class="var-type">double</span>
+          <span class="var-name">total</span>
+          <span class="var-val" id="mem-total-val">$0.00</span>
+        </div>
+        <div class="mem-cell" id="mem-items">
+          <div class="label">Contador</div>
+          <span class="var-type">int</span>
+          <span class="var-name">items</span>
+          <span class="var-val" id="mem-items-val">0</span>
+        </div>
+        <div class="mem-cell" id="mem-last">
+          <div class="label">Último precio</div>
+          <span class="var-type">double</span>
+          <span class="var-name">precio</span>
+          <span class="var-val" id="mem-last-val">$0.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-grid" id="shopGrid"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:1rem">
+      <div class="cart-summary">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--rosa);margin-bottom:.75rem;font-size:.95rem">🧾 Carrito de Compras</div>
+        <div class="cart-items" id="cartItems">
+          <div style="color:var(--texto-suave);text-align:center;padding:1rem;font-size:.85rem">Aún no has añadido productos</div>
+        </div>
+        <div class="cart-total">
+          <span class="label">TOTAL</span>
+          <span class="value" id="cartTotal">$0.00</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="code-live">
+<span class="kw">using</span> System;
+
+<span class="kw">class</span> <span class="ty">Tienda</span>
+{
+    <span class="kw">static void</span> <span class="fn">Main</span>()
+    {
+        <span class="cm">// 1. Inicializar acumulador y contador</span>
+        <span class="kw">double</span> total = <span class="num">0</span>;
+        <span class="kw">int</span> items = <span class="num">0</span>;
+
+        <span class="cm">// 2. Por cada producto comprado:</span>
+        <span class="kw">double</span> precio = <span class="num" id="codePrecio">25.99</span>;  <span class="cm">// ← precio actual</span>
+
+        <span class="hl-line">total += precio;  <span class="cm">// ← ACUMULADOR</span></span>
+        <span class="hl-line">items++;          <span class="cm">// ← CONTADOR</span></span>
+
+        Console.<span class="fn">WriteLine</span>(<span class="str">$"Items: {items}"</span>);
+        Console.<span class="fn">WriteLine</span>(<span class="str">$"Total: ${total:F2}"</span>);
+    }
+}
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn pink" id="cartClear">🗑️ Vaciar carrito</button>
+    </div>
+  </div>
+
+  <h3>💻 Código completo en C#</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>TiendaGadgets.cs</div>
+      <button class="copy-btn" data-copy="tienda">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class TiendaGadgets
+{
+    static void Main()
+    {
+        // ══════════════════════════════════════
+        // 1. INICIALIZAR ACUMULADOR Y CONTADOR
+        // ══════════════════════════════════════
+        double total = 0;       // Acumulador de dinero
+        int contador = 0;       // Contador de productos
+
+        Console.WriteLine("🛒 Bienvenido a GadgetStore");
+        Console.WriteLine("Escribe 'fin' para terminar la compra\n");
+
+        // ══════════════════════════════════════
+        // 2. BUCLE DE COMPRA
+        // ══════════════════════════════════════
+        while (true)
+        {
+            Console.Write("Precio del producto (o 'fin'): ");
+            string entrada = Console.ReadLine();
+
+            if (entrada.ToLower() == "fin")
+                break;   // Sale del bucle
+
+            // Validar que sea un número
+            if (double.TryParse(entrada, out double precio) &amp;&amp; precio &gt; 0)
+            {
+                total += precio;    // ← ACUMULADOR
+                contador++;         // ← CONTADOR
+
+                Console.WriteLine($"✓ Añadido. " +
+                    $"Productos: {contador} | Total: ${total:F2}\n");
+            }
+            else
+            {
+                Console.WriteLine("⚠️ Ingresa un número válido.\n");
+            }
+        }
+
+        // ══════════════════════════════════════
+        // 3. CALCULAR PROMEDIO (usa ambos)
+        // ══════════════════════════════════════
+        Console.WriteLine("\n════ RESUMEN DE COMPRA ════");
+        Console.WriteLine($"Productos comprados: {contador}");
+        Console.WriteLine($"Total pagado: ${total:F2}");
+
+        if (contador &gt; 0)
+        {
+            double promedio = total / contador;   // ← usa ambos
+            Console.WriteLine($"Precio promedio: ${promedio:F2}");
+        }
+    }
+}</code></pre>
+  </div>
+
+  <h3>⚡ Usos clásicos del acumulador</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Caso de uso</th><th>Tipo de dato</th><th>Ejemplo</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>💰 Totales monetarios</td><td><code>double</code></td><td><code>total += precio;</code></td></tr>
+        <tr><td>📊 Sumas numéricas</td><td><code>int</code> o <code>double</code></td><td><code>suma += nota;</code></td></tr>
+        <tr><td>📏 Distancias</td><td><code>double</code></td><td><code>distancia += tramo;</code></td></tr>
+        <tr><td>⏱️ Tiempo</td><td><code>int</code> (segundos)</td><td><code>tiempoTotal += duracion;</code></td></tr>
+        <tr><td>📈 Promedios</td><td>Acumulador + contador</td><td><code>prom = total / cantidad;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🏆 Fórmula mágica del promedio</h4>
+    <p><code style="font-size:1rem">promedio = acumulador / contador</code><br><br>
+    Esta es la fórmula más usada de toda la programación. Necesitas <strong>dos variables</strong>: una que acumule la suma total y otra que cuente cuántos elementos sumaste.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es la principal diferencia entre un contador y un acumulador?</p>
+      <button class="opcion" data-op="a">El contador usa double, el acumulador usa int</button>
+      <button class="opcion" data-op="b">El contador suma siempre 1, el acumulador suma valores variables</button>
+      <button class="opcion" data-op="c">No hay diferencia, son sinónimos</button>
+      <button class="opcion" data-op="d">El acumulador no se inicializa</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué operador se usa normalmente en un acumulador?</p>
+      <button class="opcion" data-op="a"><code>--</code></button>
+      <button class="opcion" data-op="b"><code>*=</code></button>
+      <button class="opcion" data-op="c"><code>+=</code></button>
+      <button class="opcion" data-op="d"><code>==</code></button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: La Bandera →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — LA BANDERA
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🚨 La Bandera</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "El Sensor de Seguridad" — ON/OFF, verdadero/falso</p>
+
+  <div class="caja-concepto">
+    <h3>💡 Analogía: El interruptor de luz</h3>
+    <p>Un interruptor solo tiene dos estados: <strong>encendido (ON)</strong> o <strong>apagado (OFF)</strong>. No hay intermedio. Una bandera (<em>flag</em> en inglés) funciona igual: es una variable <code>bool</code> que vale <code>true</code> o <code>false</code>, y sirve para <strong>recordar si algo pasó</strong>.</p>
+  </div>
+
+  <h3>🧠 ¿Cuándo usar una bandera?</h3>
+  <p>Usa una bandera cuando necesites responder preguntas del tipo <strong>"¿pasó X?"</strong>:</p>
+  <ul>
+    <li>¿Se encontró el producto en la lista?</li>
+    <li>¿Hubo algún error en los datos?</li>
+    <li>¿Algún estudiante reprobó?</li>
+    <li>¿El usuario ya está registrado?</li>
+  </ul>
+
+  <h3>📝 Las dos partes de una bandera</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta">
+      <h3>🏁 Declarar bandera</h3>
+      <div class="code-live">
+<span class="cm">// Empieza "apagada" (no ha pasado nada)</span>
+<span class="kw">bool</span> encontrado = <span class="kw">false</span>;
+<span class="kw">bool</span> hayError   = <span class="kw">false</span>;
+<span class="kw">bool</span> esVIP      = <span class="kw">false</span>;
+      </div>
+    </div>
+    <div class="tarjeta">
+      <h3>🔥 Activar bandera</h3>
+      <div class="code-live">
+<span class="cm">// Cuando ocurre el evento:</span>
+encontrado = <span class="kw">true</span>;  <span class="cm">// ← ¡se activó!</span>
+
+<span class="cm">// Y luego puedes consultarla:</span>
+<span class="kw">if</span> (encontrado) { <span class="cm">/* ... */</span> }
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Escáner de Seguridad</h3>
+  <p>Este escáner revisa productos en una cinta. Si detecta uno <strong>prohibido</strong>, la bandera <code>alarma</code> se activa y el escáner se pone rojo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🚨 Escáner de Aeropuerto — Bandera en vivo</div>
+
+    <div class="memory-panel">
+      <div class="memory-title">Memoria del programa</div>
+      <div class="memory-grid">
+        <div class="mem-cell bool-false" id="mem-flag">
+          <div class="label">Bandera</div>
+          <span class="var-type">bool</span>
+          <span class="var-name">alarma</span>
+          <span class="var-val" id="mem-flag-val">false</span>
+        </div>
+        <div class="mem-cell" id="mem-scanned">
+          <div class="label">Contador</div>
+          <span class="var-type">int</span>
+          <span class="var-name">revisados</span>
+          <span class="var-val" id="mem-scanned-val">0</span>
+        </div>
+        <div class="mem-cell">
+          <div class="label">Estado</div>
+          <span class="var-type">string</span>
+          <span class="var-name">mensaje</span>
+          <span class="var-val" id="mem-msg-val">OK ✓</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scanner" id="scanner">
+      <div class="scanner-status">
+        <div class="scanner-light">
+          <div class="scanner-led"></div>
+          <span id="scannerLabel">Sistema operando normalmente</span>
+        </div>
+        <div style="color:var(--texto-suave);font-size:.82rem;font-family:'JetBrains Mono', monospace">
+          Escáner #A-07
+        </div>
+      </div>
+      <div class="conveyor" id="conveyor"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn warm big" id="scanStart">▶ Iniciar escaneo</button>
+      <button class="btn ghost" id="scanReset">🔄 Nueva cinta</button>
+    </div>
+
+    <div style="margin-top:1.25rem">
+      <div class="code-live">
+<span class="kw">using</span> System;
+
+<span class="kw">class</span> <span class="ty">Escáner</span>
+{
+    <span class="kw">static void</span> <span class="fn">Main</span>()
+    {
+        <span class="cm">// 1. Declarar bandera (inicia apagada)</span>
+        <span class="kw">bool</span> alarma = <span class="kw">false</span>;
+        <span class="kw">int</span> revisados = <span class="num">0</span>;
+
+        <span class="cm">// 2. Revisar cada producto de la cinta</span>
+        <span class="kw">foreach</span> (<span class="kw">var</span> producto <span class="kw">in</span> cinta)
+        {
+            revisados++;
+            <span class="kw">if</span> (producto.EsProhibido)
+            {
+                <span class="hl-line">alarma = <span class="kw">true</span>;  <span class="cm">// ← BANDERA se activa</span></span>
+                Console.<span class="fn">WriteLine</span>(<span class="str">"🚨 ALERTA!"</span>);
+                <span class="kw">break</span>;  <span class="cm">// sale del bucle</span>
+            }
+        }
+
+        <span class="cm">// 3. Revisar la bandera al final</span>
+        <span class="kw">if</span> (alarma)
+            Console.<span class="fn">WriteLine</span>(<span class="str">"Llamar a seguridad"</span>);
+        <span class="kw">else</span>
+            Console.<span class="fn">WriteLine</span>(<span class="str">"Todo limpio ✓"</span>);
+    }
+}
+      </div>
+    </div>
+  </div>
+
+  <h3>💻 Código completo en C#</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>EscánerSeguridad.cs</div>
+      <button class="copy-btn" data-copy="escaner">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class EscánerSeguridad
+{
+    static void Main()
+    {
+        // Lista de productos (algunos prohibidos)
+        string[] productos = {
+            "Laptop", "Libro", "Cuchillo",   // ← prohibido
+            "Cámara", "Botella agua", "Tijeras"  // ← prohibido
+        };
+
+        string[] prohibidos = { "Cuchillo", "Tijeras", "Arma", "Explosivo" };
+
+        // ══════════════════════════════════════
+        // 1. INICIALIZAR BANDERA (apagada)
+        // ══════════════════════════════════════
+        bool alarma = false;
+        string itemDetectado = "";
+        int revisados = 0;
+
+        Console.WriteLine("🔍 Iniciando escaneo...\n");
+
+        // ══════════════════════════════════════
+        // 2. REVISAR CADA PRODUCTO
+        // ══════════════════════════════════════
+        foreach (string producto in productos)
+        {
+            revisados++;
+
+            // ¿Está en la lista de prohibidos?
+            bool esProhibido = false;
+            foreach (string p in prohibidos)
+            {
+                if (producto == p)
+                {
+                    esProhibido = true;
+                    break;
+                }
+            }
+
+            if (esProhibido)
+            {
+                alarma = true;          // ← ¡BANDERA ACTIVADA!
+                itemDetectado = producto;
+                Console.WriteLine($"🚨 ALERTA en item #{revisados}: {producto}");
+                break;   // Ya no seguimos buscando
+            }
+            else
+            {
+                Console.WriteLine($"✓ Item #{revisados}: {producto} — OK");
+            }
+        }
+
+        // ══════════════════════════════════════
+        // 3. REVISAR LA BANDERA AL FINAL
+        // ══════════════════════════════════════
+        Console.WriteLine("\n════ REPORTE FINAL ════");
+        Console.WriteLine($"Productos revisados: {revisados}");
+
+        if (alarma)   // ← CONSULTAMOS LA BANDERA
+        {
+            Console.WriteLine($"🚨 ALARMA ACTIVADA");
+            Console.WriteLine($"Item prohibido detectado: {itemDetectado}");
+            Console.WriteLine($"Acción: Llamar a seguridad");
+        }
+        else
+        {
+            Console.WriteLine($"✅ Todo limpio. Pasajero autorizado.");
+        }
+    }
+}</code></pre>
+  </div>
+
+  <h3>⚡ Patrones comunes con banderas</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Patrón</th><th>Código</th><th>Uso</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Búsqueda</strong></td><td><code>if (encontrado) { ... }</code></td><td>¿Está el elemento en la lista?</td></tr>
+        <tr><td><strong>Validación</strong></td><td><code>if (!esValido) { error }</code></td><td>¿Algún dato es incorrecto?</td></tr>
+        <tr><td><strong>Estado</strong></td><td><code>if (juegoTerminado) { fin }</code></td><td>Controlar ciclos while</td></tr>
+        <tr><td><strong>Alternador</strong></td><td><code>activo = !activo;</code></td><td>ON/OFF con cada clic</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Nombres que comunican intención</h4>
+    <p>Las banderas <strong>deben tener nombres que empiecen con verbos o preguntas</strong>: <code>encontrado</code>, <code>esVIP</code>, <code>hayError</code>, <code>aprobado</code>. Nunca nombres como <code>x</code>, <code>temp</code> o <code>b</code>. Tu "yo" del futuro te lo agradecerá.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Con qué valor se debe inicializar una bandera por defecto?</p>
+      <button class="opcion" data-op="a">true</button>
+      <button class="opcion" data-op="b">false</button>
+      <button class="opcion" data-op="c">0</button>
+      <button class="opcion" data-op="d">null</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve típicamente una bandera en un bucle?</p>
+      <button class="opcion" data-op="a">Para contar cuántas veces se repite</button>
+      <button class="opcion" data-op="b">Para sumar valores</button>
+      <button class="opcion" data-op="c">Para recordar si ocurrió un evento durante el recorrido</button>
+      <button class="opcion" data-op="d">Para detener el programa</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: El Cajero →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — EL CAJERO (Integración)
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>💰 El Reto del Cajero</h2>
+  <p class="meta-modulo">⏱️ 60 minutos · Las tres herramientas trabajando juntas</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Ahora viene lo bueno: <strong>integrar los tres conceptos en un solo algoritmo</strong>. Este es el patrón que usan los sistemas reales de cobro, desde la tiendita de la esquina hasta Amazon.</p>
+    <p>Construir un cajero que: <strong>(1)</strong> cuente productos, <strong>(2)</strong> sume precios, <strong>(3)</strong> calcule promedio, y <strong>(4)</strong> active una bandera VIP si la compra supera los $100 para aplicar descuento del 10%.</p>
+  </div>
+
+  <h3>🎮 Simulador: Cajero Automático</h3>
+  <p>Añade productos con sus precios. Cuando termines, verás cómo las 3 variables trabajan en conjunto.</p>
+
+  <div class="simulador">
+    <div class="sim-head">💰 Cajero Neón — Integración de las 3 herramientas</div>
+
+    <div class="cashier">
+      <div class="cashier-input">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--amarillo);margin-bottom:1rem">📥 Entrada de productos</div>
+
+        <div class="input-row">
+          <label>Producto</label>
+          <input type="text" class="input-field" id="prodName" placeholder="Ej: Laptop" value="Teclado">
+        </div>
+        <div class="input-row">
+          <label>Precio $</label>
+          <input type="number" class="input-field" id="prodPrice" value="45.50" step="0.01" min="0">
+          <button class="btn primary" id="addProd">+ Añadir</button>
+        </div>
+
+        <div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--tarjeta-borde)">
+          <div style="font-size:.85rem;color:var(--texto-suave);margin-bottom:.5rem">Productos añadidos:</div>
+          <div id="cashierItems" style="max-height:200px;overflow-y:auto;font-family:'JetBrains Mono',monospace;font-size:.82rem"></div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn yellow big" id="processSale" style="flex:1">💳 Procesar venta</button>
+          <button class="btn ghost" id="clearCashier">🗑️</button>
+        </div>
+      </div>
+
+      <div class="cashier-output">
+        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--azul-claro);margin-bottom:1rem">📊 Ticket de venta</div>
+
+        <div class="memory-panel" style="margin-bottom:1rem">
+          <div class="memory-title">Variables activas</div>
+          <div class="memory-grid">
+            <div class="mem-cell" id="c-counter">
+              <div class="label">Contador</div>
+              <span class="var-name">productos</span>
+              <span class="var-val" id="c-counter-val">0</span>
+            </div>
+            <div class="mem-cell" id="c-total">
+              <div class="label">Acumulador</div>
+              <span class="var-name">total</span>
+              <span class="var-val" id="c-total-val">$0.00</span>
+            </div>
+            <div class="mem-cell bool-false" id="c-flag">
+              <div class="label">Bandera</div>
+              <span class="var-name">esVIP</span>
+              <span class="var-val" id="c-flag-val">false</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="receipt" id="receipt">
+          <div style="text-align:center;color:var(--texto-suave);padding:2rem;font-size:.85rem">
+            Añade productos y presiona "Procesar venta"
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>💻 El código completo: las 3 herramientas juntas</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>CajeroNeon.cs</div>
+      <button class="copy-btn" data-copy="cajero">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class CajeroNeon
+{
+    static void Main()
+    {
+        Console.WriteLine("💰 CAJERO NEÓN — Sistema de cobro v1.0\n");
+
+        // ══════════════════════════════════════════════════════
+        // 1. INICIALIZAR LAS 3 HERRAMIENTAS
+        // ══════════════════════════════════════════════════════
+        int contador = 0;           // Cuántos productos
+        double total = 0;           // Cuánto dinero
+        bool esVIP = false;         // ¿Supera los $100?
+
+        const double LIMITE_VIP = 100.0;
+        const double DESCUENTO_VIP = 0.10;   // 10%
+
+        // ══════════════════════════════════════════════════════
+        // 2. BUCLE PRINCIPAL: leer productos
+        // ══════════════════════════════════════════════════════
+        string seguir = "s";
+
+        while (seguir == "s")
+        {
+            Console.Write("Nombre del producto: ");
+            string nombre = Console.ReadLine();
+
+            Console.Write("Precio: $");
+            double precio = double.Parse(Console.ReadLine());
+
+            // AQUÍ TRABAJAN CONTADOR Y ACUMULADOR JUNTOS
+            contador++;         // ← Contador: suma 1
+            total += precio;    // ← Acumulador: suma el precio
+
+            Console.WriteLine($"✓ {nombre} añadido. " +
+                $"Subtotal: ${total:F2}\n");
+
+            Console.Write("¿Otro producto? (s/n): ");
+            seguir = Console.ReadLine();
+        }
+
+        // ══════════════════════════════════════════════════════
+        // 3. EVALUAR LA BANDERA
+        // ══════════════════════════════════════════════════════
+        if (total &gt; LIMITE_VIP)
+        {
+            esVIP = true;    // ← BANDERA se activa
+        }
+
+        // ══════════════════════════════════════════════════════
+        // 4. IMPRIMIR TICKET (usa las 3 variables)
+        // ══════════════════════════════════════════════════════
+        Console.WriteLine("\n════ TICKET DE VENTA ════");
+        Console.WriteLine($"Productos: {contador}");
+        Console.WriteLine($"Subtotal:  ${total:F2}");
+
+        if (contador &gt; 0)
+        {
+            double promedio = total / contador;   // ← usa ambas
+            Console.WriteLine($"Promedio:  ${promedio:F2}");
+        }
+
+        if (esVIP)   // ← BANDERA se consulta aquí
+        {
+            double descuento = total * DESCUENTO_VIP;
+            double final = total - descuento;
+
+            Console.WriteLine($"\n⭐ ¡COMPRA VIP!");
+            Console.WriteLine($"Descuento 10%: -${descuento:F2}");
+            Console.WriteLine($"TOTAL FINAL:   ${final:F2}");
+        }
+        else
+        {
+            Console.WriteLine($"\nTOTAL FINAL:   ${total:F2}");
+        }
+
+        Console.WriteLine("\n¡Gracias por su compra! 🎉");
+    }
+}</code></pre>
+  </div>
+
+  <h3>🗺️ Visualización del flujo integrado</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Paso</th><th>Acción</th><th>Herramienta usada</th><th>Variable afectada</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Inicializar variables</td><td>—</td><td><code>contador=0, total=0, esVIP=false</code></td></tr>
+        <tr><td>2</td><td>Leer producto</td><td>Input</td><td><code>nombre, precio</code></td></tr>
+        <tr><td>3</td><td>Contar producto</td><td style="color:var(--azul-claro)">Contador</td><td><code>contador++</code></td></tr>
+        <tr><td>4</td><td>Sumar precio</td><td style="color:var(--rosa)">Acumulador</td><td><code>total += precio</code></td></tr>
+        <tr><td>5</td><td>¿Repetir?</td><td>Bucle while</td><td>Vuelve al paso 2</td></tr>
+        <tr><td>6</td><td>¿Total &gt; $100?</td><td style="color:var(--naranja)">Bandera</td><td><code>esVIP = true</code></td></tr>
+        <tr><td>7</td><td>Imprimir ticket</td><td>Las 3 juntas</td><td>Reporte final</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUIZ MÓDULO 4 -->
+  <div class="quiz" data-quiz="4">
+    <h3>🎯 Mini-Quiz del Módulo 4</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué activa la bandera <code>esVIP</code> en el cajero?</p>
+      <button class="opcion" data-op="a">Que haya más de 5 productos</button>
+      <button class="opcion" data-op="b">Que el total supere los $100</button>
+      <button class="opcion" data-op="c">Que el nombre del producto contenga "VIP"</button>
+      <button class="opcion" data-op="d">Que el usuario escriba "vip" en consola</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué descuento se aplica cuando la bandera VIP está activa?</p>
+      <button class="opcion" data-op="a">5%</button>
+      <button class="opcion" data-op="b">20%</button>
+      <button class="opcion" data-op="c">10%</button>
+      <button class="opcion" data-op="d">50%</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Taller Code Master →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — TALLER CODE MASTER
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🛠️ Taller Code Master</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · Rellena el código y valida tu lógica</p>
+
+  <div class="caja-concepto">
+    <h3>🎬 Tu misión</h3>
+    <p>La hora de la verdad. Vas a <strong>completar código real en C#</strong>. Escribe en los recuadros punteados y presiona "Validar lógica" para obtener feedback inmediato.</p>
+  </div>
+
+  <!-- RETO 1: Contador -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <div class="challenge-title">🚪 Cuenta los números pares del 1 al 20</div>
+    </div>
+    <p>Completa el código para contar cuántos números pares hay entre 1 y 20:</p>
+    <div class="ws-code">
+<span class="kw">int</span> contadorPares = <input class="ws-input" data-ans="0" data-ws="1" placeholder="?">;  <span class="cm">// ← inicializa</span>
+
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">1</span>; i <input class="ws-input" data-ans="&lt;=" data-ws="1" placeholder="?"> <span class="num">20</span>; i++)
+{
+    <span class="kw">if</span> (i % <span class="num">2</span> <input class="ws-input" data-ans="==" data-ws="1" placeholder="?"> <span class="num">0</span>)
+    {
+        contadorPares<input class="ws-input" data-ans="++" data-ws="1" placeholder="?">;  <span class="cm">// ← incrementa</span>
+    }
+}
+
+Console.<span class="fn">WriteLine</span>(<span class="str">$"Hay {contadorPares} pares"</span>);
+<span class="cm">// Resultado esperado: 10</span>
+    </div>
+    <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+    <div class="resultado-ws" id="ws-fb-1"></div>
+  </div>
+
+  <!-- RETO 2: Acumulador -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <div class="challenge-title">🛒 Suma las ventas de la semana</div>
+    </div>
+    <p>Una tienda tuvo estas ventas diarias: $120, $85, $200, $150, $300. Calcula el total y el promedio:</p>
+    <div class="ws-code">
+<span class="kw">double</span>[] ventas = { <span class="num">120</span>, <span class="num">85</span>, <span class="num">200</span>, <span class="num">150</span>, <span class="num">300</span> };
+
+<span class="kw">double</span> total = <input class="ws-input" data-ans="0" data-ws="2" placeholder="?">;  <span class="cm">// ← inicializa acumulador</span>
+
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; ventas.<input class="ws-input" data-ans="Length" data-ws="2" placeholder="?">; i++)
+{
+    total <input class="ws-input" data-ans="+=" data-ws="2" placeholder="?"> ventas[i];  <span class="cm">// ← acumula</span>
+}
+
+<span class="kw">double</span> promedio = total / ventas.<input class="ws-input" data-ans="Length" data-ws="2" placeholder="?">;
+Console.<span class="fn">WriteLine</span>(<span class="str">$"Total: ${total}"</span>);
+Console.<span class="fn">WriteLine</span>(<span class="str">$"Promedio diario: ${promedio}"</span>);
+<span class="cm">// Resultado: Total $855, Promedio $171</span>
+    </div>
+    <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+    <div class="resultado-ws" id="ws-fb-2"></div>
+  </div>
+
+  <!-- RETO 3: Bandera -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <div class="challenge-title">🚨 Busca si existe un número negativo</div>
+    </div>
+    <p>Dado un arreglo, detecta si contiene al menos un número negativo:</p>
+    <div class="ws-code">
+<span class="kw">int</span>[] numeros = { <span class="num">5</span>, <span class="num">12</span>, <span class="num">-3</span>, <span class="num">8</span>, <span class="num">20</span> };
+
+<span class="kw">bool</span> hayNegativo = <input class="ws-input" data-ans="false" data-ws="3" placeholder="?">;  <span class="cm">// ← inicia apagada</span>
+
+<span class="kw">foreach</span> (<span class="kw">int</span> n <span class="kw">in</span> numeros)
+{
+    <span class="kw">if</span> (n <input class="ws-input" data-ans="&lt;" data-ws="3" placeholder="?"> <span class="num">0</span>)
+    {
+        hayNegativo = <input class="ws-input" data-ans="true" data-ws="3" placeholder="?">;  <span class="cm">// ← activa bandera</span>
+        <span class="kw">break</span>;  <span class="cm">// sale del bucle</span>
+    }
+}
+
+<span class="kw">if</span> (<input class="ws-input" data-ans="hayNegativo" data-ws="3" placeholder="?">)
+    Console.<span class="fn">WriteLine</span>(<span class="str">"🚨 Hay al menos un negativo"</span>);
+<span class="kw">else</span>
+    Console.<span class="fn">WriteLine</span>(<span class="str">"✅ Todos son positivos"</span>);
+    </div>
+    <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+    <div class="resultado-ws" id="ws-fb-3"></div>
+  </div>
+
+  <!-- RETO 4: Integración -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Reto 4 · Jefe Final</span>
+      <div class="challenge-title">💰 Analiza 5 notas: cuenta aprobados, suma total y detecta si hay reprobados</div>
+    </div>
+    <p>Usa las 3 herramientas juntas: contador (aprobados), acumulador (suma), bandera (hay reprobados):</p>
+    <div class="ws-code">
+<span class="kw">double</span>[] notas = { <span class="num">85</span>, <span class="num">45</span>, <span class="num">70</span>, <span class="num">92</span>, <span class="num">55</span> };
+
+<span class="kw">int</span> aprobados = <span class="num">0</span>;       <span class="cm">// contador</span>
+<span class="kw">double</span> suma = <span class="num">0</span>;          <span class="cm">// acumulador</span>
+<span class="kw">bool</span> hayReprobados = <input class="ws-input" data-ans="false" data-ws="4" placeholder="?">;   <span class="cm">// bandera</span>
+
+<span class="kw">foreach</span> (<span class="kw">double</span> nota <span class="kw">in</span> notas)
+{
+    suma <input class="ws-input" data-ans="+=" data-ws="4" placeholder="?"> nota;         <span class="cm">// acumula</span>
+
+    <span class="kw">if</span> (nota <input class="ws-input" data-ans="&gt;=" data-ws="4" placeholder="?"> <span class="num">60</span>)
+        aprobados<input class="ws-input" data-ans="++" data-ws="4" placeholder="?">;        <span class="cm">// cuenta aprobados</span>
+    <span class="kw">else</span>
+        hayReprobados = <input class="ws-input" data-ans="true" data-ws="4" placeholder="?">;  <span class="cm">// activa bandera</span>
+}
+
+<span class="kw">double</span> promedio = suma / notas.Length;
+
+Console.<span class="fn">WriteLine</span>(<span class="str">$"Promedio: {promedio}"</span>);
+Console.<span class="fn">WriteLine</span>(<span class="str">$"Aprobados: {aprobados}"</span>);
+<span class="kw">if</span> (hayReprobados)
+    Console.<span class="fn">WriteLine</span>(<span class="str">"⚠️ Hay estudiantes en riesgo"</span>);
+    </div>
+    <button class="btn pink big" data-check-ws="4">🏆 Validar Reto Final</button>
+    <div class="resultado-ws" id="ws-fb-4"></div>
+  </div>
+
+  <div class="cierre" style="margin-top:2.5rem">
+    <h2>🏆 ¡Misión completada, Code Master!</h2>
+    <p class="lead">Si completaste los 4 retos correctamente, ya dominas las 3 herramientas fundamentales del desarrollo de software. <strong>Contador + Acumulador + Bandera</strong> son la base de algoritmos más complejos: promedios, búsquedas, validaciones, reportes, estadísticas... ¡Todo! Ahora estás listo para construir sistemas reales.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🎓 Master del Inventario · Plataforma de Autoaprendizaje</div>
+  <div>Contadores, Acumuladores y Banderas en C# · 3.5 horas · Nivel Principiante+</div>
+  <div style="margin-top:.5rem;font-size:.78rem">Hecho con 💜 para adolescentes que quieren pensar como ingenieros.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

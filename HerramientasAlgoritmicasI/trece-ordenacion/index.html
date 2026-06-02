@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 SortLab · Aprende Algoritmos de Ordenamiento</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🎮</span>
+    <div>
+      <h1>SortLab · Algoritmos de Ordenamiento</h1>
+      <p class="subtitulo">Ordena el caos, domina el código</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 500 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">💧 Burbuja</button>
+  <button class="btn-modulo" data-modulo="2">🎯 Selección</button>
+  <button class="btn-modulo" data-modulo="3">🃏 Inserción</button>
+  <button class="btn-modulo" data-modulo="4">⚔️ Batalla Big O</button>
+  <button class="btn-modulo" data-modulo="5">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>👋 ¡Bienvenido/a al SortLab!</h2>
+    <p class="lead">Aprende los 3 algoritmos de ordenamiento más clásicos viendo cómo se mueven los datos en tiempo real. Con simuladores, quizzes y retos que te convertirán en un verdadero ingeniero de software.</p>
+    <div class="hero-visual">
+      <svg viewBox="0 0 300 180" width="100%" height="100%">
+        <defs>
+          <linearGradient id="hg1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00f0ff"/>
+            <stop offset="50%" stop-color="#ff2bd6"/>
+            <stop offset="100%" stop-color="#a855f7"/>
+          </linearGradient>
+        </defs>
+        <g id="heroBars"></g>
+        <text x="150" y="170" text-anchor="middle" fill="#8b97b5" font-size="10" font-family="JetBrains Mono" id="heroText">▶️ Mira cómo se ordena solo</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>3 horas y 30 minutos en 6 módulos cortos. Puedes detenerte y continuar después.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Entender y aplicar los 3 algoritmos de ordenamiento más usados: burbuja, selección e inserción.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Conocer bucles <code>for</code> y <code>while</code> en C#. Aquí aprenderás a <em>pensar como una computadora</em>.</p>
+    </div>
+  </div>
+
+  <div class="caja-destacada">
+    <h3>🗺️ La ruta de aprendizaje</h3>
+    <ol class="ruta">
+      <li><strong>Módulo 1 (45 min):</strong> 💧 Método Burbuja — intercambios de vecinos</li>
+      <li><strong>Módulo 2 (45 min):</strong> 🎯 Método de Selección — el cazador del mínimo</li>
+      <li><strong>Módulo 3 (45 min):</strong> 🃏 Método de Inserción — como ordenar cartas</li>
+      <li><strong>Módulo 4 (30 min):</strong> ⚔️ Batalla Big O — carrera de algoritmos</li>
+      <li><strong>Módulo 5 (30 min):</strong> 🛠️ Taller — completa el código</li>
+    </ol>
+  </div>
+
+  <h3>🌍 ¿Dónde se usa ordenar en el mundo real?</h3>
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">📱</span><h3>Tu feed de Instagram</h3><p>Ordenado por "relevancia" o fecha.</p></div>
+    <div class="tarjeta"><span class="emoji">🎵</span><h3>Spotify</h3><p>Tus canciones por más reproducidas.</p></div>
+    <div class="tarjeta"><span class="emoji">🛒</span><h3>Amazon</h3><p>Productos de menor a mayor precio.</p></div>
+    <div class="tarjeta"><span class="emoji">📊</span><h3>Rankings escolares</h3><p>Estudiantes por promedio.</p></div>
+    <div class="tarjeta"><span class="emoji">🎮</span><h3>Leaderboards</h3><p>Jugadores por puntuación.</p></div>
+    <div class="tarjeta"><span class="emoji">🗺️</span><h3>Google Maps</h3><p>Rutas por distancia.</p></div>
+  </div>
+
+  <h3>🎴 Analogía: ordenar cartas en tu mano</h3>
+  <p>Cuando juegas cartas y te las van repartiendo, ¿qué haces? Miras tu mano y <strong>vas insertando cada carta nueva en su lugar correcto</strong>. Eso es literalmente el algoritmo de <strong>Inserción</strong>. Si miras las cartas buscando la más pequeña para ponerla al inicio, estás haciendo <strong>Selección</strong>. Y si vas comparando pares y los intercambias si están mal, eso es <strong>Burbuja</strong>.</p>
+
+  <div class="caja-desafio">
+    <h4>🤔 Mini-reto mental</h4>
+    <p>Tienes 5 amigos en fila desordenados por altura. Quieres ordenarlos del más bajo al más alto. ¿Qué estrategia usarías? Anótala mentalmente antes de continuar. Veremos si tu instinto coincide con alguno de los algoritmos.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Tip antes de empezar</h4>
+    <p>Este curso es <strong>muy visual e interactivo</strong>: vas a ver cómo los datos se mueven en tiempo real. No memorices el código: <em>entiende la idea</em> y el código vendrá solo.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Burbuja →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — MÉTODO BURBUJA
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>💧 Método Burbuja</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · El más intuitivo: como burbujas subiendo en un vaso de refresco</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 ¿Cómo funciona?</h3>
+    <p>Imagina un vaso de refresco. Las burbujas más grandes suben más rápido que las pequeñas. En <strong>Bubble Sort</strong>, los números grandes "burbujean" hacia el final del arreglo a través de intercambios sucesivos entre vecinos.</p>
+    <ol>
+      <li><strong>Compara dos elementos vecinos</strong> (el de la izquierda con el de la derecha).</li>
+      <li>Si el izquierdo es <strong>mayor</strong> que el derecho → <strong>intercámbialos</strong> (swap).</li>
+      <li>Avanza al siguiente par y repite hasta el final del arreglo.</li>
+      <li>Al terminar una pasada, el número más grande ya está en su posición final. <strong>Una burbuja llegó a la cima</strong> 🫧</li>
+      <li>Repite con el resto del arreglo, ignorando los ya ordenados.</li>
+    </ol>
+  </div>
+
+  <h3>🎮 Simulador interactivo — Burbuja</h3>
+  <p>Observa cómo se comparan y se mueven los valores. Los <span style="color:var(--magenta);font-weight:600">rosados</span> son los que se están comparando. Los <span style="color:var(--naranja);font-weight:600">naranjas</span> acaban de intercambiarse. Los <span style="color:var(--verde);font-weight:600">verdes</span> ya están en su posición final.</p>
+
+  <div class="simulador">
+    <div class="sim-head">
+      <div class="sim-titulo">💧 Bubble Sort Visualizer</div>
+      <div class="sim-stats">
+        <div class="sim-stat">Comparaciones: <strong id="bub-comp">0</strong></div>
+        <div class="sim-stat pink">Swaps: <strong id="bub-swap">0</strong></div>
+        <div class="sim-stat green">Paso: <strong id="bub-step">0</strong>/<span id="bub-total">0</span></div>
+      </div>
+    </div>
+    <div class="bars" id="bub-bars"></div>
+    <div class="sim-msg" id="bub-msg">🎯 Presiona <strong>Play</strong> o <strong>Siguiente Paso</strong> para comenzar.</div>
+    <div class="sim-controls">
+      <button class="btn primary" id="bub-play">▶ Play</button>
+      <button class="btn" id="bub-step-btn">⏭ Siguiente paso</button>
+      <button class="btn" id="bub-pause">⏸ Pausa</button>
+      <button class="btn ghost" id="bub-reset">🔄 Reiniciar</button>
+      <button class="btn ghost" id="bub-new">🎲 Nuevo arreglo</button>
+      <div class="slider-wrap">
+        <span>🐢</span>
+        <input type="range" id="bub-speed" min="1" max="10" value="6">
+        <span>🐇</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>💻 Código en C#</h3>
+  <p>Aquí está la implementación completa. Fíjate en los <strong>dos bucles anidados</strong>: el externo controla las pasadas, el interno compara vecinos.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>BubbleSort.cs</div>
+      <button class="copy-btn" data-copy="bubble">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class BubbleSort
+{
+    static void Main()
+    {
+        int[] arr = { 64, 34, 25, 12, 22, 11, 90 };
+
+        Console.WriteLine("Arreglo original:");
+        Imprimir(arr);
+
+        OrdenarBurbuja(arr);
+
+        Console.WriteLine("\nArreglo ordenado:");
+        Imprimir(arr);
+    }
+
+    static void OrdenarBurbuja(int[] arr)
+    {
+        int n = arr.Length;
+
+        // Bucle externo: una pasada por cada elemento
+        for (int i = 0; i &lt; n - 1; i++)
+        {
+            // Bucle interno: compara vecinos
+            // Restamos 'i' porque los últimos 'i' ya están ordenados
+            for (int j = 0; j &lt; n - i - 1; j++)
+            {
+                // Si el actual es mayor que el siguiente → swap
+                if (arr[j] &gt; arr[j + 1])
+                {
+                    int temp   = arr[j];
+                    arr[j]     = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
+    static void Imprimir(int[] arr)
+    {
+        foreach (int x in arr)
+            Console.Write(x + " ");
+        Console.WriteLine();
+    }
+}</code></pre>
+  </div>
+
+  <h3>⚡ Versión optimizada (con bandera)</h3>
+  <p>Si en una pasada <strong>no hubo ningún intercambio</strong>, el arreglo ya está ordenado y podemos detenernos antes. Esto se llama <em>early exit</em> y mejora el mejor caso a <strong>O(n)</strong>.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>BubbleSort_Optimizado.cs</div>
+      <button class="copy-btn" data-copy="bubble-opt">📋 Copiar</button>
+    </div>
+    <pre><code>static void OrdenarBurbujaOpt(int[] arr)
+{
+    int n = arr.Length;
+    bool huboSwap;
+
+    for (int i = 0; i &lt; n - 1; i++)
+    {
+        huboSwap = false;
+
+        for (int j = 0; j &lt; n - i - 1; j++)
+        {
+            if (arr[j] &gt; arr[j + 1])
+            {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+                huboSwap = true; // ¡Marcamos que sí hubo intercambio!
+            }
+        }
+
+        // Si en esta pasada NO hubo swap → ya está ordenado
+        if (!huboSwap)
+        {
+            Console.WriteLine($"¡Optimización! Terminó en {i + 1} pasadas.");
+            break;
+        }
+    }
+}</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Complejidad de Burbuja</h4>
+    <p><strong>Peor caso:</strong> O(n²) — cuando el arreglo está invertido.<br>
+    <strong>Mejor caso:</strong> O(n) — con la optimización, si ya está ordenado.<br>
+    <strong>Promedio:</strong> O(n²).<br>
+    <strong>Espacio:</strong> O(1) — solo usa una variable temporal.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> Si tienes el arreglo <code>[5, 3, 8, 4, 2]</code> y aplicas UNA pasada completa de Bubble Sort, ¿cómo queda al final de esa primera pasada?</p>
+      <button class="opcion" data-op="a">[2, 3, 4, 5, 8]</button>
+      <button class="opcion" data-op="b">[3, 5, 4, 2, 8]</button>
+      <button class="opcion" data-op="c">[3, 4, 2, 5, 8]</button>
+      <button class="opcion" data-op="d">[5, 3, 2, 4, 8]</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué pasa con la complejidad del mejor caso de Burbuja cuando añadimos la bandera <code>huboSwap</code>?</p>
+      <button class="opcion" data-op="a">Sigue siendo O(n²)</button>
+      <button class="opcion" data-op="b">Se vuelve O(log n)</button>
+      <button class="opcion" data-op="c">Se vuelve O(n) — detección temprana</button>
+      <button class="opcion" data-op="d">Se vuelve O(1)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Selección →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — MÉTODO DE SELECCIÓN
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>🎯 Método de Selección</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · El cazador del mínimo: siempre encuentra al más pequeño</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea</h3>
+    <p>Imagina que tienes que ordenar a tus amigos por estatura. <strong>¿Qué harías?</strong> Miras a todos, encuentras al más bajito, y lo colocas al inicio. Luego buscas al segundo más bajito entre los restantes y lo pones después. Y así sucesivamente. Eso es <strong>Selection Sort</strong>.</p>
+    <ol>
+      <li>Divide el arreglo en dos partes: <strong style="color:var(--verde)">ordenada</strong> (al inicio, vacía) y <strong style="color:var(--magenta)">desordenada</strong> (todo el resto).</li>
+      <li>Busca el <strong>mínimo</strong> en la parte desordenada.</li>
+      <li>Intercámbialo con el primer elemento de la parte desordenada.</li>
+      <li>Mueve la frontera: ahora ese elemento forma parte de la zona ordenada. Repite.</li>
+    </ol>
+  </div>
+
+  <h3>🎮 Simulador interactivo — Selección</h3>
+  <p>Observa: el <span style="color:var(--amarillo);font-weight:600">amarillo</span> es el candidato actual, el <span style="color:var(--rojo);font-weight:600">rojo</span> es el mínimo encontrado hasta ahora, y el <span style="color:var(--verde);font-weight:600">verde</span> ya está en su posición final.</p>
+
+  <div class="simulador">
+    <div class="sim-head">
+      <div class="sim-titulo">🎯 Selection Sort Visualizer</div>
+      <div class="sim-stats">
+        <div class="sim-stat">Comparaciones: <strong id="sel-comp">0</strong></div>
+        <div class="sim-stat pink">Swaps: <strong id="sel-swap">0</strong></div>
+        <div class="sim-stat green">Paso: <strong id="sel-step">0</strong>/<span id="sel-total">0</span></div>
+      </div>
+    </div>
+    <div class="bars" id="sel-bars"></div>
+    <div class="sim-msg" id="sel-msg">🎯 Presiona <strong>Play</strong> para iniciar la caza del mínimo.</div>
+    <div class="sim-controls">
+      <button class="btn pink" id="sel-play">▶ Play</button>
+      <button class="btn" id="sel-step-btn">⏭ Siguiente paso</button>
+      <button class="btn" id="sel-pause">⏸ Pausa</button>
+      <button class="btn ghost" id="sel-reset">🔄 Reiniciar</button>
+      <button class="btn ghost" id="sel-new">🎲 Nuevo arreglo</button>
+      <div class="slider-wrap"><span>🐢</span><input type="range" id="sel-speed" min="1" max="10" value="6"><span>🐇</span></div>
+    </div>
+  </div>
+
+  <h3>💻 Código en C#</h3>
+  <p>Nota el detalle clave: primero <strong>buscamos el índice del mínimo</strong>, y solo al final hacemos UN swap por pasada.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>SelectionSort.cs</div>
+      <button class="copy-btn" data-copy="selection">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class SelectionSort
+{
+    static void Main()
+    {
+        int[] arr = { 64, 25, 12, 22, 11 };
+
+        Console.WriteLine("Antes: " + string.Join(", ", arr));
+        OrdenarSeleccion(arr);
+        Console.WriteLine("Después: " + string.Join(", ", arr));
+    }
+
+    static void OrdenarSeleccion(int[] arr)
+    {
+        int n = arr.Length;
+
+        for (int i = 0; i &lt; n - 1; i++)
+        {
+            // Suponemos que el mínimo es el primero de la zona desordenada
+            int indiceMin = i;
+
+            // Buscamos el verdadero mínimo en la zona desordenada
+            for (int j = i + 1; j &lt; n; j++)
+            {
+                if (arr[j] &lt; arr[indiceMin])
+                {
+                    indiceMin = j; // ¡Encontramos uno más pequeño!
+                }
+            }
+
+            // Si el mínimo NO es el actual, los intercambiamos
+            if (indiceMin != i)
+            {
+                int temp    = arr[i];
+                arr[i]      = arr[indiceMin];
+                arr[indiceMin] = temp;
+            }
+        }
+    }
+}</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Diferencia clave con Burbuja</h4>
+    <p>Burbuja puede hacer <strong>muchos swaps por pasada</strong>. Selección hace <strong>máximo UN swap por pasada</strong>. Por eso Selección suele ser más eficiente cuando los intercambios son costosos (por ejemplo, con estructuras grandes en memoria).</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuántos intercambios (swaps) hace <strong>Selection Sort</strong> en total para un arreglo de 10 elementos?</p>
+      <button class="opcion" data-op="a">Entre 0 y 100</button>
+      <button class="opcion" data-op="b">Máximo 9 (uno por pasada)</button>
+      <button class="opcion" data-op="c">Siempre exactamente 45</button>
+      <button class="opcion" data-op="d">Depende del orden inicial</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué se guarda en la variable <code>indiceMin</code> dentro de Selection Sort?</p>
+      <button class="opcion" data-op="a">El valor más pequeño encontrado</button>
+      <button class="opcion" data-op="b">La cantidad de elementos revisados</button>
+      <button class="opcion" data-op="c">La posición (índice) del valor más pequeño</button>
+      <button class="opcion" data-op="d">El número de swaps realizados</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Inserción →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — MÉTODO DE INSERCIÓN
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🃏 Método de Inserción</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · Como ordenar cartas en tu mano</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La mecánica</h3>
+    <p>¿Has jugado cartas? Cuando te reparten una carta nueva, la miras y la <strong>insertas en el lugar correcto</strong> de tu mano (que ya está ordenada). Desplazas las mayores hacia la derecha y metes la nueva donde va. ¡Eso es Insertion Sort en la vida real!</p>
+    <ol>
+      <li>El primer elemento ya se considera "ordenado".</li>
+      <li>Toma el siguiente elemento (la <strong>llave</strong> o <em>key</em>).</li>
+      <li>Compara la llave con los elementos ya ordenados, <strong>de derecha a izquierda</strong>.</li>
+      <li>Cada elemento mayor que la llave se <strong>desplaza una posición a la derecha</strong>.</li>
+      <li>Inserta la llave en el hueco que queda.</li>
+    </ol>
+  </div>
+
+  <h3>🎮 Simulador interactivo — Inserción</h3>
+  <p>El <span style="color:var(--morado);font-weight:600">morado</span> es la "llave" que estamos insertando. El <span style="color:var(--amarillo);font-weight:600">amarillo</span> es con quien se está comparando. Los <span style="color:var(--verde);font-weight:600">verdes</span> ya están en orden.</p>
+
+  <div class="simulador">
+    <div class="sim-head">
+      <div class="sim-titulo">🃏 Insertion Sort Visualizer</div>
+      <div class="sim-stats">
+        <div class="sim-stat">Comparaciones: <strong id="ins-comp">0</strong></div>
+        <div class="sim-stat pink">Desplazamientos: <strong id="ins-swap">0</strong></div>
+        <div class="sim-stat green">Paso: <strong id="ins-step">0</strong>/<span id="ins-total">0</span></div>
+      </div>
+    </div>
+    <div class="bars" id="ins-bars"></div>
+    <div class="sim-msg" id="ins-msg">🎯 Presiona <strong>Play</strong> para ver cómo se inserta cada carta.</div>
+    <div class="sim-controls">
+      <button class="btn warm" id="ins-play">▶ Play</button>
+      <button class="btn" id="ins-step-btn">⏭ Siguiente paso</button>
+      <button class="btn" id="ins-pause">⏸ Pausa</button>
+      <button class="btn ghost" id="ins-reset">🔄 Reiniciar</button>
+      <button class="btn ghost" id="ins-new">🎲 Nuevo arreglo</button>
+      <div class="slider-wrap"><span>🐢</span><input type="range" id="ins-speed" min="1" max="10" value="6"><span>🐇</span></div>
+    </div>
+  </div>
+
+  <h3>💻 Código en C#</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>InsertionSort.cs</div>
+      <button class="copy-btn" data-copy="insertion">📋 Copiar</button>
+    </div>
+    <pre><code>using System;
+
+class InsertionSort
+{
+    static void Main()
+    {
+        int[] arr = { 12, 11, 13, 5, 6 };
+
+        Console.WriteLine("Antes: " + string.Join(", ", arr));
+        OrdenarInsercion(arr);
+        Console.WriteLine("Después: " + string.Join(", ", arr));
+    }
+
+    static void OrdenarInsercion(int[] arr)
+    {
+        int n = arr.Length;
+
+        // Empezamos desde el segundo elemento (índice 1)
+        for (int i = 1; i &lt; n; i++)
+        {
+            int llave = arr[i];  // 🔑 La carta que vamos a insertar
+            int j = i - 1;       // Índice del último ya ordenado
+
+            // Desplazamos a la derecha los elementos mayores que la llave
+            while (j &gt;= 0 &amp;&amp; arr[j] &gt; llave)
+            {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+
+            // Insertamos la llave en su posición correcta
+            arr[j + 1] = llave;
+        }
+    }
+}</code></pre>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🏆 ¿Cuándo Insertion Sort es el REY?</h4>
+    <p>Cuando el arreglo está <strong>casi ordenado</strong> (pocos elementos fuera de lugar). En ese caso, su rendimiento se acerca a <strong>O(n)</strong>. Por eso muchos algoritmos avanzados (como Timsort, usado en Python y Java) usan Inserción como paso final.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál es la complejidad de Insertion Sort cuando el arreglo YA ESTÁ completamente ordenado?</p>
+      <button class="opcion" data-op="a">O(n²)</button>
+      <button class="opcion" data-op="b">O(n log n)</button>
+      <button class="opcion" data-op="c">O(n) — ¡el mejor caso!</button>
+      <button class="opcion" data-op="d">O(1)</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Por qué Insertion Sort es muy rápido con arreglos "casi ordenados"?</p>
+      <button class="opcion" data-op="a">Porque hace menos comparaciones gracias al while</button>
+      <button class="opcion" data-op="b">Porque el while termina casi de inmediato: no hay que desplazar casi nada</button>
+      <button class="opcion" data-op="c">Porque usa recursividad</button>
+      <button class="opcion" data-op="d">Porque intercambia en lugar de desplazar</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: Batalla Big O →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — BATALLA BIG O
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>⚔️ Batalla de Eficiencia</h2>
+  <p class="meta-modulo">⏱️ 30 minutos · Big O explicado como un videojuego</p>
+
+  <div class="caja-concepto">
+    <h3>🎮 ¿Qué es Big O?</h3>
+    <p>Cuando hablamos de qué tan rápido es un algoritmo, usamos algo llamado <strong>Big O</strong>. Es una forma de medir <strong>cómo crece el trabajo</strong> a medida que crece el número de datos (n). No mide segundos, mide <em>tendencia</em>.</p>
+  </div>
+
+  <h3>📊 Big O como niveles de dificultad</h3>
+  <div class="compare">
+    <div class="compare-card c">
+      <h4>🟢 O(n) — Lineal</h4>
+      <p>Si duplicas los datos, duplicas el trabajo. Como leer una lista completa una vez.</p>
+    </div>
+    <div class="compare-card a">
+      <h4>🔵 O(n log n) — Rápido</h4>
+      <p>Los algoritmos "inteligentes" como Merge Sort o Quick Sort viven aquí.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🔴 O(n²) — Lento</h4>
+      <p>Si duplicas los datos, <strong>cuadruplicas</strong> el trabajo. Aquí viven Burbuja, Selección e Inserción.</p>
+    </div>
+  </div>
+
+  <h3>📚 Tabla comparativa de los 3 algoritmos</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr>
+          <th>Algoritmo</th>
+          <th>Mejor caso</th>
+          <th>Promedio</th>
+          <th>Peor caso</th>
+          <th>Espacio</th>
+          <th>Estable*</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>💧 Burbuja</strong></td>
+          <td class="complejidad-ok">O(n)</td>
+          <td class="complejidad-bad">O(n²)</td>
+          <td class="complejidad-bad">O(n²)</td>
+          <td>O(1)</td>
+          <td>✅ Sí</td>
+        </tr>
+        <tr>
+          <td><strong>🎯 Selección</strong></td>
+          <td class="complejidad-bad">O(n²)</td>
+          <td class="complejidad-bad">O(n²)</td>
+          <td class="complejidad-bad">O(n²)</td>
+          <td>O(1)</td>
+          <td>❌ No</td>
+        </tr>
+        <tr>
+          <td><strong>🃏 Inserción</strong></td>
+          <td class="complejidad-ok">O(n)</td>
+          <td class="complejidad-bad">O(n²)</td>
+          <td class="complejidad-bad">O(n²)</td>
+          <td>O(1)</td>
+          <td>✅ Sí</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.85rem;color:var(--texto-suave)">*Estable = si hay dos elementos iguales, mantienen su orden original.</p>
+
+  <h3>🏁 ¡Carrera de Algoritmos!</h3>
+  <p>Genera un arreglo aleatorio y mira los tres algoritmos competir al mismo tiempo. ¿Cuál termina primero? <strong>Spoiler: depende del arreglo</strong> 😉</p>
+
+  <div class="simulador" style="background:linear-gradient(135deg,rgba(0,240,255,.05),rgba(255,43,214,.05),rgba(0,255,157,.05))">
+    <div class="sim-head">
+      <div class="sim-titulo">🏁 Carrera de Algoritmos</div>
+      <div class="sim-stats">
+        <div class="sim-stat">Elementos: <strong id="race-n">30</strong></div>
+      </div>
+    </div>
+
+    <div class="carrera-card">
+      <div class="carrera-head">
+        <div class="carrera-nombre"><span class="carrera-badge b">BURBUJA</span><span id="race-b-status">⏳ Esperando</span></div>
+        <div class="carrera-stats">Comps: <strong id="race-b-comp">0</strong> · Swaps: <strong id="race-b-swap">0</strong></div>
+      </div>
+      <div class="bars race" id="race-b-bars"></div>
+    </div>
+
+    <div class="carrera-card">
+      <div class="carrera-head">
+        <div class="carrera-nombre"><span class="carrera-badge s">SELECCIÓN</span><span id="race-s-status">⏳ Esperando</span></div>
+        <div class="carrera-stats">Comps: <strong id="race-s-comp">0</strong> · Swaps: <strong id="race-s-swap">0</strong></div>
+      </div>
+      <div class="bars race" id="race-s-bars"></div>
+    </div>
+
+    <div class="carrera-card">
+      <div class="carrera-head">
+        <div class="carrera-nombre"><span class="carrera-badge i">INSERCIÓN</span><span id="race-i-status">⏳ Esperando</span></div>
+        <div class="carrera-stats">Comps: <strong id="race-i-comp">0</strong> · Swaps: <strong id="race-i-swap">0</strong></div>
+      </div>
+      <div class="bars race" id="race-i-bars"></div>
+    </div>
+
+    <div class="ganador" id="race-winner"></div>
+
+    <div class="sim-controls">
+      <button class="btn primary" id="race-go">🏁 ¡Iniciar carrera!</button>
+      <button class="btn ghost" id="race-new">🎲 Nuevo arreglo</button>
+      <div class="slider-wrap">
+        <span>Tamaño:</span>
+        <input type="range" id="race-size" min="15" max="60" value="30">
+        <strong id="race-size-label" style="color:var(--azul-claro)">30</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-desafio">
+    <h4>🧪 Experimento mental</h4>
+    <p>Prueba correr la carrera con <strong>arreglos pequeños (15 elementos)</strong> y luego con <strong>grandes (60 elementos)</strong>. ¿Notas cómo la diferencia entre algoritmos se hace más evidente con más datos? Eso es <strong>Big O en acción</strong>. 🚀</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Taller →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — TALLER DE CODIFICACIÓN
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🛠️ Taller de Codificación</h2>
+  <p class="meta-modulo">⏱️ 30 minutos · Completa el código — feedback instantáneo</p>
+
+  <div class="caja-concepto">
+    <h3>🎬 Tu misión</h3>
+    <p>Llegó la hora de la verdad. Vas a <strong>completar código real</strong> en C#. Lee el contexto, piensa la lógica faltante y escribe en cada recuadro. Al presionar <strong>Validar</strong>, obtendrás feedback inmediato.</p>
+  </div>
+
+  <!-- Reto 1: Swap -->
+  <h3>🔀 Reto 1: El arte del Swap</h3>
+  <p>Toda base del ordenamiento es intercambiar dos valores. Completa la función <code>Intercambiar</code>:</p>
+  <div class="ws-code">
+<span class="kw">static void</span> <span class="fn">Intercambiar</span>(<span class="kw">int</span>[] arr, <span class="kw">int</span> i, <span class="kw">int</span> j)
+{
+    <span class="kw">int</span> temp = <input class="ws-input" data-ans="arr[i]" data-ws="1" placeholder="?">;
+    arr[i]   = <input class="ws-input" data-ans="arr[j]" data-ws="1" placeholder="?">;
+    arr[j]   = <input class="ws-input" data-ans="temp"   data-ws="1" placeholder="?">;
+}
+  </div>
+  <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+  <div class="resultado-ws" id="ws-fb-1"></div>
+
+  <!-- Reto 2: Burbuja -->
+  <h3>💧 Reto 2: La condición de Burbuja</h3>
+  <p>Completa la <strong>condición</strong> del <code>if</code> y los límites del bucle interno:</p>
+  <div class="ws-code">
+<span class="kw">for</span> (<span class="kw">int</span> i = <span class="num">0</span>; i &lt; n - <span class="num">1</span>; i++)
+{
+    <span class="kw">for</span> (<span class="kw">int</span> j = <span class="num">0</span>; j &lt; <input class="ws-input" data-ans="n - i - 1" data-ws="2" placeholder="?">; j++)
+    {
+        <span class="kw">if</span> (arr[j] <input class="ws-input" data-ans="&gt;" data-ws="2" placeholder="?"> arr[j + <span class="num">1</span>])
+        {
+            Intercambiar(arr, j, j + <span class="num">1</span>);
+        }
+    }
+}
+  </div>
+  <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+  <div class="resultado-ws" id="ws-fb-2"></div>
+
+  <!-- Reto 3: Selección -->
+  <h3>🎯 Reto 3: Caza del mínimo</h3>
+  <p>Completa cómo se detecta el nuevo mínimo y qué variable se actualiza:</p>
+  <div class="ws-code">
+<span class="kw">for</span> (<span class="kw">int</span> j = i + <span class="num">1</span>; j &lt; n; j++)
+{
+    <span class="kw">if</span> (arr[j] <input class="ws-input" data-ans="&lt;" data-ws="3" placeholder="?"> arr[indiceMin])
+    {
+        indiceMin = <input class="ws-input" data-ans="j" data-ws="3" placeholder="?">;
+    }
+}
+  </div>
+  <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+  <div class="resultado-ws" id="ws-fb-3"></div>
+
+  <!-- Reto 4: Inserción -->
+  <h3>🃏 Reto 4: Desplazamiento en Inserción</h3>
+  <p>Completa el <code>while</code> que desplaza los elementos mayores y la asignación final:</p>
+  <div class="ws-code">
+<span class="kw">while</span> (j <input class="ws-input" data-ans="&gt;= 0" data-ws="4" placeholder="?"> &amp;&amp; arr[j] &gt; llave)
+{
+    arr[j + <span class="num">1</span>] = <input class="ws-input" data-ans="arr[j]" data-ws="4" placeholder="?">;
+    j--;
+}
+arr[j + <span class="num">1</span>] = <input class="ws-input" data-ans="llave" data-ws="4" placeholder="?">;
+  </div>
+  <button class="btn primary" data-check-ws="4">✓ Validar Reto 4</button>
+  <div class="resultado-ws" id="ws-fb-4"></div>
+
+  <div class="cierre" style="margin-top:2.5rem">
+    <h2>🏆 ¡Misión completada!</h2>
+    <p class="lead">Si completaste los 4 retos correctamente, ya tienes las bases de un verdadero ingeniero de software. Esto es solo el <strong>capítulo 1</strong> del ordenamiento. Algoritmos como <strong>Merge Sort (O(n log n))</strong> y <strong>Quick Sort</strong> te esperan en el próximo nivel. ¿Listo para el desafío?</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🎓 SortLab · Plataforma de Autoaprendizaje</div>
+  <div>Algoritmos de Ordenamiento en C# · 3.5 horas · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem">Hecho con 💜 para adolescentes que quieren pensar como ingenieros.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
