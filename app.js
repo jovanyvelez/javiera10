@@ -35,7 +35,8 @@ function cargarProgresoPorClase() {
   const TOTALES_MODULOS = {
     'curso-contadores-acum-banderas': 5,
     'curso-ordenacion-sortlab': 5,
-    'curso-validacion-arreglos': 5
+    'curso-validacion-arreglos': 5,
+    'curso-integracion-estructuras': 5
   };
 
   let totalGlobal = 0;
@@ -97,7 +98,7 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 3,   800);
-  animarNumero(document.getElementById('stat-clases'),  0, 3,   900);
+  animarNumero(document.getElementById('stat-clases'),  0, 4,   900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
@@ -157,11 +158,16 @@ document.addEventListener('keydown', (e) => {
     const card = document.querySelector('.clase-card.ha-14');
     if (card) card.click();
   }
+  // Tecla 4 → Clase 15
+  if (e.key === '4') {
+    const card = document.querySelector('.clase-card.ha-15');
+    if (card) card.click();
+  }
 });
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras'];
 
   let tienePrograma = false;
 
@@ -180,7 +186,7 @@ window.addEventListener('load', () => {
     }, 600);
   } else {
     setTimeout(() => {
-      mostrarToast('💡 Tip: usa las teclas 1-3 para saltar a una clase disponible.');
+      mostrarToast('💡 Tip: usa las teclas 1-4 para saltar a una clase disponible.');
     }, 1200);
   }
 });
