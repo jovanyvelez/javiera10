@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 1 · ¿Qué es un SO?</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🖥️</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 1</h1>
+      <p class="subtitulo">¿Qué es un SO? · Historia · El intermediario invisible</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🧭 ¿Qué es?</button>
+  <button class="btn-modulo" data-modulo="2">🧱 Capas</button>
+  <button class="btn-modulo" data-modulo="3">📜 Historia</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🌳 Familias</button>
+  <button class="btn-modulo" data-modulo="6">🕵️ Intermediario</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🖥️ ¡Bienvenido/a al mundo de los Sistemas Operativos!</h2>
+    <p class="lead">Cada vez que despiertas tu celular, abres una app o juegas, hay un <strong>director de orquesta invisible</strong> trabajando tras bambalinas: el <strong>Sistema Operativo</strong>. En esta clase vas a descubrir qué es, de dónde viene y por qué está en absolutamente todo lo que tiene pantalla.</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — sysadmin@so</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cmd">whoami</span></div>
+        <div class="out">alumno_décimo</div>
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cmd">uname --moraleja</span></div>
+        <div class="out">"El SO es el traductor entre tú y la máquina."</div>
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos cortos, con un descanso de 15 minutos a la mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Entender qué es un sistema operativo, su historia, sus familias y su rol como intermediario entre el usuario y el hardware.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Ganas de preguntar. No hace falta saber programar: aquí empezamos desde cero, con analogías de la vida real.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es un SO?</td><td style="color:var(--cian)">Definición</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Anatomía por capas</td><td style="color:var(--rosa)">Arquitectura</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Historia y evolución</td><td style="color:var(--ambar)">Línea de tiempo</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Familias de SO</td><td style="color:var(--verde)">Windows/mac/Linux</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · El intermediario</td><td style="color:var(--morado-claro)">Rol actual</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--morado)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: con tu compañero/a de computadora, <strong>escriban en una sola palabra</strong> qué creen que hace que un celular "despierte" cuando lo tocas. ¿Es magia? ¿Es una app? ¿Es algo más? No busquen la respuesta correcta, solo escriban su intuición. La confirmaremos al final de la clase.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es un SO? →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — ¿QUÉ ES UN SISTEMA OPERATIVO?
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🧭 ¿Qué es un Sistema Operativo?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El director de orquesta" — el intermediario entre tú y la máquina</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina un <strong>restaurante</strong>. Tú (el cliente) solo quieres comer: pides la comida y te la traen. Pero detrás hay un caos organizado: alguien asigna las mesas, alguien cocina, alguien cobra, alguien limpia. Ese "alguien" que <strong>coordina todo</strong> sin que tú te enteres… es el <strong>gerente del restaurante</strong>.</p>
+    <p>Un <strong>Sistema Operativo (SO)</strong> es exactamente eso: el <strong>gerente del computador</strong>. Es un programa especial que <strong>se encarga de que todo funcione</strong> —la pantalla, el teclado, los archivos, los programas— y que <strong>traduce</strong> tus deseos ("abrir esta foto") en órdenes que el hardware entiende ("enciende estos pixeles, lee estos bytes del disco").</p>
+    <p>En una frase: <strong>el SO es el intermediario entre el usuario y el hardware.</strong></p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Piensen en otro ejemplo de la vida cotidiana donde haya un "intermediario invisible" (por ejemplo: el director de un coro, un traductor en una reunión, un recepcionista en un hotel). Con su compañero/a, <strong>escojan uno</strong> y díganle al grupo: ¿qué pasaría si ese intermediario desapareciera?</p>
+  </div>
+
+  <h3>🎯 Las 4 grandes tareas del SO</h3>
+  <p>El "gerente" tiene cuatro responsabilidades enormes. Memorízalas: serán la base de TODA la clase.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🧠 Procesador (CPU)</h4>
+      <p>Decide <strong>qué programa</strong> usa el cerebro del computador y <strong>cuándo</strong>. Como un maître que asigna las mesas: nadie se queda sin atención, todos parecen atendidos a la vez.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>💾 Memoria (RAM)</h4>
+      <p>Reparte la "mesa de trabajo" entre los programas. Si 10 apps quieren memoria al mismo tiempo, el SO decide <strong>qué cacho le toca a cada una</strong> sin que se pisen.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🗄️ Almacenamiento</h4>
+      <p>Organiza los archivos en el disco (fotos, apps, documentos). Es el <strong>archivador</strong>: sabe dónde está cada cosa aunque haga meses que no la abres.</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a" style="grid-column: 1 / -1; max-width: 100%;">
+      <h4>🔌 Dispositivos (I/O)</h4>
+      <p>Habla con teclado, pantalla, impresora, red, Bluetooth, cámara… Es el <strong>traductor universal</strong>: convierte "tocaste la pantalla" en coordenadas, "presionaste una tecla" en una letra, "llegó un WiFi" en una página web.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El Restaurante del SO</h3>
+  <p>Tú eres el <strong>gerente</strong>. Cada vez que llega un cliente, el SO (tú) le asigna una mesa (CPU), pide a la cocina su pedido (memoria) y registra el ingreso. Observa cómo todo se coordina sin que el cliente vea el caos.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🍽️ El Restaurante — el SO como gerente</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado del sistema</div>
+      <div class="state-grid">
+        <div class="state-cell" id="r-cell-mesas">
+          <div class="label">Mesas (CPU)</div>
+          <span class="skey">ocupadas</span>
+          <span class="sval" id="r-mesas-val">0/8</span>
+        </div>
+        <div class="state-cell" id="r-cell-mem">
+          <div class="label">Cocina (RAM)</div>
+          <span class="skey">pedidos</span>
+          <span class="sval" id="r-mem-val">0</span>
+        </div>
+        <div class="state-cell" id="r-cell-disco">
+          <div class="label">Caja (disco)</div>
+          <span class="skey">facturas</span>
+          <span class="sval" id="r-disco-val">0</span>
+        </div>
+        <div class="state-cell" id="r-cell-io">
+          <div class="label">Camarero (I/O)</div>
+          <span class="skey">servicios</span>
+          <span class="sval" id="r-io-val">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurante">
+      <div class="rest-escena">
+        <div class="counter-label">Salón del restaurante</div>
+        <div class="rest-mesas" id="restMesas"></div>
+        <div class="rest-stats">
+          <div class="rest-stat"><div class="num" id="restClientes">0</div><div class="lbl">clientes</div></div>
+          <div class="rest-stat"><div class="num" id="restFacturado">$0</div><div class="lbl">facturado</div></div>
+        </div>
+      </div>
+      <div class="rest-log" id="restLog">
+        <div class="log-line"><span class="t">[SO]</span> Restaurante abierto. Esperando clientes…</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="restAdd">🚶 Llega un cliente</button>
+      <button class="btn" id="restAtender">🍳 Atender siguiente pedido</button>
+      <button class="btn" id="restCobrar">💵 Cobrar y liberar mesa</button>
+      <button class="btn ghost" id="restReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Cuando tu celular "se cuelga", lo que falla NO es la app: es el <strong>SO</strong> que no logra repartir la CPU o la RAM entre tantas apps. Por eso reiniciar funciona: el SO empieza de cero y vuelve a coordinar todo.</p>
+  </div>
+
+  <h3>💻 El SO en una terminal real</h3>
+  <p>Si abres una terminal (esa pantalla negra con texto), estás hablando <strong>directamente con el SO</strong>. Esto es lo que verías al pedirle info:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal</div>
+      <button class="copy-btn" data-copy="term1">📋 Copiar</button>
+    </div>
+    <pre><code>$ uname -s       <span style="color:#5c6370"># ¿cuál es tu nombre, SO?</span>
+Linux
+$ uptime          <span style="color:#5c6370"># ¿cuánto llevas funcionando?</span>
+ 14:32:01 up 3 days,  2:15,  2 users
+$ free -h         <span style="color:#5c6370"># ¿cuánta RAM administras?</span>
+               total   used   free
+  Mem:           7.7Gi   2.1Gi   4.2Gi</code></pre>
+  </div>
+
+  <h3>⚡ ¿Dónde está el SO?</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta tarjeta-verde">
+      <h3>✅ Está EN todos lados</h3>
+      <p>Celular, laptop, tablet, smart TV, consola de videojuegos, reloj inteligente, router WiFi, cajero automático, el sistema del auto, una nave espacial. Si tiene chip y pantalla, tiene SO.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <h3>❌ NO es una app</h3>
+      <p>El SO no es WhatsApp ni Chrome. Es <strong>lo que permite que WhatsApp y Chrome existan</strong>. Es la capa de abajo: sin SO, ningún programa podría arrancar.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es la mejor analogía para un Sistema Operativo?</p>
+      <button class="opcion" data-op="a">Una aplicación como WhatsApp</button>
+      <button class="opcion" data-op="b">Un gerente que coordina todo el restaurante</button>
+      <button class="opcion" data-op="c">Un periférico como el teclado</button>
+      <button class="opcion" data-op="d">Un archivo guardado en el disco</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál de estas NO es una de las 4 grandes tareas del SO?</p>
+      <button class="opcion" data-op="a">Administrar el procesador (CPU)</button>
+      <button class="opcion" data-op="b">Repartir la memoria (RAM)</button>
+      <button class="opcion" data-op="c">Cobrarle dinero a los usuarios</button>
+      <button class="opcion" data-op="d">Hablar con dispositivos (I/O)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Anatomía por capas →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — ANATOMÍA POR CAPAS
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>🧱 Anatomía por capas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La cebolla del computador" — dónde vive el SO</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un computador es como una <strong>cebolla</strong>: tiene capas. En el centro está el hardware (los chips, los cables). Afuera estás tú (el usuario). Y entre medio… están varias capas de software, siendo el SO la más importante.</p>
+    <p>El SO no flota en el aire: vive <strong>justo encima del hardware</strong> y <strong>debajo de las aplicaciones</strong>. Es el puente.</p>
+  </div>
+
+  <h3>🗺️ Las 5 capas (de abajo hacia arriba)</h3>
+  <div class="capas-wrap" id="capasWrap">
+    <div class="capa c-hardware" data-capa="hardware">
+      <span class="capa-icon">⚡</span>
+      <span class="capa-name">Hardware</span>
+      <span class="capa-desc">Chips, circuitos, disco, pantalla física. Lo que puedes tocar.</span>
+      <span class="capa-drop" data-drops="hardware"></span>
+    </div>
+    <div class="capa c-kernel" data-capa="kernel">
+      <span class="capa-icon">🔬</span>
+      <span class="capa-name">Kernel</span>
+      <span class="capa-desc">El corazón del SO. Habla directamente con el hardware. Nadie lo ve.</span>
+      <span class="capa-drop" data-drops="kernel"></span>
+    </div>
+    <div class="capa c-so" data-capa="so">
+      <span class="capa-icon">🖥️</span>
+      <span class="capa-name">Sistema Operativo</span>
+      <span class="capa-desc">Windows, Linux, Android… Los servicios: archivos, red, permisos, ventanas.</span>
+      <span class="capa-drop" data-drops="so"></span>
+    </div>
+    <div class="capa c-apps" data-capa="apps">
+      <span class="capa-icon">📱</span>
+      <span class="capa-name">Aplicaciones</span>
+      <span class="capa-desc">WhatsApp, Chrome, juegos, el editor de fotos. Lo que tú usas.</span>
+      <span class="capa-drop" data-drops="apps"></span>
+    </div>
+    <div class="capa c-user" data-capa="user">
+      <span class="capa-icon">🧑</span>
+      <span class="capa-name">Usuario</span>
+      <span class="capa-desc">Tú. Das las órdenes tocando, escribiendo, hablando.</span>
+      <span class="capa-drop" data-drops="user"></span>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Con tu compañero/a, observen la cebolla de arriba. <strong>Cada uno escoja 2 elementos</strong> de la lista de abajo y decidan juntos a qué capa pertenecen. Luego hagan el reto interactivo y comparen.</p>
+  </div>
+
+  <h3>🎮 Reto: Clasifica cada elemento en su capa</h3>
+  <p>Toca un elemento del banco y luego toca la capa donde crees que pertenece. Hay 8 elementos por clasificar.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧩 Clasificador de capas</div>
+
+    <div class="item-bank" id="itemBank"></div>
+
+    <div class="caja-tip" id="capasFeedback" style="display:none;">
+      <h4>📊 Progreso</h4>
+      <p id="capasProgress">0/8 clasificados</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn ghost" id="capasReset">🔄 Reiniciar clasificación</button>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común</h4>
+    <p> Mucha gente cree que el navegador (Chrome) <strong>es</strong> el sistema operativo. ¡Falso! Chrome es una <strong>aplicación</strong> que corre <strong>encima</strong> del SO. Si tu SO es Linux, Chrome corre sobre Linux; si es Windows, corre sobre Windows.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El kernel: el jefe que nadie ve</h4>
+    <p>Dentro del SO hay un núcleo llamado <strong>kernel</strong>. Es el único programa con permiso para tocar el hardware directamente. Las apps <strong>nunca</strong> tocan el hardware: le piden al kernel, y él decide. Es como el jefe de cocina que es el único que puede entrar a la cocina: los meseros piden, pero no entran.</p>
+  </div>
+
+  <h3>💻 Cuando una app le pide algo al SO</h3>
+  <p>Las apps hablan con el SO mediante "llamadas al sistema" (syscalls). Así se ve en código:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.cs</div>
+      <button class="copy-btn" data-copy="syscall">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#c678dd">// La app QUIERE abrir un archivo...</span>
+<span style="color:#61afef">File</span>.Open(<span style="color:#98c379">"foto.jpg"</span>);
+
+<span style="color:#5c6370">// ...pero en realidad le pide al kernel:</span>
+<span style="color:#e5c07b">syscall</span>(<span style="color:#98c379">"open"</span>, <span style="color:#98c379">"foto.jpg"</span>);
+<span style="color:#5c6370">// el kernel verifica permisos y abre el archivo</span></code></pre>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿En qué capa vive el sistema operativo?</p>
+      <button class="opcion" data-op="a">En la capa del usuario</button>
+      <button class="opcion" data-op="b">Entre el hardware y las aplicaciones</button>
+      <button class="opcion" data-op="c">Dentro del hardware (los chips)</button>
+      <button class="opcion" data-op="d">Dentro de las aplicaciones</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué es el kernel?</p>
+      <button class="opcion" data-op="a">El corazón del SO, el único que toca el hardware</button>
+      <button class="opcion" data-op="b">Una aplicación como Chrome</button>
+      <button class="opcion" data-op="c">Un periférico como el ratón</button>
+      <button class="opcion" data-op="d">El usuario que maneja la computadora</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Historia y evolución →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — HISTORIA Y EVOLUCIÓN
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>📜 Historia y evolución</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "De tarjetas perforadas a tu bolsillo" — 70 años en 7saltos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El SO no apareció de la nada: <strong>evolucionó</strong>. Al principio no existía (tú mismo conectabas los cables). Luego se automatizó, se hizo portátil, llegó a tu casa y finalmente a tu bolsillo. Cada salto resolvió un problema del anterior.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de leer la línea de tiempo: con su compañero/a, adivinen. <strong>¿En qué década creen que apareció el primer SO que se parece a los de hoy?</strong> (con ventanas, íconos, ratón). Apúntelo mentalmente y luego revisen.</p>
+  </div>
+
+  <h3>🕰️ Línea de tiempo interactiva</h3>
+  <p>Toca cada era para descubrir qué cambió. Observa cómo cada salto resolvió un problema del anterior.</p>
+
+  <div class="timeline" id="timeline">
+    <div class="tl-item" data-era="0">
+      <div class="tl-dot">⏪</div>
+      <div class="tl-card">
+        <span class="tl-era">Años 50 · Sin SO</span>
+        <div class="tl-title">El operador humano era el SO</div>
+        <div class="tl-body">
+          <p>Las primeras computadoras (ENIAC, UNIVAC) no tenían SO. El programador <strong>conectaba cables físicamente</strong> y usaba <strong>tarjetas perforadas</strong> para dar las instrucciones. Cada turno duraba horas. Si algo fallaba, empezabas de cero.</p>
+          <span class="tl-changed">🔥 Cambió: apareció la idea de "automatizar" la operación.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-era="1">
+      <div class="tl-dot">①</div>
+      <div class="tl-card">
+        <span class="tl-era">Años 60 · Batch</span>
+        <div class="tl-title">Procesamiento por lotes</div>
+        <div class="tl-body">
+          <p>Nace el <strong>primer SO real</strong>: en lugar de una tarjeta a la vez, se apilaban muchas (un "lote" o batch) y una rutina las procesaba una tras otra sin intervención humana. IBM lanza <strong>OS/360</strong> en 1964. La gente ya no esperaba entre trabajos.</p>
+          <span class="tl-changed">🔥 Cambió: el computador dejó de esperar al humano.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-era="2">
+      <div class="tl-dot">②</div>
+      <div class="tl-card">
+        <span class="tl-era">Años 70 · Multiprogramación</span>
+        <div class="tl-title">Unix y el tiempo compartido</div>
+        <div class="tl-body">
+          <p>Varios programas podían estar en memoria a la vez y el SO les daba <strong>turnitos de CPU</strong> tan rápidos que parecían simultáneos. Aparece <strong>Unix</strong> (1969, Ken Thompson & Dennis Ritchie en Bell Labs) y con él el lenguaje <strong>C</strong>. Unix es el abuelo de Linux, macOS y Android.</p>
+          <span class="tl-changed">🔥 Cambió: varios usuarios al mismo tiempo, en la misma máquina.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-era="3">
+      <div class="tl-dot">③</div>
+      <div class="tl-card">
+        <span class="tl-era">Años 80 · PC + GUI</span>
+        <div class="tl-title">El SO llega a casa, con ventanas</div>
+        <div class="tl-body">
+          <p>Las computadoras personales llegan al hogar. <strong>MS-DOS</strong> (Microsoft, 1981) se instala en el IBM PC: era de línea de comandos. Luego <strong>Xerox PARC</strong> inventa la interfaz gráfica (ventanas, íconos, ratón) y <strong>Apple</strong> la populariza con el Macintosh (1984). Adiós a escribir comandos: ahora <strong>tocas íconos</strong>.</p>
+          <span class="tl-changed">🔥 Cambió: el SO se volvió usable para no-programadores.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-era="4">
+      <div class="tl-dot">④</div>
+      <div class="tl-card">
+        <span class="tl-era">Años 90 · Windows 95 + Linux</span>
+        <div class="tl-title">El SO dominante y el SO libre</div>
+        <div class="tl-body">
+          <p><strong>Windows 95</strong> lleva la GUI a casi todo el planeta. Pero en 1991, un estudiante finlandés llamado <strong>Linus Torvalds</strong> crea <strong>Linux</strong> y lo libera gratis con su código fuente abierto. Hoy Linux corre en <strong>el 90% de los servidores de Internet</strong>, en todo Android y en la Estación Espacial Internacional.</p>
+          <span class="tl-changed">🔥 Cambió: nació el software libre y la colaboración mundial.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-era="5">
+      <div class="tl-dot">⑤</div>
+      <div class="tl-card">
+        <span class="tl-era">Años 2000 · Móvil</span>
+        <div class="tl-title">El SO se va al bolsillo</div>
+        <div class="tl-body">
+          <p>Llegan los smartphones. <strong>iOS</strong> (Apple, 2007) y <strong>Android</strong> (Google, 2008, basado en Linux) hacen que cada persona lleve un SO en el bolsillo. El SO ahora debe administrar <strong>batería, sensores, GPS, táctil</strong>. Ya no es solo para escritorio: es para caminar.</p>
+          <span class="tl-changed">🔥 Cambió: el SO aprendió a ahorrar energía y a ir contigo.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tl-item" data-era="6">
+      <div class="tl-dot">⑥</div>
+      <div class="tl-card">
+        <span class="tl-era">Años 2010-2025 · Cloud + IA</span>
+        <div class="tl-title">El SO en la nube y en todas partes</div>
+        <div class="tl-body">
+          <p>El SO ya no vive solo en tu aparato: vive en <strong>la nube</strong> (centros de datos con miles de máquinas). Aparecen los asistentes de voz, los SO de autos autónomos, los SO de relojes, routers, TVs, cajeros. Y ahora <strong>la IA</strong> empieza a integrarse dentro del SO (Windows Copilot, Android Gemini). El intermediario cada vez es más inteligente.</p>
+          <span class="tl-changed">🔥 Cambió: el SO está en cada objeto con chip, y empieza a "entender" tu intención.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-historia">
+    <h4>📖 Dato curioso</h4>
+    <p>El nombre "Windows" viene de las "ventanas" en pantalla que puedes abrir y cerrar. Antes de Windows 95, para copiar un archivo escribías <code>copy archivo.txt destino/</code>. Después, lo arrastras con el ratón. Misma tarea, dos mundos distintos.</p>
+  </div>
+
+  <h3>⚡ La evolución en una tabla</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Década</th><th>Hito</th><th>Problema que resolvió</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>50s</td><td>Sin SO</td><td>(no existía)</td></tr>
+        <tr><td>60s</td><td>OS/360 (batch)</td><td>Espera entre trabajos</td></tr>
+        <tr><td>70s</td><td>Unix + tiempo compartido</td><td>Un usuario a la vez</td></tr>
+        <tr><td>80s</td><td>MS-DOS + GUI (Mac)</td><td>El SO era solo para técnicos</td></tr>
+        <tr><td>90s</td><td>Windows 95 + Linux</td><td>Costo y cerradura del código</td></tr>
+        <tr><td>2000s</td><td>iOS + Android</td><td>El SO era solo de escritorio</td></tr>
+        <tr><td>2010+</td><td>Cloud + IA en el SO</td><td>El SO vive en un solo aparato</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Quién creó Unix en 1969?</p>
+      <button class="opcion" data-op="a">Bill Gates y Steve Jobs</button>
+      <button class="opcion" data-op="b">Ken Thompson y Dennis Ritchie</button>
+      <button class="opcion" data-op="c">Linus Torvalds</button>
+      <button class="opcion" data-op="d">Mark Zuckerberg</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿En qué año Linus Torvalds liberó Linux?</p>
+      <button class="opcion" data-op="a">1969</button>
+      <button class="opcion" data-op="b">1984</button>
+      <button class="opcion" data-op="c">1991</button>
+      <button class="opcion" data-op="d">2007</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro aprende mejor después de una pausa.</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo que esté a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Girar el cuello 5 veces a cada lado. Estirar los brazos hacia el techo 10 segundos. Tocarse los pies sin doblar las rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso de agua mejora la concentración hasta 30 minutos. <strong>Beba ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a una cosa nueva que aprendiste. Explicar consolida la memoria. 1 minuto basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿qué SO usa tu celular?</h3>
+    <p>Pregunta rápida antes de volver. Toca la opción que creas correcta (no vale googlear):</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">📱 Android está basado en Linux</button>
+      <button class="trivia-opt" data-top="b">🍎 iOS está basado en Windows</button>
+      <button class="trivia-opt" data-top="c">🐧 Linux solo sirve para servidores</button>
+      <button class="trivia-opt" data-top="d">💻 macOS y Android son el mismo SO</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>El SO del rover Perseverance que está en <strong>Marte</strong> es… <strong>Linux</strong>. El mismo que mueve el 90% de los servidores de Internet, también aterriza robots en otros planetas. Software libre, literalmente, fuera de este mundo. 🚀</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Familias de SO →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — FAMILIAS DE SO
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🌳 Familias de SO hoy</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El árbol genealógico" — de quién desciende cada SO</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Hoy existen <strong>decenas</strong> de sistemas operativos, pero casi todos descienden de <strong>cuatro familias</strong>. Como en genealogía: hay troncos comunes y ramas. Conocer el árbol te ayuda a entender por qué unos son parecidos entre sí y otros no.</p>
+  </div>
+
+  <h3>🌲 El árbol genealógico</h3>
+  <div class="family-tree">
+    <div class="family-root">Unix (1969) — el tronco común</div>
+    <div class="family-branches">
+      <div class="family-branch win">
+        <h4>🪟 Windows</h4>
+        <p>De Microsoft. Nació como capa gráfica sobre MS-DOS. Hoy es la familia más usada en <strong>PCs de escritorio</strong>.</p>
+        <div class="deriv"><span>Windows 10</span><span>Windows 11</span><span>Windows Server</span></div>
+      </div>
+      <div class="family-branch mac">
+        <h4>🍎 macOS</h4>
+        <p>De Apple. Desciende de Unix (vía BSD). Privativo, pero por dentro es primo de Linux. Muy pulido.</p>
+        <div class="deriv"><span>macOS</span><span>iOS</span><span>iPadOS</span><span>watchOS</span><span>tvOS</span></div>
+      </div>
+      <div class="family-branch lin">
+        <h4>🐧 Linux</h4>
+        <p>Libre y gratuito. Desciende de Unix. Mueve <strong>servidores, Android, routers, coches</strong>. Abierto: cualquiera puede ver y modificar su código.</p>
+        <div class="deriv"><span>Ubuntu</span><span>Debian</span><span>Fedora</span><span>Android</span><span>ChromeOS</span></div>
+      </div>
+      <div class="family-branch mob">
+        <h4>📱 Móviles</h4>
+        <p>Hoy casi todo móvil usa Android (Linux) o iOS (Unix). <strong>Las dos grandes familias comparten tronco.</strong></p>
+        <div class="deriv"><span>Android (Linux)</span><span>iOS (Unix)</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a: miren el árbol. <strong>¿Qué tienen en común macOS e iOS que no tiene Windows?</strong> Pista: miren de dónde descienden. Discútanlo y luego hagan el reto.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué Linux importa tanto?</h4>
+    <p>Linux es <strong>open source</strong> (código abierto): su código es público y cualquiera puede leerlo, modificarlo y redistribuirlo. Por eso se adaptó a miles de usos: desde tu Android hasta el supercomputador que predice el clima. <strong>Es libre como el aire</strong>, y por eso está en todas partes.</p>
+  </div>
+
+  <h3>🎮 Reto: Asigna el SO correcto al dispositivo</h3>
+  <p>Toca un dispositivo y luego el SO que creas que lleva. Hay 6 dispositivos por acertar.</p>
+
+  <div class="match-game">
+    <div class="sim-head">📱 Dispositivo → SO</div>
+    <p id="matchInstr" style="font-size:0.88rem;color:var(--texto-suave);">Toca un dispositivo de la izquierda para seleccionarlo.</p>
+    <div class="match-grid" id="matchGrid"></div>
+    <div class="match-options" id="matchOptions"></div>
+    <div class="match-feedback" id="matchFeedback"></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="matchReset">🔄 Reiniciar reto</button>
+    </div>
+  </div>
+
+  <h3>💻 Familias en la terminal</h3>
+  <p>Las familias Unix (Linux, macOS) comparten comandos. Windows no. Por eso en macOS funciona <code>ls</code> pero en Windows usas <code>dir</code>:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>comparativa</div>
+      <button class="copy-btn" data-copy="fam">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#5c6370"># Linux / macOS (familia Unix):</span>
+$ ls              <span style="color:#5c6370"># listar archivos</span>
+$ cp a.txt b.txt  <span style="color:#5c6370"># copiar</span>
+$ rm a.txt        <span style="color:#5c6370"># borrar</span>
+
+<span style="color:#5c6370"># Windows (familia propia):</span>
+&gt; dir             <span style="color:#5c6370"># listar archivos</span>
+&gt; copy a.txt b.txt <span style="color:#5c6370"># copiar</span>
+&gt; del a.txt       <span style="color:#5c6370"># borrar</span></code></pre>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿En qué familia de SO está basado Android?</p>
+      <button class="opcion" data-op="a">Windows</button>
+      <button class="opcion" data-op="b">Linux</button>
+      <button class="opcion" data-op="c">iOS</button>
+      <button class="opcion" data-op="d">MS-DOS</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué significa que Linux sea "open source"?</p>
+      <button class="opcion" data-op="a">Su código es público y cualquiera puede verlo y modificarlo</button>
+      <button class="opcion" data-op="b">Es gratis pero el código es secreto</button>
+      <button class="opcion" data-op="c">Solo sirve para servidores</button>
+      <button class="opcion" data-op="d">Es propiedad de Microsoft</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: El intermediario invisible →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — EL INTERMEDIARIO INVISIBLE
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>🕵️ El intermediario invisible</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Lo que pasa cuando tocas un ícono" — el SO en acción</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando tocas el ícono de una app en tu celular, parece magia: la app abre. Pero en realidad <strong>acaba de ocurrir una cadena de pasos</strong> que involucra al usuario, la app, el SO, el kernel y el hardware. El SO es el <strong>intermediario invisible</strong> que conecta todo. Entender esa cadena es entender qué es un SO de verdad.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Con su compañero/a, en <strong>5 pasos</strong>, adivinen qué pasa cuando tocas el ícono de WhatsApp. ¿Quién le pide qué a quién? Escríbanlo en orden antes de ver el simulador. Luego comparen.</p>
+  </div>
+
+  <h3>🎮 Simulador: Sigue la petición</h3>
+  <p>Presiona <strong>"Abrir app"</strong> y observa cómo la petición <strong>viaja hacia abajo</strong> por las capas hasta el hardware, y luego <strong>regresa hacia arriba</strong> con el resultado. Ese viaje es lo que hace el SO en cada toque.</p>
+
+  <div class="trace-sim">
+    <div class="sim-head">📲 Sigue la petición — capas del SO</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado de la petición</div>
+      <div class="state-grid">
+        <div class="state-cell" id="traceCellStep">
+          <div class="label">Paso actual</div>
+          <span class="skey">etapa</span>
+          <span class="sval" id="traceStep">—</span>
+        </div>
+        <div class="state-cell" id="traceCellLatency">
+          <div class="label">Latencia</div>
+          <span class="skey">ms</span>
+          <span class="sval" id="traceLatency">0</span>
+        </div>
+        <div class="state-cell" id="traceCellApps">
+          <div class="label">Apps abiertas</div>
+          <span class="skey">contador</span>
+          <span class="sval" id="traceApps">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trace-layers" id="traceLayers">
+      <div class="trace-layer" data-layer="0">
+        <span class="t-icon">🧑</span>
+        <span class="t-name">Usuario</span>
+        <span class="t-desc">Toca el ícono de la app</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="1">
+        <span class="t-icon">📱</span>
+        <span class="t-name">App</span>
+        <span class="t-desc">Pide al SO: "ábrete"</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="2">
+        <span class="t-icon">🖥️</span>
+        <span class="t-name">Sistema Operativo</span>
+        <span class="t-desc">Recibe la petición, verifica permisos</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="3">
+        <span class="t-icon">🔬</span>
+        <span class="t-name">Kernel</span>
+        <span class="t-desc">Traduce a órdenes para el hardware</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="4">
+        <span class="t-icon">⚡</span>
+        <span class="t-name">Hardware</span>
+        <span class="t-desc">Asigna CPU + RAM + GPU, pinta píxeles</span>
+        <span class="t-pulse"></span>
+      </div>
+    </div>
+
+    <div class="trace-log" id="traceLog">
+      <div class="log-line"><span class="t">[SO]</span> Esperando petición…</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="traceOpen">📲 Abrir app</button>
+      <button class="btn" id="traceOpen3">📲 Abrir 3 apps (estrés)</button>
+      <button class="btn ghost" id="traceReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El truco de la "simultaneidad"</h4>
+    <p>Si el SO está atendiendo una petición, ¿cómo es que <strong>otras apps siguen funcionando</strong>? Porque el kernel reparte la CPU en <strong>turnitos de milisegundos</strong>, tan rápido que parece simultáneo. A esto se le llama <strong>multitarea</strong>, y es la magia que inventó Unix en los 70.</p>
+  </div>
+
+  <h3>🌍 El SO está en todas partes</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">🚗</span>
+      <h3>Auto moderno</h3>
+      <p>El sistema de infoentretenimiento, los frenos ABS y hasta el control de crucero corren sobre un SO (muchas veces Linux).</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">🏦</span>
+      <h3>Cajero automático</h3>
+      <p>Cada cajero tiene un SO que gestiona pantalla, lector de tarjetas y contador de billetes. Muchos aún usan Windows XP embebido.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🛰️</span>
+      <h3>Satélites y naves</h3>
+      <p>El rover de Marte, la Estación Espacial y los satélites usan SO de tiempo real (y Linux en muchos casos).</p>
+    </div>
+    <div class="tarjeta tarjeta-warm">
+      <span class="emoji">📺</span>
+      <h3>Smart TV</h3>
+      <p>La TV que navega Netflix tiene un SO dentro (Tizen, webOS, Android TV). Mismo intermediario, otra pantalla.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Cuando el SO falla, falla todo</h4>
+    <p>Si una app se cuelga, la cierras y listo. Pero <strong>si el SO se cuelga</strong>, todo el aparato se reinicia (pantallazo azul, kernel panic). Por eso el SO es el programa más cuidado y testeado del computador: si él cae, todo cae.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 6 -->
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> Cuando tocas un ícono, ¿quién recibe la petición primero después de la app?</p>
+      <button class="opcion" data-op="a">El hardware directamente</button>
+      <button class="opcion" data-op="b">El Sistema Operativo</button>
+      <button class="opcion" data-op="c">El disco duro</button>
+      <button class="opcion" data-op="d">Otra app al azar</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué parece que varias apps funcionan "al mismo tiempo"?</p>
+      <button class="opcion" data-op="a">Porque el kernel reparte la CPU en turnitos rapidísimos</button>
+      <button class="opcion" data-op="b">Porque cada app tiene su propia CPU física</button>
+      <button class="opcion" data-op="c">Porque las apps no usan el SO</button>
+      <button class="opcion" data-op="d">Es solo una ilusión óptica</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 7 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: definición, capas, historia y rol del SO. El último es el <strong>Jefe Final</strong>. Al superar todos los retos, recibirás tu insignia de <strong>Kernel Master</strong>. ¡Tú puedes!</p>
+  </div>
+
+  <!-- Reto 1: Matching — definición -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">🧠 Define el SO con tus palabras (emparejar)</span>
+    </div>
+    <p>Toca un concepto de la izquierda y luego su definición correcta a la derecha. Hay 3 parejas por formar.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Sistema Operativo</button>
+        <button class="ws-chip" data-mid="1b">Kernel</button>
+        <button class="ws-chip" data-mid="1c">Hardware</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">El intermediario entre el usuario y el hardware</button>
+        <button class="ws-chip" data-mid="1B">El corazón del SO, único que toca el hardware</button>
+        <button class="ws-chip" data-mid="1C">Los chips, circuitos y partes físicas</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar capas -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">🧱 Ordena las capas de abajo hacia arriba</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar las capas desde la más profunda (abajo) hasta el usuario (arriba).</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2apps" draggable="true"><span class="ord-num">?</span> Aplicaciones (WhatsApp, Chrome)</div>
+        <div class="ws-order-item" data-oid="2so" draggable="true"><span class="ord-num">?</span> Sistema Operativo (Linux, Windows)</div>
+        <div class="ws-order-item" data-oid="2hw" draggable="true"><span class="ord-num">?</span> Hardware (chips, circuitos)</div>
+        <div class="ws-order-item" data-oid="2user" draggable="true"><span class="ord-num">?</span> Usuario (tú)</div>
+        <div class="ws-order-item" data-oid="2kernel" draggable="true"><span class="ord-num">?</span> Kernel (corazón del SO)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Emparejar hito-año -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">📜 Empareja cada hito con su año</span>
+    </div>
+    <p>Toca un hito de la izquierda y luego su año correcto a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="3">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="3a">Nace Unix</button>
+        <button class="ws-chip" data-mid="3b">Linus libera Linux</button>
+        <button class="ws-chip" data-mid="3c">iPhone con iOS</button>
+        <button class="ws-chip" data-mid="3d">Macintosh con GUI</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="3A">1984</button>
+        <button class="ws-chip" data-mid="3B">1991</button>
+        <button class="ws-chip" data-mid="3C">2007</button>
+        <button class="ws-chip" data-mid="3D">1969</button>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe final — escenario -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final</span>
+      <span class="challenge-title">🏆 Escenario: tu celular se congela</span>
+    </div>
+    <p>Tu celular llevaba 12 apps abiertas y de pronto <strong>se congeló</strong>: nada responde. Tienes que explicar <strong>qué tarea del SO falló</strong>. Completa la frase eligiendo la opción correcta:</p>
+
+    <div class="ws-block">
+      <div class="code-live">
+El celular se congeló porque el SO no logró <span class="hl-line">
+repartir bien la <input class="ws-input" data-ans="memoria" data-ws="4" placeholder="?"> (RAM)
+</span>
+entre las 12 apps abiertas.
+      </div>
+    </div>
+
+    <p style="font-size:0.88rem;color:var(--texto-suave);">Segunda parte: ¿por qué reiniciar resuelve el problema? Elige la respuesta correcta:</p>
+
+    <div class="ws-block" data-ws-match="4">
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Porque el SO empieza de cero y vuelve a repartir CPU y RAM</button>
+        <button class="ws-chip" data-mid="4B">Porque borra todas las apps para siempre</button>
+        <button class="ws-chip" data-mid="4C">Porque cambia el hardware del celular</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Kernel Master!</h2>
+    <p class="lead">Ya sabes qué es un sistema operativo, de dónde viene, cuáles son sus familias y por qué es el intermediario invisible entre tú y la máquina. Eso es más de lo que sabe el 90% de las personas que usan celular todos los días.</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿era magia lo que hace que tu celular "despierte"? Ya tienes la respuesta. 🖥️</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🎓 Sistemas Operativos · Clase 1 · Plataforma interactiva</div>
+  <div>¿Qué es un SO? · Historia · Familias · El intermediario invisible · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
