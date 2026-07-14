@@ -39,7 +39,7 @@ function cargarProgresoPorClase() {
     'curso-integracion-estructuras': 5,
     'curso-maraton-algoritmos': 5,
     'curso-so-que-es-sistema-operativo': 6,
-    'curso-so-funciones-componentes': 6
+    'curso-so-funciones-componentes': 7
   };
 
   let totalGlobal = 0;

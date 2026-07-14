@@ -968,6 +968,176 @@ main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 .feature-feedback.visible { display: block; }
 .feature-feedback.ok { background: rgba(0, 255, 157, 0.12); color: var(--verde); }
 
+/* -------- CALLLOT "EN EL AULA" (guía docente) -------- */
+.caja-aula {
+  padding: 1.3rem 1.5rem;
+  border-radius: var(--radio);
+  margin: 1.5rem 0;
+  border-left: 5px solid var(--cian);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.12), rgba(168, 85, 247, 0.06));
+  position: relative;
+}
+
+.caja-aula h4 {
+  color: var(--cian);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.caja-aula p { color: var(--texto); font-size: 0.9rem; }
+.caja-aula .aula-steps { margin: 0.6rem 0 0 1.2rem; font-size: 0.88rem; color: var(--texto-suave); }
+.caja-aula .aula-steps li { margin: 0.3rem 0; }
+.caja-aula code { background: var(--fondo-claro); }
+
+/* -------- SIMULADOR: ADMIN DE DISPOSITIVOS (Módulo 5 drivers) -------- */
+.devmanager {
+  background: var(--tarjeta);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+  margin: 1.75rem 0;
+}
+
+.dev-list { display: grid; gap: 0.5rem; margin: 1rem 0; }
+
+.dev-row {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--fondo-claro);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: 10px;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.dev-row:hover { border-color: var(--cian); transform: translateX(4px); }
+.dev-row.selected { border-color: var(--ambar); background: rgba(250, 204, 21, 0.08); }
+.dev-row.fixed { border-color: var(--verde); background: rgba(0, 255, 157, 0.08); cursor: default; }
+
+.dev-row .d-icon { font-size: 1.6rem; }
+.dev-row .d-info { flex: 1; }
+.dev-row .d-name { font-weight: 700; font-size: 0.88rem; color: var(--texto); }
+.dev-row .d-status { font-size: 0.75rem; color: var(--texto-suave); font-family: 'JetBrains Mono', monospace; }
+.dev-row .d-status.warn { color: var(--ambar); }
+.dev-row .d-status.ok { color: var(--verde); }
+.dev-row .d-triangle { font-size: 1.1rem; opacity: 0; transition: opacity 0.3s; }
+.dev-row.warning .d-triangle { opacity: 1; }
+.dev-row.fixed .d-triangle { opacity: 0; }
+
+.driver-bank {
+  background: var(--fondo-claro);
+  border: 1px dashed var(--tarjeta-borde);
+  border-radius: 10px;
+  padding: 0.8rem;
+  margin-top: 1rem;
+}
+
+.driver-bank-title { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--texto-suave); margin-bottom: 0.6rem; }
+.driver-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.driver-chip {
+  background: var(--tarjeta-alt);
+  border: 1.5px solid var(--tarjeta-borde);
+  color: var(--texto);
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: 'JetBrains Mono', monospace;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.driver-chip:hover { border-color: var(--cian); }
+.driver-chip.selected { border-color: var(--cian); background: rgba(34, 211, 238, 0.12); color: var(--cian); }
+.driver-chip.used { opacity: 0.3; pointer-events: none; }
+
+.dev-feedback { margin-top: 1rem; padding: 0.8rem; border-radius: 8px; text-align: center; font-weight: 700; display: none; }
+.dev-feedback.visible { display: block; }
+.dev-feedback.ok { background: rgba(0, 255, 157, 0.12); color: var(--verde); }
+.dev-feedback.no { background: rgba(244, 63, 94, 0.12); color: var(--rosa); }
+
+/* -------- TICKET DE SOPORTE (Diagnóstico) -------- */
+.ticket {
+  background: var(--fondo-claro);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin: 1rem 0;
+}
+
+.ticket-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px dashed var(--tarjeta-borde);
+  margin-bottom: 0.8rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.ticket-head .ticket-id { color: var(--cian); font-weight: 700; }
+.ticket-head .ticket-priority { color: var(--rosa); font-weight: 700; }
+
+.ticket-field { margin-bottom: 0.8rem; }
+.ticket-field label { display: block; font-size: 0.8rem; color: var(--texto-suave); font-weight: 700; margin-bottom: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.ticket-field .ticket-opts { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.ticket-opt {
+  background: var(--tarjeta);
+  border: 1.5px solid var(--tarjeta-borde);
+  color: var(--texto);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.ticket-opt:hover { border-color: var(--cian); }
+.ticket-opt.selected { border-color: var(--cian); background: rgba(34, 211, 238, 0.12); color: var(--cian); }
+.ticket-opt.correct { border-color: var(--verde); background: rgba(0, 255, 157, 0.12); color: var(--verde); }
+.ticket-opt.wrong { border-color: var(--rosa); background: rgba(244, 63, 94, 0.12); color: var(--rosa); }
+
+.ticket-textarea {
+  width: 100%;
+  min-height: 90px;
+  background: var(--tarjeta);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: 8px;
+  padding: 0.7rem;
+  color: var(--texto);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  resize: vertical;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.ticket-textarea:focus { border-color: var(--cian); box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.15); }
+
+.ticket-rubrica {
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  background: rgba(34, 211, 238, 0.06);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+.ticket-rubrica h5 { color: var(--cian); font-size: 0.82rem; margin-bottom: 0.4rem; }
+.ticket-rubrica ul { margin: 0.3rem 0 0 1.2rem; }
+.ticket-rubrica li { margin: 0.2rem 0; }
+
 /* -------- DESCANSO -------- */
 .descanso-hero {
   text-align: center;

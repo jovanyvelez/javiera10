@@ -1,9 +1,10 @@
 /* ============================================================
    CLASE 2 — SISTEMAS OPERATIVOS (Funciones y componentes)
    Lógica de navegación, simuladores, quizzes y taller
+   Versión revisada: 9 módulos, drivers, diagnóstico técnico
 ============================================================ */
 
-const TOTAL_MODULOS = 8; // 0..7 (incluye módulo de descanso)
+const TOTAL_MODULOS = 9; // 0..8 (incluye módulo de descanso)
 
 /* ---------- ESTADO GLOBAL ---------- */
 const estado = {
@@ -27,11 +28,13 @@ document.addEventListener('DOMContentLoaded', () => {
   configurarCopiarCodigo();
   configurarQuizzes();
   configurarTaller();
+  configurarDiagnostico();
   configurarTrivia();
   inicializarScheduler();
   inicializarMemMap();
   inicializarFsExplorer();
   inicializarPermMatrix();
+  inicializarDevManager();
   inicializarClassMatrix();
   inicializarFeatureMatch();
   configurarTeclado();
@@ -116,9 +119,10 @@ function marcarCompletado(n) {
     2: '💾 Gestor de Memoria',
     3: '🗄️ Archivero',
     4: '☕ Descansado',
-    5: '👤 Guardián de Permisos',
-    6: '🏷️ Clasificador',
-    7: '🛠️ Componentes Master'
+    5: '🔧 Maestro Drivers',
+    6: '👤 Guardián de Permisos',
+    7: '🏷️ Clasificador',
+    8: '🛠️ Componentes Master'
   };
   if (badgesModulo[n]) otorgarBadge(badgesModulo[n]);
 
@@ -145,7 +149,8 @@ function addXP(cantidad) {
 
 /* ---------- UI: PROGRESO Y BADGES ---------- */
 function actualizarUI() {
-  const completables = [1, 2, 3, 5, 6, 7];
+  // Completables: 1,2,3,5,6,7,8 (saltamos 0 inicio y 4 descanso)
+  const completables = [1, 2, 3, 5, 6, 7, 8];
   const total = completables.length;
   const completos = completables.filter(m => estado.completados.has(m)).length;
   const pct = Math.round((completos / total) * 100);
@@ -158,7 +163,7 @@ function actualizarUI() {
 
   const mAct = document.getElementById('modulo-actual');
   if (mAct) {
-    const labels = ['Inicio', 'Procesos', 'Memoria', 'Archivos', 'Descanso', 'Usuarios', 'Clasificación', 'Taller'];
+    const labels = ['Inicio', 'Procesos', 'Memoria', 'Archivos', 'Descanso', 'Drivers', 'Usuarios', 'Clasificación', 'Taller'];
     mAct.textContent = labels[estado.moduloActual] || ('Módulo ' + estado.moduloActual);
   }
 
@@ -290,14 +295,12 @@ function configurarTrivia() {
   });
 }
 
-/* ---------- TALLER (matching + order + input) ---------- */
+/* ---------- TALLER (matching + order) ---------- */
 const TALLER_RESP = {
   1: { '1a': '1B', '1b': '1A', '1c': '1D', '1d': '1C' },
-  3: { '3a': '3A', '3b': '3D', '3c': '3C', '3d': '3B' },
-  4: { '4A': '4A' }
+  3: { '3a': '3A', '3b': '3D', '3c': '3C', '3d': '3B' }
 };
 const TALLER_ORDER = { 2: ['2q', '2save', '2pick', '2load', '2run'] };
-const TALLER_INPUT = { 4: 'swap' };
 
 const seleccionMatch = {};
 const parejasMatch = {};
@@ -305,6 +308,7 @@ const parejasMatch = {};
 function configurarTaller() {
   document.querySelectorAll('[data-ws-match]').forEach(block => {
     const id = block.dataset.wsMatch;
+    if (id === '4') return; // el reto 4 es el diagnóstico, se maneja aparte
     parejasMatch[id] = [];
     seleccionMatch[id] = {};
 
@@ -319,6 +323,7 @@ function configurarTaller() {
   configurarOrden(2);
 
   document.querySelectorAll('[data-check-ws]').forEach(btn => {
+    if (btn.id === 'diagValidate') return; // el diagnóstico tiene su propio handler
     btn.addEventListener('click', () => validarReto(btn.dataset.checkWs));
   });
 }
@@ -383,42 +388,26 @@ function validarReto(id) {
     });
   }
 
-  if (TALLER_INPUT[id]) {
-    const inputs = document.querySelectorAll(`.ws-input[data-ws="${id}"]`);
-    inputs.forEach(inp => {
-      const got = inp.value.trim().toLowerCase();
-      const exp = TALLER_INPUT[id].toLowerCase();
-      inp.classList.remove('correct', 'wrong');
-      if (got === exp) inp.classList.add('correct');
-      else { inp.classList.add('wrong'); allOk = false; }
-    });
-  }
-
   fb.classList.add('visible');
   if (allOk) {
     fb.className = 'resultado-ws visible ok';
     const msgs = {
       1: '¡Perfecto! Estados de proceso dominados: Listo (espera turno), Ejecución (usa CPU), Espera (pausado por I/O), Terminado (libera recursos).',
-      2: '¡Excelente! El cambio de contexto: quantum agotado → guardar estado → sacar siguiente → cargar estado → ejecutar. Esos microsegundos "perdidos" son el costo.',
-      3: '¡Muy bien! Celular=mono/multi proceso; cajero antiguo y MS-DOS=mono/mono; servidor=multi/multi. La matriz tiene sentido.',
-      4: '🏆 ¡JEFE FINAL VENCIDO! El problema era el swap excesivo. La mejor solución a largo plazo es ampliar la RAM: más escritorio = menos ir al disco.'
+      2: '¡Excelente! El cambio de contexto: quantum agotado → guardar estado → sacar siguiente → cargar estado → ejecutar.',
+      3: '¡Muy bien! Celular=mono/multi proceso; cajero antiguo y MS-DOS=mono/mono; servidor=multi/multi.'
     };
-    const xpPorReto = { 1: 25, 2: 30, 3: 30, 4: 55 };
+    const xpPorReto = { 1: 25, 2: 30, 3: 30 };
     fb.innerHTML = `✅ ${msgs[id]} <strong>+${xpPorReto[id]} XP</strong>`;
     if (!estado.talleres[id]) {
       estado.talleres[id] = true;
       addXP(xpPorReto[id]);
-    }
-    if (Object.keys(estado.talleres).length === 4) {
-      otorgarBadge('🛠️ Componentes Master Completado');
     }
   } else {
     fb.className = 'resultado-ws visible no';
     const hints = {
       1: 'Pista: Ejecución=usa CPU ahora; Listo=espera turno; Espera=pausado por I/O; Terminado=finalizó.',
       2: 'Pista: el orden es agotar quantum → guardar estado actual → sacar siguiente de la cola → cargar estado nuevo → ejecutar.',
-      3: 'Pista: celular=mono/multi proceso; servidor=multi/multi; MS-DOS y cajero antiguo=mono/mono.',
-      4: 'Pista: lo que hace el PC lento cuando la RAM se llena es el SWAP (memoria virtual). La solución es ampliar la RAM.'
+      3: 'Pista: celular=mono/multi proceso; servidor=multi/multi; MS-DOS y cajero antiguo=mono/mono.'
     };
     fb.innerHTML = `❌ Algunas respuestas son incorrectas. ${hints[id]}`;
   }
@@ -439,10 +428,7 @@ function configurarOrden(id) {
       it.classList.add('dragging');
       e.dataTransfer.effectAllowed = 'move';
     });
-    it.addEventListener('dragend', () => {
-      it.classList.remove('dragging');
-      renumerarOrden();
-    });
+    it.addEventListener('dragend', () => { it.classList.remove('dragging'); renumerarOrden(); });
     it.addEventListener('dragover', e => {
       e.preventDefault();
       const after = getDragAfterElement(cont, e.clientY);
@@ -499,6 +485,80 @@ function renumerarOrden() {
   });
 }
 
+/* ---------- DIAGNÓSTICO TÉCNICO (Jefe Final) ---------- */
+function configurarDiagnostico() {
+  const validateBtn = document.getElementById('diagValidate');
+  if (!validateBtn) return;
+
+  let compSelected = null;
+  const compOpts = document.querySelectorAll('#diagComp .ticket-opt');
+  compOpts.forEach(o => {
+    o.addEventListener('click', () => {
+      compOpts.forEach(x => x.classList.remove('selected'));
+      o.classList.add('selected');
+      compSelected = o.dataset.dval;
+    });
+  });
+
+  let actionsSelected = new Set();
+  const actionOpts = document.querySelectorAll('#diagActions .ticket-opt');
+  actionOpts.forEach(o => {
+    o.addEventListener('click', () => {
+      o.classList.toggle('selected');
+      const v = o.dataset.aval;
+      if (o.classList.contains('selected')) actionsSelected.add(v);
+      else actionsSelected.delete(v);
+    });
+  });
+
+  validateBtn.addEventListener('click', () => {
+    const fb = document.getElementById('ws-fb-4');
+    const correctComp = 'procesos';
+    const correctActions = ['matar', 'driver'];
+
+    let compOk = compSelected === correctComp;
+    let actionsOk = actionsSelected.size === correctActions.length &&
+                    correctActions.every(a => actionsSelected.has(a));
+    const hasText = document.getElementById('diagText').value.trim().length >= 20;
+
+    // Marcar visual
+    compOpts.forEach(o => {
+      o.classList.remove('correct', 'wrong');
+      if (o.dataset.dval === correctComp) o.classList.add('correct');
+      else if (o === [...compOpts].find(x => x.classList.contains('selected')) && o.dataset.dval !== correctComp) o.classList.add('wrong');
+    });
+    actionOpts.forEach(o => {
+      o.classList.remove('correct', 'wrong');
+      if (correctActions.includes(o.dataset.aval)) o.classList.add('correct');
+      else if (o.classList.contains('selected') && !correctActions.includes(o.dataset.aval)) o.classList.add('wrong');
+    });
+
+    fb.classList.add('visible');
+    const allOk = compOk && actionsOk && hasText;
+
+    if (allOk) {
+      fb.className = 'resultado-ws visible ok';
+      fb.innerHTML = `🏆 ¡DIAGNÓSTICO PERFECTO! Identificaste la gestión de procesos como el problema, mataste el proceso anómalo, actualizaste el driver y descartaste formatear/comprar RAM (¡RAM al 40% no era el problema!). Tu ticket está listo para el cliente. <strong>+55 XP</strong>`;
+      if (!estado.talleres['4']) {
+        estado.talleres['4'] = true;
+        addXP(55);
+      }
+      if (Object.keys(estado.talleres).length >= 4) {
+        otorgarBadge('🛠️ Componentes Master Completado');
+      }
+    } else {
+      fb.className = 'resultado-ws visible no';
+      let hints = [];
+      if (!compOk) hints.push('El problema NO es la RAM (está al 40%) ni el disco. Mira qué está al 99%.');
+      if (!actionsOk) hints.push('Acciones correctas: matar el proceso + actualizar driver. Descarta formatear (excesivo) y comprar RAM (innecesario).');
+      if (!hasText) hints.push('Redacta tu diagnóstico con al menos 20 caracteres explicando el "por qué".');
+      fb.innerHTML = `❌ Revisa el diagnóstico. ${hints.join(' ')}`;
+    }
+
+    guardarProgreso();
+  });
+}
+
 /* ---------- SIMULADOR: SCHEDULER (Módulo 1) ---------- */
 function inicializarScheduler() {
   const readyEl = document.getElementById('schedReady');
@@ -506,10 +566,7 @@ function inicializarScheduler() {
 
   const QUANTUM = 2;
   let procs = [];
-  let cycle = 0;
-  let ctxSwitches = 0;
-  let gantt = [];
-  let running = null;
+  let cycle = 0, ctxSwitches = 0, gantt = [];
   let autoTimer = null;
 
   const cpuProc = document.getElementById('schedCpuProc');
@@ -520,7 +577,6 @@ function inicializarScheduler() {
   const ctxEl = document.getElementById('schedCtx');
   const ganttEl = document.getElementById('schedGantt');
   const ganttAxisEl = document.getElementById('schedGanttAxis');
-  const stepBtn = document.getElementById('schedStep');
   const autoBtn = document.getElementById('schedAuto');
 
   const colors = { P1: 'var(--cian)', P2: 'var(--verde)', P3: 'var(--morado)', P4: 'var(--ambar)', idle: 'var(--tarjeta-alt)' };
@@ -531,7 +587,7 @@ function inicializarScheduler() {
       { pid: 'P2', name: 'Spotify', burst: 3, state: 'ready', color: 'var(--verde)' },
       { pid: 'P3', name: 'Word', burst: 5, state: 'ready', color: 'var(--morado)' }
     ];
-    cycle = 0; ctxSwitches = 0; gantt = []; running = null;
+    cycle = 0; ctxSwitches = 0; gantt = [];
     if (autoTimer) { clearInterval(autoTimer); autoTimer = null; autoBtn.textContent = '⏩ Auto (todo)'; }
     render();
   };
@@ -560,7 +616,6 @@ function inicializarScheduler() {
     cycleEl.textContent = cycle;
     ctxEl.textContent = ctxSwitches;
 
-    // Gantt
     ganttEl.innerHTML = gantt.map(g => {
       const bg = g === 'idle' ? 'var(--tarjeta-alt)' : (colors[g] || 'var(--tarjeta-alt)');
       const fg = g === 'idle' ? 'var(--texto-suave)' : '#000';
@@ -571,62 +626,36 @@ function inicializarScheduler() {
   };
 
   const step = () => {
-    // Si no hay running, sacar de la cola
     if (!procs.find(p => p.state === 'running')) {
       const next = procs.find(p => p.state === 'ready');
-      if (next) {
-        next.state = 'running';
-        next.startCycle = cycle;
-        if (cycle > 0) ctxSwitches++;
-      }
+      if (next) { next.state = 'running'; next.startCycle = cycle; if (cycle > 0) ctxSwitches++; }
     }
 
     const r = procs.find(p => p.state === 'running');
-    if (!r) {
-      // nadie ready ni running -> idle
-      gantt.push('idle');
-      cycle++;
-      render();
-      return;
-    }
+    if (!r) { gantt.push('idle'); cycle++; render(); return; }
 
-    r.burst--;
-    gantt.push(r.pid);
-    cycle++;
+    r.burst--; gantt.push(r.pid); cycle++;
 
-    // ¿terminó?
-    if (r.burst <= 0) {
-      r.state = 'done';
-      ctxSwitches++;
-    } else if ((cycle - r.startCycle) % QUANTUM === 0) {
-      // agotó quantum -> vuelve a ready
-      r.state = 'ready';
-      ctxSwitches++;
-    }
+    if (r.burst <= 0) { r.state = 'done'; ctxSwitches++; }
+    else if ((cycle - r.startCycle) % QUANTUM === 0) { r.state = 'ready'; ctxSwitches++; }
 
-    // pasar el siguiente a running si CPU libre
     if (!procs.find(p => p.state === 'running')) {
       const next = procs.find(p => p.state === 'ready');
-      if (next) {
-        next.state = 'running';
-        next.startCycle = cycle;
-      }
+      if (next) { next.state = 'running'; next.startCycle = cycle; }
     }
 
     render();
 
-    // ¿todo terminado?
     if (!procs.find(p => p.state !== 'done')) {
       if (autoTimer) { clearInterval(autoTimer); autoTimer = null; autoBtn.textContent = '⏩ Auto (todo)'; }
       mostrarToast('🏁 ¡Todos los procesos terminaron!');
     }
   };
 
-  stepBtn.addEventListener('click', () => { addXP(2); step(); });
+  document.getElementById('schedStep').addEventListener('click', () => { addXP(2); step(); });
   autoBtn.addEventListener('click', () => {
-    if (autoTimer) {
-      clearInterval(autoTimer); autoTimer = null; autoBtn.textContent = '⏩ Auto (todo)';
-    } else {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; autoBtn.textContent = '⏩ Auto (todo)'; }
+    else {
       autoBtn.textContent = '⏸️ Pausar';
       autoTimer = setInterval(() => {
         if (!procs.find(p => p.state !== 'done')) {
@@ -646,19 +675,14 @@ function inicializarMemMap() {
   if (!grid) return;
 
   const TOTAL_FRAMES = 16;
-  let frames = []; // {proc: 'P1' | null, swappedTo: null}
-  let swapSlots = []; // {proc, page}
-  let nextPid = 0;
+  let frames = [];
+  let swapSlots = [];
 
   const swapEl = document.getElementById('memSwap');
-
-  const colors = { P1: 'var(--cian)', P2: 'var(--verde)', P3: 'var(--morado)', P4: 'var(--ambar)' };
-  const procNames = { P1: 'Navegador', P2: 'Spotify', P3: 'Word', P4: 'Juego' };
 
   const init = () => {
     frames = Array(TOTAL_FRAMES).fill(null).map((_, i) => ({ proc: null, frame: i }));
     swapSlots = [];
-    nextPid = 0;
     render();
   };
 
@@ -666,32 +690,24 @@ function inicializarMemMap() {
     grid.innerHTML = frames.map(f =>
       `<div class="mem-frame ${f.proc ? 'alloc-' + f.proc : ''}" data-frame="${f.frame}">${f.proc ? f.proc : ''}</div>`
     ).join('');
-
-    swapEl.innerHTML = swapSlots.length ? swapSlots.map(s =>
-      `<span class="swap-slot">${s.proc}</span>`
-    ).join('') : '<span style="color:var(--texto-suave);font-size:0.75rem">Swap vacío</span>';
+    swapEl.innerHTML = swapSlots.length ? swapSlots.map(s => `<span class="swap-slot">${s.proc}</span>`).join('') : '<span style="color:var(--texto-suave);font-size:0.75rem">Swap vacío</span>';
   };
 
   const allocPages = (proc, count) => {
     for (let i = 0; i < count; i++) {
       const freeIdx = frames.findIndex(f => !f.proc);
       if (freeIdx === -1) {
-        // RAM llena -> swap out la página más antigua
-        // buscar un frame asignado y moverlo a swap
         const occupied = frames.map((f, idx) => ({ ...f, idx })).filter(f => f.proc);
         if (occupied.length === 0) break;
-        // tomar el último ocupado (más "antiguo" en esta simulación simple)
         const victim = occupied[0];
         swapSlots.push({ proc: victim.proc });
         frames[victim.idx].proc = proc;
-        // flash visual de swap
         setTimeout(() => {
           const el = grid.querySelector(`[data-frame="${victim.idx}"]`);
           if (el) { el.classList.add('swapped'); setTimeout(() => el.classList.remove('swapped'), 400); }
         }, 0);
       } else {
         frames[freeIdx].proc = proc;
-        // flash
         setTimeout(() => {
           const el = grid.querySelector(`[data-frame="${freeIdx}"]`);
           if (el) { el.classList.add('flash'); setTimeout(() => el.classList.remove('flash'), 500); }
@@ -707,8 +723,7 @@ function inicializarMemMap() {
   document.getElementById('memLoad4').addEventListener('click', () => { allocPages('P4', 6); addXP(5); });
   document.getElementById('memFree').addEventListener('click', () => {
     frames.forEach(f => { if (f.proc === 'P1') f.proc = null; });
-    render();
-    addXP(3);
+    render(); addXP(3);
   });
   document.getElementById('memReset').addEventListener('click', init);
 
@@ -776,7 +791,7 @@ function inicializarFsExplorer() {
     const detail = document.getElementById('fsDetail');
     const sel = findNode(currentPath);
     if (!sel || currentPath.length === 0) {
-      detail.innerHTML = '<h4>/</h4><p style="color:var(--texto-suave);">La raíz del sistema de archivos. Selecciona una carpeta o archivo para ver sus detalles.</p><div class="fs-path">/</div>';
+      detail.innerHTML = '<h4>/</h4><p style="color:var(--texto-suave);">La raíz del sistema de archivos. Selecciona una carpeta o archivo.</p><div class="fs-path">/</div>';
     } else {
       const fullPath = '/' + currentPath.join('/');
       if (sel.type === 'folder') {
@@ -784,51 +799,35 @@ function inicializarFsExplorer() {
         detail.innerHTML = `<h4>📁 ${sel.name}</h4>
           <div class="fs-row"><span class="k">Tipo</span><span class="v">carpeta</span></div>
           <div class="fs-row"><span class="k">Contenido</span><span class="v">${count} elementos</span></div>
-          <div class="fs-row"><span class="k">Ruta absoluta</span><span class="v">${fullPath}</span></div>
           <div class="fs-path">${fullPath}/</div>`;
       } else {
         detail.innerHTML = `<h4>📄 ${sel.name}</h4>
           <div class="fs-row"><span class="k">Tipo</span><span class="v">archivo</span></div>
           <div class="fs-row"><span class="k">Tamaño</span><span class="v">${sel.size || '?'}</span></div>
-          <div class="fs-row"><span class="k">Ruta absoluta</span><span class="v">${fullPath}</span></div>
           <div class="fs-path">${fullPath}</div>`;
       }
     }
 
     treeEl.querySelectorAll('.fs-node').forEach(n => {
-      n.addEventListener('click', () => {
-        currentPath = JSON.parse(n.dataset.path);
-        render();
-        addXP(1);
-      });
+      n.addEventListener('click', () => { currentPath = JSON.parse(n.dataset.path); render(); addXP(1); });
     });
   };
 
-  document.getElementById('fsUp').addEventListener('click', () => {
-    if (currentPath.length > 0) { currentPath.pop(); render(); }
-  });
+  document.getElementById('fsUp').addEventListener('click', () => { if (currentPath.length > 0) { currentPath.pop(); render(); } });
   document.getElementById('fsBack').addEventListener('click', () => { currentPath = []; render(); });
   document.getElementById('fsNewFolder').addEventListener('click', () => {
     const parent = currentPath.length === 0 ? fs : findNode(currentPath);
     if (parent && parent.type === 'folder') {
-      const name = 'nueva_' + (parent.children.length + 1);
-      parent.children.push({ name, type: 'folder', children: [] });
-      render();
-      addXP(2);
+      parent.children.push({ name: 'nueva_' + (parent.children.length + 1), type: 'folder', children: [] });
+      render(); addXP(2);
     }
   });
-  document.getElementById('fsReset').addEventListener('click', () => {
-    currentPath = [];
-    // reset fs children que se hayan añadido: re-construir desde la base
-    // simple: recargar página de este simulador reseteando el árbol
-    // (para mantenerlo simple, solo reseteamos el path y los hijos de tmp)
-    render();
-  });
+  document.getElementById('fsReset').addEventListener('click', () => { currentPath = []; render(); });
 
   render();
 }
 
-/* ---------- INTERACTIVO: MATRIZ DE PERMISOS (Módulo 5) ---------- */
+/* ---------- INTERACTIVO: MATRIZ DE PERMISOS (Módulo 6) ---------- */
 function inicializarPermMatrix() {
   const table = document.getElementById('permTable');
   if (!table) return;
@@ -839,16 +838,14 @@ function inicializarPermMatrix() {
   const render = () => {
     const perms = { owner: { r: false, w: false, x: false }, group: { r: false, w: false, x: false }, others: { r: false, w: false, x: false } };
     toggles.forEach(t => {
-      const who = t.dataset.who;
-      const perm = t.dataset.perm;
       const on = t.classList.contains('on') || t.classList.contains('on-r') || t.classList.contains('on-w') || t.classList.contains('on-x');
-      perms[who][perm] = on;
+      perms[t.dataset.who][t.dataset.perm] = on;
     });
 
     const rwx = (w) => (perms[w].r ? 'r' : '-') + (perms[w].w ? 'w' : '-') + (perms[w].x ? 'x' : '-');
     const code = rwx('owner') + rwx('group') + rwx('others');
 
-    let desc = '<div class="who">🔒 Permisos del archivo "tareas.txt": <strong>' + code + '</strong></div>';
+    let desc = `<div class="who">🔒 Permisos de "tareas.txt": <strong>${code}</strong></div>`;
     ['owner', 'group', 'others'].forEach(w => {
       const lbl = w === 'owner' ? '🧑 Dueño (María)' : w === 'group' ? '👥 Grupo (alumnos)' : '🌍 Otros';
       const can = [];
@@ -858,29 +855,114 @@ function inicializarPermMatrix() {
       const cls = perms[w].w ? 'rw' : (perms[w].r ? 'ro' : 'no');
       desc += `<div class="${cls}">${lbl}: ${can.length ? 'puede ' + can.join(', ') : 'no puede hacer nada'}</div>`;
     });
-
     result.innerHTML = desc;
   };
 
   toggles.forEach(t => {
     t.addEventListener('click', () => {
       const perm = t.dataset.perm;
-      // clases on, on-r, on-w, on-x indican "activado"
       const isActive = t.classList.contains('on') || t.classList.contains('on-r') || t.classList.contains('on-w') || t.classList.contains('on-x');
-      if (isActive) {
-        t.classList.remove('on', 'on-r', 'on-w', 'on-x');
-      } else {
-        t.classList.add('on-' + perm);
-      }
-      render();
-      addXP(1);
+      if (isActive) t.classList.remove('on', 'on-r', 'on-w', 'on-x');
+      else t.classList.add('on-' + perm);
+      render(); addXP(1);
     });
   });
 
   render();
 }
 
-/* ---------- INTERACTIVO: CLASIFICACIÓN 2x2 (Módulo 6) ---------- */
+/* ---------- SIMULADOR: ADMIN DE DISPOSITIVOS (Módulo 5) ---------- */
+function inicializarDevManager() {
+  const devList = document.getElementById('devList');
+  if (!devList) return;
+
+  const devices = [
+    { id: 'd1', icon: '🖱️', name: 'Mouse Gamer RGB "PredatorX"', status: 'Función básica (mover cursor). Luces y botones extra NO.', warn: true, driver: 'dr_predatorx' },
+    { id: 'd2', icon: '🖨️', name: 'Impresora HP LaserJet Pro', status: 'No responde. Sin driver.', warn: true, driver: 'dr_hp' },
+    { id: 'd3', icon: '🎮', name: 'Control Xbox One USB', status: 'Vibración y gatillos analógicos no funcionan.', warn: true, driver: 'dr_xbox' },
+    { id: 'd4', icon: '📷', name: 'Cámara web Logitech 4K', status: 'Video básico. Autoenfoque y micrófono NO.', warn: true, driver: 'dr_logitech' }
+  ];
+
+  const drivers = [
+    { id: 'dr_predatorx', label: 'Driver PredatorX RGB' },
+    { id: 'dr_hp', label: 'Driver HP LaserJet' },
+    { id: 'dr_xbox', label: 'Driver Xbox Controller' },
+    { id: 'dr_logitech', label: 'Driver Logitech 4K' }
+  ];
+
+  let selectedDev = null;
+  let fixed = 0;
+  const fb = document.getElementById('devFeedback');
+
+  const render = () => {
+    devList.innerHTML = devices.map(d => {
+      const isFixed = d.fixed;
+      return `<div class="dev-row ${d.warn ? 'warning' : ''} ${isFixed ? 'fixed' : ''} ${selectedDev === d.id ? 'selected' : ''}" data-dev="${d.id}">
+        <span class="d-icon">${d.icon}</span>
+        <div class="d-info">
+          <div class="d-name">${d.name}</div>
+          <div class="d-status ${isFixed ? 'ok' : 'warn'}">${isFixed ? '✓ Driver instalado — funciona al 100%' : '⚠ ' + d.status}</div>
+        </div>
+        <span class="d-triangle">⚠️</span>
+      </div>`;
+    }).join('');
+
+    document.getElementById('driverChips').innerHTML = drivers.map(dr =>
+      `<button class="driver-chip ${dr.used ? 'used' : ''}" data-driver="${dr.id}">${dr.label}</button>`
+    ).join('');
+
+    bind();
+  };
+
+  const bind = () => {
+    devList.querySelectorAll('.dev-row:not(.fixed)').forEach(row => {
+      row.addEventListener('click', () => {
+        devList.querySelectorAll('.dev-row').forEach(r => r.classList.remove('selected'));
+        row.classList.add('selected');
+        selectedDev = row.dataset.dev;
+        render();
+      });
+    });
+    document.querySelectorAll('.driver-chip:not(.used)').forEach(chip => {
+      chip.addEventListener('click', () => {
+        if (!selectedDev) return;
+        const dev = devices.find(d => d.id === selectedDev);
+        const dr = drivers.find(x => x.id === chip.dataset.driver);
+        if (dev.driver === dr.id) {
+          dev.fixed = true;
+          dr.used = true;
+          fixed++;
+          addXP(5);
+          if (fixed === devices.length) {
+            fb.className = 'dev-feedback visible ok';
+            fb.textContent = '🏆 ¡Todos los dispositivos tienen su driver! Ahora las luces RGB prenden, la impresora responde y el control vibra.';
+          }
+        } else {
+          const chipEl = chip;
+          chipEl.classList.add('wrong');
+          setTimeout(() => chipEl.classList.remove('wrong'), 600);
+          fb.className = 'dev-feedback visible no';
+          fb.textContent = '❌ Ese driver no corresponde a este dispositivo. Lee el nombre del dispositivo.';
+          setTimeout(() => fb.classList.remove('visible'), 1800);
+        }
+        selectedDev = null;
+        render();
+      });
+    });
+  };
+
+  document.getElementById('devReset').addEventListener('click', () => {
+    devices.forEach(d => d.fixed = false);
+    drivers.forEach(dr => dr.used = false);
+    selectedDev = null; fixed = 0;
+    fb.classList.remove('visible');
+    render();
+  });
+
+  render();
+}
+
+/* ---------- INTERACTIVO: CLASIFICACIÓN 2x2 (Módulo 7) ---------- */
 function inicializarClassMatrix() {
   const bank = document.getElementById('classBank');
   const matrix = document.getElementById('classMatrix');
@@ -918,10 +1000,7 @@ function inicializarClassMatrix() {
 
   const bind = () => {
     bank.querySelectorAll('.class-item:not(.placed)').forEach(d => {
-      d.addEventListener('dragstart', e => {
-        e.dataTransfer.setData('text/plain', d.dataset.id);
-        e.dataTransfer.effectAllowed = 'move';
-      });
+      d.addEventListener('dragstart', e => { e.dataTransfer.setData('text/plain', d.dataset.id); e.dataTransfer.effectAllowed = 'move'; });
     });
     matrix.querySelectorAll('.class-cell').forEach(cell => {
       cell.addEventListener('dragover', e => { e.preventDefault(); cell.classList.add('over'); });
@@ -934,20 +1013,14 @@ function inicializarClassMatrix() {
         if (!it || colocados[id]) return;
         colocados[id] = cell.dataset.cell;
         if (it.cell === cell.dataset.cell) cell.classList.add('correcta');
-        render();
-        addXP(1);
+        render(); addXP(1);
       });
     });
     matrix.querySelectorAll('.x').forEach(x => {
-      x.addEventListener('click', () => {
-        const iid = x.dataset.remove;
-        delete colocados[iid];
-        render();
-      });
+      x.addEventListener('click', () => { delete colocados[x.dataset.remove]; render(); });
     });
   };
 
-  // soporte táctil: click item → click celda
   let selected = null;
   bank.addEventListener('click', e => {
     const d = e.target.closest('.class-item:not(.placed)');
@@ -964,8 +1037,7 @@ function inicializarClassMatrix() {
     colocados[selected] = cell.dataset.cell;
     if (it.cell === cell.dataset.cell) cell.classList.add('correcta');
     selected = null;
-    render();
-    addXP(1);
+    render(); addXP(1);
   });
 
   document.getElementById('classReset').addEventListener('click', () => {
@@ -977,7 +1049,7 @@ function inicializarClassMatrix() {
   render();
 }
 
-/* ---------- INTERACTIVO: FEATURE MATCH (Módulo 6) ---------- */
+/* ---------- INTERACTIVO: FEATURE MATCH (Módulo 7) ---------- */
 function inicializarFeatureMatch() {
   const listEl = document.getElementById('featureList');
   const targetsEl = document.getElementById('featureTargets');
@@ -1027,7 +1099,7 @@ function inicializarFeatureMatch() {
           addXP(5);
           if (aciertos === features.length) {
             fb.className = 'feature-feedback visible ok';
-            fb.textContent = '🏆 ¡Perfecto! 6/6 características emparejadas. Conoces las diferencias reales entre los tres SO.';
+            fb.textContent = '🏆 ¡Perfecto! 6/6 características emparejadas.';
           }
         } else {
           const chip = listEl.querySelector(`[data-fid="${selected}"]`);
