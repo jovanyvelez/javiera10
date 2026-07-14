@@ -50,6 +50,9 @@
   --so-1-a:          #22d3ee;   /* Clase 1 SO — cian/verde (terminal) */
   --so-1-b:          #00ff9d;
 
+  --so-2-a:          #f472b6;   /* Clase 2 SO — rosa/morado (componentes) */
+  --so-2-b:          #a855f7;
+
   --hp-a:            #f97316;   /* Herramientas de Programación I — web/naranja */
   --hp-b:            #facc15;
 
@@ -377,6 +380,11 @@ main {
 .clase-card.so-1 .clase-badge { background: linear-gradient(135deg, var(--so-1-a), var(--so-1-b)); }
 .clase-card.so-1 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--so-1-a), var(--so-1-b)); }
 .clase-card.so-1:hover { border-color: var(--so-1-a); }
+
+.clase-card.so-2::before { background: linear-gradient(90deg, var(--so-2-a), var(--so-2-b)); }
+.clase-card.so-2 .clase-badge { background: linear-gradient(135deg, var(--so-2-a), var(--so-2-b)); }
+.clase-card.so-2 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--so-2-a), var(--so-2-b)); }
+.clase-card.so-2:hover { border-color: var(--so-2-a); }
 
 .clase-card.ha-12 .clase-badge { background: linear-gradient(135deg, var(--ha-12-a), var(--ha-12-b)); }
 .clase-card.ha-12 .progreso-mini-rellenar { background: linear-gradient(90deg, var(--ha-12-a), var(--ha-12-b)); }

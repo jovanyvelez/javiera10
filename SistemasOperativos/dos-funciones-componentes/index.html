@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 2 · Funciones y componentes</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">⚙️</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 2</h1>
+      <p class="subtitulo">Funciones y componentes · Procesos · Memoria · Almacenamiento · Usuarios</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">⚙️ Procesos</button>
+  <button class="btn-modulo" data-modulo="2">💾 Memoria</button>
+  <button class="btn-modulo" data-modulo="3">🗄️ Archivos</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">👤 Usuarios</button>
+  <button class="btn-modulo" data-modulo="6">🏷️ Clasificación</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>⚙️ ¿Cómo hace el SO todo lo que hace?</h2>
+    <p class="lead">En la <strong>Clase 1</strong> vimos <em>qué</em> es un sistema operativo: el intermediario entre tú y el hardware. Hoy abrimos el capó y vemos <strong>cómo lo hace</strong>: cómo gestiona procesos, memoria, archivos y usuarios. Y compararemos cómo lo hacen Windows, Linux y Android.</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — sysadmin@so</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cmd">ps aux | head</span></div>
+        <div class="out">PID  USER   CPU  MEM  COMMAND</div>
+        <div class="out">  1  root   0.0  0.1  /sbin/init</div>
+        <div class="out"> 42  maria  1.2  3.4  chrome</div>
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cmd">free -h</span></div>
+        <div class="out">Mem: 7.7Gi used 2.1Gi free 4.2Gi</div>
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos, con descanso de 15 min a mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Entender las 4 funciones del SO (procesos, memoria, almacenamiento, usuarios) y diferenciar SO monousuario/multiusuario y mono/multiproceso.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">📚</span>
+      <h3>Viene de la Clase 1</h3>
+      <p>Aprendiste qué es el SO y sus 4 tareas. Aquí verás el interior de cada una, con simuladores y comparación Windows/Linux/Android.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Función del SO</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · Gestión de procesos</td><td style="color:var(--cian)">CPU y scheduler</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Gestión de memoria</td><td style="color:var(--rosa)">RAM y swap</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Gestión de archivos</td><td style="color:var(--ambar)">Almacenamiento</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Gestión de usuarios</td><td style="color:var(--verde)">Permisos</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Clasificación + Comparativa</td><td style="color:var(--morado-claro)">mono/multi + Win/Linux/Android</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--morado)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Recuerden la Clase 1: el SO hace 4 grandes tareas. Con su compañero/a, <strong>escriban cuáles creen que son</strong> (no importa si se equivocan). Luego, a lo largo de la clase, confirmen si acertaron. ¿Listos?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Procesos →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — GESTIÓN DE PROCESOS
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>⚙️ Gestión de procesos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El director de orquesta de la CPU" — quién, cuándo y por cuánto</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>programa</strong> es la receta escrita (el código guardado en disco). Un <strong>proceso</strong> es el chef cocinando esa receta, <strong>vivo</strong>, usando CPU y memoria. Cuando abres WhatsApp, el programa pasa a ser un proceso: adquiere una identidad (PID), un estado y un turno para usar la CPU.</p>
+    <p>El SO, a través de su <strong>planificador (scheduler)</strong>, decide qué proceso corre cuándo, por cuánto tiempo (un <strong>quantum</strong>), y cuándo le toca a otro. Todo tan rápido que parece simultáneo.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con su compañero/a, abran 3 apps en la computadora (navegador, calculadora y otra). <strong>¿Cómo hace el SO para que las tres parezcan funcionar al mismo tiempo con una sola CPU?</strong> Discutan 1 minuto y escriban su hipótesis.</p>
+  </div>
+
+  <h3>📊 Los 5 estados de un proceso</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde"><span class="emoji">🆕</span><h3>Nuevo</h3><p>El proceso está creándose. Aún no entra a competir por la CPU.</p></div>
+    <div class="tarjeta"><span class="emoji">⏳</span><h3>Listo</h3><p>Ya puede correr. Está en la <strong>cola de listos</strong>, esperando su turno.</p></div>
+    <div class="tarjeta tarjeta-verde"><span class="emoji">🏃</span><h3>Ejecución</h3><p>Está usando la CPU <strong>ahora mismo</strong>. Solo uno a la vez por núcleo.</p></div>
+    <div class="tarjeta tarjeta-ambar"><span class="emoji">😴</span><h3>Espera</h3><p>Se pausó porque espera algo: disco, red, entrada del usuario.</p></div>
+    <div class="tarjeta tarjeta-magenta"><span class="emoji">✅</span><h3>Terminado</h3><p>Finalizó. El SO libera sus recursos (memoria, archivos).</p></div>
+  </div>
+
+  <h3>🎮 Simulador: Planificador de procesos (Round-Robin)</h3>
+  <p>Cada proceso recibe un <strong>quantum</strong> (turnito) de CPU. Cuando se agota, el SO hace un <strong>cambio de contexto</strong> y pasa al siguiente de la cola. Presiona "Ejecutar ciclo" y observa cómo los procesos rotan. El diagrama de Gantt registra quién usó la CPU en cada instante.</p>
+
+  <div class="scheduler-sim">
+    <div class="sim-head">⚙️ Scheduler Round-Robin · quantum = 2</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado del planificador</div>
+      <div class="state-grid">
+        <div class="state-cell" id="sched-cell-cycle"><div class="label">Ciclo</div><span class="skey">t</span><span class="sval" id="schedCycle">0</span></div>
+        <div class="state-cell" id="sched-cell-cpu"><div class="label">CPU</div><span class="skey">PID</span><span class="sval" id="schedCpuProc">idle</span></div>
+        <div class="state-cell" id="sched-cell-ctx"><div class="label">Cambios de contexto</div><span class="skey">contador</span><span class="sval" id="schedCtx">0</span></div>
+      </div>
+    </div>
+
+    <div class="sched-columns">
+      <div class="sched-col">
+        <div class="sched-col-title">⏳ Cola de listos</div>
+        <div class="sched-queue" id="schedReady"></div>
+      </div>
+      <div class="sched-col">
+        <div class="sched-col-title">🏃 CPU</div>
+        <div class="sched-cpu" id="schedCpuBox">
+          <div class="sched-cpu-label">Procesador</div>
+          <div class="sched-cpu-proc" id="schedCpuName"><span class="sched-cpu-idle">idle</span></div>
+          <div class="sched-cpu-quantum" id="schedQuantum"></div>
+        </div>
+      </div>
+      <div class="sched-col">
+        <div class="sched-col-title">✅ Terminados</div>
+        <div class="sched-queue" id="schedDone"></div>
+      </div>
+    </div>
+
+    <div class="sched-gantt">
+      <div class="sched-gantt-title">📊 Diagrama de Gantt</div>
+      <div class="sched-gantt-bar" id="schedGantt"></div>
+      <div class="sched-gantt-axis" id="schedGanttAxis"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="schedStep">▶️ Ejecutar un ciclo</button>
+      <button class="btn" id="schedAuto">⏩ Auto (todo)</button>
+      <button class="btn ghost" id="schedReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué es el cambio de contexto?</h4>
+    <p>Cuando el SO saca a un proceso de la CPU y mete a otro, debe <strong>guardar el estado</strong> del primero (registros, contador de programa) y <strong>cargar</strong> el del segundo. Es como marcar el libro donde vas leyendo antes de cambiar de lectura. <strong>Tiene un costo</strong>: unos microsegundos "perdidos" en la transición.</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🔍 En la vida real: Windows vs Linux vs Android</h4>
+    <p><strong>Windows</strong> usa un planificador basado en <strong>prioridades</strong> (las apps en primer plano tienen más prioridad). <strong>Linux</strong> usa un planificador llamado <strong>CFS</strong> (Completely Fair Scheduler) que busca repartir la CPU de forma justa. <strong>Android</strong> hereda el kernel de Linux, así que también usa CFS, pero encima prioriza agresivamente la <strong>app en pantalla</strong> y "congela" las de fondo para ahorrar batería.</p>
+  </div>
+
+  <h3>💻 Ver procesos reales</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal</div>
+      <button class="copy-btn" data-copy="ps1">📋 Copiar</button>
+    </div>
+    <pre><code>$ ps              <span style="color:#5c6370"># lista procesos del usuario actual</span>
+  PID TTY          TIME CMD
+ 1234 pts/0    00:00:01 bash
+ 1567 pts/0    00:00:03 chrome
+
+$ top              <span style="color:#5c6370"># procesos en tiempo real, ordenados por CPU</span>
+$ kill 1567       <span style="color:#5c6370"># termina el proceso con PID 1567</span></code></pre>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es la diferencia entre un programa y un proceso?</p>
+      <button class="opcion" data-op="a">Son lo mismo, sinónimos</button>
+      <button class="opcion" data-op="b">El programa es la receta guardada; el proceso es la receta ejecutándose</button>
+      <button class="opcion" data-op="c">El proceso es el código; el programa es el hardware</button>
+      <button class="opcion" data-op="d">El programa está en RAM; el proceso en el disco</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué hace el planificador (scheduler) del SO?</p>
+      <button class="opcion" data-op="a">Decide qué proceso usa la CPU y por cuánto tiempo</button>
+      <button class="opcion" data-op="b">Guarda archivos en el disco</button>
+      <button class="opcion" data-op="c">Reparte la memoria RAM en marcos</button>
+      <button class="opcion" data-op="d">Verifica contraseñas de usuarios</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Gestión de memoria →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — GESTIÓN DE MEMORIA
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>💾 Gestión de memoria</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El escritorio compartido" — RAM, páginas y swap</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La <strong>RAM</strong> es el "escritorio" donde los procesos ponen lo que están usando ahora. Es <strong>rápida</strong> pero <strong>pequeña</strong> (4–16 GB) y se borra al apagar. El <strong>disco</strong> es el "archivador": lento, enorme, permanente. El SO reparte la RAM entre los procesos y, cuando se llena, usa el truco de la <strong>memoria virtual</strong>: mueve páginas poco usadas al disco (swap) para hacer sitio.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con su compañero/a: si la RAM es el escritorio y el disco es el archivador, <strong>¿qué pasa cuando el escritorio se llena de papeles y necesitas otro?</strong> ¿Lo tiras o lo archivas temporalmente? Discutan 1 min. Esa analogía es exactamente lo que hace el SO con el swap.</p>
+  </div>
+
+  <h3>📦 Paginación: la RAM en "marcos"</h3>
+  <p>El SO divide la RAM en <strong>marcos</strong> del mismo tamaño (ej. 4 KB) y la memoria de cada proceso en <strong>páginas</strong> del mismo tamaño. Así puede repartir el espacio sin fragmentarlo. Una página de un proceso puede ir a cualquier marco libre.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📄 Página</h4>
+      <p>Un trozo de la memoria <strong>lógica</strong> de un proceso. Todas del mismo tamaño. El proceso las ve seguidas, aunque físicamente estén dispersas.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🗄️ Marco</h4>
+      <p>Un hueco de la <strong>RAM física</strong>, del mismo tamaño que una página. El SO mapea páginas → marcos.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🔄 Swap</h4>
+      <p>Cuando la RAM se llena, el SO mueve páginas poco usadas al disco. Es lento, pero evita que el sistema se caiga.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Mapa de memoria</h3>
+  <p>Presiona "Cargar proceso" para asignar páginas a marcos de la RAM. Cuando la RAM se llene, observa cómo el SO <strong>hace swap</strong>: mueve una página al disco para hacer sitio. Eso es la memoria virtual en acción.</p>
+
+  <div class="memmap-sim">
+    <div class="sim-head">💾 Mapa de memoria RAM (16 marcos)</div>
+
+    <div class="memmap-grid" id="memGrid"></div>
+
+    <div class="memmap-disk">
+      <div class="memmap-disk-title">💿 Disco (swap)</div>
+      <div class="memmap-disk-slots" id="memSwap"></div>
+    </div>
+
+    <div class="memmap-legend">
+      <span class="lg p1"><span class="sw"></span> Navegador (P1)</span>
+      <span class="lg p2"><span class="sw"></span> Spotify (P2)</span>
+      <span class="lg p3"><span class="sw"></span> Word (P3)</span>
+      <span class="lg p4"><span class="sw"></span> Juego (P4)</span>
+      <span class="lg sw"><span class="sw"></span> Swap (disco)</span>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="memLoad1">🌐 Cargar Navegador (3 págs)</button>
+      <button class="btn" id="memLoad2">🎵 Cargar Spotify (2 págs)</button>
+      <button class="btn" id="memLoad3">📝 Cargar Word (3 págs)</button>
+      <button class="btn yellow" id="memLoad4">🎮 Cargar Juego (6 págs)</button>
+      <button class="btn ghost" id="memReset">🔄 Reiniciar</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn pink" id="memFree">📤 Cerrar Navegador (liberar)</button>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El swap es lento</h4>
+    <p>Cuando tu computadora "se pone lenta" con muchas apps abiertas, suele ser porque el SO está <strong>swapping mucho</strong>: pasando páginas del disco a RAM y viceversa. El disco es ~1000× más lento que la RAM. Por eso <strong>tener más RAM mejora la velocidad</strong> más que tener un CPU más rápido.</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🔍 En la vida real: Windows vs Linux vs Android</h4>
+    <p>Los tres usan paginación y memoria virtual, pero con diferencias. <strong>Windows</strong> usa un archivo <code>pagefile.sys</code> en disco como swap. <strong>Linux</strong> usa una partición swap dedicada (más eficiente). <strong>Android</strong> (que es Linux por dentro) <strong>no hace swap tradicional</strong>: cuando se llena la RAM, <strong>mata directamente las apps en segundo plano</strong> y las reinicia al volver. Por eso tu app de fondo "se reinicia" en Android en lugar de quedarse lenta.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Para qué sirve el swap (memoria virtual)?</p>
+      <button class="opcion" data-op="a">Para acelerar la CPU</button>
+      <button class="opcion" data-op="b">Para usar el disco como RAM extra cuando la RAM se llena</button>
+      <button class="opcion" data-op="c">Para guardar los archivos del usuario</button>
+      <button class="opcion" data-op="d">Para apagar el computador más rápido</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué el computador se pone lento con muchas apps abiertas?</p>
+      <button class="opcion" data-op="a">Porque el SO hace mucho swap (disco es mucho más lento que RAM)</button>
+      <button class="opcion" data-op="b">Porque la CPU se calienta</button>
+      <button class="opcion" data-op="c">Porque el disco se borra</button>
+      <button class="opcion" data-op="d">Porque la pantalla gasta más energía</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Gestión de archivos →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — GESTIÓN DE ALMACENAMIENTO
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🗄️ Gestión de almacenamiento</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El archivador organizado" — archivos, carpetas y rutas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El disco guarda <strong>todo</strong>: el SO, las apps, tus fotos, la música. Sin organización sería un caos imposible de usar. El SO soluciona esto con un <strong>sistema de archivos</strong>: una estructura de <strong>carpetas (directorios)</strong> y <strong>archivos</strong> en forma de <strong>árbol</strong>. Cada archivo tiene una <strong>ruta</strong> que dice cómo llegar a él desde la raíz.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con su compañero/a: abran el explorador de archivos de la computadora. <strong>¿Dónde está guardada la última foto que descargaron?</strong> Escriban la ruta completa. ¿Empieza con una letra y dos puntos (<code>C:</code>) o con una barra (<code>/</code>)? Esa diferencia es clave: revela si usan Windows o un SO de la familia Unix.</p>
+  </div>
+
+  <h3>🌳 El árbol de archivos</h3>
+  <p>Todos los sistemas de archivos modernos son un <strong>árbol</strong>: hay una <strong>raíz</strong> y de ella cuelgan carpetas, y dentro de ellas más carpetas o archivos. La <strong>ruta absoluta</strong> describe el camino desde la raíz hasta el archivo.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🪟 Windows</h4>
+      <p>Raíz = letra de unidad: <code>C:\</code><br>Carpetas separadas con <code>\</code><br>Ej: <code>C:\Usuarios\Maria\fotos.jpg</code></p>
+    </div>
+    <div class="compare-card b">
+      <h4>🐧 Linux / Android</h4>
+      <p>Raíz = <code>/</code><br>Carpetas separadas con <code>/</code><br>Ej: <code>/home/maria/fotos.jpg</code><br>En Android: <code>/storage/emulated/0/...</code></p>
+    </div>
+    <div class="compare-card c">
+      <h4>🍎 macOS</h4>
+      <p>Raíz = <code>/</code> (familia Unix)<br>Ej: <code>/Users/maria/fotos.jpg</code><br>Visualmente muy pulido, por dentro primo de Linux.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Explorador de archivos</h3>
+  <p>Navega por un sistema de archivos de ejemplo. Toca una carpeta para entrar, toca un archivo para ver sus detalles y su ruta absoluta. Practica construir la ruta hasta un archivo específico.</p>
+
+  <div class="fsexplorer">
+    <div class="sim-head">📂 Explorador — sistema de archivos de ejemplo</div>
+
+    <div class="fs-layout">
+      <div class="fs-tree" id="fsTree"></div>
+      <div class="fs-detail" id="fsDetail">
+        <h4>Selecciona un archivo o carpeta</h4>
+        <p style="color:var(--texto-suave);">Toca cualquier elemento del árbol para ver sus detalles aquí.</p>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" id="fsUp">⬆ Subir un nivel</button>
+      <button class="btn primary" id="fsBack">⬅ Raíz</button>
+      <button class="btn yellow" id="fsNewFolder">📁 Crear carpeta</button>
+      <button class="btn ghost" id="fsReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Archivos vs carpetas</h4>
+    <p>Un <strong>archivo</strong> guarda datos (foto, documento, canción). Una <strong>carpeta</strong> (directorio) es un contenedor que puede tener archivos y otras carpetas dentro. Las carpetas no "pesan" por sí mismas: solo organizan. La extensión del archivo (<code>.jpg</code>, <code>.txt</code>, <code>.mp4</code>) le dice al SO qué app lo abre.</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🔍 En la vida real: NTFS vs ext4 vs almacenamiento Android</h4>
+    <p><strong>Windows</strong> usa el sistema de archivos <strong>NTFS</strong>: soporta permisos, cifrado y recuperación ante fallos. <strong>Linux</strong> usa <strong>ext4</strong> (o btrfs): robusto, rápido y open source. <strong>Android</strong> no da acceso libre al árbol: cada app tiene su propia carpeta aislada (<code>/data/data/&lt;app&gt;</code>) y las fotos van a <code>/storage/emulated/0/DCIM</code>. Ese aislamiento es una <strong>medida de seguridad</strong>: una app no puede tocar los datos de otra.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> En Linux, ¿cuál es la raíz del sistema de archivos?</p>
+      <button class="opcion" data-op="a">C:\</button>
+      <button class="opcion" data-op="b">/</button>
+      <button class="opcion" data-op="c">/root</button>
+      <button class="opcion" data-op="d">Desktop</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué diferencia un archivo de una carpeta?</p>
+      <button class="opcion" data-op="a">El archivo guarda datos; la carpeta es un contenedor que organiza archivos y otras carpetas</button>
+      <button class="opcion" data-op="b">Son lo mismo</button>
+      <button class="opcion" data-op="c">La carpeta guarda datos; el archivo organiza</button>
+      <button class="opcion" data-op="d">El archivo solo sirve en Windows</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro aprende mejor después de una pausa.</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Gira el cuello 5 veces a cada lado. Estira los brazos al techo 10 s. Toca tus pies sin doblar rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso mejora la concentración hasta 30 minutos. <strong>Beba ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a cuál de las 3 funciones vistas (procesos, memoria, archivos) le pareció más interesante. 1 min basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿qué mata Android cuando se llena la RAM?</h3>
+    <p>Antes vimos que Android no hace swap como Windows/Linux. ¿Qué hace en su lugar?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">🪦 Mata apps en segundo plano</button>
+      <button class="trivia-opt" data-top="b">💾 Escribe todo en un USB</button>
+      <button class="trivia-opt" data-top="c">🔥 Apaga la pantalla</button>
+      <button class="trivia-opt" data-top="d">⏸️ Pausa la CPU</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>El sistema de archivos <strong>ext4</strong> de Linux puede manejar volúmenes de hasta <strong>1 exabyte</strong> (un millón de terabytes). Para que te hagas una idea: si cada foto tuya pesa 3 MB, caben <strong>330 mil millones</strong> de fotos en un solo volumen ext4. 🤯</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Gestión de usuarios →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — GESTIÓN DE USUARIOS
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>👤 Gestión de usuarios</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Llaves, candados y grupos" — quién puede hacer qué</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Si cualquiera pudiera tocar los archivos de cualquier otro, el sistema sería un caos inseguro. El SO resuelve esto con <strong>usuarios</strong>, <strong>grupos</strong> y <strong>permisos</strong>. Cada usuario tiene una identidad; cada archivo tiene un dueño; y el dueño decide quién puede <strong>leer (r)</strong>, <strong>escribir (w)</strong> o <strong>ejecutar (x)</strong>. En un SO multiusuario, esta protección es esencial.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>En su celular, ¿pueden abrir la app de Configuración y ver la lista de <strong>permisos</strong> que le dieron a Instagram (cámara, ubicación, micrófono…)? Con su compañero/a, <strong>¿por qué creen que el SO controla eso en lugar de la propia app?</strong> Discutan.</p>
+  </div>
+
+  <h3>🔑 Los tres permisos clásicos (rwx)</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta tarjeta-verde"><h3>👁️ r — read (leer)</h3><p>Ver el contenido del archivo o listar la carpeta. Sin r, no puedes ni ver qué hay.</p></div>
+    <div class="tarjeta tarjeta-ambar"><h3>✏️ w — write (escribir)</h3><p>Modificar el archivo o añadir/eliminar cosas en la carpeta. Sin w, es de solo lectura.</p></div>
+    <div class="tarjeta tarjeta-magenta"><h3>▶️ x — execute (ejecutar)</h3><p>Correr el archivo como programa o entrar a la carpeta. Sin x, una app no arranca.</p></div>
+  </div>
+
+  <h3>👥 Los tres niveles de quién</h3>
+  <p>Los permisos se asignan por niveles de "quién es el que quiere acceder":</p>
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">🧑</span><h3>Owner (dueño)</h3><p>El usuario que creó el archivo. Tiene sus propios permisos.</p></div>
+    <div class="tarjeta"><span class="emoji">👥</span><h3>Group (grupo)</h3><p>Un conjunto de usuarios (ej: "alumnos", "profesores"). Permisos del grupo.</p></div>
+    <div class="tarjeta"><span class="emoji">🌍</span><h3>Others (otros)</h3><p>El resto del mundo. Lo que pueden hacer los que no son dueño ni del grupo.</p></div>
+  </div>
+
+  <h3>🎮 Interactivo: Matriz de permisos</h3>
+  <p>Toca cada celda para activar/desactivar el permiso. Observa cómo cambia la "vista" del archivo para cada tipo de usuario. Así se ve un archivo con permisos <code>rwxr-xr--</code>.</p>
+
+  <div class="perm-matrix">
+    <div class="sim-head">🔐 Matriz de permisos del archivo "tareas.txt"</div>
+
+    <table class="perm-table" id="permTable">
+      <thead>
+        <tr><th>Quién</th><th>👁️ Leer (r)</th><th>✏️ Escribir (w)</th><th>▶️ Ejecutar (x)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🧑 Owner (María)</td>
+          <td><span class="perm-toggle on-r" data-who="owner" data-perm="r">r</span></td>
+          <td><span class="perm-toggle on-w" data-who="owner" data-perm="w">w</span></td>
+          <td><span class="perm-toggle" data-who="owner" data-perm="x">x</span></td>
+        </tr>
+        <tr>
+          <td>👥 Group (alumnos)</td>
+          <td><span class="perm-toggle on-r" data-who="group" data-perm="r">r</span></td>
+          <td><span class="perm-toggle" data-who="group" data-perm="w">w</span></td>
+          <td><span class="perm-toggle" data-who="group" data-perm="x">x</span></td>
+        </tr>
+        <tr>
+          <td>🌍 Others</td>
+          <td><span class="perm-toggle on-r" data-who="others" data-perm="r">r</span></td>
+          <td><span class="perm-toggle" data-who="others" data-perm="w">w</span></td>
+          <td><span class="perm-toggle" data-who="others" data-perm="x">x</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="perm-result" id="permResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El truco de la notación rwx</h4>
+    <p>En terminal, los permisos se ven como <code>rwxr-xr--</code>. Las primeras 3 letras = owner, las siguientes = group, las últimas = others. Ese texto es la "firma" de seguridad del archivo. <code>rwx</code> = todos los permisos; <code>---</code> = ninguno.</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🔍 En la vida real: Windows vs Linux vs Android</h4>
+    <p><strong>Windows</strong> usa un sistema más complejo llamado <strong>ACL</strong> (listas de control de acceso): cada archivo puede tener una lista detallada de qué usuario exacto puede hacer qué. <strong>Linux</strong> usa el modelo clásico <strong>rwx</strong> (dueño/grupo/otros), más simple pero potente. <strong>Android</strong> lleva esto al extremo: cada app es <strong>su propio usuario</strong> de Linux, así que una app <strong>no puede</strong> leer los datos de otra. Por eso un virus de una app no se propaga tan fácilmente como en Windows antiguo.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> En la notación <code>rwxr-xr--</code>, ¿qué puede hacer el grupo?</p>
+      <button class="opcion" data-op="a">Leer, escribir y ejecutar</button>
+      <button class="opcion" data-op="b">No hacer nada</button>
+      <button class="opcion" data-op="c">Leer y ejecutar, pero no escribir</button>
+      <button class="opcion" data-op="d">Solo escribir</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Por qué en Android cada app es su propio usuario de Linux?</p>
+      <button class="opcion" data-op="a">Para gastar menos batería</button>
+      <button class="opcion" data-op="b">Para que una app no pueda acceder a los datos de otra (aislamiento)</button>
+      <button class="opcion" data-op="c">Para que las apps carguen más rápido</button>
+      <button class="opcion" data-op="d">Por costumbre, no tiene utilidad real</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Clasificación + Comparativa →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — CLASIFICACIÓN + COMPARATIVA
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>🏷️ Clasificación + Comparativa</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Mono o multi, y cómo lo hacen los grandes" — clasificación 2×2 + Windows/Linux/Android</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Los SO se pueden clasificar en dos ejes: <strong>¿cuántos usuarios</strong> pueden usarlo a la vez? (mono vs multiusuario), y <strong>¿cuántos procesos</strong> puede correr a la vez? (mono vs multiproceso). Esto da una matriz 2×2 que explica qué SO sirve para qué. Y para aterrizarlo, comparamos a los tres grandes: Windows, Linux y Android.</p>
+  </div>
+
+  <h3>📊 La matriz 2×2: clasificación de SO</h3>
+  <p>Arrastra (o toca) cada SO/dispositivo a la celda que le corresponde. Hay 8 por clasificar.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🏷️ Clasifica: monousuario/multiusuario × mono/multiproceso</div>
+
+    <div class="class-bank" id="classBank"></div>
+
+    <div class="class-matrix" id="classMatrix">
+      <div class="corner"></div>
+      <div class="col-head mono">👤 Monousuario</div>
+      <div class="col-head multi">👥 Multiusuario</div>
+
+      <div class="row-head mono">1️⃣ Monoproceso</div>
+      <div class="class-cell" data-cell="mm"><div class="cell-title">Monousuario · Monoproceso</div><div class="cell-items"></div></div>
+      <div class="class-cell" data-cell="Mm"><div class="cell-title">Multiusuario · Monoproceso</div><div class="cell-items"></div></div>
+
+      <div class="row-head multi">⚙️ Multiproceso</div>
+      <div class="class-cell" data-cell="mM"><div class="cell-title">Monousuario · Multiproceso</div><div class="cell-items"></div></div>
+      <div class="class-cell" data-cell="MM"><div class="cell-title">Multiusuario · Multiproceso</div><div class="cell-items"></div></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn ghost" id="classReset">🔄 Reiniciar clasificación</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué significa cada celda?</h4>
+    <p><strong>Monousuario · Monoproceso</strong>: MS-DOS de los 80. Una persona, una tarea a la vez. <strong>Multiusuario · Multiproceso</strong>: Linux en un servidor. Muchos usuarios conectados, cada uno corriendo varios programas a la vez. <strong>Monousuario · Multiproceso</strong>: tu celular. Una persona, pero muchas apps a la vez. <strong>Multiusuario · Monoproceso</strong>: raro hoy; algunos sistemas antiguos de tiempo compartido básico.</p>
+  </div>
+
+  <h3>🪟🐧📱 Comparativa: Windows vs Linux vs Android</h3>
+  <p>Veamos cómo se diferencian los tres SO más usados del planeta, a nivel de usuario visible:</p>
+
+  <div class="compare-so">
+    <div class="compare-so-card win">
+      <span class="so-logo">🪟</span>
+      <h3>Windows</h3>
+      <p class="so-tagline">El rey del escritorio</p>
+      <div class="so-attr"><span class="k">Origen</span><span class="v">Microsoft, 1985</span></div>
+      <div class="so-attr"><span class="k">Licencia</span><span class="v">Privativa (paga)</span></div>
+      <div class="so-attr"><span class="k">Familia</span><span class="v">Propia (no Unix)</span></div>
+      <div class="so-attr"><span class="k">Sistema archivos</span><span class="v">NTFS</span></div>
+      <div class="so-attr"><span class="k">Multiusuario</span><span class="v">Sí (perfiles)</span></div>
+      <div class="so-attr"><span class="k">Multiproceso</span><span class="v">Sí</span></div>
+      <div class="so-attr"><span class="k">Dónde se usa</span><span class="v">PCs, laptops</span></div>
+    </div>
+
+    <div class="compare-so-card lin">
+      <span class="so-logo">🐧</span>
+      <h3>Linux</h3>
+      <p class="so-tagline">Libre y en todas partes</p>
+      <div class="so-attr"><span class="k">Origen</span><span class="v">Linus Torvalds, 1991</span></div>
+      <div class="so-attr"><span class="k">Licencia</span><span class="v">Libre (open source)</span></div>
+      <div class="so-attr"><span class="k">Familia</span><span class="v">Unix</span></div>
+      <div class="so-attr"><span class="k">Sistema archivos</span><span class="v">ext4 / btrfs</span></div>
+      <div class="so-attr"><span class="k">Multiusuario</span><span class="v">Sí (nativo)</span></div>
+      <div class="so-attr"><span class="k">Multiproceso</span><span class="v">Sí</span></div>
+      <div class="so-attr"><span class="k">Dónde se usa</span><span class="v">Servidores, Android, coches</span></div>
+    </div>
+
+    <div class="compare-so-card and">
+      <span class="so-logo">📱</span>
+      <h3>Android</h3>
+      <p class="so-tagline">Linux en tu bolsillo</p>
+      <div class="so-attr"><span class="k">Origen</span><span class="v">Google, 2008</span></div>
+      <div class="so-attr"><span class="k">Licencia</span><span class="v">Open source (AOSP) + Google</span></div>
+      <div class="so-attr"><span class="k">Familia</span><span class="v">Linux</span></div>
+      <div class="so-attr"><span class="k">Sistema archivos</span><span class="v">ext4 (aislado por app)</span></div>
+      <div class="so-attr"><span class="k">Multiusuario</span><span class="v">Cada app = 1 usuario</span></div>
+      <div class="so-attr"><span class="k">Multiproceso</span><span class="v">Sí</span></div>
+      <div class="so-attr"><span class="k">Dónde se usa</span><span class="v">Celulares, tablets, TVs</span></div>
+    </div>
+  </div>
+
+  <h3>🎮 Reto: empareja cada característica con el SO correcto</h3>
+  <p>Toca una característica y luego el SO al que pertenece. Hay 6 características por emparejar.</p>
+
+  <div class="feature-match">
+    <div class="sim-head">🎯 Característica → SO</div>
+    <p id="featureInstr" style="font-size:0.88rem;color:var(--texto-suave);">Toca una característica para seleccionarla.</p>
+    <div class="feature-list" id="featureList"></div>
+    <div class="feature-targets" id="featureTargets"></div>
+    <div class="feature-feedback" id="featureFeedback"></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="featureReset">🔄 Reiniciar reto</button>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Dato clave</h4>
+    <p><strong>Windows</strong> es el menos "Unix" de los tres. Su kernel (NT) no viene de Unix, por eso sus comandos, rutas y permisos son tan distintos. Linux y Android <strong>sí comparten el tronco Unix</strong>: por eso en Android puedes abrir una terminal y usar <code>ls</code>, <code>cd</code> y <code>cat</code> igual que en Linux.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 6 -->
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> Un celular (una persona, muchas apps a la vez) ¿en qué celda de la matriz cae?</p>
+      <button class="opcion" data-op="a">Monousuario · Monoproceso</button>
+      <button class="opcion" data-op="b">Monousuario · Multiproceso</button>
+      <button class="opcion" data-op="c">Multiusuario · Monoproceso</button>
+      <button class="opcion" data-op="d">Multiusuario · Multiproceso</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué SO NO pertenece a la familia Unix?</p>
+      <button class="opcion" data-op="a">Windows</button>
+      <button class="opcion" data-op="b">Linux</button>
+      <button class="opcion" data-op="c">macOS</button>
+      <button class="opcion" data-op="d">Android</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 7 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: estados de proceso, cambio de contexto, permisos y clasificación. El último es el <strong>Jefe Final</strong>. Al superar todos los retos, recibirás tu insignia de <strong>Componentes Master</strong>.</p>
+  </div>
+
+  <!-- Reto 1: Matching — estados de proceso -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">⚙️ Empareja cada estado de proceso con su descripción</span>
+    </div>
+    <p>Toca un estado de la izquierda y luego su descripción correcta a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">⏳ Listo</button>
+        <button class="ws-chip" data-mid="1b">🏃 Ejecución</button>
+        <button class="ws-chip" data-mid="1c">😴 Espera</button>
+        <button class="ws-chip" data-mid="1d">✅ Terminado</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Está usando la CPU ahora mismo</button>
+        <button class="ws-chip" data-mid="1B">Puede correr, espera su turno en la cola</button>
+        <button class="ws-chip" data-mid="1C">Finalizó y el SO libera sus recursos</button>
+        <button class="ws-chip" data-mid="1D">Se pausó porque espera disco, red o entrada</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar pasos del cambio de contexto -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">🔄 Ordena los pasos del cambio de contexto</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar los pasos desde que un proceso agota su quantum hasta que otro empieza a correr.</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2q" draggable="true"><span class="ord-num">?</span> El proceso agota su quantum de CPU</div>
+        <div class="ws-order-item" data-oid="2save" draggable="true"><span class="ord-num">?</span> El SO guarda el estado del proceso actual</div>
+        <div class="ws-order-item" data-oid="2pick" draggable="true"><span class="ord-num">?</span> El SO saca el siguiente de la cola de listos</div>
+        <div class="ws-order-item" data-oid="2load" draggable="true"><span class="ord-num">?</span> El SO carga el estado del nuevo proceso</div>
+        <div class="ws-order-item" data-oid="2run" draggable="true"><span class="ord-num">?</span> El nuevo proceso empieza a usar la CPU</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Emparejar tipo SO ↔ dispositivo -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">🏷️ Empareja cada dispositivo con su tipo de SO</span>
+    </div>
+    <p>Toca un dispositivo y luego el tipo de SO que usa. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="3">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="3a">📱 Tu celular</button>
+        <button class="ws-chip" data-mid="3b">🏦 Un cajero antiguo</button>
+        <button class="ws-chip" data-mid="3c">🖥️ Servidor de la nube</button>
+        <button class="ws-chip" data-mid="3d">💾 PC con MS-DOS</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="3A">Monousuario · Multiproceso</button>
+        <button class="ws-chip" data-mid="3B">Monousuario · Monoproceso</button>
+        <button class="ws-chip" data-mid="3C">Multiusuario · Multiproceso</button>
+        <button class="ws-chip" data-mid="3D">Monousuario · Monoproceso</button>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe final — escenario memoria -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final</span>
+      <span class="challenge-title">🏆 Escenario: PC con 4GB RAM abre un juego pesado</span>
+    </div>
+    <p>Tu PC tiene 4GB de RAM y ya tiene abierto el navegador con 15 pestañas. Al abrir un juego pesado, todo se pone <strong>muy lento</strong>. Completa la explicación eligiendo la palabra correcta:</p>
+
+    <div class="ws-block">
+      <div class="code-live">
+El PC se pone lento porque el SO está haciendo mucho <span class="hl-line">
+<input class="ws-input" data-ans="swap" data-ws="4" placeholder="?"> (memoria virtual)
+</span>
+moviendo páginas entre RAM y disco, que es ~1000× más lento.
+      </div>
+    </div>
+
+    <p style="font-size:0.88rem;color:var(--texto-suave);">Segunda parte: ¿cuál es la mejor solución a largo plazo? Elige la respuesta correcta:</p>
+
+    <div class="ws-block" data-ws-match="4">
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Comprar más RAM (ampliar el "escritorio")</button>
+        <button class="ws-chip" data-mid="4B">Cambiar el ratón por uno más rápido</button>
+        <button class="ws-chip" data-mid="4C">Borrar el sistema operativo</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Componentes Master!</h2>
+    <p class="lead">Ya sabes cómo el SO gestiona procesos, memoria, archivos y usuarios, y cómo se clasifican los SO en mono/multi. Has visto por qué tu celular "reinicia" apps de fondo y por qué un servidor es multiusuario. Eso es conocimiento de nivel técnico real.</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">En la próxima clase entraremos al sistema de archivos y la terminal como herramienta del día a día. 🖥️</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🎓 Sistemas Operativos · Clase 2 · Plataforma interactiva</div>
+  <div>Funciones y componentes · Procesos · Memoria · Archivos · Usuarios · Clasificación · 4 horas · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

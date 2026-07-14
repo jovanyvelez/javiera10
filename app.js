@@ -38,7 +38,8 @@ function cargarProgresoPorClase() {
     'curso-validacion-arreglos': 5,
     'curso-integracion-estructuras': 5,
     'curso-maraton-algoritmos': 5,
-    'curso-so-que-es-sistema-operativo': 6
+    'curso-so-que-es-sistema-operativo': 6,
+    'curso-so-funciones-componentes': 6
   };
 
   let totalGlobal = 0;
@@ -100,11 +101,11 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 3,   800);
-  animarNumero(document.getElementById('stat-clases'),  0, 6,   900);
+  animarNumero(document.getElementById('stat-clases'),  0, 7,   900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
-    animarNumero(elHoras, 0, 64, 1000, valor => valor + '+');
+    animarNumero(elHoras, 0, 68, 1000, valor => valor + '+');
   }
 }
 
@@ -175,11 +176,16 @@ document.addEventListener('keydown', (e) => {
     const card = document.querySelector('.clase-card.so-1');
     if (card) card.click();
   }
+  // Tecla 7 → Clase 2 SO
+  if (e.key === '7') {
+    const card = document.querySelector('.clase-card.so-2');
+    if (card) card.click();
+  }
 });
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes'];
 
   let tienePrograma = false;
 
@@ -198,7 +204,7 @@ window.addEventListener('load', () => {
     }, 600);
   } else {
     setTimeout(() => {
-      mostrarToast('💡 Tip: usa las teclas 1-6 para saltar a una clase disponible.');
+      mostrarToast('💡 Tip: usa las teclas 1-7 para saltar a una clase disponible.');
     }, 1200);
   }
 });
