@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 3 · Tipos de SO</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🌐</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 3</h1>
+      <p class="subtitulo">Tipos de SO · Escritorio · Móviles · Embebidos · Red · Tiempo real</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🖥️ Escritorio</button>
+  <button class="btn-modulo" data-modulo="2">📱 Móviles</button>
+  <button class="btn-modulo" data-modulo="3">🔧 Embebidos</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🌐 En red</button>
+  <button class="btn-modulo" data-modulo="6">⏱️ Tiempo real</button>
+  <button class="btn-modulo" data-modulo="7">🧭 Ámbitos</button>
+  <button class="btn-modulo" data-modulo="8">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🌐 Tu laptop, tu celular, tu nevera y un dron usan SOs distintos</h2>
+    <p class="lead">En la <strong>Clase 1</strong> vimos <em>qué</em> es el SO. En la <strong>Clase 2</strong> vimos <em>cómo</em> trabaja (procesos, memoria, archivos, drivers, usuarios). Hoy abrimos la <strong>gran pregunta</strong>: si todos son "sistemas operativos", ¿por qué hay tantos? ¿En qué se diferencian? ¿Por qué el SO de un dron no puede ser el mismo que el de tu laptop?</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — sysadmin@so</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cmd">uname -m</span></div>
+        <div class="out">x86_64         <span style="color:#5c6370"># tu laptop: arquitectura de escritorio</span></div>
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cmd">file /bin/ls</span></div>
+        <div class="out">ARM aarch64    <span style="color:#5c6370"># tu celular: arquitectura distinta</span></div>
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cmd">cat /proc/cpuinfo | head</span></div>
+        <div class="out">RTOS QNX 7.1   <span style="color:#5c6370"># el dron: SO de tiempo real</span></div>
+        <div><span class="prompt">sysadmin@so:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 9 módulos, con descanso de 15 min a la mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Reconocer los 5 tipos principales de SO (escritorio, móvil, embebido, en red, tiempo real), sus características y el ámbito donde se usan.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🌍</span>
+      <h3>Lo que aprenderás</h3>
+      <p>Por qué Android está basado en Linux pero no es un SO de escritorio, por qué un cajero automático usa Windows XP, y por qué un marcapasos necesita un SO especial.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tipo de SO</th><th>Ámbito</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · Escritorio</td><td style="color:var(--cian)">General purpose</td><td style="color:var(--rosa)">PC, laptop, Mac</td><td>100 XP</td></tr>
+        <tr><td>02 · Móviles</td><td style="color:var(--cian)">Móvil</td><td style="color:var(--rosa)">Celular, tablet, reloj</td><td>100 XP</td></tr>
+        <tr><td>03 · Embebidos</td><td style="color:var(--cian)">Embebido / RTOS ligero</td><td style="color:var(--rosa)">Router, Smart TV, auto</td><td>100 XP</td></tr>
+        <tr><td>☕ Descanso</td><td style="color:var(--naranja)">Pausa</td><td>—</td><td>—</td></tr>
+        <tr><td>04 · En red</td><td style="color:var(--cian)">NOS / Servidor</td><td style="color:var(--rosa)">Datacenter, nube</td><td>100 XP</td></tr>
+        <tr><td>05 · Tiempo real</td><td style="color:var(--cian)">RTOS</td><td style="color:var(--rosa)">Dron, marcapasos, ABS</td><td>100 XP</td></tr>
+        <tr><td>06 · Ámbitos + tabla</td><td style="color:var(--morado)">Síntesis + comparativa</td><td>—</td><td>100 XP</td></tr>
+        <tr><td>07 · Taller</td><td style="color:var(--morado)">3 retos + caso del dron</td><td style="color:var(--rosa)">Diagnóstico técnico</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: con tu compañero/a, hagan una lista de <strong>5 dispositivos con pantalla o chip</strong> que tengan en la casa (celular, TV, nevera, reloj, router, microondas…). Para cada uno, escriban: <strong>¿creen que tiene SO?</strong> ¿De qué tipo? No busquen la respuesta correcta, solo su intuición. Lo confirmaremos al final.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Escritorio →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — ESCRITORIO
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🖥️ Sistemas Operativos de escritorio</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El generalista" — multitarea, GUI y todo el poder</p>
+
+  <div class="caja-importante">
+    <h4>🦹 El villano: Photoshop se cierra mientras escribes en Word</h4>
+    <p>Tienes Photoshop abierto editando una foto, Word con tu tarea, Chrome con 30 pestañas y Spotify. De pronto <strong>Photoshop se cierra solo</strong> sin explicación. ¿Por qué puede pasar esto en un SO de escritorio y no en tu celular? Porque el SO de escritorio intenta "hacer todo a la vez" y a veces se queda corto. Veamos cómo está hecho.</p>
+  </div>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>SO de escritorio</strong> (también llamado <em>general purpose</em> o de propósito general) está diseñado para correr <strong>cualquier tipo de tarea</strong>: ofimática, diseño, programación, juegos, navegación. Para eso necesita <strong>multitarea preemptiva</strong> (varios programas a la vez), <strong>multiusuario</strong> (varios perfiles en la misma máquina), <strong>GUI rica</strong> (ventanas, íconos, ratón) y <strong>abundancia de recursos</strong> (GB de RAM, GB de disco, GHz de CPU).</p>
+    <p>Los tres grandes exponentes son <strong>🪟 Windows</strong> (Microsoft), <strong>🍎 macOS</strong> (Apple) y <strong>🐧 Linux</strong> (Ubuntu, Fedora, Debian, etc.). Los tres pueden hacer lo mismo, pero cada uno tiene su filosofía.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, escriban <strong>3 tareas</strong> que ustedes hacen a la vez en su PC. Por ejemplo: <em>"ver un video de YouTube mientras escribo en Word y bajo un archivo"</em>. ¿Qué recursos de la PC intervienen en cada una? (CPU, RAM, disco, red). Discutan 1 minuto.</p>
+  </div>
+
+  <h3>🎯 Las 4 características de un SO de escritorio</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">⚙️</span>
+      <h3>Multitarea preemptiva</h3>
+      <p>El SO <strong>interrumpe</strong> una tarea para darle CPU a otra. Ningún programa puede "secuestrar" el procesador. Ya viste esto en la Clase 2 con el scheduler.</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">👥</span>
+      <h3>Multiusuario</h3>
+      <p>Varios perfiles en la misma PC, cada uno con sus archivos y permisos. En Windows y Linux, un usuario "administrador" puede instalar programas; los demás no.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🖼️</span>
+      <h3>GUI rica</h3>
+      <p>Ventanas redimensionables, íconos, ratón, atajos de teclado. Aunque todos tienen terminal, la GUI es la forma principal de uso.</p>
+    </div>
+    <div class="tarjeta tarjeta-warm">
+      <span class="emoji">💪</span>
+      <h3>Recursos abundantes</h3>
+      <p>Asume GB de RAM, GB de disco y CPU rápida. Por eso no sirve para un marcapasos (que tiene KB) ni para una nevera (que no necesita tanto).</p>
+    </div>
+  </div>
+
+  <h3>🎮 Reto: empareja el dispositivo con el SO de escritorio</h3>
+  <p>Toca un dispositivo y luego el SO de escritorio que usaría típicamente. Hay 6 por emparejar.</p>
+
+  <div class="match-game">
+    <div class="sim-head">💻 Dispositivo → SO de escritorio</div>
+    <p id="escritorioInstr" style="font-size:0.88rem;color:var(--texto-suave);">Toca un dispositivo de la izquierda para seleccionarlo.</p>
+    <div class="match-grid" id="escritorioGrid"></div>
+    <div class="match-options" id="escritorioOptions"></div>
+    <div class="match-feedback" id="escritorioFeedback"></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="escritorioReset">🔄 Reiniciar reto</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué hay tres y no uno?</h4>
+    <p><strong>Windows</strong> domina en oficinas y PCs de hogar por compatibilidad y juegos. <strong>macOS</strong> es el SO preferido de diseñadores, editores de video y músicos por su ecosistema pulido. <strong>Linux</strong> reina en servidores y desarrolladores por ser libre y muy configurable. En el escritorio "de a pie" los tres coexisten porque cada usuario tiene prioridades distintas.</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🔍 En la vida real</h4>
+    <p>El SO de escritorio <strong>no es el más eficiente</strong>: gasta recursos en efectos visuales, en tener 50 servicios corriendo en segundo plano, en mantener 10 apps abiertas. Esa ineficiencia es <em>a propósito</em>: prefiere gastar recursos a que tú esperes. En un dron o un marcapasos eso sería inaceptable: ahí entran los otros tipos de SO que veremos hoy.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es la principal característica de un SO de escritorio?</p>
+      <button class="opcion" data-op="a">Solo puede correr una tarea a la vez</button>
+      <button class="opcion" data-op="b">Multitarea preemptiva + GUI + multiusuario + recursos abundantes</button>
+      <button class="opcion" data-op="c">Solo usa kilobytes de RAM</button>
+      <button class="opcion" data-op="d">No tiene interfaz gráfica</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál de estos NO es un SO de escritorio?</p>
+      <button class="opcion" data-op="a">Windows</button>
+      <button class="opcion" data-op="b">macOS</button>
+      <button class="opcion" data-op="c">QNX</button>
+      <button class="opcion" data-op="d">Ubuntu (Linux)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Móviles →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — MÓVILES
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>📱 Sistemas Operativos móviles</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El SO en tu bolsillo" — batería, sensores y táctil</p>
+
+  <div class="caja-importante">
+    <h4>🦹 El villano: la batería se agota aunque no uses el celular</h4>
+    <p>Dejaste el celular toda la noche sin usarlo y a la mañana tiene 30% de batería. <strong>¿Por qué se gasta si no hiciste nada?</strong> Porque hay 50 procesos en segundo plano (apps "dormidas" pero despiertas a medias, servicios de push, GPS recordándote el clima). El SO móvil debe <strong>gestionarlos agresivamente</strong> para que la batería dure. Si no lo hace, te quedas sin teléfono al mediodía.</p>
+  </div>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>SO móvil</strong> (Android, iOS, iPadOS, watchOS) está optimizado para un aparato que <strong>funciona con batería</strong>, tiene <strong>pantalla táctil</strong>, muchos <strong>sensores</strong> (GPS, acelerómetro, giroscopio, brújula) y <strong>conexión intermitente</strong> (WiFi, 4G/5G, Bluetooth). El kernel de Android es <strong>Linux</strong>; el de iOS es <strong>XNU</strong> (de la familia Unix/BSD, primo de macOS).</p>
+    <p>La diferencia clave con el escritorio: el SO móvil <strong>mata apps en segundo plano</strong> cuando necesita RAM o batería. Por eso cuando vuelves a una app, a veces arranca desde cero.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a: abran el menú de <strong>batería</strong> del celular (Configuración → Batería). ¿Cuáles apps aparecen como las que más consumen? ¿Están "abiertas" en tu mente (las usaste hace poco) o son apps "que dejaste ahí"? Discutan 1 minuto.</p>
+  </div>
+
+  <h3>🎯 Las 5 particularidades de un SO móvil</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">🔋</span>
+      <h3>1. Batería primero</h3>
+      <p>Cada decisión del SO se evalúa contra "¿gasta batería?". Si una app en background pide CPU, el SO la "congela" o la mata. Modo "Doze" en Android, "App Nap" en iOS.</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">👆</span>
+      <h3>2. Pantalla táctil</h3>
+      <p>El ratón no existe. La interfaz se diseña para dedos: botones grandes, gestos (deslizar, pellizcar), vibración háptica al tocar. No hay "hover".</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">📡</span>
+      <h3>3. Sensores</h3>
+      <p>GPS, acelerómetro, giroscopio, brújula, sensor de luz, huella, cámara. El SO expone APIs para que las apps lean esos sensores. Por eso el celular "sabe" si lo giraste.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🔒</span>
+      <h3>4. Sandbox por app</h3>
+      <p>Cada app es su propio "usuario" del SO (viste esto en Clase 2). Una app <strong>no puede leer los datos de otra</strong> salvo permiso explícito. Por eso un virus en una app no se propaga.</p>
+    </div>
+    <div class="tarjeta tarjeta-warm">
+      <span class="emoji">📶</span>
+      <h3>5. Red intermitente</h3>
+      <p>El WiFi se cae, el 4G varía. El SO hace cola de mensajes y los entrega cuando vuelves a tener red. WhatsApp usa esto para enviar mensajes cuando "hay señal".</p>
+    </div>
+  </div>
+
+  <h3>🎮 Reto: ¿es Android o iOS?</h3>
+  <p>Toca un dispositivo móvil y luego el SO que usaría. Hay 6 por emparejar.</p>
+
+  <div class="match-game">
+    <div class="sim-head">📱 Dispositivo → SO móvil</div>
+    <p id="movilInstr" style="font-size:0.88rem;color:var(--texto-suave);">Toca un dispositivo para seleccionarlo.</p>
+    <div class="match-grid" id="movilGrid"></div>
+    <div class="match-options" id="movilOptions"></div>
+    <div class="match-feedback" id="movilFeedback"></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="movilReset">🔄 Reiniciar reto</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Android vs iOS: misma idea, distinta ejecución</h4>
+    <p>Los dos son multitarea, multitáctiles y con sandbox. La diferencia grande es el <strong>ecosistema</strong>: Android es de Google, abierto, lo usa Samsung, Xiaomi, Motorola, etc. iOS es de Apple, cerrado, solo en iPhones. Por eso en el mundo hay ~3 mil millones de Androids y ~1.5 mil millones de iPhones. Pero <strong>bajo el capó</strong>, Android es Linux e iOS es Unix. ¡El tronco común!</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🔍 En la vida real: por qué tu celular "se calienta"</h4>
+    <p>Si jugás un juego pesado, el celular se calienta porque el <strong>CPU y GPU trabajan al máximo</strong>. El SO no puede bajar la frecuencia sola; necesita disipación. Por eso algunos celulares throttle (bajan rendimiento) cuando se sobrecalientan. Eso es un trade-off del SO móvil: <strong>rendimiento vs temperatura vs batería</strong>.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Sobre qué kernel está basado Android?</p>
+      <button class="opcion" data-op="a">Linux</button>
+      <button class="opcion" data-op="b">Windows NT</button>
+      <button class="opcion" data-op="c">MS-DOS</button>
+      <button class="opcion" data-op="d">No usa kernel</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Por qué el SO móvil "mata" apps en segundo plano?</p>
+      <button class="opcion" data-op="a">Para que el celular sea más lento</button>
+      <button class="opcion" data-op="b">Para ahorrar batería y RAM</button>
+      <button class="opcion" data-op="c">Porque son virus</button>
+      <button class="opcion" data-op="d">Por capricho del fabricante</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Embebidos →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — EMBEBIDOS
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🔧 Sistemas Operativos embebidos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El SO invisible" — dentro de routers, TVs, autos y neveras</p>
+
+  <div class="caja-importante">
+    <h4>🦹 El villano: tu Smart TV se congela pero no tiene ventilador ni disco</h4>
+    <p>Tu Smart TV abre Netflix y YouTube, navega internet, descarga actualizaciones… y sin embargo <strong>no tiene ventilador</strong> (no se enfría como una PC), <strong>no tiene disco duro</strong> (solo memoria interna pequeña) y <strong>tiene un control remoto con 15 botones</strong>. ¿Cómo es posible que corra un SO? Porque está diseñado para hacer <strong>pocas cosas, muy bien</strong>, con recursos mínimos. Ese es el mundo de los SO embebidos.</p>
+  </div>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>SO embebido</strong> vive <strong>dentro de un dispositivo que no es una computadora</strong>: router WiFi, smart TV, lavadora, microondas, freno ABS, dron, satélite. Está hecho para hacer <strong>una tarea específica</strong> con recursos mínimos: poca RAM (KB-MB), poco almacenamiento, sin GUI o GUI simple, sin teclado/ratón, a veces sin pantalla. Ejemplos: <strong>Embedded Linux</strong>, <strong>FreeRTOS</strong>, <strong>QNX</strong>, <strong>Contiki</strong>, <strong>Zephyr</strong>.</p>
+    <p>Se estima que hay <strong>más de 50 mil millones</strong> de dispositivos con SO embebido en el mundo. Muchísimos más que PCs y celulares juntos.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, cuenten <strong>cuántos dispositivos con chip</strong> ven a su alrededor ahora mismo: routers, celulares (cuenta también), smartwatch, TV, bombillas inteligentes, parlantes Alexa, neveras, lavadoras, microondas, el carro de la familia… <strong>Apuesten</strong>: ¿hay más de 20? Discutan.</p>
+  </div>
+
+  <h3>🎯 Las 5 características de un SO embebido</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">📦</span>
+      <h3>Recursos mínimos</h3>
+      <p>KB-MB de RAM, MB-GB de almacenamiento. El SO completo cabe en una memoria flash pequeña.</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">🎯</span>
+      <h3>Tarea específica</h3>
+      <p>El SO hace <strong>una sola cosa bien</strong>: enrutar paquetes, reproducir video, controlar freno. No es generalista.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🔌</span>
+      <h3>Sin periféricos</h3>
+      <p>Sin teclado, sin ratón, sin GUI rica. Configuración por botones, panel web o app complementaria.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">⚡</span>
+      <h3>Arranque rápido</h3>
+      <p>Debe estar listo en milisegundos o pocos segundos. El router prende en 3 seg, no en 30.</p>
+    </div>
+    <div class="tarjeta tarjeta-warm">
+      <span class="emoji">🔋</span>
+      <h3>Bajo consumo</h3>
+      <p>Muchos funcionan con batería o energía limitada (sensores IoT, marcapasos). Cada microamperio cuenta.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Clasifica los dispositivos por recursos necesarios</h3>
+  <p>Arrastra (o toca y luego toca) cada dispositivo al cajón correcto. Un marcapasos usa <strong>KB</strong> de RAM; una Smart TV usa <strong>GB</strong>. Hay 8 por clasificar.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔧 Recursos del SO embebido</div>
+    <div class="item-bank" id="embebidoBank"></div>
+
+    <div class="capas-wrap" id="embebidoWrap">
+      <div class="capa" data-recurso="minimo">
+        <span class="capa-icon">🪶</span>
+        <span class="capa-name">Recursos mínimos (KB)</span>
+        <span class="capa-desc">Marpasos, sensor IoT, microcontrolador. SO de microsegundos.</span>
+        <span class="capa-drop" data-drops="minimo"></span>
+      </div>
+      <div class="capa" data-recurso="medio">
+        <span class="capa-icon">📡</span>
+        <span class="capa-name">Recursos medios (MB)</span>
+        <span class="capa-desc">Router, Smart TV, lavadora. SO con más funciones, pero acotado.</span>
+        <span class="capa-drop" data-drops="medio"></span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn ghost" id="embebidoReset">🔄 Reiniciar clasificación</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Ejemplos concretos de SO embebidos</h4>
+    <p><strong>FreeRTOS</strong>: el más usado del mundo, corre en miles de millones de microcontroladores (electrodomésticos, sensores). <strong>QNX</strong>: en el 50% de los autos (incluida la pantalla de infoentretenimiento). <strong>Embedded Linux</strong>: en routers, Smart TVs, drones DJI. <strong>VxWorks</strong>: en el rover Mars Perseverance y en muchos aviones. <strong>Zephyr</strong>: en wearables y sensores IoT.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ No confundir con SO de tiempo real</h4>
+    <p>Un SO embebido <strong>no siempre</strong> es de tiempo real. La lavadora no necesita responder en milisegundos exactos; puede "tardarse" un segundo extra sin que pase nada. Un SO <strong>de tiempo real</strong> (RTOS) sí lo necesita. Lo vemos en el módulo 6. Muchos embebidos son RTOS, pero no todos los RTOS son embebidos.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál de estos dispositivos usa típicamente un SO embebido?</p>
+      <button class="opcion" data-op="a">Una laptop gamer</button>
+      <button class="opcion" data-op="b">Un PC de oficina</button>
+      <button class="opcion" data-op="c">Un router WiFi</button>
+      <button class="opcion" data-op="d">Un servidor de Google</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué un SO embebido suele tener tan poca RAM?</p>
+      <button class="opcion" data-op="a">Porque está hecho para una tarea específica con recursos mínimos</button>
+      <button class="opcion" data-op="b">Porque los ingenieros no saben programar</button>
+      <button class="opcion" data-op="c">Porque la RAM es muy cara</button>
+      <button class="opcion" data-op="d">Por tradición</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro aprende mejor después de una pausa.</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo que esté a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Girar el cuello 5 veces a cada lado. Estirar los brazos hacia el techo 10 segundos. Tocarse los pies sin doblar las rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso de agua mejora la concentración hasta 30 minutos. <strong>Beba ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a: ¿encontraste algún dispositivo en tu casa que NO sabías que tenía SO? Cuéntale. 1 minuto basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿qué tipo de SO lleva un marcapasos?</h3>
+    <p>Pregunta rápida antes de volver. Toca la opción que creas correcta (no vale googlear):</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">⏱️ Un SO de tiempo real (RTOS)</button>
+      <button class="trivia-opt" data-top="b">🖥️ Windows 11 porque es lo más moderno</button>
+      <button class="trivia-opt" data-top="c">📱 Android porque es pequeño</button>
+      <button class="trivia-opt" data-top="d">🐧 Ubuntu desktop porque es libre</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>El <strong>microondas</strong> de tu cocina tiene un SO embebido (a veces FreeRTOS). Controla el magnetrón, el plato giratorio, el display y el timer. Sin ese SO, tu comida no se cocinaría. Hay más SOs embebidos en tu casa que SOs de escritorio en todo el colegio.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: En red →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — EN RED / DISTRIBUIDOS
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🌐 Sistemas Operativos en red</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El SO que atiende a 1000 personas a la vez" — servidores y nube</p>
+
+  <div class="caja-importante">
+    <h4>🦹 El villano: Gmail no se cae aunque lo usen 1800 millones de personas</h4>
+    <p>En este instante, miles de millones de personas están revisando su correo, subiendo fotos a Google Drive, viendo YouTube. <strong>Y no se cae.</strong> Detrás hay granjas de servidores con un SO especialmente preparado para <strong>atender miles de conexiones simultáneas</strong> durante años sin parar. Ese SO es el de red, también llamado <em>Network OS</em> o <em>Server OS</em>.</p>
+  </div>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>SO de red</strong> (Windows Server, distribuciones Linux server como Ubuntu Server, Red Hat Enterprise Linux, SUSE) está optimizado para <strong>compartir recursos</strong> a través de la red: archivos (Samba, NFS), impresión, bases de datos, sitios web. Corre en servidores que <strong>nunca se apagan</strong>, atienden <strong>cientos o miles de usuarios</strong> a la vez y se administran <strong>en remoto</strong> (SSH, escritorio remoto).</p>
+    <p>La diferencia clave con el escritorio: el SO de red <strong>no tiene GUI propia</strong> (o la tiene mínima). Se configura por archivos de texto y comandos. Un admin de servidores puede manejar 50 servidores desde su laptop.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a: piensen en un servicio online que usen todos los días (Gmail, WhatsApp, TikTok, Minecraft). Discutan: <strong>¿cuánta gente creen que lo está usando AHORA MISMO?</strong> ¿10 mil? ¿1 millón? ¿100 millones? Discutan cómo el SO de red puede con eso.</p>
+  </div>
+
+  <h3>🎯 Las 4 características de un SO de red</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">👥</span>
+      <h3>Multiusuario concurrente</h3>
+      <p>Miles de cuentas usando el mismo servidor al tiempo. El SO reparte CPU, RAM y disco entre todos sin que se note.</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">⏰</span>
+      <h3>24/7 (uptime)</h3>
+      <p>Diseñado para correr meses o años sin reiniciar. Cuando reinicia, es porque alguien lo decidió. "Uptime de 5 años" es un orgullo de sysadmin.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🖥️</span>
+      <h3>Sin GUI o GUI mínima</h3>
+      <p>Se configura por terminal (SSH). La GUI consume recursos que se prefieren usar para atender usuarios.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🔒</span>
+      <h3>Seguridad reforzada</h3>
+      <p>Firewalls, SELinux, AppArmor, listas de acceso, encriptación. Un servidor hackeado afecta a miles.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: servidor bajo carga</h3>
+    <p>Agrega clientes conectados al servidor. Observa cómo la carga y la latencia suben. El SO reparte CPU entre todos los procesos. Hay un botón "PICO" para simular 20 conexiones simultáneas.</p>
+
+    <div class="trace-sim">
+      <div class="sim-head">🌐 Servidor multiusuario en acción</div>
+
+      <div class="state-panel">
+        <div class="state-title">Estado del servidor</div>
+        <div class="state-grid">
+          <div class="state-cell" id="red-cell-clients">
+            <div class="label">Clientes conectados</div>
+            <span class="skey">total</span>
+            <span class="sval" id="redClients">0</span>
+          </div>
+          <div class="state-cell" id="red-cell-load">
+            <div class="label">Carga CPU</div>
+            <span class="skey">%</span>
+            <span class="sval" id="redServerLoad">0%</span>
+          </div>
+          <div class="state-cell" id="red-cell-latency">
+            <div class="label">Latencia</div>
+            <span class="skey">ms</span>
+            <span class="sval" id="redLatency">12</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="trace-log" id="redLog">
+        <div class="log-line"><span class="t">[SO]</span> Servidor iniciado. Esperando conexiones…</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn primary big" id="redAddClient">👤 Conectar cliente</button>
+        <button class="btn" id="redSpike">⚡ Pico de 20 clientes</button>
+        <button class="btn ghost" id="redReset">🔄 Reiniciar</button>
+      </div>
+    </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué Linux domina los servidores?</h4>
+    <p>Linux corre en el <strong>~96% de los servidores de Internet</strong>, en el 100% de los 500 supercomputadores más rápidos del mundo, y en la Estación Espacial Internacional. Razones: es libre (cero licencias), estable (uptime de años), seguro (permisos estrictos), y muy configurable. Windows Server existe pero se usa más en oficinas y empresas por integración con Active Directory.</p>
+  </div>
+
+  <div class="caja-destacada">
+    <h4>🔍 En la vida real: cliente-servidor</h4>
+    <p>El modelo que estamos viendo se llama <strong>cliente-servidor</strong>: tu celular es el cliente, el servidor está en un datacenter lejano (a veces a 200 km). El servidor recibe miles de peticiones por segundo y el SO las reparte. En la nube moderna, un solo servicio (como Netflix) corre en <strong>miles de servidores</strong> coordinados, no en uno solo. Eso es <strong>computación distribuida</strong>: el SO de red escala horizontalmente.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué porcentaje aproximado de los servidores de Internet usan Linux?</p>
+      <button class="opcion" data-op="a">10%</button>
+      <button class="opcion" data-op="b">50%</button>
+      <button class="opcion" data-op="c">~96%</button>
+      <button class="opcion" data-op="d">100% (solo Linux)</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Por qué un SO de red suele NO tener GUI?</p>
+      <button class="opcion" data-op="a">Porque los administradores no saben usarla</button>
+      <button class="opcion" data-op="b">Para no gastar recursos y atender más usuarios</button>
+      <button class="opcion" data-op="c">Por seguridad</button>
+      <button class="opcion" data-op="d">Por tradición UNIX</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Tiempo real →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — TIEMPO REAL
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>⏱️ Sistemas Operativos de tiempo real (RTOS)</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cuando fallar es morir" — deadlines en milisegundos</p>
+
+  <div class="caja-importante">
+    <h4>🦹 El villano: el freno ABS tarda 60 ms en activarse y el carro no frena</h4>
+    <p>Cuando pisas el freno de un auto moderno, el <strong>sistema ABS</strong> debe empezar a actuar en <strong>menos de 50 milisegundos</strong>. Si el SO "se cuelga" o tarda 200 ms, el auto no frena a tiempo. No hay margen. Por eso los frenos, el control de vuelo de un avión, el marcapasos de un corazón y el cohete de SpaceX usan un <strong>SO de tiempo real (RTOS)</strong>: un SO que <strong>garantiza</strong> que ciertas tareas críticas se ejecutarán dentro de un plazo exacto.</p>
+  </div>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>RTOS</strong> (Real-Time Operating System) está diseñado para cumplir <strong>deadlines temporales estrictos</strong>. Hay dos clases:</p>
+    <p><strong>Hard realtime</strong>: si el plazo se vence, el sistema <strong>falla catastróficamente</strong>. Ejemplos: marcapasos, freno ABS, control de vuelo. Ejemplo de RTOS: <strong>QNX</strong>, <strong>VxWorks</strong>, <strong>RTLinux</strong>.</p>
+    <p><strong>Soft realtime</strong>: si el plazo se vence, la calidad baja pero no hay catástrofe. Ejemplos: streaming de video, audio Bluetooth. Ejemplo: <strong>FreeRTOS</strong> en algunos contextos, <strong>Windows</strong> en modo "pro audio".</p>
+    <p>La diferencia con el SO de escritorio: el desktop <strong>intenta</strong> ser rápido pero no garantiza nada. Si abres Photoshop y tarda 200 ms más, no pasa nada. En un RTOS, esos 200 ms pueden ser la diferencia entre vivir y morir.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, discutan: <strong>¿por qué el SO de tu celular NO es un RTOS?</strong> ¿Qué pasaría si lo fuera? Pista: si el SO de tu celular garantizara que la cámara abre en 30 ms exactos, ¿qué ganarías? ¿qué perderías? Discutan 1 minuto.</p>
+  </div>
+
+  <h3>🎯 Las 4 particularidades de un RTOS</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">⏰</span>
+      <h3>Schedulers con prioridad</h3>
+      <p>Las tareas más críticas (frenar) tienen <strong>prioridad fija</strong> sobre las menos críticas (reproducir música). El scheduler siempre atiende primero las críticas.</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">🎯</span>
+      <h3>Determinismo temporal</h3>
+      <p>El tiempo de respuesta es <strong>predecible</strong>: el RTOS puede demostrar matemáticamente que "el freno responde en máximo 5 ms". Eso se llama <em>worst-case execution time</em>.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🚫</span>
+      <h3>Sin "swap" ni pausas</h3>
+      <p>No puede pausar una tarea crítica para hacer otra. Por eso un RTOS suele tener toda la memoria <strong>reservada</strong> de antemano.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">💉</span>
+      <h3>Mínimo código, máxima fiabilidad</h3>
+      <p>El kernel tiene miles de líneas, no millones. Cada línea está auditada. Un bug en un RTOS puede matar a alguien.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: planificador de tiempo real</h3>
+  <p>Pulsa "Ejecutar ciclo" y observa cómo el RTOS asigna tiempo a cada tarea respetando sus deadlines. Las tareas críticas (freno) deben cumplirse <strong>siempre</strong>; las menos críticas (audio) tienen plazos más holgados.</p>
+
+  <div class="trace-sim">
+    <div class="sim-head">⏱️ Planificador RTOS · tareas con deadlines</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado del RTOS</div>
+      <div class="state-grid">
+        <div class="state-cell" id="rtos-cell-cycle">
+          <div class="label">Ciclos</div>
+          <span class="skey">t</span>
+          <span class="sval" id="rtosCycle">0</span>
+        </div>
+        <div class="state-cell" id="rtos-cell-met">
+          <div class="label">Deadlines cumplidos</div>
+          <span class="skey">✓</span>
+          <span class="sval" id="rtosMet">0</span>
+        </div>
+        <div class="state-cell" id="rtos-cell-missed">
+          <div class="label">Deadlines perdidos</div>
+          <span class="skey">✗</span>
+          <span class="sval" id="rtosMissed">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trace-log" id="rtosLog">
+      <div class="log-line"><span class="t">[RTOS]</span> Planificador de tiempo real listo. Pulsa "Ejecutar ciclo".</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="rtosStep">▶️ Ejecutar ciclo</button>
+      <button class="btn" id="rtosAll">▶️ Ejecutar todas</button>
+      <button class="btn ghost" id="rtosReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 QNX: el RTOS que está en tu auto</h4>
+    <p><strong>QNX</strong> es el RTOS más usado en la industria automotriz. Está en más de <strong>255 millones de vehículos</strong>: infoentretenimiento, panel digital, control de batería en eléctricos. Es un Unix-like minimalista (un microkernel de ~100 KB). También está en trenes, centrales nucleares y equipos médicos. Su eslogan histórico, traducido al español, es: <em>"QNX, cuando fallar no es una opción"</em>.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ RTOS ≠ rápido</h4>
+    <p>Mucha gente cree que "tiempo real" significa "muy rápido". <strong>No es eso.</strong> Significa <strong>predecible</strong>: que el SO puede <em>garantizar</em> un plazo. Un RTOS puede ser más lento que Windows en promedio, pero <strong>nunca</strong> excede su deadline. Un SO de escritorio es rápido en promedio pero no garantiza nada. La diferencia es como un tren (llega a la hora exacta) vs un auto deportivo (generalmente rápido pero a veces se retrasa en tráfico).</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 6 -->
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué significa "tiempo real" en un RTOS?</p>
+      <button class="opcion" data-op="a">Que el SO es muy rápido</button>
+      <button class="opcion" data-op="b">Que el SO puede garantizar que una tarea se ejecutará dentro de un plazo exacto</button>
+      <button class="opcion" data-op="c">Que el reloj del sistema es preciso</button>
+      <button class="opcion" data-op="d">Que procesa en paralelo</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál de estos sistemas usa típicamente un RTOS?</p>
+      <button class="opcion" data-op="a">Una laptop de oficina</button>
+      <button class="opcion" data-op="b">Un servidor de Google</button>
+      <button class="opcion" data-op="c">El sistema de freno ABS de un auto</button>
+      <button class="opcion" data-op="d">Un PC de juegos</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Ámbitos + comparativa →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 7 — ÁMBITOS + COMPARATIVA
+============================================================ -->
+<section class="modulo" data-modulo="7">
+  <h2>🧭 Ámbitos de aplicación + comparativa</h2>
+  <p class="meta-modulo">⏱️ 25 minutos · "Dónde va cada SO" — matriz tipo × dispositivo + tabla resumen</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Ya conoces los <strong>5 tipos de SO</strong> (escritorio, móvil, embebido, red, tiempo real). Ahora la pregunta clave: <strong>¿qué tipo de SO necesita cada dispositivo?</strong> No es aleatorio: depende de los <strong>recursos disponibles</strong>, del <strong>número de usuarios</strong>, de si requiere <strong>respuesta en tiempo real</strong>, y de la <strong>complejidad de la GUI</strong>. En este módulo vas a clasificar 8 dispositivos y luego verás la tabla comparativa.</p>
+  </div>
+
+  <h3>🎮 Reto: clasifica cada dispositivo por tipo de SO</h3>
+  <p>Arrastra (o toca y luego toca) cada dispositivo al tipo de SO que usaría típicamente. Hay 8 por clasificar.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧭 Tipo de SO por dispositivo</div>
+    <div class="class-bank" id="ambitosBank"></div>
+
+    <div class="class-matrix" id="ambitosMatrix">
+      <div class="class-cell" data-cell="escritorio">
+        <div class="cell-title">🖥️ Escritorio</div>
+        <div class="cell-items"></div>
+      </div>
+      <div class="class-cell" data-cell="movil">
+        <div class="cell-title">📱 Móvil</div>
+        <div class="cell-items"></div>
+      </div>
+      <div class="class-cell" data-cell="embebido">
+        <div class="cell-title">🔧 Embebido</div>
+        <div class="cell-items"></div>
+      </div>
+      <div class="class-cell" data-cell="red">
+        <div class="cell-title">🌐 En red</div>
+        <div class="cell-items"></div>
+      </div>
+      <div class="class-cell" data-cell="rtos">
+        <div class="cell-title">⏱️ Tiempo real</div>
+        <div class="cell-items"></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn ghost" id="ambitosReset">🔄 Reiniciar clasificación</button>
+    </div>
+  </div>
+
+  <h3>📋 Tabla comparativa de los 5 tipos de SO</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr>
+          <th>Característica</th>
+          <th>🖥️ Escritorio</th>
+          <th>📱 Móvil</th>
+          <th>🔧 Embebido</th>
+          <th>🌐 Red</th>
+          <th>⏱️ Tiempo real</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Recursos</strong></td><td>GB RAM, GB disco</td><td>GB RAM, GB disco</td><td>KB-MB RAM, MB disco</td><td>GB-TB RAM, TB disco</td><td>KB-MB RAM</td></tr>
+        <tr><td><strong>Usuarios</strong></td><td>1-10</td><td>1</td><td>0-1</td><td>cientos-miles</td><td>0</td></tr>
+        <tr><td><strong>GUI</strong></td><td>Rica (ventanas)</td><td>Táctil</td><td>Mínima/ninguna</td><td>Mínima o remota</td><td>Normalmente sin GUI</td></tr>
+        <tr><td><strong>Tiempo real</strong></td><td>No</td><td>Soft (algunos)</td><td>Algunos sí</td><td>No</td><td><strong>Sí (hard)</strong></td></tr>
+        <tr><td><strong>Ejemplos</strong></td><td>Windows, macOS, Linux desktop</td><td>Android, iOS, iPadOS</td><td>Embedded Linux, FreeRTOS</td><td>Linux server, Windows Server</td><td>QNX, VxWorks, RTLinux</td></tr>
+        <tr><td><strong>Ámbitos típicos</strong></td><td>Oficina, casa, juegos, diseño</td><td>Celular, tablet, reloj</td><td>Router, TV, nevera, lavadora</td><td>Datacenter, nube, web</td><td>Auto, hospital, avión, dron</td></tr>
+        <tr><td><strong>Kernel típico</strong></td><td>Windows NT, XNU, Linux</td><td>Linux (Android), XNU (iOS)</td><td>Linux embebido, FreeRTOS</td><td>Linux</td><td>QNX, VxWorks</td></tr>
+        <tr><td><strong>Si falla…</strong></td><td>Reinicias y listo</td><td>Reinicias y listo</td><td>Reinicias y listo</td><td>Cae el servicio (grave)</td><td><strong>Muere alguien</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Un mismo kernel, muchos perfiles</h4>
+    <p>Fíjate que <strong>Linux</strong> aparece como kernel de escritorio, móvil (Android), embebido (Embedded Linux) y red (Linux server). <strong>XNU</strong> aparece en escritorio (macOS) y móvil (iOS). Lo que cambia no es el kernel base, sino la <strong>configuración</strong>: qué drivers carga, qué servicios corre, qué prioridades asigna, cuánta RAM permite usar. Es como un motor de auto: el mismo motor puede ir en un sedán familiar o en una camioneta, según cómo se calibre.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Las fronteras se difuminan</h4>
+    <p>Hoy muchos dispositivos mezclan tipos. Un <strong>auto moderno</strong> lleva: un SO embebido para los frenos (QNX), un SO embebido para el infoentretenimiento (Embedded Linux o Android Automotive), un SO RTOS para el control del motor, y a veces un SO de red (CAN bus) para que se comuniquen entre sí. El celular es un SO móvil pero también embebido y con partes de red. <strong>La categoría es una guía, no una cárcel.</strong></p>
+  </div>
+
+  <!-- QUIZ MÓDULO 7 -->
+  <div class="quiz" data-quiz="7">
+    <h3>🎯 Mini-Quiz del Módulo 7</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> El servidor de Google que atiende a millones de usuarios, ¿qué tipo de SO usa típicamente?</p>
+      <button class="opcion" data-op="a">Escritorio (Windows)</button>
+      <button class="opcion" data-op="b">Móvil (Android)</button>
+      <button class="opcion" data-op="c">En red (Linux server)</button>
+      <button class="opcion" data-op="d">Tiempo real (RTOS)</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Qué kernel comparten macOS, iOS y muchos RTOS?</p>
+      <button class="opcion" data-op="a">Linux</button>
+      <button class="opcion" data-op="b">XNU (familia Unix)</button>
+      <button class="opcion" data-op="c">Windows NT</button>
+      <button class="opcion" data-op="d">MS-DOS</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+    <button class="btn-siguiente" data-ir="8">Siguiente: Taller — caso del dron →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 8 — TALLER: CASO DEL DRON
+============================================================ -->
+<section class="modulo" data-modulo="8">
+  <h2>🛠️ Taller: el caso del dron</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Elige el SO correcto" — 3 retos previos + Jefe Final</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Tres retos calientan motores y el <strong>Jefe Final</strong> te pone en el rol de <strong>ingeniero de firmware</strong>: una empresa de fumigación con drones tiene un problema crítico y debes diagnosticar qué tipo de SO necesita su drone. Al superar todo, recibes la insignia <strong>Tipos de SO Master</strong>.</p>
+  </div>
+
+  <!-- Reto 1: Matching — tipo SO ↔ característica -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">🧭 Empareja cada tipo de SO con su característica principal</span>
+    </div>
+    <p>Toca un tipo de la izquierda y luego su característica. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">🖥️ Escritorio</button>
+        <button class="ws-chip" data-mid="1b">📱 Móvil</button>
+        <button class="ws-chip" data-mid="1c">🔧 Embebido</button>
+        <button class="ws-chip" data-mid="1d">⏱️ Tiempo real</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Optimizado para batería y sensores táctiles</button>
+        <button class="ws-chip" data-mid="1B">Garantiza que tareas críticas se cumplen en plazos exactos</button>
+        <button class="ws-chip" data-mid="1C">Multitarea preemptiva + GUI rica para uso general</button>
+        <button class="ws-chip" data-mid="1D">Recursos mínimos para tarea específica sin GUI</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar por recursos -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">📦 Ordena los tipos de SO de menos a más recursos</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar de menor a mayor consumo de RAM/disco.</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2recursos" draggable="true"><span class="ord-num">?</span> 🔧 Embebido (KB-MB de RAM)</div>
+        <div class="ws-order-item" data-oid="2movil" draggable="true"><span class="ord-num">?</span> 📱 Móvil (GB de RAM, batería)</div>
+        <div class="ws-order-item" data-oid="2escritorio" draggable="true"><span class="ord-num">?</span> 🖥️ Escritorio (GB-TB de RAM)</div>
+        <div class="ws-order-item" data-oid="2red" draggable="true"><span class="ord-num">?</span> 🌐 En red (TB+ de RAM para miles de usuarios)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Matching dispositivo ↔ tipo -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">🏷️ Empareja cada dispositivo con su tipo de SO</span>
+    </div>
+    <p>Toca un dispositivo y luego el tipo de SO. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="3">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="3a">💻 Laptop del salón</button>
+        <button class="ws-chip" data-mid="3b">🚁 Dron de fumigación</button>
+        <button class="ws-chip" data-mid="3c">☁️ Servidor de YouTube</button>
+        <button class="ws-chip" data-mid="3d">🏦 Cajero automático antiguo</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="3A">Escritorio</button>
+        <button class="ws-chip" data-mid="3B">Embebido</button>
+        <button class="ws-chip" data-mid="3C">En red</button>
+        <button class="ws-chip" data-mid="3D">Tiempo real (RTOS)</button>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe Final — el caso del dron -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final · Caso del dron</span>
+      <span class="challenge-title">🏆 "El dron se cae solo a mitad de vuelo"</span>
+    </div>
+
+    <div class="caja-importante">
+      <h4>📋 El caso (proyectado en la TV)</h4>
+      <p>"Una empresa de <strong>fumigación agrícola con drones</strong> nos llama porque sus drones <strong>se caen al suelo al azar</strong> a mitad de un vuelo. Cada drone tiene: 4 motores, GPS, barómetro, sensores de viento, una cámara y un procesador ARM de 1 GHz con 512 MB de RAM. Hoy corren <strong>Ubuntu Server</strong> (un SO de red) sobre el procesador. El control de vuelo lo hace un proceso normal de Linux. ¿Qué tipo de SO necesita realmente este drone y por qué?"</p>
+    </div>
+
+    <p>Como ingeniero de firmware, completa el ticket de diagnóstico:</p>
+
+    <div class="ticket">
+      <div class="ticket-head">
+        <span class="ticket-id">Ticket #SO-2026-003</span>
+        <span class="ticket-priority">⚡ PRIORIDAD CRÍTICA</span>
+      </div>
+
+      <div class="ticket-field">
+        <label>1. ¿Qué tipo de SO necesita el drone? (selecciona)</label>
+        <div class="ticket-opts" id="diagComp" data-correct="rtos">
+          <button class="ticket-opt" data-dval="escritorio">Escritorio (general purpose, multitarea + GUI)</button>
+          <button class="ticket-opt" data-dval="movil">Móvil (optimizado para batería y sensores)</button>
+          <button class="ticket-opt" data-dval="rtos">Tiempo real (RTOS, deadlines garantizados)</button>
+          <button class="ticket-opt" data-dval="red">En red (multiusuario, atender miles)</button>
+        </div>
+      </div>
+
+      <div class="ticket-field">
+        <label>2. ¿Qué acciones recomiendas? (selecciona TODAS las correctas)</label>
+        <div class="ticket-opts" id="diagActions" data-correct="rtos,dedicated">
+          <button class="ticket-opt" data-aval="rtos">🔴 Migrar el control de vuelo a un RTOS (QNX, FreeRTOS, RTLinux)</button>
+          <button class="ticket-opt" data-aval="dedicated">🔴 Asignar procesos dedicados con prioridad fija al control de motores y sensores</button>
+          <button class="ticket-opt" data-aval="ram">⚪ Agregar 8 GB de RAM (no es problema de memoria)</button>
+          <button class="ticket-opt" data-aval="gui">⚪ Cambiar la interfaz a una más bonita (no es problema de UX)</button>
+          <button class="ticket-opt" data-aval="ignorar">⚪ Esperar a ver si pasa solo (peligroso)</button>
+        </div>
+      </div>
+
+      <div class="ticket-field">
+        <label>3. Redacta tu diagnóstico (2-3 frases)</label>
+        <textarea class="ticket-textarea" id="diagText" placeholder="Ej: El problema es que el control de vuelo corre en un SO de red, que no garantiza plazos temporales. Si el SO decide 'swappear' o atender otra cosa, los motores pierden su ciclo y el drone cae. Solución: migrar el control de vuelo a un RTOS con procesos dedicados y prioridad fija. No es problema de memoria ni de GUI."></textarea>
+      </div>
+
+      <div class="ticket-rubrica">
+        <h5>📋 Rúbrica del ticket (lo que evalúa el profe)</h5>
+        <ul>
+          <li>✔️ Identifica correctamente el <strong>SO de tiempo real (RTOS)</strong> como el necesario</li>
+          <li>✔️ Selecciona <strong>migrar a RTOS</strong> + <strong>procesos dedicados</strong></li>
+          <li>✔️ Descarta agregar RAM (no es problema de memoria) y cambiar GUI (no es problema de UX)</li>
+          <li>✔️ El texto explica el "por qué" con vocabulario técnico (deadline, scheduler, prioridad)</li>
+        </ul>
+      </div>
+
+      <button class="btn primary big" id="diagValidate" style="margin-top:1rem;">✓ Validar diagnóstico</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Tipos de SO Master!</h2>
+    <p class="lead">Ya sabes que no existe "el sistema operativo": hay <strong>5 familias</strong> (escritorio, móvil, embebido, red, tiempo real), cada una optimizada para un ámbito distinto. Y entiendes por qué un drone y tu laptop no pueden correr el mismo SO aunque los dos "tengan chip y pantalla".</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">En la próxima clase veremos <strong>la terminal y la línea de comandos</strong>: cómo hablarle al SO sin mouse, como un verdadero técnico. 🖥️</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="7">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🎓 Sistemas Operativos · Clase 3 · Plataforma interactiva</div>
+  <div>Tipos de SO · Escritorio · Móviles · Embebidos · En red · Tiempo real · 4 horas · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de cada pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

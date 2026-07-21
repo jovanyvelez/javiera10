@@ -39,7 +39,8 @@ function cargarProgresoPorClase() {
     'curso-integracion-estructuras': 5,
     'curso-maraton-algoritmos': 5,
     'curso-so-que-es-sistema-operativo': 6,
-    'curso-so-funciones-componentes': 7
+    'curso-so-funciones-componentes': 7,
+    'curso-so-tipos-sistemas-operativos': 7
   };
 
   let totalGlobal = 0;
@@ -101,7 +102,7 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 3,   800);
-  animarNumero(document.getElementById('stat-clases'),  0, 7,   900);
+  animarNumero(document.getElementById('stat-clases'),  0, 8,   900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
