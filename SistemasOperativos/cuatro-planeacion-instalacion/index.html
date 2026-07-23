@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 4 · Planeación e instalación</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">💿</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 4</h1>
+      <p class="subtitulo">Planeación e instalación de un SO · Del plan al primer arranque</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🧭 Planificación</button>
+  <button class="btn-modulo" data-modulo="2">⚖️ Elección</button>
+  <button class="btn-modulo" data-modulo="3">🧱 Preparación</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🚀 Arranque</button>
+  <button class="btn-modulo" data-modulo="6">⚙️ Instalación</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>💿 ¡Vamos a instalar un Sistema Operativo!</h2>
+    <p class="lead">Hasta ahora sabes <strong>qué</strong> es un SO y <strong>cuáles</strong> existen. Hoy daremos el siguiente paso: <strong>cómo se planea y se instala</strong>. No es magia: es un procedimiento con criterios. Al final serás capaz de decidir qué SO instalar y explicar los pasos del arranque y la instalación. 🚀</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — install@so</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">install@so:~$</span> <span class="cmd">uname --mision</span></div>
+        <div class="out">"Planificar antes de instalar. Instalar con criterio."</div>
+        <div><span class="prompt">install@so:~$</span> <span class="cmd">df -h /futuro</span></div>
+        <div class="out">/futuro  100%  ← primer arranque de tu SO</div>
+        <div><span class="prompt">install@so:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos cortos, con un descanso de 15 minutos a la mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Comprender la planificación previa a instalar un SO, los criterios de elección y los pasos del arranque y la instalación, incluyendo particiones y bootloader.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Haber visto las clases 1 a 3 (qué es un SO, funciones y tipos). Hoy conectaremos teoría con práctica. Idealmente una USB y VirtualBox para el taller real.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es planificar?</td><td style="color:var(--cian)">Objetivos y características</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Criterios de elección</td><td style="color:var(--rosa)">¿Qué SO elijo?</td><td>30 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Preparación</td><td style="color:var(--ambar)">Particiones, BIOS, ISO</td><td>40 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Arranque</td><td style="color:var(--verde)">Boot, bootloader, GRUB</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Instalación</td><td style="color:var(--morado-claro)">Pasos y simulador</td><td>40 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--morado)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: con tu compañero/a, respondan en una palabra: <strong>¿qué creen que hay que hacer ANTES de instalar un SO?</strong> ¿Solo meter la USB y ya? ¿O algo más? Escriban su intuición. La confirmaremos al final.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es planificar? →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — ¿QUÉ ES LA PLANIFICACIÓN?
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🧭 ¿Qué es la planificación?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Antes de clavar, medir dos veces" — por qué planificar</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Instalar un SO <strong>no</strong> es meter una USB y darle "siguiente, siguiente, siguiente". Si haces eso sin planear, puedes <strong>perder tus archivos</strong>, elegir un SO que no corre en tu PC, o quedar con un equipo que no arranca. La <strong>planificación</strong> es el paso anterior a la instalación: pensar <strong>qué</strong> vas a instalar, <strong>dónde</strong> y <strong>cómo</strong>, antes de tocar una sola tecla.</p>
+    <p>Como en cocina: antes de cocinar revisas la receta, los ingredientes y los utensilios. Aquí igual: antes de instalar revisas requisitos, espacio y herramientas.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Piensen en una vez que instalaron algo (una app, un juego, algo en el celular) y <strong>salió mal</strong> porque no leyeron los requisitos o no respaldaron nada. Cuéntenlo. Ese "salió mal" es exactamente lo que evita la planificación.</p>
+  </div>
+
+  <h3>🎯 Los 3 objetivos de la planificación</h3>
+  <p>Planificar persigue tres metas claras. Memorízalas: son la base de todo.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>✅ Elegir bien</h4>
+      <p>Decidir el SO <strong>correcto</strong> para el hardware y el uso. No es lo mismo un SO para un servidor que para una laptop vieja o para tu celular.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>💾 No perder datos</h4>
+      <p>Revisar qué hay en el disco, <strong>respaldar</strong> lo importante y organizar las particiones para no borrar lo que sí importa.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🛡️ Que todo arranque</h4>
+      <p>Preparar el medio (USB/ISO), la BIOS/UEFI y el bootloader para que, al terminar, el equipo <strong>encienda y arranque</strong> sin sorpresas.</p>
+    </div>
+  </div>
+
+  <h3>📋 Las características de una buena planificación</h3>
+  <p>Una planificación bien hecha tiene estas características. Si falta una, el plan es incompleto.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧩 Características de la planificación</div>
+    <p>Toca cada tarjeta para descubrir qué significa. Hay 5 características clave.</p>
+    <div class="features-grid" id="featuresGrid"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>En el mundo profesional, antes de instalar en producción se hace una <strong>prueba en un entorno virtual</strong> (como VirtualBox). Si algo falla, falla en la virtual y no en tu máquina real. Por eso en este curso usaremos VirtualBox para los talleres.</p>
+  </div>
+
+  <h3>💻 La planificación en una terminal real</h3>
+  <p>Antes de instalar, un administrador revisa el hardware con comandos. Así se ve en Linux:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal — pre-install</div>
+      <button class="copy-btn" data-copy="term1">📋 Copiar</button>
+    </div>
+    <pre><code>$ lscpu            <span style="color:#5c6370"># ¿qué procesador tengo?</span>
+$ free -h          <span style="color:#5c6370"># ¿cuánta RAM?</span>
+$ lsblk            <span style="color:#5c6370"># ¿qué discos y particiones hay?</span>
+$ df -h            <span style="color:#5c6370"># ¿cuánto espacio libre queda?</span>
+$ sudo dmidecode -t bios  <span style="color:#5c6370"># ¿BIOS o UEFI?</span></code></pre>
+  </div>
+
+  <h3>⚡ ¿Por qué NO planificar sale caro?</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta tarjeta-magenta">
+      <h3>❌ Instalas sin espacio</h3>
+      <p>El instalador avanza hasta el 70% y luego dice "no hay espacio". Todo ese tiempo perdido. Peor: puede dejar el disco a media partición y el equipo no arranca.</p>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <h3>✅ Planificas antes</h3>
+      <p>Revisas <code>lsblk</code>, ves que faltan 20 GB, liberas o agregas disco, y luego la instalación avanza limpia hasta el 100%. Sin sorpresas.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál NO es un objetivo de la planificación antes de instalar?</p>
+      <button class="opcion" data-op="a">Elegir el SO correcto para el hardware</button>
+      <button class="opcion" data-op="b">No perder datos del disco</button>
+      <button class="opcion" data-op="c">Que la instalación sea lo más rápida posible</button>
+      <button class="opcion" data-op="d">Asegurar que el equipo arranque al final</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Por qué se recomienda probar la instalación en VirtualBox antes?</p>
+      <button class="opcion" data-op="a">Porque es más rápido que en hardware real</button>
+      <button class="opcion" data-op="b">Porque si algo falla, falla en la virtual y no en tu máquina real</button>
+      <button class="opcion" data-op="c">Porque VirtualBox instala el SO automáticamente</button>
+      <button class="opcion" data-op="d">Porque no se puede instalar sin virtualización</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Criterios de elección →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — CRITERIOS DE ELECCIÓN DE UN SO
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>⚖️ Criterios de elección de un SO</h2>
+  <p class="meta-modulo">⏱️ 30 minutos · "No todos los SO sirven para todo" — lectura de contexto</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>No existe "el mejor SO del mundo". Existe <strong>el mejor SO para tu caso</strong>. Elegir un SO es como elegir zapatos: unos son para correr, otros para una boda, otros para la montaña. Para decidir bien, hay que mirar <strong>6 criterios</strong>. Vamos a verlos uno a uno.</p>
+  </div>
+
+  <h3>🎯 Los 6 criterios para elegir un SO</h3>
+  <p>Para cada caso de uso, algunos criterios pesan más que otros. Toca cada criterio para explorarlo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">⚖️ Criterios de elección</div>
+    <div class="criteria-grid" id="criteriaGrid"></div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Con su compañero/a, escojan un caso de uso real: <strong>"una laptop vieja con 2 GB de RAM"</strong>, <strong>"un servidor web"</strong>, <strong>"un celular de gama baja"</strong> o <strong>"una PC gamer nueva"</strong>. Para ese caso, ¿qué criterio creen que pesa más? Anótenlo y luego compárenlo con el simulador de abajo.</p>
+  </div>
+
+  <h3>🎮 Simulador: Elige el SO correcto</h3>
+  <p>Toca un caso de uso y luego el SO que creas que mejor encaja. El sistema te dirá si acertaste. Hay 5 casos.</p>
+
+  <div class="match-game">
+    <div class="sim-head">📱 Caso de uso → SO recomendado</div>
+    <p id="matchInstr" style="font-size:0.88rem;color:var(--texto-suave);">Toca un caso de uso de la izquierda para seleccionarlo.</p>
+    <div class="match-grid" id="matchGrid"></div>
+    <div class="match-options" id="matchOptions"></div>
+    <div class="match-feedback" id="matchFeedback"></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="matchReset">🔄 Reiniciar reto</button>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común</h4>
+    <p>Mucha gente instala <strong>Windows 11</strong> en una laptop vieja porque "es el más nuevo". Resultado: la laptop va lentísima porque Windows 11 pide 4 GB de RAM mínimo y TPM 2.0. <strong>El más nuevo no es siempre el mejor para tu hardware</strong>. A veces un Linux ligero (como Lubuntu o Xubuntu) corre mejor en equipos viejos.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El criterio "costo" no es solo dinero</h4>
+    <p>Linux es <strong>gratis</strong> y libre. Windows y macOS cuestan dinero (o vienen "incluidos" en el equipo). Pero el costo también incluye <strong>soporte</strong>, <strong>apps disponibles</strong>, <strong>curva de aprendizaje</strong> y <strong>hardware compatible</strong>. Un SO gratis que no corre tu app favorita puede salir más caro que uno de pago que sí la corre.</p>
+  </div>
+
+  <h3>📊 Comparativa rápida</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Criterio</th><th>Windows</th><th>Linux (Ubuntu)</th><th>macOS</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Costo</td><td>Pago (incluido en PC)</td><td>Gratis y libre</td><td>Incluido en Mac</td></tr>
+        <tr><td>Apps de oficina/juegos</td><td>★★★★★</td><td>★★★</td><td>★★★★</td></tr>
+        <tr><td>Personalización</td><td>★★</td><td>★★★★★</td><td>★★</td></tr>
+        <tr><td>En servidores</td><td>★★★</td><td>★★★★★</td><td>★</td></tr>
+        <tr><td>Servidores ligeros en PC vieja</td><td>★</td><td>★★★★★</td><td>—</td></tr>
+        <tr><td>Soporte oficial</td><td>Microsoft</td><td>Comunidad + Canonical</td><td>Apple</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué criterio pesa MÁS al elegir un SO para un servidor web?</p>
+      <button class="opcion" data-op="a">Que tenga interfaz gráfica bonita</button>
+      <button class="opcion" data-op="b">Estabilidad y bajo consumo de recursos</button>
+      <button class="opcion" data-op="c">Que venga con muchos juegos incluidos</button>
+      <button class="opcion" data-op="d">Que sea el más nuevo posible</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué instalar Windows 11 en una laptop vieja puede ser mala idea?</p>
+      <button class="opcion" data-op="a">Porque pide 4 GB de RAM mínimo y TPM 2.0, y puede ir lento</button>
+      <button class="opcion" data-op="b">Porque Windows 11 no existe</button>
+      <button class="opcion" data-op="c">Porque no tiene interfaz gráfica</button>
+      <button class="opcion" data-op="d">Porque solo corre en Mac</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Preparación del equipo →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — PREPARACIÓN: PARTICIONES, BIOS/UEFI, ISO
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🧱 Preparación del equipo</h2>
+  <p class="meta-modulo">⏱️ 40 minutos · "El disco, el medio y la BIOS" — los 3 preparativos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Antes de instalar, hay que preparar <strong>3 cosas</strong>: el <strong>disco</strong> (particiones), el <strong>medio de instalación</strong> (USB booteable con la ISO) y el <strong>firmware</strong> (BIOS/UEFI). Si falla cualquiera de los tres, la instalación no arranca o pierde datos. Vamos a ver cada uno.</p>
+  </div>
+
+  <h3>🗄️ 1. Particiones de disco</h3>
+  <p>Un disco se puede dividir en <strong>particiones</strong>: trozos lógicos que el SO ve como discos separados (C:, D:, /dev/sda1…). Planificar las particiones es decidir <strong>cuántas</strong> y <strong>para qué</strong>.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📦 Partición del sistema</h4>
+      <p>Donde vive el SO. En Windows suele ser la <code>C:</code>. En Linux, <code>/</code> (root). Aquí van los archivos del sistema operativo.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>📂 Partición de datos</h4>
+      <p>Para tus archivos, separada del sistema. Si el SO se daña, tus datos siguen ahí. En Windows: <code>D:</code>. En Linux: <code>/home</code>.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🔧 Partición especial</h4>
+      <p>Para arranque (<code>/boot</code> o EFI), recuperación o swap (memoria de intercambio en disco). Sin estas, el SO no arranca o no hiberna.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ ¡Cuidado con formatear!</h4>
+    <p>Formatear una partición <strong>borra todo lo que tiene</strong>. Por eso, antes de instalar, identificas qué partición tiene tus datos y la <strong>no tocas</strong>. El instalador te preguntará dónde instalar; si dudas, <strong>detente</strong> y revisa.</p>
+  </div>
+
+  <h3>🎮 Simulador: Distribuye el disco</h3>
+  <p>Tienes un disco de 100 GB. Asigna espacio a cada partición usando los botones. El objetivo: que todas sumen exactamente 100 GB y el sistema pueda arrancar. ¡Es un reto de equilibrio!</p>
+
+  <div class="simulador">
+    <div class="sim-head">💿 Particionador — 100 GB</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado del disco</div>
+      <div class="state-grid">
+        <div class="state-cell" id="partCellTotal">
+          <div class="label">Total asignado</div>
+          <span class="skey">GB</span>
+          <span class="sval" id="partTotal">0</span>
+        </div>
+        <div class="state-cell" id="partCellFree">
+          <div class="label">Libre</div>
+          <span class="skey">GB</span>
+          <span class="sval" id="partFree">100</span>
+        </div>
+        <div class="state-cell" id="partCellBoot">
+          <div class="label">¿Arranca?</div>
+          <span class="skey">estado</span>
+          <span class="sval" id="partBoot">❌</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="part-disk" id="partDisk"></div>
+
+    <div class="part-controls" id="partControls"></div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="partCheck">✓ Verificar particiones</button>
+      <button class="btn ghost" id="partReset">🔄 Reiniciar</button>
+    </div>
+    <div class="resultado-ws" id="partFb"></div>
+  </div>
+
+  <h3>💽 2. Medio de instalación: la ISO y la USB booteable</h3>
+  <p>Una <strong>ISO</strong> es una imagen del disco de instalación: un archivo que contiene todo lo necesario para instalar el SO. Hoy casi nadie usa CDs: se graba la ISO en una <strong>USB booteable</strong> con herramientas como <code>Rufus</code> (Windows) o <code>dd</code> / <code>balenaEtcher</code> (Linux/macOS).</p>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>crear-usb.sh</div>
+      <button class="copy-btn" data-copy="usb">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#5c6370"># 1. Descargar la ISO oficial (ej. Ubuntu 24.04)</span>
+<span style="color:#5c6370"># 2. Insertar la USB y ver cómo se llama (¡cuidado!)</span>
+$ lsblk                  <span style="color:#5c6370"># ver el dispositivo, ej. /dev/sdb</span>
+
+<span style="color:#5c6370"># 3. Grabar la ISO en la USB (linux/mac):</span>
+$ sudo dd if=ubuntu-24.04.iso of=/dev/sdb bs=4M status=progress
+$ sync
+
+<span style="color:#5c6370"># En Windows: usar Rufus o balenaEtcher (modo gráfico)</span></code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ ¡OJO con <code>dd</code>!</h4>
+    <p>El comando <code>dd</code> copia byte a byte. Si te equivocas de dispositivo (<code>of=/dev/sda</code> en vez de <code>/dev/sdb</code>) <strong>borras tu disco principal entero</strong>. Por eso siempre se revisa con <code>lsblk</code> antes. <strong>Mide dos veces, corta una.</strong></p>
+  </div>
+
+  <h3>🔧 3. BIOS o UEFI: el firmware que decide de dónde arrancar</h3>
+  <p>Antes de que el SO cargue, un pequeño programa ya corrió: el <strong>firmware</strong>. Hay dos familias:</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🕹️ BIOS (Legacy)</h4>
+      <p>El firmware clásico (años 80). Pantalla azul, solo teclado. Arranca en <strong>modo Legacy</strong>, particiones <strong>MBR</strong> (hasta 2 TB, 4 particiones primarias). Hoy casi obsoleto.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>⚡ UEFI</h4>
+      <p>El sucesor moderno. Soporta ratón, gráficos, arranque <strong>rápido</strong>, particiones <strong>GPT</strong> (discos grandes), <strong>Secure Boot</strong> (verifica firma del SO). Lo usan todos los PCs desde ~2012.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Cómo entro a la BIOS/UEFI?</h4>
+    <p>Al encender el PC, antes de que cargue Windows/Linux, presionas una tecla repetidamente: <code>F2</code>, <code>F10</code>, <code>Supr</code> o <code>Esc</code> (depende del fabricante). Allí cambias el <strong>boot order</strong> para que la USB arranque primero. Sin esto, el PC ignora la USB y arranca el SO viejo.</p>
+  </div>
+
+  <h3>🎮 Reto: Ordena los pasos de preparación</h3>
+  <p>Arrastra (o usa las flechas) para ordenar los pasos de preparación de <strong>primero a último</strong>.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧱 Orden de preparación</div>
+    <div class="ws-order" id="wsOrderPrep">
+      <div class="ws-order-item" data-oid="prep-respaldo" draggable="true"><span class="ord-num">?</span> Respaldar mis archivos importantes</div>
+      <div class="ws-order-item" data-oid="prep-requisitos" draggable="true"><span class="ord-num">?</span> Revisar requisitos de hardware del SO</div>
+      <div class="ws-order-item" data-oid="prep-iso" draggable="true"><span class="ord-num">?</span> Descargar la ISO oficial</div>
+      <div class="ws-order-item" data-oid="prep-usb" draggable="true"><span class="ord-num">?</span> Crear USB booteable con Rufus/dd</div>
+      <div class="ws-order-item" data-oid="prep-bios" draggable="true"><span class="ord-num">?</span> Entrar a BIOS/UEFI y poner USB primero</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-ws-up="prep">⬆ Subir</button>
+      <button class="btn" data-ws-down="prep">⬇ Bajar</button>
+    </div>
+    <button class="btn primary" data-check-ws="prep">✓ Validar orden</button>
+    <div class="resultado-ws" id="ws-fb-prep"></div>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Para qué sirve la partición <code>/home</code> en Linux?</p>
+      <button class="opcion" data-op="a">Para guardar el kernel del SO</button>
+      <button class="opcion" data-op="b">Para los archivos personales del usuario, separados del sistema</button>
+      <button class="opcion" data-op="c">Para el firmware BIOS</button>
+      <button class="opcion" data-op="d">Para la memoria RAM</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cuál es la diferencia principal entre BIOS y UEFI?</p>
+      <button class="opcion" data-op="a">UEFI es moderno, soporta GPT, Secure Boot y arranque rápido; BIOS es legacy/MBR</button>
+      <button class="opcion" data-op="b">UEFI es más viejo que BIOS</button>
+      <button class="opcion" data-op="c">BIOS soporta ratón y UEFI no</button>
+      <button class="opcion" data-op="d">Son exactamente lo mismo con otro nombre</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>3.</strong> ¿Qué hace el comando <code>dd if=ubuntu.iso of=/dev/sdb</code>?</p>
+      <button class="opcion" data-op="a">Borra el disco sdb sin escribir nada</button>
+      <button class="opcion" data-op="b">Copia la ISO a un archivo dentro de sdb</button>
+      <button class="opcion" data-op="c">Graba la ISO byte a byte en la USB sdb para hacerla booteable</button>
+      <button class="opcion" data-op="d">Apaga el equipo</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro aprende mejor después de una pausa.</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo que esté a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Girar el cuello 5 veces a cada lado. Estirar los brazos hacia el techo 10 segundos. Tocarse los pies sin doblar las rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso de agua mejora la concentración hasta 30 minutos. <strong>Beba ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a una cosa nueva que aprendiste. Explicar consolida la memoria. 1 minuto basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿qué es una ISO?</h3>
+    <p>Pregunta rápida antes de volver. Toca la opción que creas correcta (no vale googlear):</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-top="a">📦 Una imagen de disco para instalar un SO</button>
+      <button class="trivia-opt" data-tcorrecta="b" data-top="b">💿 Una imagen de disco: un archivo con todo lo necesario para instalar el SO</button>
+      <button class="trivia-opt" data-top="c">🖱️ Un ratón inalámbrico</button>
+      <button class="trivia-opt" data-top="d">⚡ Un tipo de memoria RAM</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>El nombre <strong>ISO</strong> viene del estándar <strong>ISO 9660</strong> de los CDs: el formato que define cómo se organizan los archivos en un disco óptico. Por eso, aunque hoy grabemos la ISO en una USB, seguimos llamándola "ISO". Una palabra que sobrevivió a su tecnología. 💿</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Arranque →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — ARRANQUE: BOOT, BOOTLOADER, GRUB
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🚀 El arranque del SO</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Del botón de power al escritorio" — la secuencia de boot</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando presionas el botón de encendido, <strong>no</strong> arranca el SO directamente. Hay una <strong>secuencia de boot</strong>: el firmware, el bootloader y luego el SO. Entender esta cadena es entender por qué a veces "no arranca" y cómo se arregla.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Con su compañero/a, en <strong>4 pasos</strong>, adivinen qué pasa desde que presionas el botón de encendido hasta que ves el escritorio. ¿Quién corre primero? ¿Después? Escríbanlo antes del simulador y luego comparen.</p>
+  </div>
+
+  <h3>🎮 Simulador: Sigue el arranque</h3>
+  <p>Presiona <strong>"Encender"</strong> y observa cómo el control <strong>viaja</strong> por las etapas hasta que el SO está corriendo. Cada etapa tiene una misión concreta.</p>
+
+  <div class="trace-sim">
+    <div class="sim-head">⚡ Secuencia de arranque</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado del arranque</div>
+      <div class="state-grid">
+        <div class="state-cell" id="bootCellStep">
+          <div class="label">Etapa actual</div>
+          <span class="skey">fase</span>
+          <span class="sval" id="bootStep">—</span>
+        </div>
+        <div class="state-cell" id="bootCellTime">
+          <div class="label">Tiempo</div>
+          <span class="skey">ms</span>
+          <span class="sval" id="bootTime">0</span>
+        </div>
+        <div class="state-cell" id="bootCellBooted">
+          <div class="label">¿Arrancó?</div>
+          <span class="skey">estado</span>
+          <span class="sval" id="bootBooted">❌</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trace-layers" id="bootLayers">
+      <div class="trace-layer" data-layer="0">
+        <span class="t-icon">🔌</span>
+        <span class="t-name">Power / Firmware</span>
+        <span class="t-desc">Enciendes; corre la BIOS/UEFI y el POST (autodiagnóstico)</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="1">
+        <span class="t-icon">🧭</span>
+        <span class="t-name">Boot order</span>
+        <span class="t-desc">El firmware busca el primer dispositivo booteable (USB, disco…)</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="2">
+        <span class="t-icon">🚀</span>
+        <span class="t-name">Bootloader (GRUB)</span>
+        <span class="t-desc">Programa pequeño que carga el kernel del SO en memoria</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="3">
+        <span class="t-icon">🔬</span>
+        <span class="t-name">Kernel</span>
+        <span class="t-desc">El corazón del SO se inicializa y detecta el hardware</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="4">
+        <span class="t-icon">🖥️</span>
+        <span class="t-name">Init / Systemd</span>
+        <span class="t-desc">Arrancan servicios, drivers y el entorno gráfico (login)</span>
+        <span class="t-pulse"></span>
+      </div>
+    </div>
+
+    <div class="trace-log" id="bootLog">
+      <div class="log-line"><span class="t">[BOOT]</span> Esperando encendido…</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="bootStart">🔌 Encender</button>
+      <button class="btn" id="bootFail">💥 Simular fallo de bootloader</button>
+      <button class="btn ghost" id="bootReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué es GRUB?</h4>
+    <p><strong>GRUB</strong> (GRand Unified Bootloader) es el bootloader más usado en Linux. Aparece como un menú al arrancar: <strong>elige</strong> qué SO cargar si tienes varios (dual-boot). En Windows el equivalente es el <strong>Windows Boot Manager</strong>. El bootloader es el "menú del desayuno" del equipo: decide qué SO se sirve.</p>
+  </div>
+
+  <h3>🌍 Tipos de arranque</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">🥶</span>
+      <h3>Arranque en frío</h3>
+      <p>El equipo estaba apagado totalmente. El firmware hace <strong>POST</strong> (autodiagnóstico) completo antes de buscar el SO. Más lento, más seguro.</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">🔄</span>
+      <h3>Reinicio / warm boot</h3>
+      <p>El equipo ya estaba encendido. Se salta parte del POST y reinicia más rápido. Es el "Reiniciar" del menú.</p>
+    </div>
+    <div class="tarjeta tarjeta-warm">
+      <span class="emoji">💤</span>
+      <h3>Hibernación / sleep</h3>
+      <p>El estado del SO se guardó en disco (hibernar) o en RAM (suspender). Al despertar, se salta casi todo el boot y vuelve donde estabas.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🌐</span>
+      <h3>Arranque por red (PXE)</h3>
+      <p>En servidores y aulas: el equipo no tiene disco y descarga el SO por red desde un servidor. Se usa en laboratorios escolares.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Cuando el bootloader falla</h4>
+    <p>Si el bootloader se daña, enciendes y ves un mensaje como <code>GRUB rescue&gt;</code> o <code>No bootable device</code>. El equipo funciona, pero no sabe cómo cargar el SO. Se arregla reinstalando el bootloader desde una USB live. Por eso siempre conviene tener una USB booteable a mano. 🚨</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué corre primero al presionar el botón de encendido?</p>
+      <button class="opcion" data-op="a">El kernel del SO</button>
+      <button class="opcion" data-op="b">El firmware (BIOS/UEFI) con el POST</button>
+      <button class="opcion" data-op="c">El entorno gráfico</button>
+      <button class="opcion" data-op="d">WhatsApp</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué hace el bootloader (GRUB)?</p>
+      <button class="opcion" data-op="a">Cargar el kernel del SO en memoria</button>
+      <button class="opcion" data-op="b">Formatear el disco</button>
+      <button class="opcion" data-op="c">Apagar el equipo</button>
+      <button class="opcion" data-op="d">Cambiar la RAM</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Instalación paso a paso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — INSTALACIÓN PASO A PASO
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>⚙️ Instalación paso a paso</h2>
+  <p class="meta-modulo">⏱️ 40 minutos · "Del asistente al primer escritorio" — los pasos de un instalador</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Todos los instaladores de SO siguen <strong>el mismo patrón</strong>: idioma → teclado → red → disco/particiones → usuario/contraseña → copiar archivos → reinicio. Si entiendes el patrón, puedes instalar <strong>cualquier</strong> SO. Vamos a recorrerlo con un simulador.</p>
+  </div>
+
+  <h3>🎮 Simulador: Instala tu primer SO</h3>
+  <p>Sigue los pasos del instalador. Cada paso te pedirá una decisión. Avanza con "Siguiente" hasta completar la instalación. ¡Es la práctica antes del taller real con VirtualBox!</p>
+
+  <div class="simulador">
+    <div class="sim-head">💿 Instalador interactivo</div>
+
+    <div class="install-progress" id="installProgress">
+      <div class="install-steps" id="installSteps"></div>
+    </div>
+
+    <div class="install-panel" id="installPanel">
+      <div class="install-screen" data-step="0">
+        <h3>🌐 Bienvenida — Elige el idioma</h3>
+        <p>El instalador arranca. Primero pregunta el idioma del sistema.</p>
+        <div class="install-opts">
+          <button class="install-opt" data-step="0" data-val="es">🇪🇸 Español</button>
+          <button class="install-opt" data-step="0" data-val="en">🇬🇧 English</button>
+          <button class="install-opt" data-step="0" data-val="pt">🇧🇷 Português</button>
+        </div>
+      </div>
+      <div class="install-screen" data-step="1" style="display:none">
+        <h3>⌨️ Distribución del teclado</h3>
+        <p>Cada país tiene una distribución de teclado distinta. Elige la tuya.</p>
+        <div class="install-opts">
+          <button class="install-opt" data-step="1" data-val="latam">⌨️ Latinoamericano</button>
+          <button class="install-opt" data-step="1" data-val="es">⌨️ Español (España)</button>
+          <button class="install-opt" data-step="1" data-val="us">⌨️ Inglés (US)</button>
+        </div>
+      </div>
+      <div class="install-screen" data-step="2" style="display:none">
+        <h3>📶 Conexión a red (opcional)</h3>
+        <p>Conectarte a WiFi permite descargar actualizaciones durante la instalación. Puedes saltárselo.</p>
+        <div class="install-opts">
+          <button class="install-opt" data-step="2" data-val="wifi">📶 Conectar a WiFi</button>
+          <button class="install-opt" data-step="2" data-val="skip">⏭️ Saltar por ahora</button>
+        </div>
+      </div>
+      <div class="install-screen" data-step="3" style="display:none">
+        <h3>💿 Tipo de instalación</h3>
+        <p>Decide cómo manejar el disco. <strong>¡Cuidado!</strong> "Borrar todo" elimina tus archivos.</p>
+        <div class="install-opts">
+          <button class="install-opt" data-step="3" data-val="borrar">🧹 Borrar disco e instalar (PC nueva)</button>
+          <button class="install-opt" data-step="3" data-val="dual">🪟🐧 Instalación dual (junto a Windows)</button>
+          <button class="install-opt" data-step="3" data-val="manual">🛠️ Particionado manual (avanzado)</button>
+        </div>
+      </div>
+      <div class="install-screen" data-step="4" style="display:none">
+        <h3>👤 Usuario y contraseña</h3>
+        <p>Crea tu cuenta. Esta será tu primera identidad en el sistema.</p>
+        <div class="install-form">
+          <label>Nombre completo<input type="text" id="instName" placeholder="Ej: Ana Torres"></label>
+          <label>Usuario (login)<input type="text" id="instUser" placeholder="Ej: ana"></label>
+          <label>Contraseña<input type="password" id="instPass" placeholder="mínimo 6 caracteres"></label>
+        </div>
+        <button class="btn primary" id="instUserNext">Siguiente →</button>
+      </div>
+      <div class="install-screen" data-step="5" style="display:none">
+        <h3>⏳ Copiando archivos…</h3>
+        <p>El instalador está escribiendo el SO en el disco. Esto puede tardar de 5 a 30 minutos según el hardware.</p>
+        <div class="install-bar-wrap">
+          <div class="install-bar" id="installCopyBar"></div>
+        </div>
+        <p id="installCopyPct" style="font-family:'JetBrains Mono',monospace;color:var(--verde);">0%</p>
+      </div>
+      <div class="install-screen" data-step="6" style="display:none">
+        <h3>✅ ¡Instalación completa!</h3>
+        <p>El SO ya está en tu disco. Reinicia para usarlo. <strong>Quita la USB</strong> cuando el equipo se apague, para que no vuelva a arrancar desde la USB.</p>
+        <div class="caja-tip" style="margin:1rem 0;">
+          <h4>🏁 Siguiente paso</h4>
+          <p>Al reiniciar, el bootloader cargará el nuevo SO. Si hiciste dual-boot, verás un menú (GRUB) para elegir entre Windows y Linux. ¡Felicidades!</p>
+        </div>
+        <button class="btn primary big" id="instFinish">🔁 Reiniciar (simulado)</button>
+      </div>
+    </div>
+
+    <div class="install-log" id="installLog">
+      <div class="log-line"><span class="t">[INST]</span> Instalador listo. Selecciona idioma para empezar.</div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Dual-boot: dos SO en una sola PC</h4>
+    <p>Con <strong>dual-boot</strong> tienes dos SO en el mismo disco (por ejemplo Windows + Linux). Al encender, el bootloader te pregunta cuál cargar. Es ideal para probar Linux sin renunciar a Windows. <strong>Ojo:</strong> instala Windows primero, luego Linux, porque el bootloader de Windows sobrescribe el de Linux y rompe el menú.</p>
+  </div>
+
+  <h3>📊 Checklist antes del primer arranque</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Paso</th><th>Verificación</th><th>¿Hecho?</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Respaldé mis archivos importantes</td><td>✅ / ❌</td></tr>
+        <tr><td>2</td><td>Revisé requisitos de hardware del SO</td><td>✅ / ❌</td></tr>
+        <tr><td>3</td><td>Descargué la ISO oficial</td><td>✅ / ❌</td></tr>
+        <tr><td>4</td><td>Creé la USB booteable</td><td>✅ / ❌</td></tr>
+        <tr><td>5</td><td>Configuré la BIOS/UEFI (USB primero)</td><td>✅ / ❌</td></tr>
+        <tr><td>6</td><td>Decidí las particiones</td><td>✅ / ❌</td></tr>
+        <tr><td>7</td><td>Completé el asistente del instalador</td><td>✅ / ❌</td></tr>
+        <tr><td>8</td><td>Quité la USB al reiniciar</td><td>✅ / ❌</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUIZ MÓDULO 6 -->
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál es el orden típico de los pasos de un instalador de SO?</p>
+      <button class="opcion" data-op="a">Usuario → Disco → Idioma → Copiar</button>
+      <button class="opcion" data-op="b">Copiar → Idioma → Usuario → Disco</button>
+      <button class="opcion" data-op="c">Idioma → Teclado → Red → Disco → Usuario → Copiar</button>
+      <button class="opcion" data-op="d">Disco → Copiar → Idioma → Teclado</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> En dual-boot, ¿por qué se recomienda instalar Windows primero y Linux después?</p>
+      <button class="opcion" data-op="a">Porque Linux no funciona sin Windows</button>
+      <button class="opcion" data-op="b">Porque el bootloader de Windows sobrescribe el de Linux y rompe el menú</button>
+      <button class="opcion" data-op="c">Porque Windows no se puede instalar después</button>
+      <button class="opcion" data-op="d">Porque Linux pesa más</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 7 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: planificación, criterios, preparación y arranque. El último es el <strong>Jefe Final</strong>. Al superar todos los retos, recibirás tu insignia de <strong>Install Master</strong>. ¡Tú puedes!</p>
+  </div>
+
+  <!-- Reto 1: Emparejar objetivos -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">🧭 Empareja cada objetivo con su descripción</span>
+    </div>
+    <p>Toca un objetivo de la izquierda y luego su descripción correcta a la derecha. 3 parejas.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Elegir bien</button>
+        <button class="ws-chip" data-mid="1b">No perder datos</button>
+        <button class="ws-chip" data-mid="1c">Que todo arranque</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Decidir el SO correcto para el hardware y el uso</button>
+        <button class="ws-chip" data-mid="1B">Respaldar y organizar particiones para no borrar lo importante</button>
+        <button class="ws-chip" data-mid="1C">Preparar medio, BIOS/UEFI y bootloader para que el equipo encienda</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar secuencia de boot -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">⚡ Ordena la secuencia de arranque</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar las etapas desde el botón de encendido hasta el escritorio.</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2kernel" draggable="true"><span class="ord-num">?</span> Kernel del SO se inicializa</div>
+        <div class="ws-order-item" data-oid="2firmware" draggable="true"><span class="ord-num">?</span> Firmware (BIOS/UEFI) + POST</div>
+        <div class="ws-order-item" data-oid="2init" draggable="true"><span class="ord-num">?</span> Init/Systemd: servicios y entorno gráfico</div>
+        <div class="ws-order-item" data-oid="2bootloader" draggable="true"><span class="ord-num">?</span> Bootloader (GRUB) carga el kernel</div>
+        <div class="ws-order-item" data-oid="2power" draggable="true"><span class="ord-num">?</span> Presionas el botón de encendido</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Criterios de elección -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">⚖️ Caso → criterio que más pesa</span>
+    </div>
+    <p>Toca un caso de la izquierda y luego el criterio que más debe pesar a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="3">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="3a">Servidor web 24/7</button>
+        <button class="ws-chip" data-mid="3b">Laptop vieja 2GB RAM</button>
+        <button class="ws-chip" data-mid="3c">PC gamer nueva</button>
+        <button class="ws-chip" data-mid="3d">Aula escolar sin presupuesto</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="3A">Estabilidad y bajo consumo</button>
+        <button class="ws-chip" data-mid="3B">Compatibilidad con juegos</button>
+        <button class="ws-chip" data-mid="3C">Costo cero y liviano</button>
+        <button class="ws-chip" data-mid="3D">Liviano para hardware limitado</button>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe final — escenario -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final</span>
+      <span class="challenge-title">🏆 Escenario: instalas y no arranca</span>
+    </div>
+    <p>Instalaste un SO, enciendes y aparece <code>No bootable device</code>. Tienes que explicar <strong>qué falló</strong>. Completa la frase eligiendo la palabra correcta:</p>
+
+    <div class="ws-block">
+      <div class="code-live">
+        El error "No bootable device" aparece porque la BIOS no encontró un dispositivo
+        <span class="hl-line">
+          <input class="ws-input" data-ans="booteable" data-ws="4" placeholder="?">
+        </span>
+        en el boot order.
+      </div>
+    </div>
+
+    <p style="font-size:0.88rem;color:var(--texto-suave);">Segunda parte: ¿cuál fue probablemente el descuido durante la preparación?</p>
+
+    <div class="ws-block" id="reto4Opts">
+      <div class="ws-options">
+        <button class="ws-chip" data-r4="4A">No entraste a la BIOS/UEFI a poner la USB primero en el boot order</button>
+        <button class="ws-chip" data-r4="4B">No descargaste suficientes juegos</button>
+        <button class="ws-chip" data-r4="4C">El equipo no tiene pantalla</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Install Master!</h2>
+    <p class="lead">Ya sabes qué es planificar una instalación, cómo elegir un SO por criterios, cómo preparar disco/medio/firmware y cómo arranca un equipo desde el botón hasta el escritorio. Eso te pone un escalón por encima de quien instala "siguiente, siguiente, siguiente" sin leer. 💪</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿era solo meter la USB y ya? Ya tienes la respuesta. 💿</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🎓 Sistemas Operativos · Clase 4 · Plataforma interactiva</div>
+  <div>Planeación e instalación · Criterios · Particiones · Bootloader · 4 horas · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren instalar su primer SO sin miedo.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

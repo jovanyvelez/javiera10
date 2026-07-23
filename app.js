@@ -40,7 +40,8 @@ function cargarProgresoPorClase() {
     'curso-maraton-algoritmos': 5,
     'curso-so-que-es-sistema-operativo': 6,
     'curso-so-funciones-componentes': 7,
-    'curso-so-tipos-sistemas-operativos': 7
+    'curso-so-tipos-sistemas-operativos': 7,
+    'curso-so-planeacion-instalacion': 6
   };
 
   let totalGlobal = 0;
@@ -186,7 +187,7 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-planeacion-instalacion'];
 
   let tienePrograma = false;
 
