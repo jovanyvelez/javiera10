@@ -41,7 +41,8 @@ function cargarProgresoPorClase() {
     'curso-so-que-es-sistema-operativo': 6,
     'curso-so-funciones-componentes': 7,
     'curso-so-tipos-sistemas-operativos': 7,
-    'curso-so-planeacion-instalacion': 6
+    'curso-so-planeacion-instalacion': 6,
+    'curso-introduccion-programacion-web': 6
   };
 
   let totalGlobal = 0;
@@ -102,8 +103,8 @@ function actualizarBarraClase(card, pct) {
 /* ---------- ANIMACIÓN DE NÚMEROS EN STATS ---------- */
 function animarStats() {
   // Los 3 primeros son fijos
-  animarNumero(document.getElementById('stat-cursos'),  0, 3,   800);
-  animarNumero(document.getElementById('stat-clases'),  0, 8,   900);
+  animarNumero(document.getElementById('stat-cursos'),  0, 4,   800);
+  animarNumero(document.getElementById('stat-clases'), 0, 10,  900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
@@ -187,7 +188,7 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-planeacion-instalacion'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-introduccion-programacion-web'];
 
   let tienePrograma = false;
 
