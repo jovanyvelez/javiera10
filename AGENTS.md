@@ -21,12 +21,9 @@ decimo/
 
 ## Estado entre clases: localStorage
 
-El progreso de cada clase se guarda en `localStorage` con una clave por curso (ej. `curso-contadores-acum-banderas`). El hub lee esas claves para pintar las barras y el porcentaje global.
+El progreso de cada clase se guarda en `localStorage` bajo una clave por curso (ej. `curso-contadores-acum-banderas`, `curso-so-que-es-sistema-operativo`). El hub lee esas claves para pintar las barras y el porcentaje global.
 
-**Cada `app.js` de clase** suele contener una línea del estilo:
-```js
-localStorage.setItem('curso-<slug>', JSON.stringify({ completados: [...] }));
-```
+Cada `app.js` de clase persiste un objeto JSON; el hub solo lee el campo `completados` (array de índices de módulos), pero las clases además guardan `moduloActual`, `quizzes`, `talleres`, `badges`, `xp`. Las HA escriben la clave en línea dentro de `guardarProgreso()`; las SO la extraen a `const STORAGE_KEY = 'curso-so-...'` arriba del archivo.
 
 ## Cómo añadir una clase nueva (no obviable desde los filenames)
 
@@ -60,7 +57,7 @@ No hay tests. Verificación manual:
 - Rama: `main` (única).
 - Remoto: `git@github.com:jovanyvelez/javiera10.git` (ojo: el repo en GitHub se llama `javiera10`, el directorio local es `decimo`).
 - No commit automático. Commits van en español descriptivos (ver `git log --oneline`: "SO clase2: ...", "clase16 correccion", etc.).
-- Working tree limpio al estado actual; no hay `.gitignore`.
+- No hay `.gitignore`. Material suelto (PDFs curriculares, `Clases.txt`, etc.) ha aparecido sin commitear en `SistemasOperativos/`; no agregarlo al sitio a menos que se pida.
 
 ## Lo que NO hacer
 
