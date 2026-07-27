@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌐 Herramientas de Programación I · Clase 1 · Introducción a la programación web</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🌐</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 1</h1>
+      <p class="subtitulo">Introducción a la programación web · Cliente · Servidor · HTTP · Herramientas</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🌐 ¿Qué es web?</button>
+  <button class="btn-modulo" data-modulo="2">🧱 Cliente/Servidor</button>
+  <button class="btn-modulo" data-modulo="3">🧬 Anatomía web</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🔧 Herramientas</button>
+  <button class="btn-modulo" data-modulo="6">🕵️ HTTP en acción</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🌐 ¡Bienvenido/a al mundo de la programación web!</h2>
+    <p class="lead">Cada vez que abres Instagram, ves un video en YouTube o envías un mensaje por WhatsApp, hay una <strong>conversación invisible</strong> entre tu dispositivo y un computador lejano. A eso se le llama <strong>desarrollo web</strong>. En esta clase vas a descubrir cómo funciona la web por dentro: quiénes hablan, qué se dicen y con qué herramientas se construye.</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">whoami</span></div>
+        <div class="out">alumno_décimo</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"La web es una conversación entre cliente y servidor."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos cortos, con un descanso de 15 minutos a la mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Entender qué es el desarrollo web moderno, sus capas (cliente y servidor), cómo viaja una petición HTTP y qué herramientas se usan para construir sitios.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Ganas de preguntar. No hace falta saber programar: aquí empezamos desde cero, con analogías de la vida real y simuladores interactivos.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es el desarrollo web?</td><td style="color:var(--cian)">Definición</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Cliente y Servidor</td><td style="color:var(--rosa)">Arquitectura</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Anatomía de una página web</td><td style="color:var(--ambar)">HTML/CSS/JS</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Herramientas principales</td><td style="color:var(--verde)">Editores, DevTools</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Una petición HTTP</td><td style="color:var(--morado-claro)">En acción</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--morado)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: con tu compañero/a de computadora, <strong>escriban en una sola palabra</strong> qué creen que pasa cuando escribes "youtube.com" y presionas Enter. ¿A dónde viaja el pedido? ¿Quién responde? No busquen la respuesta correcta, solo escriban su intuición. La confirmaremos al final de la clase.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es el desarrollo web? →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — ¿QUÉ ES EL DESARROLLO WEB?
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🌐 ¿Qué es el desarrollo web?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La conversación invisible" — lo que pasa cada vez que abres una página</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina un <strong>restaurante</strong>. Tú (el cliente) solo quieres comer: pides la comida y te la traen. Pero detrás hay un caos organizado: alguien recibe tu pedido, alguien cocina, alguien trae el plato a la mesa, alguien cobra. Tú no ves nada de eso: solo pides y recibes.</p>
+    <p>La <strong>web</strong> es exactamente eso. Tú (el <strong>cliente</strong>) abres una página en el navegador, y en fracciones de segundo tu pedido viaja por Internet hasta un <strong>servidor</strong> (la cocina), que prepara la respuesta (el HTML, las imágenes, el video) y te la envía de vuelta para que tu navegador la "sirva" en tu pantalla.</p>
+    <p>En una frase: <strong>el desarrollo web es construir lo que el cliente pide y lo que el servidor responde.</strong></p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Piensen en otro ejemplo de la vida cotidiana donde haya una "conversación invisible" entre quien pide y quien responde (por ejemplo: pedir comida a domicilio, llamar por teléfono, sacar dinero del cajero). Con su compañero/a, <strong>escojan uno</strong> y díganle al grupo: ¿quién es el cliente y quién es el servidor?</p>
+  </div>
+
+  <h3>🎯 Las 3 piezas del desarrollo web</h3>
+  <p>Para construir una página web se usan <strong>tres tecnologías</strong> que trabajan juntas. Memorízalas: serán la base de TODA la clase.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🏗️ HTML — Estructura</h4>
+      <p>Los <strong>muros</strong> de la casa. Define qué hay en la página: títulos, párrafos, botones, imágenes, enlaces. Sin HTML no hay página.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🎨 CSS — Estilo</h4>
+      <p>La <strong>pintura</strong> y la decoración. Colores, tamaños, márgenes, sombras. Hace que la página se vea bonita y ordenada en lugar de verse como un documento aburrido.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>⚡ JavaScript — Comportamiento</h4>
+      <p>La <strong>electricidad</strong>: le da vida. Hace que los botones funcionen, que aparezcan mensajes, que los datos se actualicen sin recargar. Sin JS la página es estática.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El Restaurante Web</h3>
+  <p>Tú eres el <strong>cliente</strong>. Cada vez que pides una página, el navegador (mesero) lleva el pedido al servidor (cocina) y trae el plato (HTML/CSS/JS) de vuelta. Observa cómo todo se coordina sin que el cliente vea el caos.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🍽️ El Restaurante — la web como conversación</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado del sistema</div>
+      <div class="state-grid">
+        <div class="state-cell" id="r-cell-mesas">
+          <div class="label">Clientes (pestañas)</div>
+          <span class="skey">abiertas</span>
+          <span class="sval" id="r-mesas-val">0/8</span>
+        </div>
+        <div class="state-cell" id="r-cell-mem">
+          <div class="label">Servidor (cocina)</div>
+          <span class="skey">pedidos</span>
+          <span class="sval" id="r-mem-val">0</span>
+        </div>
+        <div class="state-cell" id="r-cell-disco">
+          <div class="label">Páginas servidas</div>
+          <span class="skey">respuestas</span>
+          <span class="sval" id="r-disco-val">0</span>
+        </div>
+        <div class="state-cell" id="r-cell-io">
+          <div class="label">Navegador (mesero)</div>
+          <span class="skey">viajes</span>
+          <span class="sval" id="r-io-val">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="restaurante">
+      <div class="rest-escena">
+        <div class="counter-label">Tu navegador</div>
+        <div class="rest-mesas" id="restMesas"></div>
+        <div class="rest-stats">
+          <div class="rest-stat"><div class="num" id="restClientes">0</div><div class="lbl">páginas pedidas</div></div>
+          <div class="rest-stat"><div class="num" id="restFacturado">$0</div><div class="lbl">datos recibidos</div></div>
+        </div>
+      </div>
+      <div class="rest-log" id="restLog">
+        <div class="log-line"><span class="t">[WEB]</span> Servidor listo. Esperando peticiones…</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="restAdd">🚶 Abrir una página</button>
+      <button class="btn" id="restAtender">🍳 Servidor procesa siguiente</button>
+      <button class="btn" id="restCobrar">📥 Entregar respuesta al cliente</button>
+      <button class="btn ghost" id="restReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Cuando una página "se queda cargando", lo que falla NO es tu dispositivo: es la <strong>conversación</strong> entre tu navegador y el servidor. Quizás el servidor está saturado, o el "camino" de ida y vuelta está congestionado. Por eso refrescar funciona: inicia la conversación de nuevo.</p>
+  </div>
+
+  <h3>💻 La web en una terminal real</h3>
+  <p>Si abres una terminal y le pides a un servidor una página, esto es lo que verías:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal</div>
+      <button class="copy-btn" data-copy="term1">📋 Copiar</button>
+    </div>
+    <pre><code>$ curl -s https://example.com   <span style="color:#5c6370"># pide una página</span>
+&lt;!doctype html&gt;
+&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;Example Domain&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;&lt;h1&gt;Example Domain&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;
+$ curl -I https://example.com     <span style="color:#5c6370"># pide solo los encabezados</span>
+HTTP/2 200
+content-type: text/html
+server: ECS (dcb/7F84)</code></pre>
+  </div>
+
+  <h3>⚡ ¿Dónde está la web?</h3>
+  <div class="cuadricula-2">
+    <div class="tarjeta tarjeta-verde">
+      <h3>✅ Está EN todos lados</h3>
+      <p>Instagram, YouTube, WhatsApp Web, Netflix, Google Docs, el portal del colegio, tu banco. Cualquier cosa que abras en un navegador o una app con conexión a Internet es desarrollo web.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <h3>❌ NO es solo "páginas bonitas"</h3>
+      <p>La web no es solo lo que ves. Detrás de cada app hay servidores, bases de datos, APIs y lógica. El desarrollo web cubre <strong>desde el botón que tocas hasta el servidor que responde al otro lado del mundo.</strong></p>
+    </div>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es la mejor analogía para el desarrollo web?</p>
+      <button class="opcion" data-op="a">Un archivo guardado en tu disco</button>
+      <button class="opcion" data-op="b">Una conversación entre un cliente que pide y un servidor que responde</button>
+      <button class="opcion" data-op="c">Un programa que solo corre en tu celular</button>
+      <button class="opcion" data-op="d">Una aplicación de edición de fotos</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál de estas NO es una de las 3 tecnologías base de la web?</p>
+      <button class="opcion" data-op="a">HTML (estructura)</button>
+      <button class="opcion" data-op="b">CSS (estilo)</button>
+      <button class="opcion" data-op="c">Python (compilación del navegador)</button>
+      <button class="opcion" data-op="d">JavaScript (comportamiento)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Cliente y Servidor →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — CLIENTE Y SERVIDOR
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>🧱 Cliente y Servidor</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Las dos caras de la web" — quién pide y quién responde</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La web es una <strong>cebolla</strong>: tiene capas. En el centro está el hardware (los cables, los servidores físicos). Afuera estás tú (el usuario). Y entre medio hay varias capas de software que hacen que la conversación sea posible. El <strong>cliente</strong> y el <strong>servidor</strong> son los dos protagonistas.</p>
+    <p>El cliente no flota en el aire: vive en tu <strong>navegador</strong> (Chrome, Firefox, Edge). El servidor vive en un <strong>computador lejano</strong>, encendido 24/7, esperando peticiones. Entre los dos viaja la información por Internet.</p>
+  </div>
+
+  <h3>🗺️ Las 5 capas de la web (de abajo hacia arriba)</h3>
+  <div class="capas-wrap" id="capasWrap">
+    <div class="capa c-hardware" data-capa="hardware">
+      <span class="capa-icon">⚡</span>
+      <span class="capa-name">Hardware/Cables</span>
+      <span class="capa-desc">Fibra óptica, servidores físicos en datacenters, tu router WiFi. Lo que puedes tocar.</span>
+      <span class="capa-drop" data-drops="hardware"></span>
+    </div>
+    <div class="capa c-kernel" data-capa="kernel">
+      <span class="capa-icon">🔧</span>
+      <span class="capa-name">Red/HTTP</span>
+      <span class="capa-desc">El "idioma" de la web: protocolos HTTP/HTTPS, TCP/IP. El mensajero que transporta las peticiones.</span>
+      <span class="capa-drop" data-drops="kernel"></span>
+    </div>
+    <div class="capa c-so" data-capa="so">
+      <span class="capa-icon">🖥️</span>
+      <span class="capa-name">Servidor</span>
+      <span class="capa-desc">Apache, Nginx, Node.js. El programa que escucha peticiones y prepara respuestas (HTML, JSON, imágenes).</span>
+      <span class="capa-drop" data-drops="so"></span>
+    </div>
+    <div class="capa c-apps" data-capa="apps">
+      <span class="capa-icon">🌐</span>
+      <span class="capa-name">Cliente (Navegador)</span>
+      <span class="capa-desc">Chrome, Firefox, Edge, Safari. Recibe la respuesta, interpreta HTML/CSS/JS y pinta la página en tu pantalla.</span>
+      <span class="capa-drop" data-drops="apps"></span>
+    </div>
+    <div class="capa c-user" data-capa="user">
+      <span class="capa-icon">🧑</span>
+      <span class="capa-name">Usuario</span>
+      <span class="capa-desc">Tú. Escribes la URL, haces clic, lees, interactúas. El origen de toda petición.</span>
+      <span class="capa-drop" data-drops="user"></span>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Con tu compañero/a, observen la cebolla de arriba. <strong>Cada uno escoja 2 elementos</strong> de la lista de abajo y decidan juntos a qué capa pertenecen. Luego hagan el reto interactivo y comparen.</p>
+  </div>
+
+  <h3>🎮 Reto: Clasifica cada elemento en su capa</h3>
+  <p>Toca un elemento del banco y luego toca la capa donde crees que pertenece. Hay 8 elementos por clasificar.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧩 Clasificador de capas web</div>
+
+    <div class="item-bank" id="itemBank"></div>
+
+    <div class="caja-tip" id="capasFeedback" style="display:none;">
+      <h4>📊 Progreso</h4>
+      <p id="capasProgress">0/8 clasificados</p>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn ghost" id="capasReset">🔄 Reiniciar clasificación</button>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común</h4>
+    <p>Mucha gente cree que el "servidor" es un lugar físico donde guardas archivos, como un disco duro en la nube. ¡Es solo la mitad de la historia! Un servidor es <strong>un programa que escucha peticiones y responde</strong>. Puede correr en un datacenter, en una Raspberry Pi, o incluso en tu propio computador con <code>python3 -m http.server</code>.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 HTTP: el idioma de la web</h4>
+    <p>Cliente y servidor hablan un idioma llamado <strong>HTTP</strong> (HyperText Transfer Protocol). El cliente dice <code>GET /index.html</code> (dame esta página) y el servidor responde con el HTML. Como un mesero que anota el pedido y trae el plato. El "S" de <strong>HTTPS</strong> significa <em>Secure</em>: la misma conversación, pero cifrada para que nadie la espíe.</p>
+  </div>
+
+  <h3>💻 Cuando un navegador le pide algo a un servidor</h3>
+  <p>Las peticiones web se ven así por dentro:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>request.http</div>
+      <button class="copy-btn" data-copy="httpreq">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#c678dd">// El navegador (cliente) envía esto al servidor:</span>
+GET /index.html HTTP/1.1
+Host: www.example.com
+User-Agent: Mozilla/5.0 (Chrome)
+Accept: text/html
+
+<span style="color:#5c6370">// El servidor responde con esto:</span>
+HTTP/1.1 200 OK
+Content-Type: text/html
+Content-Length: 1254
+
+&lt;!doctype html&gt;&lt;html&gt;...&lt;/html&gt;</code></pre>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿En qué capa vive el cliente (navegador)?</p>
+      <button class="opcion" data-op="a">En el servidor físico del datacenter</button>
+      <button class="opcion" data-op="b">En tu dispositivo, interpretando la respuesta</button>
+      <button class="opcion" data-op="c">En los cables de fibra óptica</button>
+      <button class="opcion" data-op="d">Dentro del protocolo HTTP</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué es HTTP?</p>
+      <button class="opcion" data-op="a">El idioma/protocolo con el que hablan cliente y servidor</button>
+      <button class="opcion" data-op="b">Un lenguaje de programación como Python</button>
+      <button class="opcion" data-op="c">Un navegador como Chrome</button>
+      <button class="opcion" data-op="d">Un servidor físico en la nube</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Anatomía de una página web →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — ANATOMÍA DE UNA PÁGINA WEB
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>🧬 Anatomía de una página web</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "HTML, CSS y JavaScript" — las 3 capas que construyen lo que ves</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una página web no es una cosa: son <strong>tres capas</strong> que trabajan juntas. Como un sándwich: el pan de abajo (HTML), el relleno (CSS) y la cubierta (JavaScript). Cada capa hace algo distinto, y si quitas una, la página se rompe de forma diferente.</p>
+    <p>Esta misma clase interactiva que estás viendo está hecha con HTML (estructura), CSS (colores y diseño) y JavaScript (los simuladores, los quizzes, el progreso). Vamos a ver qué pasa con cada capa por separado.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con su compañero/a, abran esta misma página, hagan clic derecho y elijan <strong>"Inspeccionar"</strong> (o presionen F12). Verán 3 pestañas: <em>Elements</em> (HTML), <em>Styles</em> (CSS), <em>Console</em> (JS). Conjeturen: ¿cuál creen que hace qué? Luego lean el módulo y comparen.</p>
+  </div>
+
+  <h3>🧬 Las 3 capas vivas</h3>
+  <p>Toca cada botón para ver qué pasa cuando "apagamos" una capa de una página web real. Así entenderás qué hace cada una.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎛️ Simulador de capas — HTML / CSS / JS</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado de las capas</div>
+      <div class="state-grid">
+        <div class="state-cell" id="capa-html-cell">
+          <div class="label">HTML</div>
+          <span class="skey">estructura</span>
+          <span class="sval" id="capa-html-val">ON</span>
+        </div>
+        <div class="state-cell" id="capa-css-cell">
+          <div class="label">CSS</div>
+          <span class="skey">estilo</span>
+          <span class="sval" id="capa-css-val">ON</span>
+        </div>
+        <div class="state-cell" id="capa-js-cell">
+          <div class="label">JavaScript</div>
+          <span class="skey">comportamiento</span>
+          <span class="sval" id="capa-js-val">ON</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="capas-demo" id="capasDemo">
+      <div class="demo-head">
+        <div class="demo-dots"><span></span><span></span><span></span></div>
+        <div class="demo-url">mi-pagina.html</div>
+      </div>
+      <div class="demo-body" id="demoBody">
+        <h1 id="demoH1">¡Hola, décimo! 👋</h1>
+        <p id="demoP">Esta es una mini-página. Toca el botón y observa qué pasa.</p>
+        <button id="demoBtn">🎉 Contar clics: 0</button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="toggleHtml">🏗️ Toggle HTML</button>
+      <button class="btn primary" id="toggleCss">🎨 Toggle CSS</button>
+      <button class="btn primary" id="toggleJs">⚡ Toggle JS</button>
+      <button class="btn ghost" id="demoReset">🔄 Restaurar todo</button>
+    </div>
+
+    <div class="caja-tip" id="capasExplicacion" style="margin-top:1.25rem;">
+      <h4>👁️ Observa</h4>
+      <p id="capasExplicacionTxt">Las 3 capas están activas. El botón cuenta clics (JS), el texto se ve ordenado (CSS) y todo tiene estructura (HTML).</p>
+    </div>
+  </div>
+
+  <h3>💻 Así se ve el código de una mini-página</h3>
+  <p>El mismo ejemplo de arriba, en código real:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="demohtml">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#5c6370">&lt;!-- HTML: la estructura --&gt;</span>
+&lt;h1&gt;¡Hola, décimo! 👋&lt;/h1&gt;
+&lt;p&gt;Esta es una mini-página.&lt;/p&gt;
+&lt;button <span style="color:#e5c07b">id</span>=<span style="color:#98c379">"demoBtn"</span>&gt;🎉 Contar clics: 0&lt;/button&gt;
+
+<span style="color:#5c6370">/* CSS: el estilo */</span>
+&lt;style&gt;
+  h1 { color: <span style="color:#98c379">#22d3ee</span>; font-size: <span style="color:#d19a66">2rem</span>; }
+  button { background: <span style="color:#98c379">#a855f7</span>; color: white; }
+&lt;/style&gt;
+
+<span style="color:#5c6370">// JavaScript: el comportamiento</span>
+&lt;script&gt;
+  let n = 0;
+  document.getElementById('demoBtn').onclick = () =&gt; {
+    n++;
+    document.getElementById('demoBtn').innerText = '🎉 Contar clics: ' + n;
+  };
+&lt;/script&gt;</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Regla mnemotécnica</h4>
+    <p>Para recordar las 3 capas usa esta frase: <strong>"HTML pone los ladrillos, CSS los pinta, JavaScript enciende las luces."</strong> Sin ladrillos no hay casa. Sin pintura, hay casa pero fea. Sin electricidad, hay casa bonita pero no hace nada.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🏗️ Sin HTML</h4>
+      <p>No hay nada. La página está <strong>vacía</strong>. Es como una casa sin muros: no se puede habitar.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🎨 Sin CSS</h4>
+      <p>El contenido sigue ahí, pero se ve como un <strong>documento plano de los 90</strong>: texto seguido, sin colores, sin márgenes. Feo pero funciona.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>⚡ Sin JS</h4>
+      <p>La página se ve bonita, pero <strong>no responde a nada</strong>: los botones no hacen nada, los formularios no validan, nada se actualiza sin recargar.</p>
+    </div>
+  </div>
+
+  <!-- QUIZ MÓDULO 3 -->
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace HTML?</p>
+      <button class="opcion" data-op="a">Define la estructura: títulos, párrafos, botones, imágenes</button>
+      <button class="opcion" data-op="b">Colorea y da estilo a la página</button>
+      <button class="opcion" data-op="c">Hace que los botones respondan a clics</button>
+      <button class="opcion" data-op="d">Conecta la página con el servidor</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Qué pasa si quitas JavaScript de una página?</p>
+      <button class="opcion" data-op="a">La página se ve en blanco, sin nada</button>
+      <button class="opcion" data-op="b">Se ve igual, pero los botones no responden y nada se actualiza solo</button>
+      <button class="opcion" data-op="c">La página pierde todos sus colores</button>
+      <button class="opcion" data-op="d">La página no carga en el navegador</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro aprende mejor después de una pausa.</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo que esté a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Girar el cuello 5 veces a cada lado. Estirar los brazos hacia el techo 10 segundos. Tocarse los pies sin doblar las rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso de agua mejora la concentración hasta 30 minutos. <strong>Beba ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a una cosa nueva que aprendiste. Explicar consolida la memoria. 1 minuto basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿sabes de web?</h3>
+    <p>Pregunta rápida antes de volver. Toca la opción que creas correcta (no vale googlear):</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">🌐 La "W" de WWW significa World Wide Web</button>
+      <button class="trivia-opt" data-top="b">📧 La "W" de WWW significa World Web Word</button>
+      <button class="trivia-opt" data-top="c">💾 La "W" de WWW significa Web Wide World</button>
+      <button class="trivia-opt" data-top="d">🖥️ La "W" de WWW significa Windows Web World</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>El primer sitio web del mundo lo creó <strong>Tim Berners-Lee</strong> en 1991, en el CERN (Suiza). Estaba en <code>info.cern.ch</code> y solo tenía texto: explicaba qué era la World Wide Web. Hoy hay más de <strong>1.900 millones de sitios web</strong> activos. 🌍</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Herramientas principales →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — HERRAMIENTAS PRINCIPALES
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🔧 Herramientas principales</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La caja de herramientas del web dev" — con qué se construye la web</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un carpintero no construye una casa con las manos: usa martillo, sierra, nivel, cinta métrica. Un <strong>desarrollador web</strong> tampoco escribe código con el bloc de notas: usa un conjunto de herramientas diseñadas para hacer el trabajo más rápido y con menos errores. Hoy existen <strong>decenas</strong>, pero casi todas se agrupan en 4 familias. Conocerlas te da el mapa mental del oficio.</p>
+  </div>
+
+  <h3>🧰 Las 4 familias de herramientas</h3>
+  <div class="family-tree">
+    <div class="family-root">La caja de herramientas del desarrollador web</div>
+    <div class="family-branches">
+      <div class="family-branch win">
+        <h4>📝 Editores de código</h4>
+        <p>Donde escribes HTML/CSS/JS. Resaltan la sintaxis, autocompletan, marcan errores. Hoy casi todos usan <strong>VS Code</strong>.</p>
+        <div class="deriv"><span>VS Code</span><span>Sublime</span><span>Neovim</span><span>CodeSandbox</span></div>
+      </div>
+      <div class="family-branch mac">
+        <h4>🌐 Navegadores + DevTools</h4>
+        <p>No solo para ver páginas: para <strong>inspeccionarlas</strong>. F12 abre las DevTools: HTML, CSS, red, consola. La herramienta más usada por todo web dev.</p>
+        <div class="deriv"><span>Chrome DevTools</span><span>Firefox DevTools</span><span>Edge DevTools</span><span>Lighthouse</span></div>
+      </div>
+      <div class="family-branch lin">
+        <h4>📦 Gestores y frameworks</h4>
+        <p>Librerías y andamiajes que te ahorran reinventar la rueda. <strong>React, Vue, Tailwind, Bootstrap</strong>. Los grandes proyectos usan frameworks; los chicos, vanilla.</p>
+        <div class="deriv"><span>React</span><span>Vue</span><span>Tailwind</span><span>Bootstrap</span><span>Vite</span></div>
+      </div>
+      <div class="family-branch mob">
+        <h4>🗃️ Control de versiones</h4>
+        <p>Para no perder tu código y trabajar en equipo. <strong>Git</strong> guarda cada cambio; <strong>GitHub</strong> lo comparte en la nube. Como "Google Drive" pero para programadores.</p>
+        <div class="deriv"><span>Git</span><span>GitHub</span><span>GitLab</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a: miren las 4 familias. <strong>¿Cuál creen que es la más importante para un principiante?</strong> Pista: ¿qué herramienta abres primero cuando vas a empezar a programar? Discútanlo y luego hagan el reto.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Vanilla vs. Framework: ¿cuál usar?</h4>
+    <p>Empezar con <strong>vanilla</strong> (HTML/CSS/JS puro, sin librerías) es como aprender a cocinar con cuchillo y sartén antes de comprar una Thermomix. Te enseña los fundamentos. Los <strong>frameworks</strong> (React, Vue) son potentes pero añaden complejidad. En este curso empezaremos con vanilla para que entiendas <em>qué pasa por dentro</em>, y en próximos módulos verás frameworks.</p>
+  </div>
+
+  <h3>🎮 Reto: Asigna cada herramienta a su familia</h3>
+  <p>Toca una herramienta y luego la familia correcta. Hay 6 herramientas por acertar.</p>
+
+  <div class="match-game">
+    <div class="sim-head">🧰 Herramienta → Familia</div>
+    <p id="matchInstr" style="font-size:0.88rem;color:var(--texto-suave);">Toca una herramienta de la izquierda para seleccionarla.</p>
+    <div class="match-grid" id="matchGrid"></div>
+    <div class="match-options" id="matchOptions"></div>
+    <div class="match-feedback" id="matchFeedback"></div>
+    <div class="btn-row">
+      <button class="btn ghost" id="matchReset">🔄 Reiniciar reto</button>
+    </div>
+  </div>
+
+  <h3>💻 Tu primera DevTools en acción</h3>
+  <p>Las DevTools del navegador son la herramienta #1 de un web dev. Así se ven los comandos que puedes escribir en la <strong>Console</strong>:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>console</div>
+      <button class="copy-btn" data-copy="devtools">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#5c6370">// Abre DevTools con F12 y ve a la pestaña "Console":</span>
+&gt; document.title                <span style="color:#5c6370">// ¿cuál es el título de la página?</span>
+&lt; "Herramientas de Programación I · Clase 1"
+
+&gt; document.body.style.background = 'black'  <span style="color:#5c6370">// cambia el fondo</span>
+&lt; "black"   <span style="color:#5c6370">// ¡la página cambia en vivo!</span>
+
+&gt; 2 + 2 * 5                     <span style="color:#5c6370">// la consola también es calculadora</span>
+&lt; 12</code></pre>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es VS Code?</p>
+      <button class="opcion" data-op="a">Un navegador como Chrome</button>
+      <button class="opcion" data-op="b">Un editor de código para escribir HTML/CSS/JS</button>
+      <button class="opcion" data-op="c">Un lenguaje de programación</button>
+      <button class="opcion" data-op="d">Un servidor en la nube</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Para qué sirve Git?</p>
+      <button class="opcion" data-op="a">Para guardar cada cambio del código y trabajar en equipo sin perder versiones</button>
+      <button class="opcion" data-op="b">Para diseñar la página con colores</button>
+      <button class="opcion" data-op="c">Para abrir la página en el navegador</button>
+      <button class="opcion" data-op="d">Para medir la velocidad de Internet</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Una petición HTTP en acción →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — UNA PETICIÓN HTTP EN ACCIÓN
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>🕵️ Una petición HTTP en acción</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Lo que pasa cuando escribes youtube.com" — la web en movimiento</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando escribes <code>youtube.com</code> y presionas Enter, parece magia: aparece el sitio. Pero en realidad <strong>acaba de ocurrir una cadena de pasos</strong> que involucra a tu navegador, el DNS, el protocolo TCP, el servidor de YouTube y el camino de vuelta. Entender esa cadena es entender qué es la web de verdad.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Con su compañero/a, en <strong>5 pasos</strong>, adivinen qué pasa cuando escribes <code>youtube.com</code> y presionas Enter. ¿Quién le pide qué a quién? Escríbanlo en orden antes de ver el simulador. Luego comparen.</p>
+  </div>
+
+  <h3>🎮 Simulador: Sigue la petición HTTP</h3>
+  <p>Presiona <strong>"Abrir página"</strong> y observa cómo la petición <strong>viaja hacia abajo</strong> por las capas hasta el servidor, y luego <strong>regresa hacia arriba</strong> con el HTML. Ese viaje es lo que hace tu navegador cada vez que abres una página.</p>
+
+  <div class="trace-sim">
+    <div class="sim-head">🌐 Sigue la petición — capas de la web</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado de la petición</div>
+      <div class="state-grid">
+        <div class="state-cell" id="traceCellStep">
+          <div class="label">Paso actual</div>
+          <span class="skey">etapa</span>
+          <span class="sval" id="traceStep">—</span>
+        </div>
+        <div class="state-cell" id="traceCellLatency">
+          <div class="label">Latencia</div>
+          <span class="skey">ms</span>
+          <span class="sval" id="traceLatency">0</span>
+        </div>
+        <div class="state-cell" id="traceCellApps">
+          <div class="label">Páginas abiertas</div>
+          <span class="skey">contador</span>
+          <span class="sval" id="traceApps">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="trace-layers" id="traceLayers">
+      <div class="trace-layer" data-layer="0">
+        <span class="t-icon">🧑</span>
+        <span class="t-name">Usuario</span>
+        <span class="t-desc">Escribe youtube.com y presiona Enter</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="1">
+        <span class="t-icon">🌐</span>
+        <span class="t-name">Navegador</span>
+        <span class="t-desc">Construye la petición HTTP y la envía</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="2">
+        <span class="t-icon">📇</span>
+        <span class="t-name">DNS</span>
+        <span class="t-desc">Traduce "youtube.com" a una IP (142.250.x.x)</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="3">
+        <span class="t-icon">🛣️</span>
+        <span class="t-name">TCP / Red</span>
+        <span class="t-desc">Establece conexión con el servidor remoto</span>
+        <span class="t-pulse"></span>
+      </div>
+      <div class="trace-layer" data-layer="4">
+        <span class="t-icon">🖥️</span>
+        <span class="t-name">Servidor</span>
+        <span class="t-desc">Recibe la petición, prepara el HTML y lo envía de vuelta</span>
+        <span class="t-pulse"></span>
+      </div>
+    </div>
+
+    <div class="trace-log" id="traceLog">
+      <div class="log-line"><span class="t">[WEB]</span> Esperando petición…</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="traceOpen">🌐 Abrir página</button>
+      <button class="btn" id="traceOpen3">🌐 Abrir 3 pestañas (estrés)</button>
+      <button class="btn ghost" id="traceReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El truco del "cargando"</h4>
+    <p>Si la petición está en curso, ¿cómo es que <strong>otras pestañas siguen funcionando</strong>? Porque el navegador hace cada petición <strong>en paralelo</strong>, no una a la vez. A esto se le llama <strong>asincronía</strong>, y es una de las ideas más potentes de JavaScript: pedir algo y seguir trabajando mientras llega la respuesta.</p>
+  </div>
+
+  <h3>🌍 La web está en todas partes</h3>
+  <div class="cuadricula">
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">📱</span>
+      <h3>Apps móviles</h3>
+      <p>Instagram, TikTok, WhatsApp. Por dentro hablan con servidores web vía HTTP. La "app" es una carcasa sobre conversaciones web.</p>
+    </div>
+    <div class="tarjeta tarjeta-ambar">
+      <span class="emoji">📺</span>
+      <h3>Streaming</h3>
+      <p>Netflix, YouTube, Twitch. El video llega en chunk por HTTP, pedidos uno a uno a medida que avanzas en la película.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🏦</span>
+      <h3>Banca en línea</h3>
+      <p>Cada transferencia es una petición HTTP firmada y cifrada (HTTPS) que va al banco y vuelve con el recibo.</p>
+    </div>
+    <div class="tarjeta tarjeta-warm">
+      <span class="emoji">🎮</span>
+      <h3>Juegos multijugador</h3>
+      <p>Los juegos online envían peticiones constantes al servidor: "disparé", "me moví", "enemigo muerto". Todo por la web.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Cuando el servidor falla, ves un error</h4>
+    <p>Si el servidor no responde, ves un <strong>502 Bad Gateway</strong> o <strong>500 Internal Server Error</strong>. Si la página no existe, ves un <strong>404 Not Found</strong>. Esos números son <strong>códigos de estado HTTP</strong>: el idioma del servidor para decir "pasó esto". 200 = OK, 4xx = tu culpa, 5xx = culpa del servidor.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 6 -->
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> Cuando escribes youtube.com, ¿quién traduce el nombre a una IP?</p>
+      <button class="opcion" data-op="a">El servidor de YouTube directamente</button>
+      <button class="opcion" data-op="b">El editor de código VS Code</button>
+      <button class="opcion" data-op="c">El DNS (Domain Name System)</button>
+      <button class="opcion" data-op="d">El protocolo TCP</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué significa un error 404?</p>
+      <button class="opcion" data-op="a">Que la página solicitada no existe en el servidor</button>
+      <button class="opcion" data-op="b">Que el servidor está saturado</button>
+      <button class="opcion" data-op="c">Que tu Internet se cayó</button>
+      <button class="opcion" data-op="d">Que la página cargó correctamente</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 7 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: definición de web, capas, anatomía y petición HTTP. El último es el <strong>Jefe Final</strong>. Al superar todos los retos, recibirás tu insignia de <strong>Web Master</strong>. ¡Tú puedes!</p>
+  </div>
+
+  <!-- Reto 1: Matching — definiciones web -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">🧠 Empareja cada concepto con su definición</span>
+    </div>
+    <p>Toca un concepto de la izquierda y luego su definición correcta a la derecha. Hay 3 parejas por formar.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Cliente</button>
+        <button class="ws-chip" data-mid="1b">Servidor</button>
+        <button class="ws-chip" data-mid="1c">HTTP</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">El programa que pide páginas (navegador)</button>
+        <button class="ws-chip" data-mid="1B">El programa que escucha peticiones y responde</button>
+        <button class="ws-chip" data-mid="1C">El idioma/protocolo con el que hablan cliente y servidor</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar capas web -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">🧱 Ordena las capas de la web de abajo hacia arriba</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar las capas desde la más profunda (hardware) hasta el usuario (arriba).</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2apps" draggable="true"><span class="ord-num">?</span> Cliente / Navegador (Chrome, Firefox)</div>
+        <div class="ws-order-item" data-oid="2so" draggable="true"><span class="ord-num">?</span> Servidor (Apache, Node.js)</div>
+        <div class="ws-order-item" data-oid="2hw" draggable="true"><span class="ord-num">?</span> Hardware (cables, datacenters, routers)</div>
+        <div class="ws-order-item" data-oid="2user" draggable="true"><span class="ord-num">?</span> Usuario (tú, que escribes la URL)</div>
+        <div class="ws-order-item" data-oid="2kernel" draggable="true"><span class="ord-num">?</span> Red / HTTP (el mensajero entre ambos)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Emparejar herramienta-familia -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">🧰 Empareja cada herramienta con su familia</span>
+    </div>
+    <p>Toca una herramienta de la izquierda y luego su familia correcta a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="3">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="3a">VS Code</button>
+        <button class="ws-chip" data-mid="3b">React</button>
+        <button class="ws-chip" data-mid="3c">Chrome DevTools</button>
+        <button class="ws-chip" data-mid="3d">Git</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="3A">Editor de código</button>
+        <button class="ws-chip" data-mid="3B">Framework / librería</button>
+        <button class="ws-chip" data-mid="3C">Navegador + inspección</button>
+        <button class="ws-chip" data-mid="3D">Control de versiones</button>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe final — escenario -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final</span>
+      <span class="challenge-title">🏆 Escenario: una página no carga</span>
+    </div>
+    <p>Escribiste <code>mysite.com</code>, presionaste Enter y aparece un error <strong>404</strong>. Tienes que explicar <strong>qué falló</strong>. Completa la frase:</p>
+
+    <div class="ws-block">
+      <div class="code-live">
+Un error 404 significa que el servidor <span class="hl-line">
+no <input class="ws-input" data-ans="encontro" data-ws="4" placeholder="?"> la página solicitada
+</span>
+(porque esa URL no existe en él).
+      </div>
+    </div>
+
+    <p style="font-size:0.88rem;color:var(--texto-suave);">Segunda parte: ¿cuál es la diferencia entre 404 y 500? Elige la respuesta correcta:</p>
+
+    <div class="ws-block" data-ws-match="4">
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">404 = la página no existe; 500 = el servidor tuvo un error interno</button>
+        <button class="ws-chip" data-mid="4B">404 = el servidor está saturado; 500 = tu Internet se cayó</button>
+        <button class="ws-chip" data-mid="4C">404 y 500 son lo mismo, solo cambia el número</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Web Master!</h2>
+    <p class="lead">Ya sabes qué es el desarrollo web, quiénes hablan en la conversación (cliente y servidor), cómo se construye una página (HTML/CSS/JS), con qué herramientas se trabaja y qué pasa cuando escribes una URL y presionas Enter. Eso es más de lo que sabe el 90% de las personas que usan Internet todos los días.</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿era magia lo que pasa cuando escribes youtube.com? Ya tienes la respuesta. 🌐</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 1 · Plataforma interactiva</div>
+  <div>Introducción a la web · Cliente · Servidor · HTTP · Herramientas · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
