@@ -880,11 +880,11 @@ function inicializarTraceSim() {
     logEl.scrollTop = logEl.scrollHeight;
   };
 
-  const runTrace = async (appName = 'app') => {
+  const runTrace = async (appName = 'app', keepLog = false) => {
     if (running) return;
     running = true;
     clearActive();
-    logEl.innerHTML = '';
+    if (!keepLog) logEl.innerHTML = '';
     const baseLatency = 8 + Math.floor(Math.random() * 6);
     latEl.textContent = '0';
     stepEl.textContent = 'Inicio';
@@ -923,7 +923,7 @@ function inicializarTraceSim() {
     logEl.innerHTML = '';
     traceLog('warn', '⚠ Abriendo 3 apps en secuencia rápida…');
     for (const app of ['Instagram', 'YouTube', 'Spotify']) {
-      await runTrace(app);
+      await runTrace(app, true);  // keepLog=true para no borrar el log anterior
       await new Promise(r => setTimeout(r, 200));
     }
     traceLog('ok', '🏁 3 apps abiertas. El SO repartió la CPU en turnitos. ¡Multitarea!');
