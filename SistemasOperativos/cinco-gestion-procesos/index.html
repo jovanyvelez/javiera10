@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 5 · Gestión de procesos</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">⚙️</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 5</h1>
+      <p class="subtitulo">Gestión de procesos · Qué es, cómo vive y cómo se comunican</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🧩 ¿Proceso?</button>
+  <button class="btn-modulo" data-modulo="2">🔄 Ciclo de vida</button>
+  <button class="btn-modulo descanso" data-modulo="3">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="4">📅 Planificación</button>
+  <button class="btn-modulo" data-modulo="5">💬 Comunicación</button>
+  <button class="btn-modulo" data-modulo="6">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>⚙️ ¡Vamos a entender los procesos!</h2>
+    <p class="lead">Ya sabes <strong>qué es un SO</strong>, sus <strong>funciones</strong>, sus <strong>tipos</strong> y cómo se <strong>instala</strong>. Hoy abrimos la caja negra del kernel: ¿cómo el SO gestiona todos los programas que corren a la vez? La respuesta es una palabra: <strong>procesos</strong>. Al final serás capaz de explicar qué es un proceso, su ciclo de vida, cómo se planifican y cómo se comunican. 🚀</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — processes@so</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">proc@so:~$</span> <span class="cmd">ps --mision</span></div>
+        <div class="out">"Un programa en ejecución. El corazón del sistema."</div>
+        <div><span class="prompt">proc@so:~$</span> <span class="cmd">ps aux</span></div>
+        <div class="out">218 procesos activos · CPU los rota · todos comparten</div>
+        <div><span class="prompt">proc@so:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos cortos (uno de descanso), con un descanso de 15 minutos a la mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Comprender qué es un proceso, su ciclo de vida (nuevo → listo → en ejecución → bloqueado → terminado), cómo el scheduler planifica su ejecución y cómo se comunican entre sí (pipes, señales, sockets).</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Haber visto las clases 1 a 4 (qué es un SO, funciones, tipos e instalación). Hoy profundizamos en la <strong>gestión de procesos</strong>, una de las 4 grandes tareas del SO. Idealmente una terminal Linux/macOS o WSL para el taller real.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es un proceso?</td><td style="color:var(--cian)">Programa vs proceso</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Ciclo de vida</td><td style="color:var(--rosa)">Estados y transiciones</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>03 · Planificación</td><td style="color:var(--ambar)">El scheduler y los algoritmos</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>04 · Comunicación (IPC)</td><td style="color:var(--verde)">Pipes, señales, sockets</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Taller final</td><td style="color:var(--morado)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: con tu compañero/a, abran el navegador y abran <strong>3 pestañas</strong>: YouTube, WhatsApp Web y el colegio. Pregunta: <strong>¿cómo hace tu PC para tener las 3 abiertas "al mismo tiempo" si tiene una sola CPU?</strong> Escriban su teoría. La confirmaremos en el Módulo 1.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es un proceso? →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — ¿QUÉ ES UN PROCESO?
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🧩 ¿Qué es un proceso?</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "Un programa que cobra vida" — la unidad de trabajo del SO</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>programa</strong> es un archivo en el disco: código muerto, inerte, esperando. Un <strong>proceso</strong> es ese programa <strong>en ejecución</strong>: vive en la RAM, consume CPU, tiene un <strong>PID</strong> (identificador único) y el SO lo vigila. Es la diferencia entre una receta en un libro (programa) y alguien cocinando con esa receta (proceso). Si abres el mismo programa dos veces, tienes <strong>dos procesos</strong> distintos, cada uno con su propio PID.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Abran una terminal (o el Administrador de tareas con <code>Ctrl+Shift+Esc</code>). Escriban <code>ps aux</code> en Linux/macOS o miren la pestaña "Detalles" en Windows. <strong>¿Cuántos procesos hay activos?</strong> Anoten el número. Sí, son muchos más de los programas que abriste: el SO corre decenas de procesos en segundo plano sin que te des cuenta.</p>
+  </div>
+
+  <h3>🎯 Programa vs Proceso: las 5 diferencias</h3>
+  <p>Si te confundes, te equivocas en todo lo demás. Memoriza estas 5 diferencias clave.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧩 Programa vs Proceso</div>
+    <p>Toca cada tarjeta para descubrir la diferencia. Hay 5.</p>
+    <div class="features-grid" id="featuresGrid"></div>
+  </div>
+
+  <h3>🔍 La anatomía de un proceso</h3>
+  <p>Cada proceso, por pequeño que sea, tiene estos componentes en memoria. El SO le asigna y vigila cada uno.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🗂️ Segmento de código</h4>
+      <p>Las instrucciones del programa (solo lectura). Es el "qué hacer". Si dos procesos abren el mismo programa, pueden compartir este segmento.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>📊 Segmento de datos</h4>
+      <p>Las variables globales y estáticas. Se modifica durante la ejecución. Es el "estado actual" del programa.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>📚 Stack (pila)</h4>
+      <p>Las variables locales y las llamadas a funciones. Crece y se encoge con cada función que entra y sale. Sin esto, no hay recursión.</p>
+    </div>
+    <div class="compare-card a">
+      <h4>📦 Heap (montículo)</h4>
+      <p>La memoria dinámica (<code>malloc</code>, <code>new</code>). Se pide y se libera a mano. Si se olvida liberar: <strong>fuga de memoria</strong>.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🆔 PCB (Process Control Block)</h4>
+      <p>La "ficha" del proceso: PID, estado, registros de la CPU, memoria asignada, archivos abiertos. El SO guarda aquí todo lo que necesita para retomarlo.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué es el PCB?</h4>
+    <p>El <strong>PCB</strong> (Process Control Block) es la tarjeta de identidad del proceso. Cuando el SO pausa un proceso para darle la CPU a otro, guarda el estado de la CPU (registros, contador de programa) en el PCB. Cuando vuelve a darle la CPU, restaura ese estado y el proceso continúa como si nada. A este cambio se le llama <strong>context switch</strong> (cambio de contexto), y es la magia que permite la multitarea.</p>
+  </div>
+
+  <h3>💻 Procesos en una terminal real</h3>
+  <p>En Linux/macOS puedes ver tus procesos con estos comandos. Pruébalos si tienes una terminal a mano:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal — ps</div>
+      <button class="copy-btn" data-copy="term1">📋 Copiar</button>
+    </div>
+    <pre><code>$ ps                <span style="color:#5c6370"># procesos de esta terminal</span>
+$ ps aux            <span style="color:#5c6370"># todos los procesos del sistema</span>
+$ top               <span style="color:#5c6370"># procesos en tiempo real (tecla q para salir)</span>
+$ htop              <span style="color:#5c6370"># top mejorado (si está instalado)</span>
+$ pstree            <span style="color:#5c6370"># árbol: muestra qué proceso creó a cuál</span>
+$ pidof firefox     <span style="color:#5c6370"># ¿cuál es el PID de firefox?</span></code></pre>
+  </div>
+
+  <h3>🌳 Procesos padre e hijo: el árbol de procesos</h3>
+  <p>Cuando un proceso crea a otro, se llama <strong>fork</strong> (bifurcación). El creador es el <strong>padre</strong>; el nuevo es el <strong>hijo</strong>. Así se forma un <strong>árbol de procesos</strong> con un único ancestro: en Linux es <code>systemd</code> (PID 1), en Windows es <code>System</code>. El comando <code>pstree</code> lo muestra.</p>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "no pasa nada si un hijo queda huérfano"</h4>
+    <p>Si el padre termina antes que el hijo, este queda <strong>huérfano</strong> y lo adopta <code>init</code>/<code>systemd</code> (PID 1). No es un error fatal en Linux, pero en programas mal escritos puede generar <strong>procesos zombi</strong>: hijos que ya terminaron pero el padre no recogió su estado. Se quedan ocupando una entrada en la tabla de procesos. Por eso un SO bien administrado vigila y limpia los zombis.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es la diferencia entre un programa y un proceso?</p>
+      <button class="opcion" data-op="a">Son exactamente lo mismo con distinto nombre</button>
+      <button class="opcion" data-op="b">El programa es código en disco; el proceso es ese programa en ejecución en RAM</button>
+      <button class="opcion" data-op="c">El proceso es el código fuente y el programa el compilado</button>
+      <button class="opcion" data-op="d">El programa corre en RAM y el proceso en disco</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué es el PCB (Process Control Block)?</p>
+      <button class="opcion" data-op="a">La ficha del proceso: PID, estado, registros de la CPU, archivos abiertos</button>
+      <button class="opcion" data-op="b">Un tipo de memoria RAM más rápida</button>
+      <button class="opcion" data-op="c">Un bus de comunicación entre procesos</button>
+      <button class="opcion" data-op="d">Un compilador de C</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>3.</strong> Si abres el mismo programa 3 veces, ¿cuántos procesos hay?</p>
+      <button class="opcion" data-op="a">1 (se comparte)</button>
+      <button class="opcion" data-op="b">2</button>
+      <button class="opcion" data-op="c">3, cada uno con su propio PID</button>
+      <button class="opcion" data-op="d">Depende de la CPU</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Ciclo de vida →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — CICLO DE VIDA DE UN PROCESO
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>🔄 Ciclo de vida de un proceso</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · "Nace, espera, corre, muere" — los 5 estados</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un proceso no aparece y desaparece: pasa por <strong>estados</strong> bien definidos. El SO lo va moviendo entre ellos según la disponibilidad de la CPU y los recursos. Entender estos estados y sus transiciones es entender cómo el SO logra la ilusión de que "todo corre a la vez" cuando en realidad rota la CPU entre procesos a velocidad de relámpago.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Imaginen que la CPU es un <strong>único cocinero</strong> en un restaurante. Hay 10 pedidos (procesos) esperando. ¿Cómo hace para avanzar todos sin que ninguno espere demasiado? Escriban en 2 frases cómo lo harían. Esa intuición es exactamente el <strong>planificador de procesos</strong> que veremos ahora.</p>
+  </div>
+
+  <h3>🎯 Los 5 estados de un proceso</h3>
+  <p>Cada proceso está siempre en uno de estos 5 estados. El scheduler lo mueve entre ellos.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔄 Estados de un proceso</div>
+    <p>Toca cada estado para descubrir qué significa. Hay 5 estados clásicos.</p>
+    <div class="states-grid" id="statesGrid"></div>
+  </div>
+
+  <h3>🎮 Simulador: Sigue el ciclo de vida</h3>
+  <p>Presiona <strong>"Crear proceso"</strong> y observa cómo el proceso avanza por sus estados. Puedes darle la CPU, simular que se le agota el <strong>quantum</strong> (vuelve a Listo), bloquearlo (espera I/O), reanudarlo y terminarlo. El log muestra cada transición como la vería el kernel.</p>
+
+  <div class="trace-sim">
+    <div class="sim-head">⚡ Máquina de estados</div>
+
+    <div class="state-panel">
+      <div class="state-title">Estado del proceso</div>
+      <div class="state-grid">
+        <div class="state-cell" id="procCellPid">
+          <div class="label">PID</div>
+          <span class="skey">id</span>
+          <span class="sval" id="procPid">—</span>
+        </div>
+        <div class="state-cell" id="procCellState">
+          <div class="label">Estado</div>
+          <span class="skey">state</span>
+          <span class="sval" id="procState">—</span>
+        </div>
+        <div class="state-cell" id="procCellTicks">
+          <div class="label">Ticks de CPU</div>
+          <span class="skey">cpu</span>
+          <span class="sval" id="procTicks">0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="state-lanes" id="stateLanes">
+      <div class="state-lane" data-state="nuevo">
+        <span class="s-icon">🐣</span>
+        <span class="s-name">Nuevo</span>
+        <span class="s-pulse"></span>
+      </div>
+      <div class="state-lane" data-state="listo">
+        <span class="s-icon">⏳</span>
+        <span class="s-name">Listo</span>
+        <span class="s-pulse"></span>
+      </div>
+      <div class="state-lane" data-state="ejecucion">
+        <span class="s-icon">⚡</span>
+        <span class="s-name">En ejecución</span>
+        <span class="s-pulse"></span>
+      </div>
+      <div class="state-lane" data-state="bloqueado">
+        <span class="s-icon">💤</span>
+        <span class="s-name">Bloqueado</span>
+        <span class="s-pulse"></span>
+      </div>
+      <div class="state-lane" data-state="terminado">
+        <span class="s-icon">✅</span>
+        <span class="s-name">Terminado</span>
+        <span class="s-pulse"></span>
+      </div>
+    </div>
+
+    <div class="trace-log" id="procLog">
+      <div class="log-line"><span class="t">[PROC]</span> Esperando que crees un proceso…</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary big" id="procCreate">🐣 Crear proceso</button>
+      <button class="btn" id="procRun" disabled>▶️ Ejecutar</button>
+      <button class="btn" id="procPreempt" disabled>⏱️ Quantum agotado</button>
+      <button class="btn" id="procBlock" disabled>💤 Bloquear (I/O)</button>
+      <button class="btn" id="procWake" disabled>⏰ Reanudar</button>
+      <button class="btn" id="procKill" disabled>💀 Terminar</button>
+      <button class="btn ghost" id="procReset">🔄 Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué es el cambio de contexto?</h4>
+    <p>Cuando el SO quita la CPU a un proceso y se la da a otro, hace un <strong>context switch</strong>: guarda el estado del proceso saliente en su PCB y carga el estado del proceso entrante desde su PCB. No es gratis: cuesta microsegundos de CPU. Por eso un SO con demasiados procesos activos puede gastar más tiempo cambiando contexto que ejecutando trabajo real. A eso se le llama <strong>thrashing</strong>.</p>
+  </div>
+
+  <h3>📊 Tabla de transiciones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>De</th><th>A</th><th>Disparador</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Nuevo</td><td>Listo</td><td>El SO admite el proceso en la cola de listos</td></tr>
+        <tr><td>Listo</td><td>En ejecución</td><td>El scheduler le asigna la CPU (dispatch)</td></tr>
+        <tr><td>En ejecución</td><td>Listo</td><td>Se agota su quantum (interrupción de timer)</td></tr>
+        <tr><td>En ejecución</td><td>Bloqueado</td><td>Pide un recurso/I/O (teclado, disco, red)</td></tr>
+        <tr><td>Bloqueado</td><td>Listo</td><td>El recurso/I/O termina y avisa al SO</td></tr>
+        <tr><td>En ejecución</td><td>Terminado</td><td>El proceso llama a <code>exit()</code> o lo matan</td></tr>
+        <tr><td>Bloqueado</td><td>Terminado</td><td>Llega una señal de terminación (ej. <code>kill</code>) o un error fatal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: confundir "bloqueado" con "terminado"</h4>
+    <p>Un proceso <strong>bloqueado</strong> sigue vivo, solo está esperando un recurso (un click, un archivo, la red). Volverá a estar <strong>listo</strong> cuando el recurso llegue. Un proceso <strong>terminado</strong> se va para siempre: libera su memoria y su PCB se recoge. Si confundes ambos, no entenderás por qué un programa "se queda pensando" (bloqueado) vs "se cerró" (terminado).</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué estado pasa un proceso cuando pide leer un archivo del disco?</p>
+      <button class="opcion" data-op="a">Terminado</button>
+      <button class="opcion" data-op="b">Bloqueado (espera la I/O)</button>
+      <button class="opcion" data-op="c">Listo inmediatamente</button>
+      <button class="opcion" data-op="d">Nuevo</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué es un "context switch"?</p>
+      <button class="opcion" data-op="a">Guardar el estado del proceso saliente en su PCB y cargar el del entrante</button>
+      <button class="opcion" data-op="b">Cambiar de usuario en la sesión</button>
+      <button class="opcion" data-op="c">Reiniciar el equipo</button>
+      <button class="opcion" data-op="d">Crear un nuevo proceso</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>3.</strong> ¿Por qué un proceso pasa de "En ejecución" a "Listo" sin terminar?</p>
+      <button class="opcion" data-op="a">Porque terminó su trabajo</button>
+      <button class="opcion" data-op="b">Porque se bloqueó esperando I/O</button>
+      <button class="opcion" data-op="c">Porque se agotó su quantum de CPU (interrupción de timer)</button>
+      <button class="opcion" data-op="d">Porque el usuario lo cerró</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro aprende mejor después de una pausa.</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo que esté a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Girar el cuello 5 veces a cada lado. Estirar los brazos hacia el techo 10 segundos. Tocarse los pies sin doblar las rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso de agua mejora la concentración hasta 30 minutos. <strong>Beba ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a una cosa nueva que aprendiste. Explicar consolida la memoria. 1 minuto basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿qué es un proceso zombi?</h3>
+    <p>Pregunta rápida antes de volver. Toca la opción que creas correcta (no vale googlear):</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-top="a">🧟 Un proceso que se ejecuta para siempre</button>
+      <button class="trivia-opt" data-tcorrecta="b" data-top="b">🧟 Un hijo que terminó pero el padre no recogió su estado de salida</button>
+      <button class="trivia-opt" data-top="c">🧟 Un virus que revive procesos muertos</button>
+      <button class="trivia-opt" data-top="d">🧟 Un proceso sin PID</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>El comando <code>ps aux</code> lista todos los procesos. La columna <code>STAT</code> muestra el estado: <code>R</code> (Running/En ejecución), <code>S</code> (Sleeping/Bloqueado esperando), <code>D</code> (uninterruptible sleep), <code>Z</code> (Zombi), <code>T</code> (Detenido). Si ves una <code>Z</code>, ahí hay un proceso zombi esperando que su padre lo recoja. 🧟</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: Planificación →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — PLANIFICACIÓN DE PROCESOS
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>📅 Planificación de procesos</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · "El scheduler decide quién corre y cuánto" — algoritmos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Hay muchos procesos <strong>listos</strong> pero solo una (o pocas) CPU. ¿Quién decide quién corre primero? El <strong>scheduler</strong> (planificador), una parte del kernel. Usa <strong>algoritmos</strong> con criterios distintos: equidad, eficiencia, respuesta rápida. Entenderlos es entender por qué a veces tu PC "se siente lenta" aunque la CPU no esté al 100%.</p>
+  </div>
+
+  <h3>🎯 Los 4 algoritmos clásicos</h3>
+  <p>Hay muchos, pero estos 4 son los que todo estudiante de SO debe conocer. Toca cada uno para explorarlo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📅 Algoritmos de planificación</div>
+    <div class="criteria-grid" id="algosGrid"></div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Con su compañero/a, piensen en una <strong>fila del banco</strong>: ¿qué algoritmo usarían? ¿FIFO (FCFS) por orden de llegada? ¿O Shortest Job First (el que va a demorar menos pasa primero)? Discutan 1 minuto cuál les parece más justo y por qué. Anoten su conclusión.</p>
+  </div>
+
+  <h3>🎮 Simulador: Carrera de algoritmos</h3>
+  <p>Tienes 4 procesos con sus duraciones. Presiona cada algoritmo y mira el <strong>orden</strong> en que se ejecutan y el <strong>tiempo de espera</strong> de cada uno. Comparar los resultados te mostrará por qué no hay un algoritmo "perfecto".</p>
+
+  <div class="simulador">
+    <div class="sim-head">🏁 Planificador interactivo</div>
+
+    <div class="state-panel">
+      <div class="state-title">Cola de procesos listos</div>
+      <div class="state-grid" id="schedQueue" style="grid-template-columns: repeat(auto-fit, minmax(110px,1fr));">
+        <div class="state-cell"><div class="label">P1</div><span class="sval">6 ms</span></div>
+        <div class="state-cell"><div class="label">P2</div><span class="sval">8 ms</span></div>
+        <div class="state-cell"><div class="label">P3</div><span class="sval">3 ms</span></div>
+        <div class="state-cell"><div class="label">P4</div><span class="sval">4 ms</span></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" data-algo="fcfs">1️⃣ FCFS (orden de llegada)</button>
+      <button class="btn primary" data-algo="sjf">2️⃣ SJF (más corto primero)</button>
+      <button class="btn primary" data-algo="rr">3️⃣ Round Robin (quantum=2)</button>
+      <button class="btn primary" data-algo="prio">4️⃣ Prioridad</button>
+    </div>
+
+    <div class="gantt-wrap">
+      <div class="gantt-title">📊 Diagrama de Gantt</div>
+      <div class="gantt" id="ganttChart"></div>
+    </div>
+
+    <div class="gantt-stats" id="ganttStats"></div>
+    <button class="btn ghost" id="ganttReset">🔄 Reiniciar</button>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué es el quantum?</h4>
+    <p>En Round Robin, cada proceso recibe la CPU por un tiempo fijo llamado <strong>quantum</strong> (ej. 2 ms). Si no terminó, vuelve a la cola de listos y le toca al siguiente. El tamaño del quantum es clave: muy corto → demasiados context switches (lento); muy largo → parece FCFS (injusto). Linux usa <strong>CFS</strong> (Completely Fair Scheduler), una variante moderna que garantiza equidad proporcional.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El problema de la inanición (starvation)</h4>
+    <p>En SJF y en Prioridad, un proceso puede quedarse <strong>esperando para siempre</strong> si siempre llegan procesos más cortos o de mayor prioridad. A eso se le llama <strong>inanición</strong>. La solución es el <strong>aging</strong> (envejecimiento): a medida que un proceso lleva mucho tiempo esperando, el SO le sube la prioridad hasta que corra. Sin aging, SJF puede ser injusto.</p>
+  </div>
+
+  <h3>📊 Comparativa de algoritmos</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Algoritmo</th><th>Criterio</th><th>Ventaja</th><th>Desventaja</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>FCFS</td><td>Orden de llegada</td><td>Simple, justo</td><td>Efecto convoy (procesos cortos esperan a uno largo)</td></tr>
+        <tr><td>SJF</td><td>Más corto primero</td><td>Menor tiempo de espera promedio</td><td>Inanición de procesos largos; requiere saber la duración</td></tr>
+        <tr><td>Round Robin</td><td>Quantum por turnos</td><td>Equidad, sin inanición, buena respuesta</td><td>Overhead si quantum muy corto</td></tr>
+        <tr><td>Prioridad</td><td>Mayor prioridad primero</td><td>Procesos críticos corren primero</td><td>Inanición sin aging</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- QUIZ MÓDULO 4 -->
+  <div class="quiz" data-quiz="4">
+    <h3>🎯 Mini-Quiz del Módulo 4</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es el principal problema de FCFS?</p>
+      <button class="opcion" data-op="a">Es muy difícil de implementar</button>
+      <button class="opcion" data-op="b">El efecto convoy: un proceso largo retrasa a todos los cortos</button>
+      <button class="opcion" data-op="c">No permite procesos largos</button>
+      <button class="opcion" data-op="d">Requiere conocer la duración de cada proceso</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cómo evita el algoritmo de Prioridad la inanición?</p>
+      <button class="opcion" data-op="a">Con aging: sube la prioridad de los que llevan mucho tiempo esperando</button>
+      <button class="opcion" data-op="b">Con un quantum fijo</button>
+      <button class="opcion" data-op="c">Eliminando procesos viejos</button>
+      <button class="opcion" data-op="d">No puede evitarla</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>3.</strong> En Round Robin, ¿qué pasa si el quantum es demasiado corto?</p>
+      <button class="opcion" data-op="a">Los procesos terminan más rápido</button>
+      <button class="opcion" data-op="b">No pasa nada, el quantum no importa</button>
+      <button class="opcion" data-op="c">El SO gasta demasiado tiempo en context switches</button>
+      <button class="opcion" data-op="d">Se convierte en SJF</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Comunicación entre procesos →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — COMUNICACIÓN ENTRE PROCESOS (IPC)
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>💬 Comunicación entre procesos (IPC)</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "Los procesos hablan entre sí" — pipes, señales, sockets</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cada proceso tiene su propia memoria <strong>privada</strong>: uno no puede leer la RAM del otro (eso es bueno, es aislamiento). Pero a veces necesitan <strong>coordinarse</strong>: un proceso produce datos, otro los consume; un proceso le avisa a otro que terminó. Para eso existen los mecanismos de <strong>IPC</strong> (Inter-Process Communication). Son las "tuberías" y "señales" por las que los procesos se hablan sin romper el aislamiento.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Piensen en una <strong>cocina de restaurante</strong>: el mesero anota el pedido, lo pone en un tablero; el cocinero lo lee, prepara el plato y toca una campanilla para avisar. ¿Cuál es el "mecanismo de comunicación" entre mesero y cocinero? Escríbanlo. Esa intuición es exactamente un <strong>pipe</strong> (el tablero) y una <strong>señal</strong> (la campanilla).</p>
+  </div>
+
+  <h3>🎯 Los 4 mecanismos IPC clásicos</h3>
+  <p>Toca cada mecanismo para descubrir cómo funciona y dónde se usa.</p>
+
+  <div class="simulador">
+    <div class="sim-head">💬 Mecanismos IPC</div>
+    <div class="states-grid" id="ipcGrid"></div>
+  </div>
+
+  <h3>🎮 Simulador: Pipe entre dos procesos</h3>
+  <p>Un <strong>pipe</strong> (tubería) conecta la salida de un proceso con la entrada de otro. Presiona "Enviar mensaje" y observa cómo el productor escribe y el consumidor lee. El pipe tiene un buffer: si el consumidor no lee, el productor se bloquea hasta que haya espacio.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📡 Pipe: Productor → Consumidor</div>
+
+    <div class="pipe-stage">
+      <div class="pipe-process" id="pipeProd">
+        <div class="pp-head">🛠️ Productor (PID 100)</div>
+        <div class="pp-body" id="prodOut">Listo para enviar…</div>
+      </div>
+      <div class="pipe-channel" id="pipeChannel">
+        <div class="pipe-flow"></div>
+        <div class="pipe-msgs" id="pipeMsgs"></div>
+      </div>
+      <div class="pipe-process" id="pipeCons">
+        <div class="pp-head">📦 Consumidor (PID 101)</div>
+        <div class="pp-body" id="consOut">Esperando datos…</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="pipeSend">📨 Enviar mensaje</button>
+      <button class="btn" id="pipeRecv">📥 Consumidor lee</button>
+      <button class="btn ghost" id="pipeReset">🔄 Reiniciar</button>
+    </div>
+    <div class="pipe-status" id="pipeStatus">Pipe vacío. Presiona "Enviar mensaje".</div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pipes en la terminal</h4>
+    <p>Ya usaste pipes sin saberlo. Cuando escribes <code>ls | grep pdf</code>, la <code>|</code> es un pipe: conecta la salida de <code>ls</code> con la entrada de <code>grep</code>. El SO crea un pipe, lanza ambos procesos y los conecta. Por eso <code>ls</code> "produce" y <code>grep</code> "consume". Es IPC en acción, en una sola línea de terminal. 🔗</p>
+  </div>
+
+  <h3>⚡ Señales: interrupciones entre procesos</h3>
+  <p>Una <strong>señal</strong> es una notificación corta que un proceso le envía a otro. No transporta datos (solo un número), pero hace que el receptor reaccione. Las más conocidas:</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🛑 SIGINT (2)</h4>
+      <p>La señal de <code>Ctrl+C</code>. Le dice al proceso "termina ya". Es la forma educada de detener un programa. Si no la maneja, muere.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>☠️ SIGKILL (9)</h4>
+      <p>La señal <strong>inatratable</strong>. <code>kill -9 PID</code>. El kernel mata el proceso al instante; no puede ignorarla ni limpiar. Úsala solo en emergencia.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>📞 SIGTERM (15)</h4>
+      <p>La señal "por favor termina". <code>kill PID</code> sin número envía esta. El proceso puede capturarla, guardar su trabajo y salir limpiamente. Es la señal recomendada.</p>
+    </div>
+    <div class="compare-card a">
+      <h4>🔄 SIGHUP (1)</h4>
+      <p>Originalmente "colgó el terminal". Hoy se usa para pedir a un demonio que <strong>recargue su configuración</strong> sin reiniciar. Muy útil en servidores.</p>
+    </div>
+  </div>
+
+  <h3>💻 Comandos IPC reales</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal — ipc</div>
+      <button class="copy-btn" data-copy="term2">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#5c6370"># Pipe entre dos comandos:</span>
+$ ls -l | grep ".pdf" | wc -l
+
+<span style="color:#5c6370"># Enviar una señal (SIGTERM por defecto):</span>
+$ kill 1234
+
+<span style="color:#5c6370"># Forzar la muerte (SIGKILL):</span>
+$ kill -9 1234
+
+<span style="color:#5c6370"># Ver señales disponibles:</span>
+$ kill -l
+
+<span style="color:#5c6370"># IPC con nombre: named pipe (FIFO)</span>
+$ mkfifo /tmp/micanal
+$ echo "hola" > /tmp/micanal &amp;
+$ cat /tmp/micanal</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: usar <code>kill -9</code> por costumbre</h4>
+    <p>Mucha gente mata procesos con <code>kill -9</code> (SIGKILL) porque "es lo que funciona". Pero SIGKILL <strong>no permite limpieza</strong>: el proceso no puede cerrar archivos, liberar locks ni guardar su estado. Es como apagar el PC del botón. Siempre intenta primero <code>kill</code> (SIGTERM). Si tras 5-10 segundos no muere, entonces sí <code>kill -9</code>. El orden importa.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Por qué los procesos no pueden leer la memoria de otro directamente?</p>
+      <button class="opcion" data-op="a">Porque la RAM es muy pequeña</button>
+      <button class="opcion" data-op="b">Por aislamiento y seguridad: cada proceso tiene su propio espacio de direcciones</button>
+      <button class="opcion" data-op="c">Porque el SO no tiene memoria suficiente</button>
+      <button class="opcion" data-op="d">Porque eso lo hace solo el kernel</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> En <code>ls | grep pdf</code>, ¿qué es el <code>|</code>?</p>
+      <button class="opcion" data-op="a">Un pipe que conecta la salida de ls con la entrada de grep</button>
+      <button class="opcion" data-op="b">Un operador lógico OR</button>
+      <button class="opcion" data-op="c">Un separador de argumentos</button>
+      <button class="opcion" data-op="d">Un comentario</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>3.</strong> ¿Por qué se recomienda usar <code>kill</code> (SIGTERM) antes que <code>kill -9</code> (SIGKILL)?</p>
+      <button class="opcion" data-op="a">Porque SIGKILL no existe</button>
+      <button class="opcion" data-op="b">Porque SIGTERM es más rápido</button>
+      <button class="opcion" data-op="c">Porque SIGTERM permite al proceso limpiar y guardar; SIGKILL no</button>
+      <button class="opcion" data-op="d">Da lo mismo, son iguales</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: qué es un proceso, su ciclo de vida, planificación y comunicación. El último es el <strong>Jefe Final</strong>. Al superar todos, recibirás tu insignia de <strong>Process Master</strong>. ¡Tú puedes!</p>
+  </div>
+
+  <!-- Reto 1: Emparejar concepto con definición -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">🧩 Empareja cada concepto con su definición</span>
+    </div>
+    <p>Toca un concepto de la izquierda y luego su definición correcta a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Proceso</button>
+        <button class="ws-chip" data-mid="1b">PCB</button>
+        <button class="ws-chip" data-mid="1c">Context switch</button>
+        <button class="ws-chip" data-mid="1d">Zombi</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Un programa en ejecución, con PID y memoria propia</button>
+        <button class="ws-chip" data-mid="1B">Ficha del proceso: PID, estado, registros, archivos abiertos</button>
+        <button class="ws-chip" data-mid="1C">Guardar estado del proceso saliente y cargar el del entrante</button>
+        <button class="ws-chip" data-mid="1D">Hijo que terminó pero el padre no recogió su estado</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar el ciclo de vida -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">🔄 Ordena el ciclo de vida de un proceso</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar los estados por los que pasa un proceso, desde que se crea hasta que termina tras pedir I/O.</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2block" draggable="true"><span class="ord-num">?</span> Bloqueado (espera I/O)</div>
+        <div class="ws-order-item" data-oid="2ready2" draggable="true"><span class="ord-num">?</span> Listo (de nuevo, I/O lista)</div>
+        <div class="ws-order-item" data-oid="2new" draggable="true"><span class="ord-num">?</span> Nuevo (recién creado)</div>
+        <div class="ws-order-item" data-oid="2run" draggable="true"><span class="ord-num">?</span> En ejecución (recibe CPU)</div>
+        <div class="ws-order-item" data-oid="2run2" draggable="true"><span class="ord-num">?</span> En ejecución (de nuevo, tras I/O)</div>
+        <div class="ws-order-item" data-oid="2ready1" draggable="true"><span class="ord-num">?</span> Listo (admitido en la cola)</div>
+        <div class="ws-order-item" data-oid="2term" draggable="true"><span class="ord-num">?</span> Terminado (exit)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Algoritmo → problema -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">📅 Algoritmo → problema que resuelve / padece</span>
+    </div>
+    <p>Toca un algoritmo de la izquierda y luego su característica principal a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="3">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="3a">FCFS</button>
+        <button class="ws-chip" data-mid="3b">SJF</button>
+        <button class="ws-chip" data-mid="3c">Round Robin</button>
+        <button class="ws-chip" data-mid="3d">Prioridad</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="3A">Equidad por turnos con quantum</button>
+        <button class="ws-chip" data-mid="3B">Sufre inanición sin aging</button>
+        <button class="ws-chip" data-mid="3C">Sufre el efecto convoy</button>
+        <button class="ws-chip" data-mid="3D">Minimiza el tiempo de espera promedio</button>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe final — escenario -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final</span>
+      <span class="challenge-title">🏆 Escenario: tu navegador "se queda pegado"</span>
+    </div>
+    <p>Abres WhatsApp Web y se queda cargando para siempre (eterno "conectando…"). Abres la terminal, miras con <code>ps</code> y el proceso del navegador está en estado <strong>esperando un recurso</strong>. Completa la frase eligiendo la palabra correcta:</p>
+
+    <div class="ws-block">
+      <div class="code-live">
+        El navegador está en estado
+        <span class="hl-line">
+          <input class="ws-input" data-ans="bloqueado" data-ws="4" placeholder="?">
+        </span>
+        porque espera que la red le responda.
+      </div>
+    </div>
+
+    <p style="font-size:0.88rem;color:var(--texto-suave);">Segunda parte: ¿qué señal le enviarías para terminarlo limpiamente y reiniciarlo?</p>
+
+    <div class="ws-block" id="reto4Opts">
+      <div class="ws-options">
+        <button class="ws-chip" data-r4="4A">SIGTERM (kill PID) — permite guardar y salir limpio</button>
+        <button class="ws-chip" data-r4="4B">SIGKILL (kill -9) — lo mata sin limpiar</button>
+        <button class="ws-chip" data-r4="4C">SIGINT (Ctrl+C) — solo en terminal</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Process Master!</h2>
+    <p class="lead">Ya sabes qué es un proceso, su ciclo de vida (nuevo → listo → ejecución → bloqueado → terminado), cómo el scheduler decide quién corre (FCFS, SJF, Round Robin, Prioridad) y cómo se comunican entre sí (pipes, señales, sockets, memoria compartida). Eso te pone un escalón por encima de quien ve la PC como una caja mágica. 💪</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿cómo tenía tu PC las 3 pestañas "al mismo tiempo"? Ya tienes la respuesta. ⚙️</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🎓 Sistemas Operativos · Clase 5 · Plataforma interactiva</div>
+  <div>Gestión de procesos · Estados · Scheduler · IPC · 4 horas · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué pasa dentro del kernel.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

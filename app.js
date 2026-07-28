@@ -42,6 +42,7 @@ function cargarProgresoPorClase() {
     'curso-so-funciones-componentes': 7,
     'curso-so-tipos-sistemas-operativos': 7,
     'curso-so-planeacion-instalacion': 6,
+    'curso-so-gestion-procesos': 5,
     'curso-introduccion-programacion-web': 6
   };
 
@@ -184,11 +185,16 @@ document.addEventListener('keydown', (e) => {
     const card = document.querySelector('.clase-card.so-2');
     if (card) card.click();
   }
+  // Tecla 8 → Clase 5 SO
+  if (e.key === '8') {
+    const card = document.querySelector('.clase-card.so-5');
+    if (card) card.click();
+  }
 });
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-introduccion-programacion-web'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-introduccion-programacion-web'];
 
   let tienePrograma = false;
 
@@ -207,7 +213,7 @@ window.addEventListener('load', () => {
     }, 600);
   } else {
     setTimeout(() => {
-      mostrarToast('💡 Tip: usa las teclas 1-7 para saltar a una clase disponible.');
+      mostrarToast('💡 Tip: usa las teclas 1-8 para saltar a una clase disponible.');
     }, 1200);
   }
 });

@@ -16,24 +16,25 @@ decimo/
 ```
 
 - Cada clase es **autocontenida** (su propio HTML/CSS/JS). NO se comparten assets entre carpetas; para "duplicar" una clase se copia la carpeta entera.
-- Carpetas de cursos existentes: `HerramientasAlgoritmicasI/`, `SistemasOperativos/`.
-- Nombres de carpetas: `<número-ordinal>-<slug>` (ej. `doce-contadoresAcumBanderas`, `quince-integracion-estructuras`). Slugs pueden mezclar kebab-case y CamelCase — respetar el slug existente.
+- Carpetas de cursos existentes: `HerramientasAlgoritmicasI/`, `HerramientasProgramacionI/`, `SistemasOperativos/`.
+- Nombres de carpetas: `<número-ordinal>-<slug>` (ej. `doce-contadoresAcumBanderas`, `quince-integracion-estructuras`, `uno-introduccion-programacion-web`). Slugs pueden mezclar kebab-case y CamelCase — respetar el slug existente.
+- Tarjetas placeholder: en el `<section class="curso-bloque">` cada curso lleva además un `<div class="clase-card placeholder">` ("Próximamente") para llenar visualmente la rejilla cuando aún no están todas las clases. No es `<a>`, no lleva `data-storage`, y se ignora sola al leer progreso (el hub filtra por `[data-storage]`).
 
 ## Estado entre clases: localStorage
 
 El progreso de cada clase se guarda en `localStorage` bajo una clave por curso (ej. `curso-contadores-acum-banderas`, `curso-so-que-es-sistema-operativo`). El hub lee esas claves para pintar las barras y el porcentaje global.
 
-Cada `app.js` de clase persiste un objeto JSON; el hub solo lee el campo `completados` (array de índices de módulos), pero las clases además guardan `moduloActual`, `quizzes`, `talleres`, `badges`, `xp`. Las HA escriben la clave en línea dentro de `guardarProgreso()`; las SO la extraen a `const STORAGE_KEY = 'curso-so-...'` arriba del archivo.
+Cada `app.js` de clase persiste un objeto JSON; el hub solo lee el campo `completados` (array de índices de módulos), pero las clases además guardan `moduloActual`, `quizzes`, `talleres`, `badges`, `xp`. Las HA escriben la clave en línea dentro de `guardarProgreso()`; las SO y HP la extraen a `const STORAGE_KEY = 'curso-...'` arriba del archivo.
 
 ## Cómo añadir una clase nueva (no obviable desde los filenames)
 
 Hay tres ediciones obligatorias, no una sola:
 
-1. Crear la carpeta `HerramientasAlgoritmicasI/<nn-slug>/` (o `SistemasOperativos/<nn-slug>/`) con su triplete `index.html` + `estilos.css` + `app.js`.
+1. Crear la carpeta `<Curso>/<nn-slug>/` (`HerramientasAlgoritmicasI/`, `HerramientasProgramacionI/` o `SistemasOperativos/`) con su triplete `index.html` + `estilos.css` + `app.js`.
 2. En el `index.html` raíz, agregar una `.clase-card` dentro del `<section class="curso-bloque">` correspondiente con:
    - `href="<ruta-relativa>/index.html"`
-   - `data-storage="curso-<slug>"`  ← **debe coincidir con la clave que escribe la clase**
-   - `data-total="<N-módulos-completables>"`
+   - `data-storage="curso-<slug>"`  ← **debe coincidir con la clave que escribe la clase** (en SO se antepone `curso-so-`; en HA y HP se usa `curso-<slug>` directamente — respeta el patrón de cada curso mirando una clase existente)
+   - `data-total="<N-módulos-completables>"` — cuenta solo los módulos que el estudiante marca como hechos; el módulo "taller" final no entra en el conteo (ver comentario en `app.js` raíz, función `cargarProgresoPorClase`).
 3. En el `app.js` raíz, registrar esa misma clave en el objeto `TOTALES_MODULOS` (el hub hace fallback a `card.dataset.total`, pero las claves explícitas mandan — mejor tener ambas).
 
 Si omites el paso 2 o 3, el dashboard global no reflejará el progreso aunque la clase funcione sola.
