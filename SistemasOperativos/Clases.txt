@@ -1,0 +1,7 @@
+- Clase 4 — Planeación e instalación de un SO
+- Clase 5 — Gestión de procesos
+- Clase 6 — Gestión de memoria
+- Clase 7 — Sistema de archivos y almacenamiento
+- Clase 8 — Monitoreo e integración (puente al evaluativo)
+- Taller de instalación de Linux (VirtualBox)
+- Taller evaluativo (integrador)

@@ -43,6 +43,7 @@ function cargarProgresoPorClase() {
     'curso-so-tipos-sistemas-operativos': 7,
     'curso-so-planeacion-instalacion': 6,
     'curso-so-gestion-procesos': 5,
+    'curso-so-gestion-memoria': 5,
     'curso-introduccion-programacion-web': 6
   };
 
@@ -105,7 +106,7 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 4,   800);
-  animarNumero(document.getElementById('stat-clases'), 0, 10,  900);
+  animarNumero(document.getElementById('stat-clases'), 0, 11,  900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
@@ -190,11 +191,16 @@ document.addEventListener('keydown', (e) => {
     const card = document.querySelector('.clase-card.so-5');
     if (card) card.click();
   }
+  // Tecla 9 → Clase 6 SO
+  if (e.key === '9') {
+    const card = document.querySelector('.clase-card.so-6');
+    if (card) card.click();
+  }
 });
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-introduccion-programacion-web'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-introduccion-programacion-web'];
 
   let tienePrograma = false;
 
@@ -213,7 +219,7 @@ window.addEventListener('load', () => {
     }, 600);
   } else {
     setTimeout(() => {
-      mostrarToast('💡 Tip: usa las teclas 1-8 para saltar a una clase disponible.');
+      mostrarToast('💡 Tip: usa las teclas 1-9 para saltar a una clase disponible.');
     }, 1200);
   }
 });

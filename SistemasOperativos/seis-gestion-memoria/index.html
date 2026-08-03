@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 6 · Gestión de la memoria</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🧠</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 6</h1>
+      <p class="subtitulo">Gestión de la memoria · RAM, ROM, caché, paginación y recursos</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🧠 Tipos de memoria</button>
+  <button class="btn-modulo" data-modulo="2">📦 Administración</button>
+  <button class="btn-modulo descanso" data-modulo="3">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="4">📄 Segmentación y paginación</button>
+  <button class="btn-modulo" data-modulo="5">📊 Recursos y monitoreo</button>
+  <button class="btn-modulo" data-modulo="6">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🧠 ¡Vamos a gestionar la memoria!</h2>
+    <p class="lead">En la clase 5 viste cómo el SO reparte la <strong>CPU</strong> entre procesos. Hoy abrimos el otro gran tesoro del sistema: la <strong>memoria</strong>. Vamos a descubrir por qué no existe "una sola memoria" sino una <strong>jerarquía</strong> (RAM, ROM, caché…), cómo el SO reparte la RAM entre todos los programas, qué son la <strong>segmentación</strong> y la <strong>paginación</strong>, y cómo vigilar la memoria con herramientas reales del sistema. Al final serás capaz de explicar por qué tu PC se pone lenta y qué hace el SO cuando se queda sin memoria. 🚀</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — memory@so</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">mem@so:~$</span> <span class="cmd">free -h</span></div>
+        <div class="out">              total   usado  libre   caché</div>
+        <div class="out">Mem:           16 Gi   6,1 Gi  4,3 Gi  5,6 Gi</div>
+        <div class="out">Swap:         2,0 Gi      0 B  2,0 Gi</div>
+        <div><span class="prompt">mem@so:~$</span> <span class="cmd">cat /proc/meminfo | head -3</span></div>
+        <div class="out">MemTotal:       16777216 kB</div>
+        <div class="out">MemAvailable:  10485760 kB</div>
+        <div><span class="prompt">mem@so:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos cortos (uno de descanso), con un descanso de 15 minutos a la mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Comprender la jerarquía de memoria (registros, caché, RAM, ROM, disco), cómo el SO administra la RAM (particiones, fragmentación, swap), las técnicas de segmentación y paginación con memoria virtual, y cómo monitorear la memoria con herramientas del sistema.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Haber visto las clases 1 a 5 (qué es un SO, funciones, tipos, instalación y gestión de procesos). Hoy profundizamos en la <strong>gestión de la memoria</strong>, otra de las 4 grandes tareas del SO. Idealmente una terminal Linux/macOS o el Administrador de tareas de Windows para la práctica de monitoreo.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · Tipos de memoria</td><td style="color:var(--cian)">Jerarquía: registros, caché, RAM, ROM, disco</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Administración de la memoria</td><td style="color:var(--rosa)">Particiones, fragmentación, swap</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>03 · Segmentación y paginación</td><td style="color:var(--ambar)">Memoria virtual y tablas de páginas</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>04 · Recursos y monitoreo</td><td style="color:var(--verde)">Herramientas del sistema y casos de uso</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Taller final</td><td style="color:var(--morado)">Organización de memoria</td><td>35 min</td><td>150 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: abran el <strong>Administrador de tareas</strong> (Windows: <code>Ctrl+Shift+Esc</code> → pestaña Rendimiento → Memoria) o una terminal con <code>free -h</code> (Linux/macOS). Anoten: <strong>¿cuánta RAM tiene el equipo? ¿Cuánta está en uso ahora mismo?</strong> Pregunta: si la RAM se llena, ¿de dónde saca memoria el SO? Escriban su teoría; la comprobaremos en el Módulo 2.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Tipos de memoria →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — TIPOS DE MEMORIA
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🧠 Tipos de memoria</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "No hay una memoria, hay una jerarquía" — velocidad vs precio</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando dices "memoria" normalmente piensas en la <strong>RAM</strong>. Pero un computador tiene <strong>muchas memorias</strong>, organizadas en una <strong>jerarquía</strong>: las más rápidas son carísimas y diminutas (registros, caché); las más baratas y enormes son lentísimas (disco). El hardware y el SO juegan con esa jerarquía para que todo parezca rápido <em>y</em> barato. Entenderla es entender por qué tu PC no es "una sola memoria gigante".</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Piensa en tu <strong>escritorio de estudio</strong>: tienes el lápiz en la mano (lo usas ahora), la calculadora en la mesa (la usas seguido), los libros en la mochila (los usas a veces) y la biblioteca del barrio (todo lo demás). ¿Qué pasa si cada vez que necesitas una fórmula tienes que ir caminando a la biblioteca? Eso es exactamente lo que evita la jerarquía de memoria: mantiene lo más usado <strong>cerca y rápido</strong>.</p>
+  </div>
+
+  <h3>🎯 Los 5 niveles de la jerarquía</h3>
+  <p>Toca cada nivel para descubrir qué es, cuánto tarda y para qué sirve. Hay 5.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧠 Los 5 niveles de memoria</div>
+    <div class="features-grid" id="featuresGrid"></div>
+  </div>
+
+  <h3>🗼 Simulador: La pirámide de memoria</h3>
+  <p>Toca cada nivel de la pirámide para comparar su <strong>velocidad</strong> (tiempo de acceso) y su <strong>tamaño típico</strong>. Arriba: rapidísimo y diminuto. Abajo: lentísimo y enorme.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🗼 Pirámide de memoria</div>
+    <div class="mem-pyramid" id="memPyramid"></div>
+    <div class="mem-pyramid-info" id="pyramidInfo">👆 Toca un nivel de la pirámide para ver sus datos.</div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué no ponemos toda la RAM como caché?</h4>
+    <p>Por el <strong>precio</strong>: la caché (SRAM) cuesta decenas de veces más por gigabyte que la RAM (DRAM). Por eso hay poca caché (unos pocos MB) y mucha RAM (GB). La jerarquía existe porque <strong>ninguna tecnología única es a la vez rápida, barata y grande</strong>. El SO simplemente aprende a convivir con esa mezcla.</p>
+  </div>
+
+  <h3>⚖️ RAM vs ROM: las dos que más se confunden</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>💾 RAM (Random Access Memory)</h4>
+      <p><strong>Volátil</strong>: si se va la luz, se borra todo. El SO la usa para cargar los procesos en ejecución. Se puede leer y escribir millones de veces. Es la "mesa de trabajo" del sistema.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🔒 ROM (Read Only Memory)</h4>
+      <p><strong>No volátil</strong>: conserva los datos sin energía. Solo lectura (de ahí su nombre). Guarda el <strong>firmware</strong> y el <strong>BIOS/UEFI</strong> que arranca el equipo. El SO no la usa para procesos: ya viene grabada de fábrica.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>⚡ Caché</h4>
+      <p>Memoria <strong>SRAM</strong> ultrarrápida entre la CPU y la RAM. Guarda <strong>copias</strong> de los datos que la CPU usa con más frecuencia (niveles L1, L2, L3). No la administra el SO directamente: la maneja el hardware, aunque el SO puede "lavarla" con <code>sync</code> o invalidarla en cambios de contexto.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "la caché es lo mismo que la RAM"</h4>
+    <p>No. La RAM (DRAM) es la memoria principal donde viven los procesos; la <strong>caché</strong> es una memoria intermedia mucho más rápida y cara que guarda <strong>copias</strong> de los datos más usados para que la CPU no tenga que bajar siempre hasta la RAM. Son tecnologías distintas (SRAM vs DRAM) con trabajos distintos. Confundirlas te hará leer mal cualquier diagnóstico de rendimiento.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál es el orden correcto de más rápida a más lenta?</p>
+      <button class="opcion" data-op="a">RAM → Caché → Registros → Disco</button>
+      <button class="opcion" data-op="b">Disco → RAM → Caché → Registros</button>
+      <button class="opcion" data-op="c">Registros → Caché → RAM → Disco</button>
+      <button class="opcion" data-op="d">Caché → Registros → Disco → RAM</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Qué pasa con los datos de la RAM cuando apagas el computador?</p>
+      <button class="opcion" data-op="a">Se guardan automáticamente en el disco</button>
+      <button class="opcion" data-op="b">Se pierden: la RAM es volátil</button>
+      <button class="opcion" data-op="c">Se guardan en la ROM</button>
+      <button class="opcion" data-op="d">Se borran solo si hay virus</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>3.</strong> ¿Para qué sirve la memoria ROM?</p>
+      <button class="opcion" data-op="a">Guardar el firmware y el BIOS/UEFI que arrancan el equipo</button>
+      <button class="opcion" data-op="b">Ejecutar los videojuegos</button>
+      <button class="opcion" data-op="c">Almacenar tus fotos</button>
+      <button class="opcion" data-op="d">Hacer de RAM extra cuando se llena</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Administración de la memoria →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — ADMINISTRACIÓN DE LA MEMORIA
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>📦 Administración de la memoria</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · "Repartir la RAM sin peleas" — particiones, fragmentación y swap</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La RAM es finita y muchos procesos la quieren a la vez. El SO debe <strong>asignar</strong> memoria a cada proceso, <strong>proteger</strong> la de unos de otros y <strong>recuperarla</strong> cuando un proceso termina. La forma más sencilla es la <strong>asignación contigua</strong>: a cada proceso se le da un bloque continuo de RAM, dividida en <strong>particiones</strong>. Pero esto tiene un costo: la <strong>fragmentación</strong>.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Imaginen un <strong>parqueadero con espacios marcados</strong> (particiones fijas): hay espacios de 1, 2 y 4 carros. Llega un carro pequeño y solo hay libre un espacio de 4: lo estacionan ahí y <strong>desperdician 3 puestos</strong>. ¿Cómo lo harían mejor? Discutan 1 minuto y escriban su idea: esa intuición es exactamente el problema de la <strong>fragmentación</strong> que el SO resuelve con algoritmos de asignación.</p>
+  </div>
+
+  <h3>⚖️ Partición fija vs partición variable</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔲 Partición fija</h4>
+      <p>La RAM se divide de una vez en bloques de tamaño fijo (ej. 4 bloques de 256 MB). Rápida y simple, pero un proceso pequeño en un bloque grande <strong>desperdicia espacio</strong>: eso es <strong>fragmentación interna</strong> (sobra espacio dentro de la partición asignada).</p>
+    </div>
+    <div class="compare-card b">
+      <h4>📐 Partición variable</h4>
+      <p>Los bloques se crean del tamaño exacto que pide cada proceso. Mejor uso de la RAM, pero al liberar y asignar se forman <strong>huecos dispersos</strong>: eso es <strong>fragmentación externa</strong> (hay espacio libre total, pero partido en pedacitos que no se pueden usar juntos).</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🔁 Swap (intercambio)</h4>
+      <p>Cuando la RAM se llena, el SO mueve procesos completos (o páginas) a una zona del <strong>disco</strong> llamada <strong>swap</strong> y los trae de vuelta cuando los necesita. Gana memoria, pero el disco es miles de veces más lento: demasiado swap = PC "arrastrándose".</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Algoritmos de asignación</h3>
+  <p>La RAM está dividida en 5 huecos (bloques libres). Llegan 5 procesos que piden memoria. Elige un algoritmo y mira <strong>dónde coloca</strong> cada proceso y cuántos logran entrar. Ojo: en un caso, ¡uno de los algoritmos deja un proceso afuera aunque sobre espacio total!</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Asignación de memoria contigua</div>
+
+    <div class="alloc-leyenda">
+      <span><span class="ley-caja libre"></span> Hueco libre</span>
+      <span><span class="ley-caja proc"></span> Proceso colocado</span>
+    </div>
+
+    <div class="alloc-strip" id="allocStrip"></div>
+
+    <div class="state-panel">
+      <div class="state-title">Procesos en cola</div>
+      <div class="state-grid" style="grid-template-columns: repeat(auto-fit, minmax(110px,1fr));">
+        <div class="state-cell"><div class="label">P1</div><span class="sval">150 KB</span></div>
+        <div class="state-cell"><div class="label">P2</div><span class="sval">300 KB</span></div>
+        <div class="state-cell"><div class="label">P3</div><span class="sval">120 KB</span></div>
+        <div class="state-cell"><div class="label">P4</div><span class="sval">90 KB</span></div>
+        <div class="state-cell"><div class="label">P5</div><span class="sval">450 KB</span></div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="allocFirst">🥇 First Fit</button>
+      <button class="btn primary" id="allocBest">🎯 Best Fit</button>
+      <button class="btn primary" id="allocWorst">🪣 Worst Fit</button>
+      <button class="btn ghost" id="allocReset">🔄 Reiniciar</button>
+    </div>
+
+    <div class="rest-log" id="allocLog" style="margin-top:1rem;max-height:180px;overflow-y:auto;"></div>
+    <div class="alloc-status" id="allocStatus">Elige un algoritmo para repartir la memoria.</div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Los 3 algoritmos clásicos</h4>
+    <p><strong>First Fit</strong>: coloca el proceso en el <em>primer</em> hueco donde quepa (rápido). <strong>Best Fit</strong>: en el hueco más <em>ajustado</em> donde quepa (desperdicia menos, pero deja huequitos inutilizables). <strong>Worst Fit</strong>: en el hueco más <em>grande</em> (deja restos grandes, pero puede que un proceso enorme ya no encuentre hueco). Ninguno es perfecto: por eso el SO combina técnicas.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "si hay espacio libre total, todo cabe"</h4>
+    <p>Falso con asignación contigua. Un proceso necesita un <strong>bloque continuo</strong> de RAM. Si tienes 840 KB libres repartidos en 5 huecos pequeños, un proceso de 450 KB puede <strong>no caber en ninguno</strong>. Ese desperdicio por dispersión es la <strong>fragmentación externa</strong>. La solución clásica es la <strong>compactación</strong> (juntar todos los procesos, lento) o… dejar de exigir bloques continuos: eso es exactamente lo que resuelve la <strong>paginación</strong> (Módulo 4). 😉</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué es la fragmentación externa?</p>
+      <button class="opcion" data-op="a">Espacio desperdiciado dentro de una partición asignada</button>
+      <button class="opcion" data-op="b">Un error del disco duro</button>
+      <button class="opcion" data-op="c">Huecos libres dispersos que no se pueden usar juntos porque cada proceso necesita un bloque continuo</button>
+      <button class="opcion" data-op="d">Memoria que se borra al apagar</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué la partición fija genera fragmentación interna?</p>
+      <button class="opcion" data-op="a">Porque un proceso pequeño ocupa una partición grande y el espacio sobrante nadie más lo usa</button>
+      <button class="opcion" data-op="b">Porque las particiones son muy pequeñas</button>
+      <button class="opcion" data-op="c">Porque el disco se llena de archivos</button>
+      <button class="opcion" data-op="d">Porque la RAM es volátil</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>3.</strong> ¿Qué hace el SO cuando la RAM está llena y necesita espacio para otro proceso?</p>
+      <button class="opcion" data-op="a">Borra archivos del usuario</button>
+      <button class="opcion" data-op="b">Usa swap: mueve procesos o páginas al disco y los trae cuando se necesitan</button>
+      <button class="opcion" data-op="c">Reinicia el equipo</button>
+      <button class="opcion" data-op="d">Comprime la RAM a la mitad</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro (que también tiene su propia "jerarquía de memoria" 😄) aprende mejor después de una pausa.</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo que esté a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Girar el cuello 5 veces a cada lado. Estirar los brazos hacia el techo 10 segundos. Tocarse los pies sin doblar las rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso de agua mejora la concentración hasta 30 minutos. <strong>Beba ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a una cosa nueva que aprendiste. Explicar consolida la memoria. 1 minuto basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿qué es la memoria caché?</h3>
+    <p>Pregunta rápida antes de volver. Toca la opción que creas correcta (no vale googlear):</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-top="a">⚡ Una memoria enorme donde cabe todo el sistema</button>
+      <button class="trivia-opt" data-tcorrecta="b" data-top="b">⚡ Una copia pequeña y rapidísima de los datos que la CPU usa con más frecuencia</button>
+      <button class="trivia-opt" data-top="c">⚡ Un disco duro externo de alta velocidad</button>
+      <button class="trivia-opt" data-top="d">⚡ La memoria donde se guarda el BIOS</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>Los primeros PCs tenían <strong>640 KB</strong> de RAM… ¡menos de lo que pesa una foto de WhatsApp! Hoy un celular promedio trae 8000 veces más. Y la <strong>memoria virtual</strong> (la idea de que un proceso "ve" más memoria de la que existe físicamente) se inventó en los años 60 para que varios programas cupieran en computadores que costaban millones. 💰</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: Segmentación y paginación →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — SEGMENTACIÓN Y PAGINACIÓN
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>📄 Segmentación y paginación</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · "El proceso ve un mundo que no existe" — memoria virtual</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La fragmentación externa existe porque exigimos que cada proceso ocupe un <strong>bloque continuo</strong> de RAM. ¿Y si dejamos de exigirlo? Ahí nacen la <strong>segmentación</strong> (dividir el proceso en partes lógicas) y la <strong>paginación</strong> (dividirlo en pedazos de tamaño fijo que caben en cualquier hueco). El SO mantiene un <strong>espacio de direcciones virtuales</strong> por proceso y <strong>traduce</strong> cada dirección lógica a una dirección física real. El proceso ni se entera. ✨</p>
+  </div>
+
+  <h3>🧩 Segmentación: dividir por lógica</h3>
+  <p>El proceso se parte en <strong>segmentos</strong> según su naturaleza: <strong>código</strong> (las instrucciones), <strong>datos</strong> (variables globales) y <strong>pila</strong> (stack). Cada segmento tiene su tamaño natural. El SO guarda una <strong>tabla de segmentos</strong>: por cada segmento, su <strong>base</strong> (dónde empieza en RAM) y su <strong>límite</strong> (cuánto mide).</p>
+
+  <div class="code-live" style="margin:1rem 0;">
+    <div>Tabla de segmentos del proceso "Navegador":</div>
+    <div><span class="kw">segmento</span> código → <span class="num">base 2048</span>, <span class="num">límite 1024</span></div>
+    <div><span class="kw">segmento</span> datos  → <span class="num">base 8192</span>, <span class="num">límite 2048</span></div>
+    <div><span class="kw">segmento</span> pila   → <span class="num">base 12288</span>, <span class="num">límite 512</span></div>
+  </div>
+
+  <p>Ventaja: los segmentos tienen <strong>sentido lógico</strong> (compartir código entre procesos es fácil). Desventaja: tamaños variables → siguen existiendo huecos → <strong>fragmentación externa</strong>.</p>
+
+  <h3>📄 Paginación: dividir por tamaño</h3>
+  <p>La RAM se divide en <strong>marcos</strong> (frames) de tamaño fijo — típicamente <strong>4 KB</strong>. El proceso se divide en <strong>páginas</strong> del mismo tamaño. Una página <em>cabe en cualquier marco libre</em>, sin importar dónde quede: <strong>adiós fragmentación externa</strong>. El SO guarda la <strong>tabla de páginas</strong> de cada proceso: página → marco.</p>
+
+  <div class="code-live" style="margin:1rem 0;">
+    <div>Dirección lógica = <span class="ty">página</span> + <span class="ty">offset</span></div>
+    <div>Dirección física = <span class="fn">marco</span> × <span class="num">4096</span> + <span class="ty">offset</span></div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "segmentación y paginación son lo mismo"</h4>
+    <p>No: la <strong>segmentación</strong> divide por <em>lógica</em> (código, datos, pila) con tamaños variables, y su tabla guarda base + límite. La <strong>paginación</strong> divide por <em>tamaño fijo</em> (4 KB) sin importar la lógica, y su tabla guarda marco por página. Los SO modernos (Linux, Windows) usan <strong>ambas juntas</strong>: segmentación para organizar la lógica y paginación para eliminar la fragmentación externa.</p>
+  </div>
+
+  <h3>🎮 Simulador: Traduce direcciones con la tabla de páginas</h3>
+  <p>El proceso <strong>Navegador (PID 512)</strong> tiene 6 páginas en RAM (marcos 2, 7, 4, 11, 9 y 13). La CPU pide direcciones lógicas: consulta la tabla, encuentra el marco y calcula la dirección física. Prueba con direcciones aleatorias y luego mira qué pasa cuando la CPU pide una página que <strong>no está en RAM</strong>.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📄 Tabla de páginas + memoria física</div>
+
+    <div class="page-sim-layout">
+      <div class="ptable">
+        <div class="state-title">Tabla de páginas (Navegador)</div>
+        <div class="ptable-grid" id="pageTable"></div>
+        <div class="ptable-note" id="ptableNote">página → marco (tamaño de página: 4 KB)</div>
+      </div>
+
+      <div class="page-map">
+        <div class="state-title">Memoria física (16 marcos de 4 KB)</div>
+        <div class="page-map-grid" id="pageMap"></div>
+        <div class="ptable-note">⬜ libre · ⬛ de otros procesos · <span style="color:var(--verde)">🟩 del Navegador</span></div>
+      </div>
+    </div>
+
+    <div class="state-panel">
+      <div class="state-title">Traductor de direcciones</div>
+      <div class="trans-row">
+        <span class="trans-chip" id="transLogic">lógica: —</span>
+        <span class="trans-arrow">→</span>
+        <span class="trans-chip" id="transFisica">física: —</span>
+      </div>
+      <div class="trans-steps" id="transSteps">Presiona "🎲 Dirección aleatoria" para empezar.</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="pageRandom">🎲 Dirección aleatoria</button>
+      <button class="btn" id="pageTranslate">🧮 Traducir</button>
+      <button class="btn warm" id="pageFault">⚠️ Pedir página 7 (no está en RAM)</button>
+      <button class="btn ghost" id="pageReset">🔄 Reiniciar</button>
+    </div>
+    <div class="page-status" id="pageStatus">Listo. El Navegador tiene 6 páginas cargadas.</div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué pasa si la página no está en RAM? Page fault</h4>
+    <p>Cuando la CPU pide una página que no está en la tabla (o marcada como "en disco"), ocurre un <strong>page fault</strong> (fallo de página): el SO detiene al proceso, busca la página en el <strong>swap</strong>, la carga en un marco libre y reanuda el proceso. El proceso ni se entera. Si no hay marco libre, el SO elige una víctima (política de reemplazo, ej. LRU) y la manda al disco. Muchos page faults seguidos = <strong>thrashing</strong>: el sistema pasa más tiempo intercambiando que trabajando. Esa es la causa técnica del "PC que se arrastra". 🐌</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 4 -->
+  <div class="quiz" data-quiz="4">
+    <h3>🎯 Mini-Quiz del Módulo 4</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es un page fault?</p>
+      <button class="opcion" data-op="a">Un error del disco duro que borra archivos</button>
+      <button class="opcion" data-op="b">Que la página pedida no está en RAM: el SO debe cargarla desde el swap</button>
+      <button class="opcion" data-op="c">Que el proceso se salió de la memoria</button>
+      <button class="opcion" data-op="d">Un virus que roba memoria</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> Con páginas de 4 KB, si la página 3 está en el marco 11 y el offset es 1000, ¿cuál es la dirección física?</p>
+      <button class="opcion" data-op="a">11 × 4096 + 1000 = 46056</button>
+      <button class="opcion" data-op="b">3 × 4096 + 1000 = 13288</button>
+      <button class="opcion" data-op="c">11 + 4096 + 1000 = 5107</button>
+      <button class="opcion" data-op="d">4096 + 1000 = 5096</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>3.</strong> ¿Cuál es la gran ventaja de la paginación frente a la asignación contigua?</p>
+      <button class="opcion" data-op="a">Es más rápida que la caché</button>
+      <button class="opcion" data-op="b">Ya no se necesita RAM física</button>
+      <button class="opcion" data-op="c">Elimina la fragmentación externa: cualquier página cabe en cualquier marco libre</button>
+      <button class="opcion" data-op="d">Los procesos ya no necesitan CPU</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Recursos y monitoreo →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — ADMINISTRACIÓN DE RECURSOS Y MONITOREO
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>📊 Administración de recursos y monitoreo</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "Ver la memoria con tus propios ojos" — herramientas del sistema</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La memoria no es el único recurso que administra el SO: también están la <strong>CPU</strong>, los <strong>dispositivos de E/S</strong> y los <strong>archivos</strong>. "Administrar recursos" significa <strong>asignarlos, compartirlos, protegerlos y recuperarlos</strong>. Y para saber si el SO lo está haciendo bien, se <strong>monitorea</strong>: herramientas como <code>free</code>, <code>top</code> y el Administrador de tareas te muestran la memoria en tiempo real.</p>
+  </div>
+
+  <h3>🎯 Los 4 recursos que administra el SO</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>⚙️ CPU</h4>
+      <p>Reparte el tiempo de procesador con el scheduler (clase 5). Métrica: % de uso.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🧠 Memoria</h4>
+      <p>Asigna RAM a los procesos, usa swap y memoria virtual. Métricas: usada, libre, caché, swap.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>💿 Dispositivos de E/S</h4>
+      <p>Teclado, mouse, disco, red. Métrica: % de ocupación y velocidad de transferencia.</p>
+    </div>
+    <div class="compare-card a">
+      <h4>📁 Archivos</h4>
+      <p>Organiza y protege la información en el disco (próxima clase). Métrica: espacio usado/libre.</p>
+    </div>
+  </div>
+
+  <h3>🛠️ Práctica de monitoreo: herramientas reales</h3>
+  <p>Abre una terminal (Linux/macOS/WSL) o el Administrador de tareas (Windows) y prueba estas herramientas. Son las que usan los técnicos de verdad.</p>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal — Linux/macOS</div>
+      <button class="copy-btn" data-copy="term1">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#5c6370"># Memoria en formato humano (total, usada, libre, caché, swap):</span>
+$ free -h
+
+<span style="color:#5c6370"># Detalle completo de la memoria del kernel:</span>
+$ cat /proc/meminfo
+
+<span style="color:#5c6370"># Procesos en tiempo real; tecla M = ordenar por uso de memoria:</span>
+$ top
+
+<span style="color:#5c6370"># top mejorado (si está instalado):</span>
+$ htop
+
+<span style="color:#5c6370"># Estadísticas de memoria/swap cada 1 segundo:</span>
+$ vmstat 1</code></pre>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>Windows</div>
+      <button class="copy-btn" data-copy="term2">📋 Copiar</button>
+    </div>
+    <pre><code><span style="color:#5c6370"># Administrador de tareas (gráfico):</span>
+Ctrl + Shift + Esc  →  pestaña "Rendimiento" → "Memoria"
+
+<span style="color:#5c6370"># Ver la memoria total y libre desde el símbolo del sistema:</span>
+C:\&gt; systeminfo | findstr /i "memory"
+
+<span style="color:#5c6370"># En macOS: Activity Monitor → pestaña "Memoria" → "Presión de memoria"</span></code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Monitorea un PC de 16 GB</h3>
+  <p>Este es el panel de <code>free -h</code> de un equipo con 16 GB de RAM y 2 GB de swap. Simula abrir pestañas y un juego, y observa cómo cambian la RAM, la caché y el swap. Aprende a <strong>leer</strong> el panel: eso es monitorear.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📊 Monitor de memoria — free -h</div>
+
+    <div class="mon-panel">
+      <div class="mon-table">
+        <div class="mon-row mon-head"><span>Campo</span><span>Total</span><span>Usado</span><span>Libre</span><span>Caché</span></div>
+        <div class="mon-row"><span class="mon-name">Mem</span><span id="monTotal">16 Gi</span><span id="monUsed">6,1 Gi</span><span id="monFree">4,3 Gi</span><span id="monCache">5,6 Gi</span></div>
+        <div class="mon-row"><span class="mon-name">Swap</span><span id="monSwapTotal">2,0 Gi</span><span id="monSwapUsed">0 B</span><span id="monSwapFree">2,0 Gi</span><span>—</span></div>
+      </div>
+
+      <div class="mon-bar" id="monBarRam">
+        <div class="mon-bar-seg usada" id="monSegUsed"></div>
+        <div class="mon-bar-seg cache" id="monSegCache"></div>
+        <div class="mon-bar-seg libre" id="monSegFree"></div>
+      </div>
+      <div class="mon-bar" id="monBarSwap">
+        <div class="mon-bar-seg usada" id="monSegSwap"></div>
+      </div>
+      <div class="mon-leyenda">
+        <span><span class="ley-caja usada"></span> usada</span>
+        <span><span class="ley-caja cache"></span> caché</span>
+        <span><span class="ley-caja libre"></span> libre</span>
+        <span><span class="ley-caja swap"></span> swap usada</span>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn" id="monTabs">🌐 Abrir 5 pestañas</button>
+      <button class="btn warm" id="monJuego">🎮 Abrir juego (4 GB)</button>
+      <button class="btn" id="monCerrar">🧹 Cerrar pestañas</button>
+      <button class="btn ghost" id="monReset">🔄 Reiniciar</button>
+    </div>
+    <div class="page-status" id="monStatus">Sistema en reposo: la caché aprovecha la RAM libre.</div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Cómo leer el panel</h4>
+    <p><strong>Libre</strong> es la RAM que no usa nadie; <strong>caché</strong> es RAM que el sistema aprovecha para acelerar (no está "perdida": se libera sola si un proceso la pide). Si <strong>swap usada</strong> crece, el sistema está moviendo cosas al disco: se sentirá lento. Si el swap se llena del todo, el SO activa su última carta: el <strong>OOM killer</strong>, que mata procesos para no colapsar.</p>
+  </div>
+
+  <h3>🩺 Casos de uso: 3 síntomas reales</h3>
+  <div class="compare">
+    <div class="compare-card b">
+      <h4>🐌 "Mi PC va lento con 20 pestañas"</h4>
+      <p><strong>Diagnóstico:</strong> la RAM se llenó y el SO está usando swap (disco = lento). <strong>Solución:</strong> cerrar pestañas, reiniciar el navegador (libera caché) o agregar RAM.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>💥 "Out of memory" / el programa se cerró solo</h4>
+      <p><strong>Diagnóstico:</strong> se agotó RAM <em>y</em> swap; el <strong>OOM killer</strong> mató un proceso para salvar el sistema. <strong>Solución:</strong> guardar el trabajo seguido y liberar memoria antes de abrir más programas.</p>
+    </div>
+    <div class="compare-card a">
+      <h4>🎮 "El juego pide 8 GB y tengo 4"</h4>
+      <p><strong>Diagnóstico:</strong> no es un error: funciona gracias a la <strong>memoria virtual</strong> (paginación + swap), pero cargará lento y con lag. <strong>Solución:</strong> bajar la calidad gráfica o ampliar la RAM (y el swap en Linux).</p>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Corran <code>free -h</code> (o abran el Administrador de tareas) en su equipo y anoten <strong>3 números</strong>: total, usada y swap. Ahora abran 3 programas pesados a la vez (navegador + video + editor) y vuelvan a mirar. ¿Cambió el "usado"? ¿Apareció swap? Escriban una frase que explique lo que vieron usando lo aprendido. 📝</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué comando muestra el uso de memoria en Linux/macOS?</p>
+      <button class="opcion" data-op="a">free -h</button>
+      <button class="opcion" data-op="b">ls -la</button>
+      <button class="opcion" data-op="c">pwd</button>
+      <button class="opcion" data-op="d">mkdir</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué significa que el "swap usado" esté creciendo mucho?</p>
+      <button class="opcion" data-op="a">Que el disco está dañado</button>
+      <button class="opcion" data-op="b">Que la memoria caché está llena de virus</button>
+      <button class="opcion" data-op="c">Que el sistema está moviendo memoria al disco: va a sentirse lento</button>
+      <button class="opcion" data-op="d">Que el SO se está actualizando</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>3.</strong> Si la RAM y el swap se agotan por completo, ¿qué hace el SO?</p>
+      <button class="opcion" data-op="a">Apaga el equipo automáticamente</button>
+      <button class="opcion" data-op="b">Activa el OOM killer: mata procesos para que el sistema no colapse</button>
+      <button class="opcion" data-op="c">Borra los archivos temporales del usuario</button>
+      <button class="opcion" data-op="d">Comprime toda la RAM</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos de organización de memoria</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: tipos de memoria, jerarquía, administración, segmentación, paginación y monitoreo. El último es el <strong>Jefe Final</strong>. Al superar todos, recibirás tu insignia de <strong>Memory Master</strong>. ¡Tú puedes!</p>
+  </div>
+
+  <!-- Reto 1: Emparejar concepto con definición -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">🧠 Empareja cada memoria con su definición</span>
+    </div>
+    <p>Toca una memoria de la izquierda y luego su definición correcta a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">RAM</button>
+        <button class="ws-chip" data-mid="1b">ROM</button>
+        <button class="ws-chip" data-mid="1c">Caché</button>
+        <button class="ws-chip" data-mid="1d">Swap</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Volátil: guarda los procesos que corren ahora</button>
+        <button class="ws-chip" data-mid="1B">Solo lectura: guarda el firmware/BIOS de arranque</button>
+        <button class="ws-chip" data-mid="1C">Copia rapidísima de datos de uso frecuente</button>
+        <button class="ws-chip" data-mid="1D">Zona del disco que extiende la RAM</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar la jerarquía -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">🗼 Ordena la jerarquía de memoria (de más rápida a más lenta)</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar de arriba (más rápida) hacia abajo (más lenta). 6 niveles.</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2ram" draggable="true"><span class="ord-num">?</span> RAM (memoria principal)</div>
+        <div class="ws-order-item" data-oid="2cache" draggable="true"><span class="ord-num">?</span> Caché (L1/L2/L3)</div>
+        <div class="ws-order-item" data-oid="2hdd" draggable="true"><span class="ord-num">?</span> Disco duro (HDD)</div>
+        <div class="ws-order-item" data-oid="2reg" draggable="true"><span class="ord-num">?</span> Registros de la CPU</div>
+        <div class="ws-order-item" data-oid="2cinta" draggable="true"><span class="ord-num">?</span> Cinta magnética (backup)</div>
+        <div class="ws-order-item" data-oid="2ssd" draggable="true"><span class="ord-num">?</span> SSD (unidad de estado sólido)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Calcular dirección física -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">🧮 Calcula la dirección física (paginación)</span>
+    </div>
+    <p>Páginas de <strong>4 KB</strong>. Tabla de páginas: página 0 → marco 2 · página 1 → marco 7 · página 2 → marco 4 · página 3 → marco 11.</p>
+    <p>La CPU pide la dirección lógica <strong>página 2, offset 1000</strong>. ¿Cuál es la dirección física? (Recuerda: <code>marco × 4096 + offset</code>).</p>
+
+    <div class="ws-block">
+      <div class="code-live">
+        Dirección física =
+        <span class="hl-line">
+          <input class="ws-input" data-ans="17384" data-ws="3" placeholder="?" inputmode="numeric">
+        </span>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe final — caso de uso -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final</span>
+      <span class="challenge-title">🏆 Escenario: el juego que no cabe en la RAM</span>
+    </div>
+    <p>Tienes <strong>4 GB de RAM</strong> y <strong>2 GB de swap</strong>. Abres un juego que pide <strong>8 GB</strong>. ¿Qué hace el sistema operativo? Toca la respuesta correcta:</p>
+
+    <div class="ws-block" id="reto4Opts">
+      <div class="ws-options">
+        <button class="ws-chip" data-r4="4A">❌ Le dice "no" al juego y lo cierra de inmediato</button>
+        <button class="ws-chip" data-r4="4B">✅ Usa memoria virtual: carga partes del juego y las va intercambiando entre RAM y swap (funciona, pero lento)</button>
+        <button class="ws-chip" data-r4="4C">❌ Formatea el disco para ganar más RAM</button>
+        <button class="ws-chip" data-r4="4D">❌ Apaga el equipo para proteger la RAM</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Memory Master!</h2>
+    <p class="lead">Ya sabes que la memoria es una <strong>jerarquía</strong> (registros → caché → RAM → ROM → disco), que el SO la <strong>administra</strong> con particiones (y sufre fragmentación), que la <strong>segmentación</strong> y la <strong>paginación</strong> eliminan los bloqueos continuos con memoria virtual, y que se <strong>monitorea</strong> con <code>free</code>, <code>top</code> y el Administrador de tareas. Eso te pone un escalón por encima de quien ve la PC como una caja mágica. 💪</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿de dónde saca memoria el SO cuando la RAM se llena? Ya tienes la respuesta: swap + memoria virtual. 🧠</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🎓 Sistemas Operativos · Clase 6 · Plataforma interactiva</div>
+  <div>Gestión de la memoria · Jerarquía · Particiones · Segmentación · Paginación · Monitoreo · 4 horas · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué pasa dentro del kernel.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
