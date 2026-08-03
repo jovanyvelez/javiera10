@@ -686,6 +686,13 @@ function inicializarMonSim() {
 }
 
 /* ---------- ORDEN GENÉRICO (drag + flechas) ---------- */
+function renumerarOrden(cont) {
+  cont.querySelectorAll('.ws-order-item').forEach((it, i) => {
+    const num = it.querySelector('.ord-num');
+    if (num) num.textContent = i + 1;
+  });
+}
+
 function configurarOrdenGenerico(cont) {
   let dragSrc = null;
   cont.querySelectorAll('.ws-order-item').forEach(it => {
@@ -694,7 +701,10 @@ function configurarOrdenGenerico(cont) {
       it.classList.add('dragging');
       e.dataTransfer.effectAllowed = 'move';
     });
-    it.addEventListener('dragend', () => it.classList.remove('dragging'));
+    it.addEventListener('dragend', () => {
+      it.classList.remove('dragging');
+      renumerarOrden(cont);
+    });
     it.addEventListener('dragover', e => {
       e.preventDefault();
       const after = getDragAfter(cont, e.clientY);
@@ -705,10 +715,16 @@ function configurarOrdenGenerico(cont) {
 
   const scope = cont.closest('.simulador') || cont.closest('.challenge') || cont.parentElement;
   scope.querySelectorAll('[data-ws-up]').forEach(btn => {
-    btn.addEventListener('click', () => moverOrdenGenerico(cont, -1));
+    btn.addEventListener('click', () => {
+      moverOrdenGenerico(cont, -1);
+      renumerarOrden(cont);
+    });
   });
   scope.querySelectorAll('[data-ws-down]').forEach(btn => {
-    btn.addEventListener('click', () => moverOrdenGenerico(cont, 1));
+    btn.addEventListener('click', () => {
+      moverOrdenGenerico(cont, 1);
+      renumerarOrden(cont);
+    });
   });
 }
 
@@ -815,25 +831,19 @@ function validarReto(id) {
   if (TALLER_RESP[id]) {
     const block = document.querySelector(`[data-ws-match="${id}"]`);
     const correctMap = TALLER_RESP[id];
-    let aciertos = 0;
-    parejasMatch[id].forEach(p => {
-      const expectedRight = correctMap[p.left];
-      const leftChip = block.querySelector(`[data-mid="${p.left}"]`);
-      const rightChip = block.querySelector(`[data-mid="${p.right}"]`);
-      leftChip.classList.remove('correct', 'wrong', 'paired-temp');
-      rightChip.classList.remove('correct', 'wrong', 'paired-temp');
-      leftChip.style.opacity = '';
-      rightChip.style.opacity = '';
-      if (expectedRight === p.right) {
-        leftChip.classList.add('correct');
-        rightChip.classList.add('correct');
-        aciertos++;
-      } else {
-        leftChip.classList.add('wrong');
-        rightChip.classList.add('wrong');
-        allOk = false;
+
+    // Limpiar parejas incorrectas previas: conservar solo las correctas y resetear estilos
+    parejasMatch[id] = parejasMatch[id].filter(p => correctMap[p.left] === p.right);
+    block.querySelectorAll('.ws-chip').forEach(c => {
+      c.classList.remove('correct', 'wrong', 'paired-temp');
+      c.style.opacity = '';
+    });
+    block.querySelectorAll('.ws-chip').forEach(c => {
+      if (parejasMatch[id].some(p => p.left === c.dataset.mid || p.right === c.dataset.mid)) {
+        c.classList.add('correct');
       }
     });
+
     const totalEsperado = Object.keys(correctMap).length;
     if (parejasMatch[id].length !== totalEsperado) allOk = false;
   }
@@ -845,8 +855,6 @@ function validarReto(id) {
     const expected = TALLER_ORDER[id];
     items.forEach((it, i) => {
       it.classList.remove('correct', 'wrong');
-      const num = it.querySelector('.ord-num');
-      num.textContent = i + 1;
       if (orden[i] === expected[i]) {
         it.classList.add('correct');
       } else {
@@ -904,6 +912,7 @@ function validarReto(id) {
     }
     const retosTaller = ['1', '2', '3', '4'];
     if (retosTaller.every(r => estado.talleres[r])) {
+      marcarCompletado(6);
       otorgarBadge('🛠️ Memory Master Completado');
     }
   } else {
