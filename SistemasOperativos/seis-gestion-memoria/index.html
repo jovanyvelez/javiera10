@@ -51,16 +51,17 @@
     <p class="lead">En la clase 5 viste cómo el SO reparte la <strong>CPU</strong> entre procesos. Hoy abrimos el otro gran tesoro del sistema: la <strong>memoria</strong>. Vamos a descubrir por qué no existe "una sola memoria" sino una <strong>jerarquía</strong> (RAM, ROM, caché…), cómo el SO reparte la RAM entre todos los programas, qué son la <strong>segmentación</strong> y la <strong>paginación</strong>, y cómo vigilar la memoria con herramientas reales del sistema. Al final serás capaz de explicar por qué tu PC se pone lenta y qué hace el SO cuando se queda sin memoria. 🚀</p>
 
     <div class="hero-terminal">
-      <div class="hero-terminal-head">⌘ terminal — memory@so</div>
+      <div class="hero-terminal-head">⌘ PowerShell — Windows 10</div>
       <div class="hero-terminal-body">
-        <div><span class="prompt">mem@so:~$</span> <span class="cmd">free -h</span></div>
-        <div class="out">              total   usado  libre   caché</div>
-        <div class="out">Mem:           16 Gi   6,1 Gi  4,3 Gi  5,6 Gi</div>
-        <div class="out">Swap:         2,0 Gi      0 B  2,0 Gi</div>
-        <div><span class="prompt">mem@so:~$</span> <span class="cmd">cat /proc/meminfo | head -3</span></div>
-        <div class="out">MemTotal:       16777216 kB</div>
-        <div class="out">MemAvailable:  10485760 kB</div>
-        <div><span class="prompt">mem@so:~$</span> <span class="cursor"></span></div>
+        <div><span class="prompt">PS C:\&gt;</span> <span class="cmd">Get-Counter '\Memory\Available MBytes'</span></div>
+        <div class="out">Available MBytes : 4403</div>
+        <div><span class="prompt">PS C:\&gt;</span> <span class="cmd">systeminfo | findstr /i "Memoria"</span></div>
+        <div class="out">Memoria física total:     16.384 MB</div>
+        <div class="out">Memoria física disponible: 4.403 MB</div>
+        <div><span class="prompt">PS C:\&gt;</span> <span class="cmd">Get-CimInstance Win32_PageFileUsage | Select Name,AllocatedBaseSize</span></div>
+        <div class="out">Name                   AllocatedBaseSize</div>
+        <div class="out">C:\pagefile.sys                       2048</div>
+        <div><span class="prompt">PS C:\&gt;</span> <span class="cursor"></span></div>
       </div>
     </div>
   </div>
@@ -79,7 +80,7 @@
     <div class="tarjeta">
       <span class="emoji">🧰</span>
       <h3>Lo que necesitas</h3>
-      <p>Haber visto las clases 1 a 5 (qué es un SO, funciones, tipos, instalación y gestión de procesos). Hoy profundizamos en la <strong>gestión de la memoria</strong>, otra de las 4 grandes tareas del SO. Idealmente una terminal Linux/macOS o el Administrador de tareas de Windows para la práctica de monitoreo.</p>
+      <p>Haber visto las clases 1 a 5 (qué es un SO, funciones, tipos, instalación y gestión de procesos). Hoy profundizamos en la <strong>gestión de la memoria</strong>, otra de las 4 grandes tareas del SO. Idealmente <strong>PowerShell</strong> (incluido en Windows 10) y el <strong>Administrador de tareas</strong> para la práctica de monitoreo.</p>
     </div>
   </div>
 
@@ -102,7 +103,7 @@
 
   <div class="caja-pareja">
     <h4>🔄 Actividad en pareja — 2 minutos</h4>
-    <p>Antes de empezar: abran el <strong>Administrador de tareas</strong> (Windows: <code>Ctrl+Shift+Esc</code> → pestaña Rendimiento → Memoria) o una terminal con <code>free -h</code> (Linux/macOS). Anoten: <strong>¿cuánta RAM tiene el equipo? ¿Cuánta está en uso ahora mismo?</strong> Pregunta: si la RAM se llena, ¿de dónde saca memoria el SO? Escriban su teoría; la comprobaremos en el Módulo 2.</p>
+    <p>Antes de empezar: abran el <strong>Administrador de tareas</strong> (Windows: <code>Ctrl+Shift+Esc</code> → pestaña Rendimiento → Memoria) o abran PowerShell y ejecuten <code>systeminfo | findstr /i "Memoria"</code>. Anoten: <strong>¿cuánta RAM tiene el equipo? ¿Cuánta está en uso ahora mismo?</strong> Pregunta: si la RAM se llena, ¿de dónde saca memoria el SO? Escriban su teoría; la comprobaremos en el Módulo 2.</p>
   </div>
 
   <div class="navegacion-modulo">
@@ -492,7 +493,7 @@
 
   <div class="caja-concepto">
     <h3>🧠 La idea central</h3>
-    <p>La memoria no es el único recurso que administra el SO: también están la <strong>CPU</strong>, los <strong>dispositivos de E/S</strong> y los <strong>archivos</strong>. "Administrar recursos" significa <strong>asignarlos, compartirlos, protegerlos y recuperarlos</strong>. Y para saber si el SO lo está haciendo bien, se <strong>monitorea</strong>: herramientas como <code>free</code>, <code>top</code> y el Administrador de tareas te muestran la memoria en tiempo real.</p>
+    <p>La memoria no es el único recurso que administra el SO: también están la <strong>CPU</strong>, los <strong>dispositivos de E/S</strong> y los <strong>archivos</strong>. "Administrar recursos" significa <strong>asignarlos, compartirlos, protegerlos y recuperarlos</strong>. Y para saber si el SO lo está haciendo bien, se <strong>monitorea</strong>: herramientas como <code>Get-Counter</code> en PowerShell y el Administrador de tareas te muestran la memoria en tiempo real.</p>
   </div>
 
   <h3>🎯 Los 4 recursos que administra el SO</h3>
@@ -515,49 +516,54 @@
     </div>
   </div>
 
-  <h3>🛠️ Práctica de monitoreo: herramientas reales</h3>
-  <p>Abre una terminal (Linux/macOS/WSL) o el Administrador de tareas (Windows) y prueba estas herramientas. Son las que usan los técnicos de verdad.</p>
+  <h3>🛠️ Práctica de monitoreo: herramientas reales de Windows 10</h3>
+  <p>Abre <strong>PowerShell</strong> (búscalo en el menú Inicio) o el <strong>Administrador de tareas</strong> (<code>Ctrl+Shift+Esc</code>) y prueba estas herramientas. Son las que usan los técnicos de verdad en Windows.</p>
 
   <div class="code-wrap">
     <div class="code-header">
-      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>terminal — Linux/macOS</div>
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>PowerShell — Windows 10</div>
       <button class="copy-btn" data-copy="term1">📋 Copiar</button>
     </div>
-    <pre><code><span style="color:#5c6370"># Memoria en formato humano (total, usada, libre, caché, swap):</span>
-$ free -h
+    <pre><code><span style="color:#5c6370"># Memoria total, libre y en caché (en MB):</span>
+PS C:\&gt; Get-CimInstance Win32_OperatingSystem |
+  Select TotalVisibleMemorySize, FreePhysicalMemory
 
-<span style="color:#5c6370"># Detalle completo de la memoria del kernel:</span>
-$ cat /proc/meminfo
+<span style="color:#5c6370"># Memoria disponible en tiempo real (un valor):</span>
+PS C:\&gt; Get-Counter '\Memory\Available MBytes'
 
-<span style="color:#5c6370"># Procesos en tiempo real; tecla M = ordenar por uso de memoria:</span>
-$ top
+<span style="color:#5c6370"># Swap (pagefile): tamaño asignado y en uso:</span>
+PS C:\&gt; Get-CimInstance Win32_PageFileUsage |
+  Select Name, AllocatedBaseSize, CurrentUsage
 
-<span style="color:#5c6370"># top mejorado (si está instalado):</span>
-$ htop
+<span style="color:#5c6370"># Top 5 procesos que más RAM consumen (ordenados por memoria):</span>
+PS C:\&gt; Get-Process | Sort-Object WorkingSet -Descending |
+  Select-Object -First 5 Name, @{N='RAM(MB)';E={[int]($_.WorkingSet/1MB)}}
 
-<span style="color:#5c6370"># Estadísticas de memoria/swap cada 1 segundo:</span>
-$ vmstat 1</code></pre>
+<span style="color:#5c6370"># Fallos de página por segundo (termómetro del lag):</span>
+PS C:\&gt; Get-Counter '\Memory\Pages/sec'</code></pre>
   </div>
 
   <div class="code-wrap">
     <div class="code-header">
-      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>Windows</div>
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>CMD — Windows 10</div>
       <button class="copy-btn" data-copy="term2">📋 Copiar</button>
     </div>
-    <pre><code><span style="color:#5c6370"># Administrador de tareas (gráfico):</span>
+    <pre><code><span style="color:#5c6370"># Memoria total y disponible (símbolo del sistema):</span>
+C:\&gt; systeminfo | findstr /i "Memoria"
+
+<span style="color:#5c6370"># Lista de procesos con su uso de memoria:</span>
+C:\&gt; tasklist /fo table | findstr /i "chrome spotify"
+
+<span style="color:#5c6370"># Administrador de tareas (gráfico):</span>
 Ctrl + Shift + Esc  →  pestaña "Rendimiento" → "Memoria"
-
-<span style="color:#5c6370"># Ver la memoria total y libre desde el símbolo del sistema:</span>
-C:\&gt; systeminfo | findstr /i "memory"
-
-<span style="color:#5c6370"># En macOS: Activity Monitor → pestaña "Memoria" → "Presión de memoria"</span></code></pre>
+                       pestaña "Detalles" → columna "Memoria"</code></pre>
   </div>
 
   <h3>🎮 Simulador: Monitorea un PC de 16 GB</h3>
-  <p>Este es el panel de <code>free -h</code> de un equipo con 16 GB de RAM y 2 GB de swap. Simula abrir pestañas y un juego, y observa cómo cambian la RAM, la caché y el swap. Aprende a <strong>leer</strong> el panel: eso es monitorear.</p>
+  <p>Este es el panel que verías en el <strong>Administrador de tareas</strong> (pestaña Rendimiento → Memoria) o con <code>Get-CimInstance Win32_OperatingSystem</code> en PowerShell, de un equipo con 16 GB de RAM y 2 GB de swap. Simula abrir pestañas y un juego, y observa cómo cambian la RAM, la caché y el swap. Aprende a <strong>leer</strong> el panel: eso es monitorear.</p>
 
   <div class="simulador">
-    <div class="sim-head">📊 Monitor de memoria — free -h</div>
+    <div class="sim-head">📊 Monitor de memoria — Administrador de tareas / PowerShell</div>
 
     <div class="mon-panel">
       <div class="mon-table">
@@ -608,24 +614,24 @@ C:\&gt; systeminfo | findstr /i "memory"
     </div>
     <div class="compare-card a">
       <h4>🎮 "El juego pide 8 GB y tengo 4"</h4>
-      <p><strong>Diagnóstico:</strong> no es un error: funciona gracias a la <strong>memoria virtual</strong> (paginación + swap), pero cargará lento y con lag. <strong>Solución:</strong> bajar la calidad gráfica o ampliar la RAM (y el swap en Linux).</p>
+      <p><strong>Diagnóstico:</strong> no es un error: funciona gracias a la <strong>memoria virtual</strong> (paginación + swap), pero cargará lento y con lag. <strong>Solución:</strong> bajar la calidad gráfica o ampliar la RAM (y el archivo de paginación).</p>
     </div>
   </div>
 
   <div class="caja-pareja">
     <h4>🔄 Actividad en pareja — 5 minutos</h4>
-    <p>Corran <code>free -h</code> (o abran el Administrador de tareas) en su equipo y anoten <strong>3 números</strong>: total, usada y swap. Ahora abran 3 programas pesados a la vez (navegador + video + editor) y vuelvan a mirar. ¿Cambió el "usado"? ¿Apareció swap? Escriban una frase que explique lo que vieron usando lo aprendido. 📝</p>
+    <p>Corran <code>systeminfo | findstr /i "Memoria"</code> en PowerShell (o abran el Administrador de tareas, pestaña Rendimiento → Memoria) en su equipo y anoten <strong>3 números</strong>: total, disponible y swap (pagefile). Ahora abran 3 programas pesados a la vez (navegador + video + editor) y vuelvan a mirar. ¿Cambió el "disponible"? ¿Creció el swap? Escriban una frase que explique lo que vieron usando lo aprendido. 📝</p>
   </div>
 
   <!-- QUIZ MÓDULO 5 -->
   <div class="quiz" data-quiz="5">
     <h3>🎯 Mini-Quiz del Módulo 5</h3>
     <div class="pregunta" data-correcta="a">
-      <p><strong>1.</strong> ¿Qué comando muestra el uso de memoria en Linux/macOS?</p>
-      <button class="opcion" data-op="a">free -h</button>
-      <button class="opcion" data-op="b">ls -la</button>
-      <button class="opcion" data-op="c">pwd</button>
-      <button class="opcion" data-op="d">mkdir</button>
+      <p><strong>1.</strong> ¿Qué comando de PowerShell muestra la memoria disponible en Windows 10?</p>
+      <button class="opcion" data-op="a">Get-Counter '\Memory\Available MBytes'</button>
+      <button class="opcion" data-op="b">Get-ChildItem</button>
+      <button class="opcion" data-op="c">Set-Location</button>
+      <button class="opcion" data-op="d">New-Item</button>
     </div>
     <div class="pregunta" data-correcta="c">
       <p><strong>2.</strong> ¿Qué significa que el "swap usado" esté creciendo mucho?</p>
@@ -655,26 +661,26 @@ C:\&gt; systeminfo | findstr /i "memory"
 ============================================================ -->
 <section class="modulo" data-modulo="6">
   <h2>📦 Taller entregable: "PC Lento"</h2>
-  <p class="meta-modulo">Misión 06 · Caso end-to-end: diagnostica la memoria de un equipo real y entrega tus comandos y salidas · ~35 min</p>
+  <p class="meta-modulo">Misión 06 · Caso end-to-end: diagnostica la memoria de un equipo con Windows 10 y entrega tus comandos y salidas · ~35 min</p>
 
   <div class="challenge">
     <div class="challenge-head">
       <span class="challenge-badge">Taller final · Entregable</span>
-      <span class="challenge-title">Diagnóstico de memoria de un equipo real</span>
+      <span class="challenge-title">Diagnóstico de memoria en un equipo con Windows 10</span>
     </div>
-    <p>Tu prima Camila te dice: <strong>"mi PC está súper lento, creo que es la RAM"</strong>. En pareja, van a actuar como técnicos: abrir una terminal (o el Administrador de tareas), <strong>ejecutar comandos reales</strong> de inspección de memoria, <strong>leer las salidas</strong> y <strong>escribir un diagnóstico</strong> explicando qué ve Camila en su equipo y qué debe hacer. La entrega es un archivo <code>.txt</code> con cada comando, su salida y su interpretación.</p>
+    <p>Tu prima Camila te dice: <strong>"mi PC está súper lento, creo que es la RAM"</strong>. En pareja, van a actuar como técnicos: abrir <strong>PowerShell</strong> (o el Administrador de tareas) en un equipo con <strong>Windows 10</strong>, <strong>ejecutar comandos reales</strong> de inspección de memoria, <strong>leer las salidas</strong> y <strong>escribir un diagnóstico</strong> explicando qué ve Camila en su equipo y qué debe hacer. La entrega es un archivo <code>.txt</code> con cada comando, su salida y su interpretación.</p>
   </div>
 
   <div class="caja-concepto">
     <h4>📋 Enunciado</h4>
-    <p>Camila tiene un equipo con <strong>4 GB de RAM</strong> y <strong>2 GB de swap</strong>. Abre el navegador con muchas pestañas, un documento de Word y Spotify. A los 20 minutos el PC "se cuelga". Como técnicos, deben:</p>
+    <p>Camila tiene un equipo con <strong>Windows 10</strong>, <strong>4 GB de RAM</strong> y un <strong>archivo de paginación (swap) de 2 GB</strong>. Abre el navegador con muchas pestañas, un documento de Word y Spotify. A los 20 minutos el PC "se cuelga". Como técnicos, deben:</p>
     <ol>
       <li>Identificar <strong>qué memoria</strong> tiene el equipo (total, libre, caché, swap).</li>
       <li>Detectar <strong>qué proceso</strong> más consume memoria.</li>
-      <li>Explicar <strong>qué hace el SO</strong> cuando la RAM se llena (swap, memoria virtual, OOM killer).</li>
+      <li>Explicar <strong>qué hace el SO</strong> cuando la RAM se llena (archivo de paginación, memoria virtual, OOM killer).</li>
       <li>Proponer <strong>tres acciones concretas</strong> para que Camila vuelva a trabajar sin lag.</li>
     </ol>
-    <p>Si el aula tiene Linux/WSL, usen <code>free</code>, <code>top</code> y <code>vmstat</code> reales. Si sólo tienen Windows, usen el Administrador de tareas (<code>Ctrl+Shift+Esc</code>) y <code>systeminfo</code>. Lo importante es <strong>ejecutar y copiar la salida real</strong>, no inventarla.</p>
+    <p>Usen <strong>PowerShell</strong> (menú Inicio → escriban <code>powershell</code>) o el <strong>Administrador de tareas</strong> (<code>Ctrl+Shift+Esc</code>). Lo importante es <strong>ejecutar y copiar la salida real</strong>, no inventarla.</p>
   </div>
 
   <div class="caja-destacada">
@@ -682,9 +688,9 @@ C:\&gt; systeminfo | findstr /i "memory"
     <p>Tu entrega, en pareja, debe contener <strong>seis partes</strong> dentro de un único archivo <code>.txt</code>:</p>
     <ol>
       <li><strong>Diagnóstico inicial</strong>: un párrafo describiendo el síntoma de Camila y su hipótesis inicial antes de medir.</li>
-      <li><strong>Jerarquía de memoria del equipo</strong>: identificar las memorias presentes (registros, caché, RAM, swap, disco) en el equipo que están usando.</li>
-      <li><strong>Salida de <code>free -h</code> (o equivalente)</strong>: comando + salida copiada + interpretación de cada número (total, usado, libre, caché, swap).</li>
-      <li><strong>Salida de <code>top</code> / <code>vmstat 1 3</code> (o Administrador de tareas)</strong>: comando + salida + identificación del proceso que más memoria consume.</li>
+      <li><strong>Jerarquía de memoria del equipo</strong>: identificar las memorias presentes (registros, caché, RAM, archivo de paginación, disco) en el equipo que están usando.</li>
+      <li><strong>Salida de <code>systeminfo</code> / <code>Get-Counter</code></strong>: comando + salida copiada + interpretación de cada número (total, disponible, caché, archivo de paginación).</li>
+      <li><strong>Salida de <code>Get-Process</code> (o Administrador de tareas)</strong>: comando + salida + identificación del proceso que más memoria consume.</li>
       <li><strong>Cálculo de paginación</strong>: un ejercicio de paginación resuelto a mano (dirección física) que muestre que entienden cómo el SO traduce direcciones cuando la RAM está llena.</li>
       <li><strong>Recomendación final y reflexión</strong>: tres acciones concretas para Camila y un párrafo de reflexión sobre qué les costó más y qué aprendieron.</li>
     </ol>
@@ -699,77 +705,88 @@ C:\&gt; systeminfo | findstr /i "memory"
         <p>Pistas (escríbanlo con sus palabras):</p>
         <ul>
           <li><strong>Síntoma:</strong> el equipo "se cuelga" a los 20 min de abrir navegador + Word + Spotify. Sospecha de RAM llena.</li>
-          <li><strong>Hipótesis:</strong> con 4 GB de RAM, tres apps que consumen bastante pueden agotarla; el SO empieza a usar swap (disco) y por eso se siente lento.</li>
-          <li><strong>Mediciones a hacer:</strong> <code>free -h</code> para ver RAM y swap, <code>top</code> para ver el proceso que más consume, y una búsqueda del proceso "culpable".</li>
+          <li><strong>Hipótesis:</strong> con 4 GB de RAM, tres apps que consumen bastante pueden agotarla; el SO empieza a usar el archivo de paginación (disco) y por eso se siente lento.</li>
+          <li><strong>Mediciones a hacer:</strong> <code>systeminfo</code> o <code>Get-Counter</code> para ver RAM y swap, <code>Get-Process</code> para ver el proceso que más consume, y una búsqueda del proceso "culpable".</li>
         </ul>
       </div>
     </div>
 
     <div class="taller-er-step">
       <h4><span class="step-num">2</span> Jerarquía de memoria del equipo</h4>
-      <p>Identifiquen las memorias presentes en el equipo que están usando. Escriban en el <code>.txt</code> una lista con las que apliquen y una línea explicando cómo supieron que está ahí. Por ejemplo: <code>caché L1/L2/L3</code> → la CPU siempre la trae; <code>RAM</code> → la ve <code>free -h</code>; <code>swap</code> → la ve <code>free -h</code> en la fila Swap; <code>disco</code> → comando <code>lsblk</code> o el explorador de archivos.</p>
+      <p>Identifiquen las memorias presentes en el equipo que están usando. Escriban en el <code>.txt</code> una lista con las que apliquen y una línea explicando cómo supieron que está ahí. Por ejemplo: <code>caché L1/L2/L3</code> → la CPU siempre la trae; <code>RAM</code> → la ve <code>systeminfo</code>; <code>archivo de paginación (swap)</code> → lo ve <code>Get-CimInstance Win32_PageFileUsage</code>; <code>disco</code> → el Explorador de archivos o <code>Get-Disk</code>.</p>
       <button class="taller-sol-toggle" data-sol="sol-jerarquia">👁️ Ver ejemplo</button>
       <div class="taller-sol" id="sol-jerarquia">
         <p>Ejemplo de lista (la de ustedes tendrá los números reales de su equipo):</p>
-        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">Jerarquía de memoria de este equipo:
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">Jerarquía de memoria de este equipo (Windows 10):
 - Registros CPU: siempre presentes (parte del procesador).
-- Caché L1/L2/L3: la trae el CPU; no se ve con free, pero está.
-- RAM: total 4 GB (lo confirma `free -h`, fila "Mem: total").
-- Swap: 2 GB en disco (lo confirma `free -h`, fila "Swap: total").
-- Disco (SSD/HDD): unidad de 256 GB (lo ve `lsblk` o el explorador).</pre>
-        <p style="margin-top:0.4rem;">La memoria virtual = RAM + swap combinadas; por eso el equipo puede "ver" 6 GB aunque sólo tenga 4 GB físicos.</p>
+- Caché L1/L2/L3: la trae el CPU; no se ve con systeminfo, pero está.
+- RAM: total 4 GB (lo confirma `systeminfo`, línea "Memoria física total").
+- Archivo de paginación (swap): 2 GB en disco
+  (lo ve `Get-CimInstance Win32_PageFileUsage`).
+- Disco (SSD/HDD): unidad de 256 GB (lo ve el Explorador o `Get-Disk`).</pre>
+        <p style="margin-top:0.4rem;">La memoria virtual = RAM + archivo de paginación combinadas; por eso el equipo puede "ver" 6 GB aunque sólo tenga 4 GB físicos.</p>
       </div>
     </div>
 
     <div class="taller-er-step">
-      <h4><span class="step-num">3</span> Ejecuta <code>free -h</code> e interpreta</h4>
-      <p>Abre una terminal y ejecuta <code>free -h</code> (en Linux/WSL) o <code>systeminfo | findstr /i "memory"</code> (Windows). Copia el comando <strong>literal</strong> y la salida <strong>completa</strong> en el <code>.txt</code>. Luego, abajo, escribe una línea por cada número explicando qué significa y si parece normal o alto para el equipo de Camila.</p>
+      <h4><span class="step-num">3</span> Ejecuta <code>systeminfo</code> / <code>Get-Counter</code> e interpreta</h4>
+      <p>Abre <strong>PowerShell</strong> y ejecuta <code>systeminfo | findstr /i "Memoria"</code> (memoria total y disponible) y <code>Get-CimInstance Win32_PageFileUsage | Select Name,AllocatedBaseSize,CurrentUsage</code> (archivo de paginación). Copia el comando <strong>literal</strong> y la salida <strong>completa</strong> en el <code>.txt</code>. Luego, abajo, escribe una línea por cada número explicando qué significa y si parece normal o alto para el equipo de Camila.</p>
       <button class="taller-sol-toggle" data-sol="sol-free">👁️ Ver salida de ejemplo</button>
       <div class="taller-sol" id="sol-free">
-        <p>Salida típica en un equipo con 4 GB de RAM y 2 GB de swap bajo carga:</p>
-        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">$ free -h
-               total   usado   libre   caché  disponible
-Mem:           3,8 Gi  3,4 Gi  120 Mi  300 Mi  280 Mi
-Swap:          2,0 Gi  1,6 Gi  400 Mi</pre>
+        <p>Salida típica en un equipo con Windows 10, 4 GB de RAM y 2 GB de archivo de paginación bajo carga:</p>
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">PS C:\&gt; systeminfo | findstr /i "Memoria"
+Memoria física total:     4.096 MB
+Memoria física disponible: 230 MB
+Memoria virtual: total     6.144 MB
+Memoria virtual: disponible 410 MB
+
+PS C:\&gt; Get-CimInstance Win32_PageFileUsage | Select Name,AllocatedBaseSize,CurrentUsage
+Name              AllocatedBaseSize CurrentUsage
+----              ---------------- ------------
+C:\pagefile.sys               2048         1638</pre>
         <p style="margin-top:0.4rem;">Interpretación:</p>
         <ul>
-          <li><code>total 3,8 Gi</code> → 4 GB de RAM (el SO resta algo para sí mismo).</li>
-          <li><code>usado 3,4 Gi</code> → casi toda la RAM está ocupada. Camila está al límite.</li>
-          <li><code>libre 120 Mi</code> → muy poco libre; el SO no tiene colchón.</li>
-          <li><code>caché 300 Mi</code> → datos listos para reusar, se libera si hace falta.</li>
-          <li><code>disponible 280 Mi</code> → lo que realmente podría usarse para nuevas apps. Muy poco.</li>
-          <li><code>Swap usado 1,6 Gi</code> → el SO está moviendo 1,6 GB al disco: <strong>esta es la causa del lag</strong>.</li>
+          <li><code>Memoria física total: 4.096 MB</code> → 4 GB de RAM.</li>
+          <li><code>Memoria física disponible: 230 MB</code> → casi nada libre; Camila está al límite.</li>
+          <li><code>Memoria virtual: total 6.144 MB</code> → RAM (4 GB) + archivo de paginación (2 GB).</li>
+          <li><code>Memoria virtual: disponible 410 MB</code> → lo que realmente podría usarse. Muy poco.</li>
+          <li><code>AllocatedBaseSize 2048</code> → el archivo de paginación tiene 2 GB reservados en disco.</li>
+          <li><code>CurrentUsage 1638</code> → el SO está moviendo 1,6 GB al disco: <strong>esta es la causa del lag</strong>.</li>
         </ul>
-        <p style="margin-top:0.4rem;"><strong>Conclusión:</strong> la RAM se llenó y el sistema está paginando a swap. El disco es mucho más lento que la RAM, por eso Camila siente el equipo "colgado".</p>
+        <p style="margin-top:0.4rem;"><strong>Conclusión:</strong> la RAM se llenó y el sistema está paginando al disco (archivo de paginación). El disco es mucho más lento que la RAM, por eso Camila siente el equipo "colgado".</p>
       </div>
     </div>
 
     <div class="taller-er-step">
-      <h4><span class="step-num">4</span> Ejecuta <code>top</code> (o <code>vmstat 1 3</code>) y encuentra al culpable</h4>
-      <p>Ahora ve <em>qué proceso</em> se está comiendo la RAM. En Linux/WSL ejecuta <code>top</code> y pulsa <code>M</code> (mayúscula) para ordenar por memoria; o ejecuta <code>vmstat 1 3</code> para ver memoria y swap en tres instantes. En Windows abre el Administrador de tareas (<code>Ctrl+Shift+Esc</code>), pestaña "Detalles", ordena por "Memoria". Copia el comando/acción y la salida en el <code>.txt</code> y nombra el proceso que más consume.</p>
+      <h4><span class="step-num">4</span> Ejecuta <code>Get-Process</code> (o Administrador de tareas) y encuentra al culpable</h4>
+      <p>Ahora ve <em>qué proceso</em> se está comiendo la RAM. En PowerShell ejecuta <code>Get-Process | Sort-Object WorkingSet -Descending | Select-Object -First 5 Name,@{N='RAM(MB)';E={[int]($_.WorkingSet/1MB)}}</code> para ver los 5 procesos que más RAM usan. O abre el Administrador de tareas (<code>Ctrl+Shift+Esc</code>), pestaña "Detalles", y ordena por la columna "Memoria". Copia el comando/acción y la salida en el <code>.txt</code> y nombra el proceso que más consume.</p>
       <button class="taller-sol-toggle" data-sol="sol-top">👁️ Ver salida de ejemplo</button>
       <div class="taller-sol" id="sol-top">
-        <p>Salida típica de <code>top</code> (ordenado por memoria con <code>M</code>):</p>
-        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">$ top
-  PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     COMMAND
- 1234 camila    20   0  2800Mi 1900Mi  120Mi S   2,3  50,0     chrome
-  567 camila    20   0   900Mi  600Mi   40Mi S   0,5  15,8     chrome
-  890 camila    20   0   600Mi  300Mi   30Mi S   0,0   7,9     spotify
- 1020 camila    20   0   300Mi  150Mi   20Mi S   0,0   3,9     soffice.bin</pre>
+        <p>Salida típica de <code>Get-Process</code> ordenado por memoria en un Windows 10 bajo carga:</p>
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">PS C:\&gt; Get-Process | Sort-Object WorkingSet -Descending |
+  Select-Object -First 5 Name,@{N='RAM(MB)';E={[int]($_.WorkingSet/1MB)}}
+
+Name         RAM(MB)
+----         -------
+chrome         1900
+chrome          600
+Spotify         300
+soffice.bin     150
+explorer        110</pre>
         <p style="margin-top:0.4rem;">Lectura:</p>
         <ul>
-          <li><code>%MEM</code> → porcentaje de la RAM que usa ese proceso.</li>
-          <li>El proceso <code>chrome</code> (PID 1234) ocupa <strong>50%</strong> de la RAM (1,9 GB de 3,8 GB). Es el culpable.</li>
-          <li>Sumando los dos procesos <code>chrome</code>: 65,8% de la RAM. Las pestañas abiertas son el problema.</li>
+          <li><code>RAM(MB)</code> → megabytes de RAM que usa ese proceso.</li>
+          <li>El proceso <code>chrome</code> ocupa <strong>1900 MB</strong> (1,9 GB de 4 GB). Es el culpable.</li>
+          <li>Sumando los dos procesos <code>chrome</code>: 2500 MB = 2,5 GB. Las pestañas abiertas son el problema.</li>
         </ul>
-        <p style="margin-top:0.4rem;">Alternativa con <code>vmstat 1 3</code> (memoria y swap cada segundo, 3 veces):</p>
-        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">$ vmstat 1 3
-procs -----------memory---------- ---swap-- -----io----
- r  b   swpd   free   buff  cache   si   so    bi    bo
- 2  0 1600000 120000  30000 300000   18   22     0    40
- 3  0 1600000 100000  30000 300000   35   40     0    80
- 3  0 1640000  90000  30000 300000   52   55     0   120</pre>
-        <p style="margin-top:0.4rem;"><code>si</code> y <code>so</code> (swap in/out) crecen: el SO está moviendo páginas entre RAM y disco constantemente. Eso es <strong>thrashing</strong>: el equipo se siente colgado porque el disco no da abasto.</p>
+        <p style="margin-top:0.4rem;">Termómetro del lag con <code>Get-Counter</code> (fallos de página por segundo):</p>
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">PS C:\&gt; Get-Counter '\Memory\Pages/sec'
+Timestamp           CookedValue
+---------           -----------
+04/08/2026 10:00:00     52,3
+04/08/2026 10:00:01     48,1
+04/08/2026 10:00:02     55,7</pre>
+        <p style="margin-top:0.4rem;"><code>Pages/sec</code> alto (por encima de 5 ya es señal; aquí está en ~50): el SO está moviendo páginas entre RAM y disco constantemente. Eso es <strong>thrashing</strong>: el equipo se siente colgado porque el disco no da abasto.</p>
       </div>
     </div>
 
@@ -799,7 +816,7 @@ Paso 4: dirección física = 28672 + 2000 = 30672
 Respuesta: la dirección física es 30672 (bytes).
 - Marco = 7  (parte alta: 7 × 4096 = 28672)
 - Offset = 2000  (parte baja: dentro del marco)</pre>
-        <p style="margin-top:0.4rem;">Noten: si la página 2 no estuviera en RAM, el SO la buscaría en swap (disco), la traería a un marco libre y actualizaría la tabla. Eso es lo que pasa en el equipo de Camila cuando el disco "trabaja duro": <strong>page fault</strong>.</p>
+        <p style="margin-top:0.4rem;">Noten: si la página 2 no estuviera en RAM, el SO la buscaría en el archivo de paginación (disco), la traería a un marco libre y actualizaría la tabla. Eso es lo que pasa en el equipo de Camila cuando el disco "trabaja duro": <strong>page fault</strong>.</p>
       </div>
     </div>
 
@@ -807,7 +824,7 @@ Respuesta: la dirección física es 30672 (bytes).
       <h4><span class="step-num">6</span> Recomendación y reflexión</h4>
       <p>Cierren el <code>.txt</code> con dos cosas:</p>
       <ol>
-        <li><strong>Tres acciones concretas para Camila</strong>, ordenadas de la más fácil a la más cara. Ejemplos: cerrar pestañas, ampliar swap, agregar RAM, usar un navegador más liviano, suspender Spotify mientras trabaja.</li>
+        <li><strong>Tres acciones concretas para Camila</strong>, ordenadas de la más fácil a la más cara. Ejemplos: cerrar pestañas, ampliar el archivo de paginación, agregar RAM, usar un navegador más liviano, suspender Spotify mientras trabaja.</li>
         <li><strong>Un párrafo de reflexión</strong> (4–6 líneas) respondiendo: ¿qué parte del taller les costó más y por qué? ¿Qué aprendieron sobre cómo el SO maneja la memoria cuando se llena?</li>
       </ol>
       <button class="taller-sol-toggle" data-sol="sol-reflex">👁️ Ver ejemplo de reflexión</button>
@@ -815,25 +832,27 @@ Respuesta: la dirección física es 30672 (bytes).
         <p>Ejemplo (escríbanlo con sus palabras, no lo copien):</p>
         <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">Recomendaciones para Camila:
 1. Cerrar pestañas del navegador que no use (fácil y gratis).
-2. Ampliar el swap a 4 GB como alivio temporal (intermedio).
+2. Ampliar el archivo de paginación a 4 GB como alivio temporal
+   (intermedio; Panel de control → Sistema → Avanzado →
+   Rendimiento → Opciones avanzadas → Memoria virtual).
 3. Agregar un módulo de 4 GB de RAM (definitivo, tiene costo).
 
 Reflexión:
-Lo que más nos costó fue leer la salida de `vmstat`, porque tiene
-muchas columnas y no sabíamos cuáles mirar. Aprendimos que `si`
-y `so` (swap in/out) son el termómetro del lag: cuando crecen,
-el SO está paginando entre RAM y disco porque la RAM se llenó.
-También nos quedó claro que un equipo "lento" casi nunca es la
-CPU: es la memoria llena obligando al SO a usar el disco, que
-es miles de veces más lento. La lección: la memoria virtual
-salva al sistema, pero a cambio de velocidad.</pre>
+Lo que más nos costó fue leer la salida de Get-Counter, porque
+Pages/sec no nos decía nada al principio. Aprendimos que es el
+termómetro del lag: cuando crece por encima de 5, el SO está
+paginando entre RAM y disco porque la RAM se llenó. También nos
+quedó claro que un equipo "lento" casi nunca es la CPU: es la
+memoria llena obligando al SO a usar el disco, que es miles de
+veces más lento. La lección: la memoria virtual salva al sistema,
+pero a cambio de velocidad.</pre>
       </div>
     </div>
   </div>
 
   <div class="caja-destacada">
     <h4>👨‍🏫 Cierre del aula — 5 minutos</h4>
-    <p>Cada pareja entrega un único archivo <code>taller6-pc-lento-&lt;integrante1&gt;-&lt;integrante2&gt;.txt</code>. El profesor lo abre y valida: (1) el diagnóstico inicial está escrito <strong>antes</strong> de los comandos, (2) los comandos y sus salidas están copiados <strong>literales</strong> (no inventados), (3) cada número de <code>free -h</code> tiene su interpretación, (4) se identifica el proceso culpable con <code>top</code>, (5) el cálculo de paginación muestra el procedimiento (no sólo el resultado), (6) hay tres recomendaciones y una reflexión.</p>
+    <p>Cada pareja entrega un único archivo <code>taller6-pc-lento-&lt;integrante1&gt;-&lt;integrante2&gt;.txt</code>. El profesor lo abre y valida: (1) el diagnóstico inicial está escrito <strong>antes</strong> de los comandos, (2) los comandos y sus salidas están copiados <strong>literales</strong> (no inventados), (3) cada número de <code>systeminfo</code> tiene su interpretación, (4) se identifica el proceso culpable con <code>Get-Process</code> o el Administrador de tareas, (5) el cálculo de paginación muestra el procedimiento (no sólo el resultado), (6) hay tres recomendaciones y una reflexión.</p>
   </div>
 
   <div class="caja-destacada">
@@ -843,9 +862,9 @@ salva al sistema, pero a cambio de velocidad.</pre>
         <thead><tr><th>Criterio</th><th>Pts</th><th>Indicador</th></tr></thead>
         <tbody>
           <tr><td>Diagnóstico inicial</td><td>10</td><td>Párrafo escrito antes de medir, con síntoma, hipótesis y plan de medición.</td></tr>
-          <tr><td>Jerarquía de memoria</td><td>10</td><td>Lista las memorias presentes (registros, caché, RAM, swap, disco) con justificación.</td></tr>
-          <tr><td>Salida de <code>free -h</code></td><td>20</td><td>Comando + salida literal + interpretación de cada número (total, usado, libre, caché, swap).</td></tr>
-          <tr><td>Salida de <code>top</code> / <code>vmstat</code></td><td>20</td><td>Comando + salida literal + nombre del proceso que más memoria consume y por qué.</td></tr>
+          <tr><td>Jerarquía de memoria</td><td>10</td><td>Lista las memorias presentes (registros, caché, RAM, archivo de paginación, disco) con justificación.</td></tr>
+          <tr><td>Salida de <code>systeminfo</code> / <code>Get-Counter</code></td><td>20</td><td>Comando + salida literal + interpretación de cada número (total, disponible, archivo de paginación).</td></tr>
+          <tr><td>Salida de <code>Get-Process</code> / Admin. de tareas</td><td>20</td><td>Comando + salida literal + nombre del proceso que más memoria consume y por qué.</td></tr>
           <tr><td>Cálculo de paginación</td><td>20</td><td>Dirección física correcta (30672) con procedimiento paso a paso (marco × 4096 + offset).</td></tr>
           <tr><td>Recomendaciones y reflexión</td><td>20</td><td>Tres acciones ordenadas por dificultad/costo + párrafo de reflexión sobre el aprendizaje.</td></tr>
         </tbody>
@@ -856,13 +875,13 @@ salva al sistema, pero a cambio de velocidad.</pre>
 
   <div class="caja-tip">
     <h4>🧩 Investigación (punto extra, 10 pts)</h4>
-    <p>Investiguen y agreguen al final del <code>.txt</code>: ¿qué es el <strong>OOM killer</strong> de Linux y cómo lo diferencia del simple "cerrar un programa"? Mencionen <strong>dos señales</strong> que avisan que el OOM killer está a punto de actuar (pista: miren los logs del sistema con <code>dmesg | grep -i oom</code> en Linux, o el Visor de eventos en Windows).</p>
+    <p>Investiguen y agreguen al final del <code>.txt</code>: ¿qué es el <strong>OOM killer</strong> en Linux y cómo se compara con lo que hace Windows 10 cuando se agota la memoria? Mencionen <strong>dos señales</strong> que avisan que Windows está a punto de matar un proceso por falta de memoria (pista: en Windows abran el <strong>Visor de eventos</strong> → "Registros de Windows" → "Sistema" y filtren por "Fuente: Resource-Exhaustion-Detector" o "svchost"; en el Administrador de tareas aparece el aviso "Windows tiene poca memoria").</p>
   </div>
 
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Memory Master!</h2>
-    <p class="lead">Ya saben que la memoria es una <strong>jerarquía</strong> (registros → caché → RAM → swap → disco), que el SO la <strong>administra</strong> con particiones y swap, que la <strong>paginación</strong> le da a cada proceso un mapa de memoria virtual, y que se <strong>monitorea</strong> con <code>free</code>, <code>top</code> y <code>vmstat</code>. Pero sobre todo: ya hicieron <strong>de técnicos</strong>. Diagnosticaron un equipo real, leyeron salidas reales y propusieron soluciones reales. Eso es, literalmente, lo que hace un administrador de sistemas junior. 💪</p>
-    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿de dónde saca memoria el SO cuando la RAM se llena? Ya tienen la respuesta comprobada: swap + memoria virtual + paginación. 🧠</p>
+    <p class="lead">Ya saben que la memoria es una <strong>jerarquía</strong> (registros → caché → RAM → archivo de paginación → disco), que el SO la <strong>administra</strong> con particiones y swap, que la <strong>paginación</strong> le da a cada proceso un mapa de memoria virtual, y que se <strong>monitorea</strong> con PowerShell (<code>Get-Counter</code>, <code>Get-Process</code>) y el Administrador de tareas. Pero sobre todo: ya hicieron <strong>de técnicos</strong>. Diagnosticaron un equipo real con Windows 10, leyeron salidas reales y propusieron soluciones reales. Eso es, literalmente, lo que hace un administrador de sistemas junior. 💪</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿de dónde saca memoria el SO cuando la RAM se llena? Ya tienen la respuesta comprobada: archivo de paginación + memoria virtual + paginación. 🧠</p>
     <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
   </div>
 
