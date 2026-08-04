@@ -44,6 +44,7 @@ function cargarProgresoPorClase() {
     'curso-so-planeacion-instalacion': 6,
     'curso-so-gestion-procesos': 5,
     'curso-so-gestion-memoria': 5,
+    'curso-so-gestion-almacenamiento': 5,
     'curso-introduccion-programacion-web': 6
   };
 
@@ -106,11 +107,11 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 4,   800);
-  animarNumero(document.getElementById('stat-clases'), 0, 11,  900);
+  animarNumero(document.getElementById('stat-clases'), 0, 12,  900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
-    animarNumero(elHoras, 0, 68, 1000, valor => valor + '+');
+    animarNumero(elHoras, 0, 72, 1000, valor => valor + '+');
   }
 }
 
@@ -196,11 +197,16 @@ document.addEventListener('keydown', (e) => {
     const card = document.querySelector('.clase-card.so-6');
     if (card) card.click();
   }
+  // Tecla 0 → Clase 7 SO
+  if (e.key === '0') {
+    const card = document.querySelector('.clase-card.so-7');
+    if (card) card.click();
+  }
 });
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-introduccion-programacion-web'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-so-gestion-almacenamiento', 'curso-introduccion-programacion-web'];
 
   let tienePrograma = false;
 

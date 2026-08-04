@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 7 · Gestión del almacenamiento</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">💾</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 7</h1>
+      <p class="subtitulo">Gestión del almacenamiento · Archivos, particiones, formato y espacio</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🗂️ Sistema de archivos</button>
+  <button class="btn-modulo" data-modulo="2">📏 Asignación</button>
+  <button class="btn-modulo descanso" data-modulo="3">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="4">🍕 Particiones</button>
+  <button class="btn-modulo" data-modulo="5">🔧 Formateo</button>
+  <button class="btn-modulo" data-modulo="6">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>💾 ¡Bienvenid@ a la fábrica de archivos!</h2>
+    <p class="lead">En la clase 6 viste cómo el SO administra la <strong>memoria</strong> de tu PC. Hoy bajamos un piso más: el <strong>almacenamiento</strong>. Aprenderás cómo el SO organiza millones de archivos, cómo reparte el espacio en el disco, por qué existen las <strong>particiones</strong> y qué significa realmente <strong>formatear</strong>. Al final serás capaz de explicar por qué un disco "lleno" a veces aún tiene espacio, y qué peligra si formateas el disco equivocado. 🚀</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — storage@so</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">storage@so:~$</span> <span class="cmd">df -h</span></div>
+        <div class="out">/dev/sda1 · 512 GB · usado 78% · sistema ext4</div>
+        <div class="out">/dev/sda2 ·  64 GB · usado 12% · home</div>
+        <div><span class="prompt">storage@so:~$</span> <span class="cmd">ls -l misiones/</span></div>
+        <div class="out">drwxr-xr-x fotos · -rw-r--r-- tarea.docx · -rwxr-xr-x juego.exe</div>
+        <div><span class="prompt">storage@so:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos cortos (uno de descanso), con una pausa de 15 minutos a la mitad. Trabaja en pareja con tu compañero/a de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Comprender el sistema de archivos, las técnicas de asignación de espacio, las particiones y el formateo lógico/físico. Detectar errores comunes al manejar discos.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Haber visto las clases 1 a 6. Hoy profundizamos en la <strong>gestión del almacenamiento</strong>, una de las 4 grandes tareas del SO. Idealmente una terminal Linux/macOS o el Explorador de archivos de Windows.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · Sistema de archivos</td><td style="color:var(--cian)">Qué es, metadatos, rutas y permisos</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Asignación de espacio</td><td style="color:var(--rosa)">Contigua, enlazada e indexada</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>03 · Particiones</td><td style="color:var(--ambar)">Dividir el disco sin romperlo</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>04 · Formateo</td><td style="color:var(--verde)">Lógico vs físico y tipos de formato</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Taller final</td><td style="color:var(--morado)">Misión Storage Master</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: abran el <strong>Explorador de archivos</strong> (Windows) o una terminal con <code>ls -l</code> (Linux/macOS). Miren un archivo cualquiera y anoten: <strong>¿qué información extra aparece además del nombre?</strong> (tamaño, fecha, icono, tipo…). Pregunta: ¿dónde cree el SO que guarda toda esa información? Escriban su teoría; la comprobaremos en el Módulo 1.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Sistema de archivos →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — SISTEMA DE ARCHIVOS
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>🗂️ Sistema de archivos</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "La biblioteca del disco" — organizar, nombrar y proteger</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un disco duro o SSD es solo un montón de bloques de datos sin orden. El <strong>sistema de archivos</strong> es la parte del SO que les da sentido: organiza la información en <strong>archivos</strong> (fotos, juegos, tareas) y <strong>carpetas</strong>, les pone nombre, guarda sus metadatos y controla quién puede leer o escribir. Sin él, el disco sería como una biblioteca en la que todos los libros están tirados en el suelo.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Imaginen que les dan una caja con <strong>1000 fotos impresas</strong> sin álbum. Para encontrar una foto de tu mascota perderías horas. ¿Qué harían? (carpetas por año, etiquetas, nombres…). Esa misma necesidad de organizar es la que resuelve el sistema de archivos en el disco. Discutan 1 minuto.</p>
+  </div>
+
+  <h3>📦 Los 5 ingredientes de un sistema de archivos</h3>
+  <p>Toca cada tarjeta para descubrir qué hace y por qué importa.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🗂️ Ingredientes del sistema de archivos</div>
+    <div class="features-grid" id="fsFeatures"></div>
+  </div>
+
+  <h3>🌳 Árbol de archivos vs montaña de bloques</h3>
+  <p>Tú ves carpetas dentro de carpetas. El disco solo ve <strong>bloques numerados</strong>. El sistema de archivos traduce tu ruta (como <code>/home/tu/Música/canción.mp3</code>) en una lista de bloques físicos. Esa traducción es el trabajo diario del SO.</p>
+
+  <div class="code-live">
+    <div><span class="cm"># Lo que tú ves:</span></div>
+    <div><span class="str">/home/tu/Música/</span><span class="ty">canción.mp3</span></div>
+    <div><span class="cm"># Lo que el disco ve:</span></div>
+    <div><span class="kw">bloques</span> 48192, 48204, 48215, 49110 <span class="fn">→</span> <span class="num">4 MB</span> de audio</div>
+  </div>
+
+  <h3>⚖️ Sistemas de archivos populares</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🪟 NTFS</h4>
+      <p>Usado por Windows. Soporta archivos enormes, permisos, compresión y encriptación (BitLocker). Es el "almacén moderno" de Microsoft.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🐧 ext4</h4>
+      <p>Estándar en Linux. Rápido, estable y de código abierto. Usa un diario (<em>journal</em>) para recuperarse bien si se corta la luz.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🍎 APFS</h4>
+      <p>Diseñado por Apple para SSDs. Optimizado para copias rápidas y ahorro de espacio. Soporta snapshots: fotos instantáneas del disco.</p>
+    </div>
+    <div class="compare-card a">
+      <h4>💾 FAT32 / exFAT</h4>
+      <p>Compatibles con casi todo (USB, consolas, cámaras). FAT32 no permite archivos de más de 4 GB; exFAT sí. Son sencillos pero menos seguros.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "formatear borra los archivos físicamente"</h4>
+    <p>No. Formatear <strong>borra la tabla de asignación</strong>: la "lista de bloques que pertenecen a cada archivo". Los datos a menudo siguen en el disco hasta que el SO vuelve a usar esos bloques. Por eso a veces se pueden recuperar archivos con programas especiales, y por eso <strong>formatear no es suficiente para destruir información sensible</strong>.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 1 -->
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es el sistema de archivos?</p>
+      <button class="opcion" data-op="a">El motor que enciende el computador</button>
+      <button class="opcion" data-op="b">La parte del SO que organiza archivos y carpetas en el disco</button>
+      <button class="opcion" data-op="c">La memoria RAM del sistema</button>
+      <button class="opcion" data-op="d">Un tipo de virus</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cuál de estos es un metadato de un archivo?</p>
+      <button class="opcion" data-op="a">La fecha de modificación</button>
+      <button class="opcion" data-op="b">El contenido del archivo</button>
+      <button class="opcion" data-op="c">El icono del programa que lo abre</button>
+      <button class="opcion" data-op="d">La contraseña del usuario</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>3.</strong> ¿Qué sistema de archivos es típico de Linux?</p>
+      <button class="opcion" data-op="a">NTFS</button>
+      <button class="opcion" data-op="b">APFS</button>
+      <button class="opcion" data-op="c">ext4</button>
+      <button class="opcion" data-op="d">HFS+</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Asignación de espacio →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — ASIGNACIÓN DE ESPACIO
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>📏 Asignación de espacio</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · "Cómo meter un archivo en el disco sin romperlo"</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El disco se divide en <strong>bloques</strong> del mismo tamaño (p. ej. 4 KB). Cuando guardas un archivo de 10 KB, el SO debe decidir <strong>qué bloques</strong> ocupará y en <strong>qué orden</strong>. Esa decisión es la <strong>asignación de espacio</strong>. Hay tres estrategias clásicas, cada una con ventajas y dolores de cabeza.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Imaginen un <strong>estacionamiento con puestos numerados</strong>. Un carro grande necesita 3 puestos seguidos. Si no hay 3 seguidos libres, ¿qué pasa? El carro no entra aunque haya 10 puestos sueltos. Eso es exactamente el problema de la <strong>asignación contigua</strong>. ¿Qué solución propondrían?</p>
+  </div>
+
+  <h3>⚖️ Las 3 estrategias clásicas</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📦 Contigua</h4>
+      <p>Cada archivo ocupa bloques <strong>seguidos</strong> en el disco. Rápida de leer (un solo movimiento del cabezal), pero puede generar <strong>fragmentación externa</strong>: hay espacio libre total, pero partido en pedacitos.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🔗 Enlazada</h4>
+      <p>Cada bloque guarda la dirección del siguiente. Los bloques pueden estar <strong>dispersos</strong> por el disco. No hay fragmentación externa, pero leer el bloque 100 obliga a leer los 99 anteriores (lento).</p>
+    </div>
+    <div class="compare-card c">
+      <h4>📑 Indexada</h4>
+      <p>Hay un <strong>bloque índice</strong> con la lista de todos los bloques del archivo. Combina lo mejor de las dos: los bloques pueden estar dispersos, pero se encuentran rápido consultando el índice. Usada por ext4, NTFS y la mayoría de sistemas modernos.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Guarda el archivo "MI_FOTO.jpg"</h3>
+  <p>El archivo pesa <strong>12 bloques</strong>. El disco tiene 24 bloques, algunos ocupados. Prueba cada estrategia y observa qué pasa con el tiempo de lectura y el espacio desperdiciado.</p>
+
+  <div class="simulador">
+    <div class="sim-head">💾 Asignación de bloques en disco</div>
+
+    <div class="disk-leyenda">
+      <span><span class="d-cell libre"></span> Libre</span>
+      <span><span class="d-cell ocupado"></span> Ocupado</span>
+      <span><span class="d-cell archivo"></span> Mi foto</span>
+      <span><span class="d-cell indice"></span> Índice</span>
+    </div>
+
+    <div class="disk-grid" id="diskGrid"></div>
+
+    <div class="alloc-info" id="allocInfo">Elige una estrategia para comenzar.</div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="allocContigua">📦 Contigua</button>
+      <button class="btn primary" id="allocEnlazada">🔗 Enlazada</button>
+      <button class="btn primary" id="allocIndexada">📑 Indexada</button>
+      <button class="btn ghost" id="allocReset">🔄 Reiniciar disco</button>
+    </div>
+
+    <div class="rest-log" id="allocLog" style="margin-top:1rem;max-height:180px;overflow-y:auto;"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué es la fragmentación interna?</h4>
+    <p>Si un archivo pesa 10 KB y cada bloque mide 4 KB, necesita 3 bloques (12 KB). Quedan 2 KB sin usar dentro del último bloque. Ese desperdicio se llama <strong>fragmentación interna</strong>. Con bloques más pequeños se desperdicia menos, pero crece el tamaño de la tabla de bloques.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "los archivos se guardan como en una caja, uno detrás de otro"</h4>
+    <p>Eso solo pasa con la asignación contigua. La mayoría de sistemas modernos usan <strong>asignación indexada</strong>: los bloques de un archivo pueden estar dispersos por todo el disco. El archivo "lógico" parece continuo gracias al índice, pero físicamente está hecho de pedazos.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 2 -->
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué problema tiene la asignación contigua?</p>
+      <button class="opcion" data-op="a">Es imposible de leer</button>
+      <button class="opcion" data-op="b">Cada bloque guarda la dirección del siguiente</button>
+      <button class="opcion" data-op="c">Puede dejar huecos dispersos que no se pueden usar juntos</button>
+      <button class="opcion" data-op="d">No permite archivos grandes</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> En la asignación enlazada, ¿cómo se sabe cuál es el siguiente bloque?</p>
+      <button class="opcion" data-op="a">Por la posición física</button>
+      <button class="opcion" data-op="b">Cada bloque guarda un puntero al siguiente</button>
+      <button class="opcion" data-op="c">Por el nombre del archivo</button>
+      <button class="opcion" data-op="d">El usuario lo escribe</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>3.</strong> ¿Qué estrategia usa un bloque índice para encontrar rápido todos los bloques?</p>
+      <button class="opcion" data-op="a">Indexada</button>
+      <button class="opcion" data-op="b">Contigua</button>
+      <button class="opcion" data-op="c">Enlazada</button>
+      <button class="opcion" data-op="d">Ninguna</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — DESCANSO ACTIVO
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar. Tu cerebro también necesita "desfragmentarse" un rato. 😄</p>
+  </div>
+
+  <div class="descanso-grid">
+    <div class="descanso-card">
+      <span class="big-icon">👀</span>
+      <h3>Regla 20-20-20</h3>
+      <p>Mira a algo que esté a <strong>20 pies (6 m)</strong> durante <strong>20 segundos</strong>. Tus ojos descansan de la pantalla. Repítelo 3 veces.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🤸</span>
+      <h3>Estira el cuerpo</h3>
+      <p>Párate. Gira el cuello 5 veces a cada lado. Estira los brazos hacia el techo 10 segundos. Tócate los pies sin doblar las rodillas.</p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">💧</span>
+      <h3>Toma agua</h3>
+      <p>El cerebro es 73% agua. Un vaso de agua mejora la concentración hasta 30 minutos. <strong>Bebe ahora.</strong></p>
+    </div>
+    <div class="descanso-card">
+      <span class="big-icon">🗣️</span>
+      <h3>Habla con alguien</h3>
+      <p>Coméntale a tu compañero/a una cosa nueva que aprendiste. Explicar consolida la memoria. 1 minuto basta.</p>
+    </div>
+  </div>
+
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso — ¿qué es un bloque índice?</h3>
+    <p>Pregunta rápida antes de volver. Toca la opción que creas correcta:</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-top="a">⚡ Un disco externo que acelera el equipo</button>
+      <button class="trivia-opt" data-tcorrecta="b" data-top="b">📑 Un bloque especial que guarda la lista de bloques de un archivo</button>
+      <button class="trivia-opt" data-top="c">🧱 El primer bloque del disco que arranca el SO</button>
+      <button class="trivia-opt" data-top="d">🔒 Un bloque cifrado con la contraseña del usuario</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Sabías que…?</h4>
+    <p>Los primeros discos duros de PCs tenían capacidades de <strong>5 MB</strong> o <strong>10 MB</strong>. Hoy un celular promedio tiene 100 000 veces más. La asignación contigua era común entonces porque los discos eran pequeños y los archivos también. Con archivos de cientos de megabytes, la indexada es la reina absoluta. 👑</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: Particiones →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — PARTICIONES
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>🍕 Particiones</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · "Un disco, varios pedazos" — organizar sin romper</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>partición</strong> es dividir un disco físico en varias regiones independientes, como cortar una pizza en porciones. Cada porción puede tener su propio sistema de archivos, su propia letra de unidad (en Windows) o punto de montaje (en Linux). Esto permite tener <strong>Windows y Linux en el mismo disco</strong>, separar el sistema de los documentos, o reservar espacio para recuperación.</p>
+  </div>
+
+  <h3>🍕 Simulador: Corta el disco en porciones</h3>
+  <p>Tienes un disco de <strong>500 GB</strong>. Arrastra los límites para repartirlo entre sistema, documentos, juegos y swap. Cuidado: si dejas muy poco al sistema, todo irá lento.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🍕 Particionador interactivo</div>
+
+    <div class="part-disk" id="partDisk">
+      <div class="part-segment s-system" id="partSystem"><span class="ps-name">Sistema</span><span class="ps-size">200 GB</span></div>
+      <div class="part-segment s-data" id="partData"><span class="ps-name">Documentos</span><span class="ps-size">150 GB</span></div>
+      <div class="part-segment s-games" id="partGames"><span class="ps-name">Juegos</span><span class="ps-size">100 GB</span></div>
+      <div class="part-segment s-swap" id="partSwap"><span class="ps-name">Swap</span><span class="ps-size">50 GB</span></div>
+    </div>
+
+    <div class="part-controls">
+      <div class="part-control system">
+        <div class="pc-head"><span class="pc-dot"></span> Sistema (SO + programas)</div>
+        <div class="pc-row"><span class="pc-label">Tamaño</span><input type="range" id="rangeSystem" min="50" max="300" value="200"><span class="pc-val" id="valSystem">200 GB</span></div>
+      </div>
+      <div class="part-control data">
+        <div class="pc-head"><span class="pc-dot"></span> Documentos</div>
+        <div class="pc-row"><span class="pc-label">Tamaño</span><input type="range" id="rangeData" min="20" max="250" value="150"><span class="pc-val" id="valData">150 GB</span></div>
+      </div>
+      <div class="part-control boot" id="ctrlGames">
+        <div class="pc-head"><span class="pc-dot"></span> Juegos</div>
+        <div class="pc-row"><span class="pc-label">Tamaño</span><input type="range" id="rangeGames" min="10" max="200" value="100"><span class="pc-val" id="valGames">100 GB</span></div>
+      </div>
+      <div class="part-control swap" id="ctrlSwap">
+        <div class="pc-head"><span class="pc-dot"></span> Swap / Recuperación</div>
+        <div class="pc-row"><span class="pc-label">Tamaño</span><input type="range" id="rangeSwap" min="10" max="120" value="50"><span class="pc-val" id="valSwap">50 GB</span></div>
+      </div>
+    </div>
+
+    <div class="part-status" id="partStatus">Disco usado: 500 GB / 500 GB ✅</div>
+  </div>
+
+  <h3>⚖️ Tabla de particiones: GPT vs MBR</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📜 MBR</h4>
+      <p>Formato antiguo. Solo permite <strong>4 particiones primarias</strong> y discos de hasta <strong>2 TB</strong>. Usa un pequeño sector de arranque de 512 bytes. Compatible con sistemas viejos.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🆕 GPT</h4>
+      <p>Formato moderno. Permite <strong>128 particiones</strong> o más y soporta discos enormes (zettabytes). Tiene copias de seguridad de la tabla, así que es más resistente a fallos. Requiere UEFI.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "particionar borra archivos"</h4>
+    <p>Particionar <strong>reorganiza la tabla de particiones</strong>, pero no borra los datos por sí solo. El peligro aparece cuando <strong>redimensionas</strong> una partición para hacerla más pequeña: el SO puede mover o borrar bloques al ajustar los límites. Por eso siempre se recomienda <strong>respaldar</strong> antes de tocar las particiones.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 4 -->
+  <div class="quiz" data-quiz="4">
+    <h3>🎯 Mini-Quiz del Módulo 4</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es una partición?</p>
+      <button class="opcion" data-op="a">Un archivo comprimido</button>
+      <button class="opcion" data-op="b">Una región independiente de un disco físico</button>
+      <button class="opcion" data-op="c">La memoria RAM reservada para el sistema</button>
+      <button class="opcion" data-op="d">Un tipo de cable de disco</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cuál formato de tabla de particiones es moderno y permite discos mayores a 2 TB?</p>
+      <button class="opcion" data-op="a">GPT</button>
+      <button class="opcion" data-op="b">MBR</button>
+      <button class="opcion" data-op="c">FAT32</button>
+      <button class="opcion" data-op="d">NTFS</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>3.</strong> ¿Por qué alguien tendría Windows y Linux en particiones distintas?</p>
+      <button class="opcion" data-op="a">Porque cada uno usa su propio sistema de archivos y arranque</button>
+      <button class="opcion" data-op="b">Porque el disco es más rápido así</button>
+      <button class="opcion" data-op="c">Las dos anteriores son ciertas</button>
+      <button class="opcion" data-op="d">Ninguna</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Formateo →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — FORMATEO LÓGICO Y FÍSICO
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🔧 Formateo lógico y físico</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · "Borrar es más complejo de lo que parece"</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El SO hace una <strong>abstracción</strong>: tu disco físico es un aparato con platos, cabezales y circuitos; el SO lo ve como una lista de bloques lógicos. El <strong>formateo físico</strong> (o de bajo nivel) prepara esos sectores magnéticos. El <strong>formateo lógico</strong> (o de alto nivel) construye el sistema de archivos: la tabla de asignación, el directorio raíz y las estructuras de control. Cuando "formateas" un USB desde Windows, estás haciendo formateo lógico.</p>
+  </div>
+
+  <h3>⚖️ Comparativa: físico vs lógico</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🛠️ Formateo físico (bajo nivel)</h4>
+      <p>Divide el disco en <strong>sectores y pistas</strong>, marca los sectores dañados y prepara la superficie. Hoy lo hace la fábrica o herramientas especiales; un usuario normal no lo hace.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🗂️ Formateo lógico (alto nivel)</h4>
+      <p>Crea el <strong>sistema de archivos</strong> (NTFS, ext4, FAT32…). Borra la tabla de archivos, pero los datos suelen seguir en el disco hasta que se sobreescriban.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🧹 Borrado seguro</h4>
+      <p>Sobreescribe los bloques varias veces con ceros, unos o datos aleatorios. Impide la recuperación. Se usa cuando se vende o recicla un disco con información privada.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Formatea el USB de 16 GB</h3>
+  <p>El USB tiene algunos "archivos" (bloques azules). Elige un tipo de formateo y mira qué sucede realmente con los datos y la tabla de archivos.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔧 Formateo de un USB</div>
+
+    <div class="usb-visual" id="usbVisual"></div>
+    <div class="usb-info" id="usbInfo">USB listo. Elige un formato.</div>
+
+    <div class="btn-row">
+      <button class="btn primary" id="fmtRapido">⚡ Formato rápido (lógico)</button>
+      <button class="btn" id="fmtCompleto">🧹 Formato completo (lógico + verificación)</button>
+      <button class="btn warm" id="fmtSeguro">🔒 Borrado seguro (sobreescribe)</button>
+      <button class="btn ghost" id="fmtReset">🔄 Reiniciar USB</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Consejo práctico</h4>
+    <p>Para usar un USB en Windows y Linux, elige <strong>exFAT</strong>: ambos lo leen y escriben sin problemas. Para un disco externo solo de Windows, <strong>NTFS</strong>. Para un disco de Linux, <strong>ext4</strong>. Y nunca formates una partición si no estás 100% seguro de cuál es: perderías los archivos.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: "formateo rápido y formateo completo son iguales"</h4>
+    <p>No. El <strong>formato rápido</strong> solo borra la tabla de archivos; los datos permanecen recuperables. El <strong>formato completo</strong> también verifica que los sectores estén sanos y, en algunos casos, sobreescribe ceros. Ninguno de los dos es "destrucción militar": para eso se usa borrado seguro o destrucción física del disco.</p>
+  </div>
+
+  <!-- QUIZ MÓDULO 5 -->
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace principalmente el formateo lógico?</p>
+      <button class="opcion" data-op="a">Repara sectores dañados del disco</button>
+      <button class="opcion" data-op="b">Crea el sistema de archivos y borra la tabla de archivos</button>
+      <button class="opcion" data-op="c">Aumenta la velocidad del disco</button>
+      <button class="opcion" data-op="d">Elimina los datos físicamente para siempre</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál es la diferencia clave entre formato rápido y completo?</p>
+      <button class="opcion" data-op="a">El rápido borra más archivos</button>
+      <button class="opcion" data-op="b">El completo solo cambia el nombre del disco</button>
+      <button class="opcion" data-op="c">El rápido solo borra la tabla; el completo verifica sectores y puede sobreescribir</button>
+      <button class="opcion" data-op="d">No hay diferencia</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>3.</strong> ¿Qué sistema de archivos recomendarías para un USB que se use en Windows y Linux?</p>
+      <button class="opcion" data-op="a">exFAT</button>
+      <button class="opcion" data-op="b">NTFS</button>
+      <button class="opcion" data-op="c">APFS</button>
+      <button class="opcion" data-op="d">ext4</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — TALLER FINAL
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos de almacenamiento</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: sistema de archivos, asignación de espacio, particiones y formateo. El último es el <strong>Jefe Final</strong>. Al superar todos, recibirás tu insignia de <strong>Storage Master</strong>. ¡Tú puedes!</p>
+  </div>
+
+  <!-- Reto 1: Emparejar concepto con definición -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 1</span>
+      <span class="challenge-title">🧩 Empareja cada concepto con su definición</span>
+    </div>
+    <p>Toca un concepto de la izquierda y luego su definición correcta a la derecha. 4 parejas.</p>
+
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Sistema de archivos</button>
+        <button class="ws-chip" data-mid="1b">Partición</button>
+        <button class="ws-chip" data-mid="1c">Formateo lógico</button>
+        <button class="ws-chip" data-mid="1d">Asignación indexada</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Región independiente de un disco físico</button>
+        <button class="ws-chip" data-mid="1B">Organiza archivos y carpetas en el disco</button>
+        <button class="ws-chip" data-mid="1C">Crea el sistema de archivos y borra la tabla</button>
+        <button class="ws-chip" data-mid="1D">Usa un bloque índice para localizar los bloques</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <!-- Reto 2: Ordenar pasos de formateo lógico -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 2</span>
+      <span class="challenge-title">🧹 Ordena los pasos de un formateo lógico</span>
+    </div>
+    <p>Arrastra (o usa las flechas) para ordenar de arriba (primero) hacia abajo (último).</p>
+
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order" id="wsOrder2">
+        <div class="ws-order-item" data-oid="2raiz" draggable="true"><span class="ord-num">?</span> Crear directorio raíz</div>
+        <div class="ws-order-item" data-oid="2tabla" draggable="true"><span class="ord-num">?</span> Escribir tabla de asignación vacía</div>
+        <div class="ws-order-item" data-oid="2etiqueta" draggable="true"><span class="ord-num">?</span> Poner etiqueta/nombre al volumen</div>
+        <div class="ws-order-item" data-oid="2tipo" draggable="true"><span class="ord-num">?</span> Elegir tipo de sistema de archivos</div>
+        <div class="ws-order-item" data-oid="2verificar" draggable="true"><span class="ord-num">?</span> Verificar sectores (solo formato completo)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up="2">⬆ Subir</button>
+        <button class="btn" data-ws-down="2">⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <!-- Reto 3: Calcular fragmentación interna -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Reto 3</span>
+      <span class="challenge-title">🧮 Calcula la fragmentación interna</span>
+    </div>
+    <p>Un archivo pesa <strong>10 KB</strong>. Cada bloque del sistema de archivos mide <strong>4 KB</strong>. ¿Cuántos bloques necesita y cuántos KB se desperdician dentro del último bloque?</p>
+
+    <div class="ws-block">
+      <div class="code-live">
+        Bloques necesarios =
+        <span class="hl-line"><input class="ws-input" data-ans="3" data-ws="3" placeholder="?" inputmode="numeric"></span>
+      </div>
+      <div class="code-live" style="margin-top:0.5rem;">
+        KB desperdiciados en el último bloque =
+        <span class="hl-line"><input class="ws-input" data-ans="2" data-ws="3b" placeholder="?" inputmode="numeric"></span>
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <!-- Reto 4: Jefe final — caso de uso -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Jefe Final</span>
+      <span class="challenge-title">🏆 Escenario: la PC no arranca</span>
+    </div>
+    <p>Tu compañero/a te dice: "Mi PC no arranca y me pide que formatee C:. ¿Si formateo rápido se arregla?". Toca la respuesta correcta:</p>
+
+    <div class="ws-block" id="reto4Opts">
+      <div class="ws-options">
+        <button class="ws-chip" data-r4="4A">❌ Sí, el formato rápido repara cualquier problema de arranque</button>
+        <button class="ws-chip" data-r4="4B">✅ El formateo rápido no repara fallos de hardware ni errores del bootloader; primero hay que diagnosticar y respaldar</button>
+        <button class="ws-chip" data-r4="4C">❌ No, porque el formato rápido es físico y destruye el disco</button>
+        <button class="ws-chip" data-r4="4D">❌ Formatear siempre arregla todo, no importa cuál sea el problema</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Storage Master!</h2>
+    <p class="lead">Ya sabes que el <strong>sistema de archivos</strong> es la biblioteca del disco, que la <strong>asignación de espacio</strong> decide dónde vive cada archivo, que las <strong>particiones</strong> dividen el disco sin romperlo (con GPT o MBR) y que el <strong>formateo lógico</strong> construye el sistema de archivos mientras el <strong>físico</strong> prepara la superficie. Eso te pone un escalón por encima de quien ve el disco como una caja mágica. 💪</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿dónde guarda el SO los metadatos de un archivo? Ya tienes la respuesta: en las estructuras del sistema de archivos. 💾</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<!-- =================== FOOTER =================== -->
+<footer class="pie">
+  <div class="fb">🎓 Sistemas Operativos · Clase 7 · Plataforma interactiva</div>
+  <div>Gestión del almacenamiento · Sistema de archivos · Asignación · Particiones · Formateo · 4 horas · Nivel Intermedio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué pasa dentro del disco.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
