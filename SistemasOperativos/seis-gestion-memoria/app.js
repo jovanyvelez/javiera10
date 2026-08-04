@@ -322,7 +322,11 @@ function inicializarFeaturesGrid() {
       grid.querySelectorAll('.feature-card').forEach(c => c.classList.remove('expanded'));
       if (!isOpen) {
         card.classList.add('expanded');
-        addXP(2);
+        // XP solo la primera vez que se expande cada tarjeta (evita farmear)
+        if (!card.dataset.xp) {
+          card.dataset.xp = '1';
+          addXP(2);
+        }
       }
     });
   });
@@ -357,7 +361,11 @@ function inicializarPyramid() {
         ? '¡un millón de veces más lento que la RAM!'
         : 'nanosegundos: un abrir y cerrar de ojos a nivel atómico.';
       info.innerHTML = `<strong style="color:${n.color}">${n.nombre}</strong> — tamaño típico: ${n.tam} · acceso: ${n.vel} (${veces})`;
-      addXP(2);
+      // XP solo la primera vez que se toca cada nivel (evita farmear)
+      if (!lvl.dataset.xp) {
+        lvl.dataset.xp = '1';
+        addXP(2);
+      }
     });
   });
 }
@@ -453,13 +461,14 @@ function inicializarAllocSim() {
   }
 
   const nomAlg = { first: 'First Fit', best: 'Best Fit', worst: 'Worst Fit' };
+  const xpAlgs = new Set(); // XP solo la primera vez por algoritmo (evita farmear)
   [['allocFirst', 'first'], ['allocBest', 'best'], ['allocWorst', 'worst']].forEach(([id, alg]) => {
     const btn = document.getElementById(id);
     if (btn) btn.addEventListener('click', () => {
       logEl.innerHTML = '';
       log('ok', `Algoritmo: ${nomAlg[alg]} — cada proceso busca hueco donde quepa.`);
       ejecutar(alg);
-      addXP(2);
+      if (!xpAlgs.has(alg)) { xpAlgs.add(alg); addXP(2); }
     });
   });
 
@@ -494,6 +503,10 @@ function inicializarPageSim() {
   let tabla = { 0: 2, 1: 7, 2: 4, 3: 11, 4: 9, 5: 13 };
   let paginasCargadas = [0, 1, 2, 3, 4, 5];
   let logica = null;
+  const xpAcciones = new Set(); // XP solo la primera vez por acción (evita farmear)
+  const darXp = accion => {
+    if (!xpAcciones.has(accion)) { xpAcciones.add(accion); addXP(accion === 'fault' ? 3 : 2); }
+  };
 
   function render() {
     // Tabla de páginas
@@ -541,7 +554,7 @@ function inicializarPageSim() {
     tSteps.textContent = `La CPU pidió la dirección lógica página ${pg}, offset ${offset}. Presiona "🧮 Traducir".`;
     status.textContent = `Dirección lógica lista: página ${pg}, offset ${offset}.`;
     status.style.color = '';
-    addXP(2);
+    darXp('random');
   });
 
   const transBtn = document.getElementById('pageTranslate');
@@ -555,7 +568,7 @@ function inicializarPageSim() {
     flash(pg, marco);
     status.textContent = `Traducción OK: p${pg}+${offset} → marco ${marco} → dirección física ${fisica}.`;
     status.style.color = 'var(--verde)';
-    addXP(2);
+    darXp('translate');
   });
 
   const faultBtn = document.getElementById('pageFault');
@@ -575,7 +588,7 @@ function inicializarPageSim() {
     flash(7, libre);
     status.innerHTML = `⚡ <strong>PAGE FAULT resuelto:</strong> página 7 cargada desde el swap al marco ${libre}. El proceso ni se enteró.`;
     status.style.color = 'var(--ambar)';
-    addXP(3);
+    darXp('fault');
   });
 
   const resetBtn = document.getElementById('pageReset');
@@ -615,6 +628,10 @@ function inicializarMonSim() {
   const INICIAL = { used: 6.1, cache: 5.6, free: 4.3, swapUsed: 0 };
   let m = { ...INICIAL };
   const TOTAL = 16, SWAP_TOTAL = 2;
+  const xpAcciones = new Set(); // XP solo la primera vez por acción (evita farmear)
+  const darXp = accion => {
+    if (!xpAcciones.has(accion)) { xpAcciones.add(accion); addXP(2); }
+  };
 
   const fmt = v => v <= 0.05 ? '0 B' : (v.toFixed(1).replace('.', ',') + ' Gi');
 
@@ -655,14 +672,14 @@ function inicializarMonSim() {
     m.used = +(m.used + 1.5).toFixed(1);
     m.cache = +(m.cache + 0.8).toFixed(1);
     recalcular(true);
-    addXP(2);
+    darXp('tabs');
   });
 
   const juego = document.getElementById('monJuego');
   if (juego) juego.addEventListener('click', () => {
     m.used = +(m.used + 4).toFixed(1);
     recalcular(true);
-    addXP(2);
+    darXp('juego');
   });
 
   const cerrar = document.getElementById('monCerrar');
@@ -673,7 +690,7 @@ function inicializarMonSim() {
       m.swapUsed = +(Math.max(0, m.swapUsed - 1)).toFixed(1);
     }
     recalcular(true);
-    addXP(2);
+    darXp('cerrar');
   });
 
   const reset = document.getElementById('monReset');
@@ -685,249 +702,29 @@ function inicializarMonSim() {
   reset.click();
 }
 
-/* ---------- ORDEN GENÉRICO (drag + flechas) ---------- */
-function renumerarOrden(cont) {
-  cont.querySelectorAll('.ws-order-item').forEach((it, i) => {
-    const num = it.querySelector('.ord-num');
-    if (num) num.textContent = i + 1;
-  });
-}
-
-function configurarOrdenGenerico(cont) {
-  let dragSrc = null;
-  cont.querySelectorAll('.ws-order-item').forEach(it => {
-    it.addEventListener('dragstart', e => {
-      dragSrc = it;
-      it.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    it.addEventListener('dragend', () => {
-      it.classList.remove('dragging');
-      renumerarOrden(cont);
-    });
-    it.addEventListener('dragover', e => {
-      e.preventDefault();
-      const after = getDragAfter(cont, e.clientY);
-      if (after == null) cont.appendChild(dragSrc);
-      else cont.insertBefore(dragSrc, after);
-    });
-  });
-
-  const scope = cont.closest('.simulador') || cont.closest('.challenge') || cont.parentElement;
-  scope.querySelectorAll('[data-ws-up]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      moverOrdenGenerico(cont, -1);
-      renumerarOrden(cont);
-    });
-  });
-  scope.querySelectorAll('[data-ws-down]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      moverOrdenGenerico(cont, 1);
-      renumerarOrden(cont);
-    });
-  });
-}
-
-function getDragAfter(container, y) {
-  const els = [...container.querySelectorAll('.ws-order-item:not(.dragging)')];
-  return els.reduce((closest, child) => {
-    const box = child.getBoundingClientRect();
-    const offset = y - box.top - box.height / 2;
-    if (offset < 0 && offset > closest.offset) return { offset, element: child };
-    return closest;
-  }, { offset: -Infinity }).element;
-}
-
-function moverOrdenGenerico(cont, dir) {
-  const selected = cont.querySelector('.ws-order-item.selected');
-  if (!selected) {
-    const first = cont.querySelector('.ws-order-item');
-    if (first) first.classList.add('selected');
-    return;
-  }
-  const items = [...cont.children];
-  const i = items.indexOf(selected);
-  const j = i + dir;
-  if (j < 0 || j >= items.length) return;
-  if (dir < 0) cont.insertBefore(selected, items[j]);
-  else cont.insertBefore(selected, items[j].nextSibling);
-}
-
-document.addEventListener('click', e => {
-  const it = e.target.closest('.ws-order-item');
-  if (!it) return;
-  const cont = it.parentElement;
-  cont.querySelectorAll('.ws-order-item').forEach(x => x.classList.remove('selected'));
-  it.classList.add('selected');
-});
-
-/* ---------- TALLER (matching + order + input + select) ---------- */
-const TALLER_RESP = {
-  1: { '1a': '1A', '1b': '1B', '1c': '1C', '1d': '1D' }
-};
-const TALLER_ORDER = { 2: ['2reg', '2cache', '2ram', '2ssd', '2hdd', '2cinta'] };
-const TALLER_INPUT = { 3: '17384' };
-const TALLER_SELECT = { 4: '4B' };
-let reto4Seleccion = null;
-
-const seleccionMatch = {};
-const parejasMatch = {};
-
+/* ---------- TALLER (soluciones plegables) ---------- */
 function configurarTaller() {
-  document.querySelectorAll('[data-ws-match]').forEach(block => {
-    const id = block.dataset.wsMatch;
-    parejasMatch[id] = [];
-    seleccionMatch[id] = {};
-
-    block.querySelectorAll('[data-role="left"] .ws-chip').forEach(chip => {
-      chip.addEventListener('click', () => seleccionarMatchChip(id, chip, 'left'));
+  document.querySelectorAll('.taller-sol-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.sol;
+      const sol = document.getElementById(id);
+      if (!sol) return;
+      const visible = sol.classList.toggle('visible');
+      btn.textContent = visible ? '🙈 Ocultar solución' : '👁️ Ver solución';
+      if (visible && !estado.talleres[id]) {
+        estado.talleres[id] = true;
+        guardarProgreso();
+      }
+      // 6 soluciones en el taller (diag, jerarquia, free, top, paginacion, reflex)
+      const solucionesAbiertas = Object.keys(estado.talleres).filter(k => k.startsWith('sol-')).length;
+      if (visible && solucionesAbiertas >= 6 && !estado.completados.has(6)) {
+        marcarCompletado(6);
+        otorgarBadge('🛠️ Memory Master Completado');
+      }
     });
-    block.querySelectorAll('[data-role="right"] .ws-chip').forEach(chip => {
-      chip.addEventListener('click', () => seleccionarMatchChip(id, chip, 'right'));
-    });
-  });
-
-  const cont2 = document.getElementById('wsOrder2');
-  if (cont2) configurarOrdenGenerico(cont2);
-
-  document.querySelectorAll('[data-r4]').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('[data-r4]').forEach(c => c.classList.remove('selected'));
-      chip.classList.add('selected');
-      reto4Seleccion = chip.dataset.r4;
-    });
-  });
-
-  document.querySelectorAll('[data-check-ws]').forEach(btn => {
-    btn.addEventListener('click', () => validarReto(btn.dataset.checkWs));
   });
 }
 
-function seleccionarMatchChip(id, chip, lado) {
-  if (chip.classList.contains('correct')) return;
-
-  seleccionMatch[id][lado] = chip.dataset.mid;
-  const block = chip.closest('.ws-block');
-  block.querySelectorAll(`[data-role="${lado}"] .ws-chip`).forEach(c => c.classList.remove('selected'));
-  chip.classList.add('selected');
-
-  if (seleccionMatch[id].left && seleccionMatch[id].right) {
-    parejasMatch[id].push({ left: seleccionMatch[id].left, right: seleccionMatch[id].right });
-    block.querySelectorAll('.ws-chip.selected').forEach(c => {
-      c.classList.remove('selected');
-      c.classList.add('paired-temp');
-      c.style.opacity = '0.5';
-    });
-    seleccionMatch[id] = {};
-  }
-}
-
-function validarReto(id) {
-  const fb = document.getElementById(`ws-fb-${id}`);
-  if (!fb) return;
-  if (!TALLER_RESP[id] && !TALLER_ORDER[id] && !TALLER_INPUT[id] && !TALLER_SELECT[id]) return;
-  let allOk = true;
-
-  if (TALLER_RESP[id]) {
-    const block = document.querySelector(`[data-ws-match="${id}"]`);
-    const correctMap = TALLER_RESP[id];
-
-    // Limpiar parejas incorrectas previas: conservar solo las correctas y resetear estilos
-    parejasMatch[id] = parejasMatch[id].filter(p => correctMap[p.left] === p.right);
-    block.querySelectorAll('.ws-chip').forEach(c => {
-      c.classList.remove('correct', 'wrong', 'paired-temp');
-      c.style.opacity = '';
-    });
-    block.querySelectorAll('.ws-chip').forEach(c => {
-      if (parejasMatch[id].some(p => p.left === c.dataset.mid || p.right === c.dataset.mid)) {
-        c.classList.add('correct');
-      }
-    });
-
-    const totalEsperado = Object.keys(correctMap).length;
-    if (parejasMatch[id].length !== totalEsperado) allOk = false;
-  }
-
-  if (TALLER_ORDER[id]) {
-    const cont = document.getElementById('wsOrder2');
-    const items = [...cont.querySelectorAll('.ws-order-item')];
-    const orden = items.map(it => it.dataset.oid);
-    const expected = TALLER_ORDER[id];
-    items.forEach((it, i) => {
-      it.classList.remove('correct', 'wrong');
-      if (orden[i] === expected[i]) {
-        it.classList.add('correct');
-      } else {
-        it.classList.add('wrong');
-        allOk = false;
-      }
-    });
-  }
-
-  if (TALLER_INPUT[id]) {
-    document.querySelectorAll(`.ws-input[data-ws="${id}"]`).forEach(inp => {
-      const got = inp.value.trim().toLowerCase();
-      const exp = TALLER_INPUT[id].toLowerCase();
-      inp.classList.remove('correct', 'wrong');
-      if (got === exp) {
-        inp.classList.add('correct');
-      } else {
-        inp.classList.add('wrong');
-        allOk = false;
-      }
-    });
-  }
-
-  if (TALLER_SELECT[id]) {
-    const chips = document.querySelectorAll('[data-r4]');
-    chips.forEach(c => c.classList.remove('correct', 'wrong'));
-    if (!reto4Seleccion) {
-      allOk = false;
-    } else if (reto4Seleccion === TALLER_SELECT[id]) {
-      const okChip = document.querySelector(`[data-r4="${TALLER_SELECT[id]}"]`);
-      if (okChip) okChip.classList.add('correct');
-    } else {
-      const badChip = document.querySelector(`[data-r4="${reto4Seleccion}"]`);
-      if (badChip) badChip.classList.add('wrong');
-      const okChip = document.querySelector(`[data-r4="${TALLER_SELECT[id]}"]`);
-      if (okChip) okChip.classList.add('correct');
-      allOk = false;
-    }
-  }
-
-  fb.classList.add('visible');
-  if (allOk) {
-    fb.className = 'resultado-ws visible ok';
-    const msgs = {
-      1: '¡Perfecto! RAM=volátil de procesos, ROM=firmware de arranque, caché=copia rápida, swap=disco que extiende la RAM.',
-      2: '¡Excelente! La jerarquía: Registros → Caché → RAM → SSD → HDD → Cinta. Cada nivel es más lento y más barato.',
-      3: '¡Muy bien! Página 2 → marco 4. Dirección física = 4 × 4096 + 1000 = 17384.',
-      4: '🏆 ¡JEFE FINAL VENCIDO! El SO usa memoria virtual: va intercambiando páginas entre RAM y swap. Lento, pero funciona.'
-    };
-    const xpPorReto = { 1: 30, 2: 35, 3: 40, 4: 45 };
-    fb.innerHTML = `✅ ${msgs[id]} <strong>+${xpPorReto[id]} XP</strong>`;
-    if (!estado.talleres[id]) {
-      estado.talleres[id] = true;
-      addXP(xpPorReto[id]);
-    }
-    const retosTaller = ['1', '2', '3', '4'];
-    if (retosTaller.every(r => estado.talleres[r])) {
-      marcarCompletado(6);
-      otorgarBadge('🛠️ Memory Master Completado');
-    }
-  } else {
-    fb.className = 'resultado-ws visible no';
-    const hints = {
-      1: 'Pista: RAM→guarda procesos actuales; ROM→firmware de arranque; caché→copia rápida de uso frecuente; swap→disco que extiende la RAM.',
-      2: 'Pista: el orden es Registros → Caché → RAM → SSD → HDD → Cinta. Piensa en velocidad: CPU primero, cintas de backup al final.',
-      3: 'Pista: página 2 está en el marco 4. Calcula 4 × 4096 + 1000. Solo el número, sin comas ni espacios.',
-      4: 'Pista: con paginación + swap el proceso puede "caber" aunque la RAM física sea menor. El SO intercambia páginas entre RAM y disco.'
-    };
-    fb.innerHTML = `❌ Algunas respuestas son incorrectas. ${hints[id]}`;
-  }
-
-  guardarProgreso();
-}
 
 /* ---------- ATAJOS DE TECLADO ---------- */
 function configurarTeclado() {

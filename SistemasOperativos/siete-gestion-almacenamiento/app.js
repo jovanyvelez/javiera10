@@ -304,10 +304,14 @@ function inicializarFsFeatures() {
     card.addEventListener('click', () => {
       const isOpen = card.classList.contains('expanded');
       grid.querySelectorAll('.feature-card').forEach(c => c.classList.remove('expanded'));
-      if (!isOpen && !card.dataset.xp) {
-        card.dataset.xp = '1'; // XP solo la primera vez que se expande
+      if (!isOpen) {
         card.classList.add('expanded');
-        addXP(2);
+        // XP solo la primera vez que se expande (evita farmear), pero la tarjeta
+        // siempre puede volver a abrirse si se colapsa
+        if (!card.dataset.xp) {
+          card.dataset.xp = '1';
+          addXP(2);
+        }
       }
     });
   });
@@ -548,7 +552,8 @@ function inicializarFormatoUsb() {
 
   document.getElementById('fmtRapido').addEventListener('click', () => {
     detenerWipe();
-    cells = cells.map(s => s === 'archivo' ? 'libre' : s);
+    // Cualquier celda no-libre (archivos o restos de un borrado interrumpido) queda libre
+    cells = cells.map(() => 'libre');
     renderUsb();
     info.innerHTML = '⚡ <strong>Formato rápido (lógico)</strong>: se borró la tabla de archivos. Los datos aún podrían recuperarse con herramientas especiales.';
     info.style.color = 'var(--ambar)';
@@ -557,7 +562,8 @@ function inicializarFormatoUsb() {
 
   document.getElementById('fmtCompleto').addEventListener('click', () => {
     detenerWipe();
-    cells = cells.map(s => s === 'archivo' ? 'libre' : s);
+    // Igual que el rápido, limpia también los restos de un borrado interrumpido
+    cells = cells.map(() => 'libre');
     renderUsb();
     info.innerHTML = '🧹 <strong>Formato completo (lógico + verificación)</strong>: borra la tabla y verifica sectores. En algunos casos sobreescribe con ceros, pero no garantiza destrucción total.';
     info.style.color = 'var(--verde)';
@@ -589,254 +595,29 @@ function inicializarFormatoUsb() {
   initUsb();
 }
 
-/* ---------- ORDEN GENÉRICO (drag + flechas) ---------- */
-function renumerarOrden(cont) {
-  cont.querySelectorAll('.ws-order-item').forEach((it, i) => {
-    const num = it.querySelector('.ord-num');
-    if (num) num.textContent = i + 1;
-  });
-}
-
-function configurarOrdenGenerico(cont) {
-  let dragSrc = null;
-  cont.querySelectorAll('.ws-order-item').forEach(it => {
-    it.addEventListener('dragstart', e => {
-      dragSrc = it;
-      it.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    it.addEventListener('dragend', () => {
-      it.classList.remove('dragging');
-      renumerarOrden(cont);
-    });
-    it.addEventListener('dragover', e => {
-      e.preventDefault();
-      if (!dragSrc) return;
-      const after = getDragAfter(cont, e.clientY);
-      if (after == null) cont.appendChild(dragSrc);
-      else cont.insertBefore(dragSrc, after);
-    });
-  });
-
-  const scope = cont.closest('.simulador') || cont.closest('.challenge') || cont.parentElement;
-  scope.querySelectorAll('[data-ws-up]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      moverOrdenGenerico(cont, -1);
-      renumerarOrden(cont);
-    });
-  });
-  scope.querySelectorAll('[data-ws-down]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      moverOrdenGenerico(cont, 1);
-      renumerarOrden(cont);
-    });
-  });
-}
-
-function getDragAfter(container, y) {
-  const els = [...container.querySelectorAll('.ws-order-item:not(.dragging)')];
-  return els.reduce((closest, child) => {
-    const box = child.getBoundingClientRect();
-    const offset = y - box.top - box.height / 2;
-    if (offset < 0 && offset > closest.offset) return { offset, element: child };
-    return closest;
-  }, { offset: -Infinity }).element;
-}
-
-function moverOrdenGenerico(cont, dir) {
-  const selected = cont.querySelector('.ws-order-item.selected');
-  if (!selected) {
-    const first = cont.querySelector('.ws-order-item');
-    if (first) first.classList.add('selected');
-    return;
-  }
-  const items = [...cont.children];
-  const i = items.indexOf(selected);
-  const j = i + dir;
-  if (j < 0 || j >= items.length) return;
-  if (dir < 0) cont.insertBefore(selected, items[j]);
-  else cont.insertBefore(selected, items[j].nextSibling);
-}
-
-document.addEventListener('click', e => {
-  const it = e.target.closest('.ws-order-item');
-  if (!it) return;
-  const cont = it.parentElement;
-  cont.querySelectorAll('.ws-order-item').forEach(x => x.classList.remove('selected'));
-  it.classList.add('selected');
-});
-
-/* ---------- TALLER (matching + order + input + select) ---------- */
-const TALLER_RESP = {
-  1: { '1a': '1B', '1b': '1A', '1c': '1C', '1d': '1D' }
-};
-const TALLER_ORDER = { 2: ['2tipo', '2tabla', '2raiz', '2etiqueta', '2verificar'] };
-const TALLER_INPUT = { 3: '3', '3b': '2' };
-const TALLER_SELECT = { 4: '4B' };
-let reto4Seleccion = null;
-
-const seleccionMatch = {};
-const parejasMatch = {};
-
+/* ---------- TALLER (soluciones plegables) ---------- */
 function configurarTaller() {
-  document.querySelectorAll('[data-ws-match]').forEach(block => {
-    const id = block.dataset.wsMatch;
-    parejasMatch[id] = [];
-    seleccionMatch[id] = {};
-
-    block.querySelectorAll('[data-role="left"] .ws-chip').forEach(chip => {
-      chip.addEventListener('click', () => seleccionarMatchChip(id, chip, 'left'));
+  document.querySelectorAll('.taller-sol-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.sol;
+      const sol = document.getElementById(id);
+      if (!sol) return;
+      const visible = sol.classList.toggle('visible');
+      btn.textContent = visible ? '🙈 Ocultar solución' : '👁️ Ver solución';
+      if (visible && !estado.talleres[id]) {
+        estado.talleres[id] = true;
+        guardarProgreso();
+      }
+      // 6 soluciones en el taller (diag, comando-lsblk, comando-ls, particion, formateo, reflex)
+      const solucionesAbiertas = Object.keys(estado.talleres).filter(k => k.startsWith('sol-')).length;
+      if (visible && solucionesAbiertas >= 6 && !estado.completados.has(6)) {
+        marcarCompletado(6);
+        otorgarBadge('🛠️ Storage Master Completado');
+      }
     });
-    block.querySelectorAll('[data-role="right"] .ws-chip').forEach(chip => {
-      chip.addEventListener('click', () => seleccionarMatchChip(id, chip, 'right'));
-    });
-  });
-
-  const cont2 = document.getElementById('wsOrder2');
-  if (cont2) configurarOrdenGenerico(cont2);
-
-  document.querySelectorAll('[data-r4]').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('[data-r4]').forEach(c => c.classList.remove('selected'));
-      chip.classList.add('selected');
-      reto4Seleccion = chip.dataset.r4;
-    });
-  });
-
-  document.querySelectorAll('[data-check-ws]').forEach(btn => {
-    btn.addEventListener('click', () => validarReto(btn.dataset.checkWs));
   });
 }
 
-function seleccionarMatchChip(id, chip, lado) {
-  if (chip.classList.contains('correct') || chip.classList.contains('paired-temp')) return;
-
-  seleccionMatch[id][lado] = chip.dataset.mid;
-  const block = chip.closest('.ws-block');
-  block.querySelectorAll(`[data-role="${lado}"] .ws-chip`).forEach(c => c.classList.remove('selected'));
-  chip.classList.add('selected');
-
-  if (seleccionMatch[id].left && seleccionMatch[id].right) {
-    parejasMatch[id].push({ left: seleccionMatch[id].left, right: seleccionMatch[id].right });
-    block.querySelectorAll('.ws-chip.selected').forEach(c => {
-      c.classList.remove('selected');
-      c.classList.add('paired-temp');
-      c.style.opacity = '0.5';
-    });
-    seleccionMatch[id] = {};
-  }
-}
-
-function validarReto(id) {
-  const fb = document.getElementById(`ws-fb-${id}`);
-  if (!fb) return;
-  if (!TALLER_RESP[id] && !TALLER_ORDER[id] && !TALLER_INPUT[id] && !TALLER_SELECT[id]) return;
-  let allOk = true;
-
-  if (TALLER_RESP[id]) {
-    const block = document.querySelector(`[data-ws-match="${id}"]`);
-    const correctMap = TALLER_RESP[id];
-
-    parejasMatch[id] = parejasMatch[id].filter(p => correctMap[p.left] === p.right);
-    // Elimina parejas duplicadas (mismo concepto izquierdo registrado dos veces)
-    const unicas = new Map();
-    parejasMatch[id].forEach(p => unicas.set(p.left, p.right));
-    parejasMatch[id] = [...unicas].map(([left, right]) => ({ left, right }));
-    block.querySelectorAll('.ws-chip').forEach(c => {
-      c.classList.remove('correct', 'wrong', 'paired-temp');
-      c.style.opacity = '';
-    });
-    block.querySelectorAll('.ws-chip').forEach(c => {
-      if (parejasMatch[id].some(p => p.left === c.dataset.mid || p.right === c.dataset.mid)) {
-        c.classList.add('correct');
-      }
-    });
-
-    const totalEsperado = Object.keys(correctMap).length;
-    if (parejasMatch[id].length !== totalEsperado) allOk = false;
-  }
-
-  if (TALLER_ORDER[id]) {
-    const cont = document.getElementById('wsOrder2');
-    const items = [...cont.querySelectorAll('.ws-order-item')];
-    const orden = items.map(it => it.dataset.oid);
-    const expected = TALLER_ORDER[id];
-    items.forEach((it, i) => {
-      it.classList.remove('correct', 'wrong');
-      if (orden[i] === expected[i]) {
-        it.classList.add('correct');
-      } else {
-        it.classList.add('wrong');
-        allOk = false;
-      }
-    });
-  }
-
-  if (TALLER_INPUT[id]) {
-    document.querySelectorAll(`.ws-input[data-ws="${id}"], .ws-input[data-ws="${id}b"]`).forEach(inp => {
-      const key = inp.dataset.ws;
-      const got = inp.value.trim().toLowerCase();
-      const exp = (TALLER_INPUT[key] || '').toLowerCase();
-      inp.classList.remove('correct', 'wrong');
-      if (got === exp) {
-        inp.classList.add('correct');
-      } else {
-        inp.classList.add('wrong');
-        allOk = false;
-      }
-    });
-  }
-
-  if (TALLER_SELECT[id]) {
-    const chips = document.querySelectorAll('[data-r4]');
-    chips.forEach(c => c.classList.remove('correct', 'wrong'));
-    if (!reto4Seleccion) {
-      allOk = false;
-    } else if (reto4Seleccion === TALLER_SELECT[id]) {
-      const okChip = document.querySelector(`[data-r4="${TALLER_SELECT[id]}"]`);
-      if (okChip) okChip.classList.add('correct');
-    } else {
-      const badChip = document.querySelector(`[data-r4="${reto4Seleccion}"]`);
-      if (badChip) badChip.classList.add('wrong');
-      const okChip = document.querySelector(`[data-r4="${TALLER_SELECT[id]}"]`);
-      if (okChip) okChip.classList.add('correct');
-      allOk = false;
-    }
-  }
-
-  fb.classList.add('visible');
-  if (allOk) {
-    fb.className = 'resultado-ws visible ok';
-    const msgs = {
-      1: '¡Perfecto! Sistema de archivos=organiza archivos, Partición=región del disco, Formateo lógico=crea sistema de archivos, Indexada=usa bloque índice.',
-      2: '¡Excelente! Orden: elegir tipo → escribir tabla vacía → crear raíz → poner etiqueta → verificar sectores.',
-      3: '¡Muy bien! 10 KB / 4 KB = 2.5 → se necesitan 3 bloques; último bloque desperdicia 2 KB (12 - 10).',
-      4: '🏆 ¡JEFE FINAL VENCIDO! Formatear no repara hardware ni bootloader; primero hay que diagnosticar y respaldar.'
-    };
-    const xpPorReto = { 1: 30, 2: 35, 3: 30, 4: 45 };
-    fb.innerHTML = `✅ ${msgs[id]} <strong>+${xpPorReto[id]} XP</strong>`;
-    if (!estado.talleres[id]) {
-      estado.talleres[id] = true;
-      addXP(xpPorReto[id]);
-    }
-    const retosTaller = ['1', '2', '3', '4'];
-    if (retosTaller.every(r => estado.talleres[r])) {
-      marcarCompletado(6);
-      otorgarBadge('🛠️ Storage Master Completado');
-    }
-  } else {
-    fb.className = 'resultado-ws visible no';
-    const hints = {
-      1: 'Pista: Sistema de archivos→organiza; Partición→región del disco; Formateo lógico→crea sistema de archivos; Indexada→bloque índice.',
-      2: 'Pista: primero eliges el tipo de sistema de archivos, luego escribes la tabla vacía, creas el directorio raíz, pones etiqueta y, al final, verificas sectores.',
-      3: 'Pista: 10 KB necesitan 3 bloques de 4 KB. En el último bloque sobran 2 KB.',
-      4: 'Pista: formatear borra la tabla de archivos, no repara hardware ni errores de arranque. Lo primero es respaldar y diagnosticar.'
-    };
-    fb.innerHTML = `❌ Algunas respuestas son incorrectas. ${hints[id]}`;
-  }
-
-  guardarProgreso();
-}
 
 /* ---------- ATAJOS DE TECLADO ---------- */
 function configurarTeclado() {

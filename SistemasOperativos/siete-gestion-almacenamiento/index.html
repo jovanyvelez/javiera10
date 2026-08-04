@@ -93,7 +93,7 @@
         <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
         <tr><td>03 · Particiones</td><td style="color:var(--ambar)">Dividir el disco sin romperlo</td><td>50 min</td><td>100 XP</td></tr>
         <tr><td>04 · Formateo</td><td style="color:var(--verde)">Lógico vs físico y tipos de formato</td><td>45 min</td><td>100 XP</td></tr>
-        <tr><td>05 · Taller final</td><td style="color:var(--morado)">Misión Storage Master</td><td>35 min</td><td>140 XP</td></tr>
+        <tr><td>06 · Taller entregable</td><td style="color:var(--morado)">Caso "USB de Camila" — almacenamiento en acción</td><td>35 min</td><td>30 XP</td></tr>
       </tbody>
     </table>
   </div>
@@ -545,114 +545,237 @@
 </section>
 
 <!-- ============================================================
-     MÓDULO 6 — TALLER FINAL
+     MÓDULO 6 — TALLER ENTREGABLE
 ============================================================ -->
 <section class="modulo" data-modulo="6">
-  <h2>🛠️ Taller final</h2>
-  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos de almacenamiento</p>
+  <h2>📦 Taller entregable: "USB de Camila"</h2>
+  <p class="meta-modulo">Misión 06 · Caso end-to-end: diagnostica el disco y USB de un equipo real y entrega tus comandos y salidas · ~35 min</p>
+
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge">Taller final · Entregable</span>
+      <span class="challenge-title">Diagnóstico de disco y USB en un equipo real</span>
+    </div>
+    <p>Tu prima Camila (la del taller anterior) ahora tiene otro problema: le regalaron un <strong>USB de 16 GB</strong> lleno de fotos, pero <strong>"no aparece" cuando lo conecta</strong>. En pareja, van a actuar como técnicos de almacenamiento: abrir una terminal, ejecutar <strong>comandos reales</strong> de inspección de discos, particiones y sistema de archivos, leer las salidas y escribir un diagnóstico. La entrega es un archivo <code>.txt</code> con cada comando, su salida y su interpretación.</p>
+  </div>
 
   <div class="caja-concepto">
-    <h3>🎯 Tu misión</h3>
-    <p>Cuatro retos integran todo lo visto: sistema de archivos, asignación de espacio, particiones y formateo. El último es el <strong>Jefe Final</strong>. Al superar todos, recibirás tu insignia de <strong>Storage Master</strong>. ¡Tú puedes!</p>
+    <h4>📋 Enunciado</h4>
+    <p>Camila conecta su USB y no aparece en el explorador. Como técnicos, deben:</p>
+    <ol>
+      <li>Identificar <strong>qué discos y particiones</strong> tiene el equipo (incluido el USB).</li>
+      <li>Verificar <strong>qué sistema de archivos</strong> usa el USB y si está montado.</li>
+      <li>Explicar <strong>qué hace el SO</strong> cuando conecta un USB (detección, asignación de letra, montaje).</li>
+      <li>Proponer <strong>tres acciones concretas</strong> para que Camila pueda abrir sus fotos.</li>
+    </ol>
+    <p>Si el aula tiene Linux/WSL, usen <code>lsblk</code>, <code>df -h</code> y <code>mount</code> reales. Si sólo tienen Windows, usen <code>diskpart</code> y <code>wmic logicaldisk</code>. Lo importante es <strong>ejecutar y copiar la salida real</strong>, no inventarla.</p>
   </div>
 
-  <!-- Reto 1: Emparejar concepto con definición -->
-  <div class="challenge">
-    <div class="challenge-head">
-      <span class="challenge-badge">Reto 1</span>
-      <span class="challenge-title">🧩 Empareja cada concepto con su definición</span>
-    </div>
-    <p>Toca un concepto de la izquierda y luego su definición correcta a la derecha. 4 parejas.</p>
+  <div class="caja-destacada">
+    <h4>🎯 Objetivos del entregable</h4>
+    <p>Tu entrega, en pareja, debe contener <strong>seis partes</strong> dentro de un único archivo <code>.txt</code>:</p>
+    <ol>
+      <li><strong>Diagnóstico inicial</strong>: un párrafo describiendo el síntoma de Camila y su hipótesis antes de medir.</li>
+      <li><strong>Salida de <code>lsblk</code> (o <code>diskpart</code>)</strong>: comando + salida copiada + identificación de discos y particiones.</li>
+      <li><strong>Salida de <code>df -h</code> / <code>blkid</code> (o <code>wmic logicaldisk</code>)</strong>: comando + salida + verificación del sistema de archivos del USB.</li>
+      <li><strong>Cálculo de fragmentación interna</strong>: un ejercicio resuelto a mano (bloques de 4 KB, archivo de 10 KB) que muestre que entienden cómo el SO asigna espacio.</li>
+      <li><strong>Plan de particionado</strong>: dibujen (en ASCII o texto) cómo organizarían un disco nuevo de 500 GB en 3 particiones (SO, datos, copia de seguridad).</li>
+      <li><strong>Recomendación final y reflexión</strong>: tres acciones concretas para Camila y un párrafo de reflexión sobre qué les costó más y qué aprendieron.</li>
+    </ol>
+  </div>
 
-    <div class="ws-block" data-ws-match="1">
-      <div class="ws-options" data-role="left">
-        <button class="ws-chip" data-mid="1a">Sistema de archivos</button>
-        <button class="ws-chip" data-mid="1b">Partición</button>
-        <button class="ws-chip" data-mid="1c">Formateo lógico</button>
-        <button class="ws-chip" data-mid="1d">Asignación indexada</button>
+  <div class="taller-er">
+    <div class="taller-er-step">
+      <h4><span class="step-num">1</span> Diagnóstico inicial</h4>
+      <p>Antes de tocar el equipo, escriban en el <code>.txt</code> un párrafo (4–6 líneas) respondiendo: ¿qué síntoma reporta Camila? ¿Cuál es su hipótesis de la causa? ¿Qué van a medir para confirmarla o descartarla? Esta parte se entrega <strong>antes</strong> de ejecutar cualquier comando: es la hipótesis del técnico.</p>
+      <button class="taller-sol-toggle" data-sol="sol-diag">👁️ Ver pista</button>
+      <div class="taller-sol" id="sol-diag">
+        <p>Pistas (escríbanlo con sus palabras):</p>
+        <ul>
+          <li><strong>Síntoma:</strong> el USB de 16 GB se conecta pero no aparece en el explorador.</li>
+          <li><strong>Hipótesis:</strong> el USB no está montado (no tiene letra asignada), o tiene un sistema de archivos que el SO no reconoce, o la partición está dañada.</li>
+          <li><strong>Mediciones a hacer:</strong> <code>lsblk</code> para ver si el SO detecta el USB, <code>df -h</code> para ver si está montado, y revisar el sistema de archivos.</li>
+        </ul>
       </div>
-      <div class="ws-options" data-role="right">
-        <button class="ws-chip" data-mid="1A">Región independiente de un disco físico</button>
-        <button class="ws-chip" data-mid="1B">Organiza archivos y carpetas en el disco</button>
-        <button class="ws-chip" data-mid="1C">Crea el sistema de archivos y borra la tabla</button>
-        <button class="ws-chip" data-mid="1D">Usa un bloque índice para localizar los bloques</button>
+    </div>
+
+    <div class="taller-er-step">
+      <h4><span class="step-num">2</span> Ejecuta <code>lsblk</code> (o <code>diskpart</code>)</h4>
+      <p>Abre una terminal y ejecuta <code>lsblk</code> (en Linux/WSL) o <code>diskpart</code> → <code>list disk</code> → <code>list partition</code> (Windows). Copia el comando <strong>literal</strong> y la salida <strong>completa</strong> en el <code>.txt</code>. Luego, abajo, identifica cuál es el disco principal, cuál es el USB y qué particiones tiene cada uno.</p>
+      <button class="taller-sol-toggle" data-sol="sol-lsblk">👁️ Ver salida de ejemplo</button>
+      <div class="taller-sol" id="sol-lsblk">
+        <p>Salida típica de <code>lsblk</code> con un USB de 16 GB conectado:</p>
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">$ lsblk
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0  500G  0 disk
+├─sda1   8:1    0  100G  0 part /boot
+├─sda2   8:2    0  300G  0 part /
+└─sda3   8:3    0  100G  0 part /home
+sdb      8:16   1 14,9G  0 disk
+└─sdb1   8:17   1 14,9G  0 part</pre>
+        <p style="margin-top:0.4rem;">Interpretación:</p>
+        <ul>
+          <li><code>sda</code> → disco principal de 500 GB, con 3 particiones (<code>sda1</code>, <code>sda2</code>, <code>sda3</code>).</li>
+          <li><code>sdb</code> → el USB de 16 GB (aparece como <code>RM=1</code> = "removible"). Tiene una partición <code>sdb1</code>.</li>
+          <li><strong>El USB está detectado</strong> pero <code>MOUNTPOINTS</code> está vacío → <strong>no está montado</strong>. Por eso Camila no lo ve en el explorador.</li>
+        </ul>
+        <p style="margin-top:0.4rem;"><strong>Conclusión:</strong> el SO detecta el USB, pero no le asignó punto de montaje. Hay que montarlo a mano.</p>
       </div>
-      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
-      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+
+    <div class="taller-er-step">
+      <h4><span class="step-num">3</span> Ejecuta <code>df -h</code> y <code>blkid</code> (o <code>wmic logicaldisk</code>)</h4>
+      <p>Ahora vean <strong>qué sistema de archivos</strong> usa el USB y si está accesible. En Linux/WSL ejecuten <code>df -h</code> (discos montados) y <code>blkid /dev/sdb1</code>. En Windows usen <code>wmic logicaldisk get caption,filesystem,freespace</code> o <code>diskpart</code> → <code>detail partition</code>. Copien comando + salida y nombren el sistema de archivos del USB.</p>
+      <button class="taller-sol-toggle" data-sol="sol-ls">👁️ Ver salida de ejemplo</button>
+      <div class="taller-sol" id="sol-ls">
+        <p>Salida típica de <code>df -h</code> antes de montar el USB:</p>
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2       300G   85G  215G  28% /
+/dev/sda1       100G   12G   88G  12% /boot
+/dev/sda3       100G   40G   60G  40% /home</pre>
+        <p style="margin-top:0.4rem;">El USB (<code>/dev/sdb1</code>) <strong>no aparece</strong> en <code>df -h</code>: no está montado. Para ver su sistema de archivos:</p>
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">$ blkid /dev/sdb1
+/dev/sdb1: BLOCK_SIZE="512" TYPE="vfat" UUID="A1B2-C3D4"</pre>
+        <p style="margin-top:0.4rem;">Lectura:</p>
+        <ul>
+          <li><code>TYPE="vfat"</code> → el USB usa <strong>FAT32</strong> (vfat = FAT32/exFAT en Linux).</li>
+          <li>FAT32 es compatible con casi todo (Windows, Mac, Linux), pero no permite archivos de más de 4 GB.</li>
+          <li>Para que Camila vea sus fotos, hay que montar la partición: <code>sudo mount /dev/sdb1 /mnt/usb</code>.</li>
+        </ul>
+        <p style="margin-top:0.4rem;">Después de montar, <code>df -h</code> sí mostrará el USB y <code>ls /mnt/usb</code> listará las fotos de Camila.</p>
+      </div>
+    </div>
+
+    <div class="taller-er-step">
+      <h4><span class="step-num">4</span> Cálculo de fragmentación interna (a mano)</h4>
+      <p>Para demostrar que entienden cómo el SO asigna espacio en el disco, resuelvan este ejercicio <strong>a mano</strong> en el <code>.txt</code>:</p>
+      <ul>
+        <li>El USB usa un sistema de archivos con <strong>bloques de 4 KB</strong> (<code>4096</code> bytes).</li>
+        <li>Camila copia un archivo de fotos de <strong>10 KB</strong> al USB.</li>
+        <li>¿Cuántos <strong>bloques</strong> necesita el archivo? ¿Cuántos <strong>KB se desperdician</strong> dentro del último bloque (fragmentación interna)?</li>
+      </ul>
+      <p>Escriban el procedimiento paso a paso (no sólo el resultado) y marquen cuántos bloques se ocupan y cuánto espacio se pierde.</p>
+      <button class="taller-sol-toggle" data-sol="sol-fragmentacion">👁️ Ver solución</button>
+      <div class="taller-sol" id="sol-fragmentacion">
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">Datos:
+- Tamaño de bloque = 4 KB = 4096 bytes
+- Tamaño del archivo = 10 KB = 10240 bytes
+
+Paso 1: bloques necesarios = ceil(10240 / 4096) = ceil(2,5) = 3 bloques
+Paso 2: espacio ocupado = 3 × 4096 = 12288 bytes = 12 KB
+Paso 3: fragmentación interna = 12 KB − 10 KB = 2 KB
+
+Respuesta:
+- Bloques necesarios: 3
+- KB desperdiciados en el último bloque: 2 KB
+  (el último bloque sólo usa 2 KB de los 4 KB disponibles)
+
+Nota: por eso el SO reporta "tamaño" y "tamaño en disco":
+el tamaño real es 10 KB, pero el tamaño en disco es 12 KB.</pre>
+        <p style="margin-top:0.4rem;">Si el USB tuviera bloques de 8 KB, el archivo ocuparía 2 bloques (16 KB) y desperdiciaría 6 KB. Por eso los sistemas de archivos modernos eligen tamaños de bloque según el uso del disco: bloques pequeños para muchos archivos chicos, bloques grandes para pocos archivos grandes.</p>
+      </div>
+    </div>
+
+    <div class="taller-er-step">
+      <h4><span class="step-num">5</span> Plan de particionado</h4>
+      <p>Camila les pregunta: <strong>"si compro un disco nuevo de 500 GB, ¿cómo lo organizo?"</strong>. En el <code>.txt</code> dibujen (en ASCII o texto) un plan de particionado con <strong>3 particiones</strong>: una para el SO, una para datos personales y una para copias de seguridad. Indiquen el tamaño de cada una, el sistema de archivos y por qué eligieron ese tamaño. Escriban también qué tipo de tabla usarían (MBR o GPT) y por qué.</p>
+      <button class="taller-sol-toggle" data-sol="sol-particion">👁️ Ver plan de ejemplo</button>
+      <div class="taller-sol" id="sol-particion">
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">Disco nuevo: 500 GB
+Tabla de particiones: GPT (moderna, soporta discos &gt; 2 TB y más de 4 particiones primarias)
+
+Partición 1: SO (sistema operativo)
+- Tamaño: 120 GB
+- Sistema de archivos: NTFS (si Windows) o ext4 (si Linux)
+- Por qué: el SO y los programas instalados caben cómodos en 120 GB.
+
+Partición 2: Datos personales
+- Tamaño: 280 GB
+- Sistema de archivos: NTFS o ext4
+- Por qué: fotos, documentos, música, videos. La partición más grande.
+
+Partición 3: Copias de seguridad
+- Tamaño: 100 GB
+- Sistema de archivos: NTFS o exFAT
+- Por qué: copia de fotos y documentos. exFAT si se quiere leer desde Windows y Mac.
+
+Esquema ASCII:
+┌──────────────────────────────────────────────────────┐
+│ Disco 500 GB (GPT)                                    │
+│ ┌──────────┬────────────────────────┬──────────────┐ │
+│ │ Part. 1  │ Part. 2                │ Part. 3      │ │
+│ │ SO 120GB │ Datos 280GB            │ Backup 100GB │ │
+│ │ NTFS/ext4│ NTFS/ext4              │ NTFS/exFAT   │ │
+│ └──────────┴────────────────────────┴──────────────┘ │
+└──────────────────────────────────────────────────────┘</pre>
+        <p style="margin-top:0.4rem;">Ventajas de separar en particiones: si el SO se daña, los datos de Part. 2 quedan intactos; se puede formatear Part. 1 sin tocar Part. 2. Desventaja: si Part. 2 se llena, no se puede "pedir prestado" espacio de Part. 1 sin reparticionar.</p>
+      </div>
+    </div>
+
+    <div class="taller-er-step">
+      <h4><span class="step-num">6</span> Recomendación y reflexión</h4>
+      <p>Cierren el <code>.txt</code> con dos cosas:</p>
+      <ol>
+        <li><strong>Tres acciones concretas para Camila</strong> para que pueda abrir sus fotos del USB. Ejemplos: montar a mano, cambiar de puerto USB, reparar la partición con <code>fsck</code> o <code>chkdsk</code>, respaldar y reformatear el USB.</li>
+        <li><strong>Un párrafo de reflexión</strong> (4–6 líneas) respondiendo: ¿qué parte del taller les costó más y por qué? ¿Qué aprendieron sobre cómo el SO maneja el almacenamiento?</li>
+      </ol>
+      <button class="taller-sol-toggle" data-sol="sol-reflex">👁️ Ver ejemplo de reflexión</button>
+      <div class="taller-sol" id="sol-reflex">
+        <p>Ejemplo (escríbanlo con sus palabras, no lo copien):</p>
+        <pre style="background:#04121c;padding:0.8rem;border-radius:8px;color:#d4d4d4;font-size:0.82rem;overflow-x:auto;">Recomendaciones para Camila:
+1. Conectar el USB en otro puerto (descartar puerto dañado).
+2. Montar la partición a mano: `sudo mount /dev/sdb1 /mnt/usb`
+   (o en Windows: `diskpart` → `assign letter=E`).
+3. Si no funciona, reparar con `fsck` (Linux) o `chkdsk /f` (Windows)
+   y luego respaldar las fotos y reformatear el USB como FAT32.
+
+Reflexión:
+Lo que más nos costó fue entender la diferencia entre "detectar" y
+"montar" un USB. Aprendimos que el SO puede detectar el dispositivo
+(lo ve `lsblk`) pero no montarlo (no aparece en `df -h` ni en el
+explorador). Montar es asignarle un punto de acceso (carpeta o letra).
+También nos quedó claro que el sistema de archivos decide cómo se
+organizan los datos: FAT32 funciona en todas partes pero limita los
+archivos a 4 GB. La lección: un disco sin sistema de archivos es como
+una biblioteca sin estanterías: hay espacio, pero no dónde poner los
+libros.</pre>
+      </div>
     </div>
   </div>
 
-  <!-- Reto 2: Ordenar pasos de formateo lógico -->
-  <div class="challenge">
-    <div class="challenge-head">
-      <span class="challenge-badge">Reto 2</span>
-      <span class="challenge-title">🧹 Ordena los pasos de un formateo lógico</span>
-    </div>
-    <p>Arrastra (o usa las flechas) para ordenar de arriba (primero) hacia abajo (último).</p>
-
-    <div class="ws-block" data-ws-order="2">
-      <div class="ws-order" id="wsOrder2">
-        <div class="ws-order-item" data-oid="2raiz" draggable="true"><span class="ord-num">?</span> Crear directorio raíz</div>
-        <div class="ws-order-item" data-oid="2tabla" draggable="true"><span class="ord-num">?</span> Escribir tabla de asignación vacía</div>
-        <div class="ws-order-item" data-oid="2etiqueta" draggable="true"><span class="ord-num">?</span> Poner etiqueta/nombre al volumen</div>
-        <div class="ws-order-item" data-oid="2tipo" draggable="true"><span class="ord-num">?</span> Elegir tipo de sistema de archivos</div>
-        <div class="ws-order-item" data-oid="2verificar" draggable="true"><span class="ord-num">?</span> Verificar sectores (solo formato completo)</div>
-      </div>
-      <div class="btn-row">
-        <button class="btn" data-ws-up="2">⬆ Subir</button>
-        <button class="btn" data-ws-down="2">⬇ Bajar</button>
-      </div>
-      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
-      <div class="resultado-ws" id="ws-fb-2"></div>
-    </div>
+  <div class="caja-destacada">
+    <h4>👨‍🏫 Cierre del aula — 5 minutos</h4>
+    <p>Cada pareja entrega un único archivo <code>taller7-usb-camila-&lt;integrante1&gt;-&lt;integrante2&gt;.txt</code>. El profesor lo abre y valida: (1) el diagnóstico inicial está escrito <strong>antes</strong> de los comandos, (2) los comandos y sus salidas están copiados <strong>literales</strong> (no inventados), (3) <code>lsblk</code> identifica discos y particiones correctamente, (4) <code>df -h</code> o <code>blkid</code> muestra el sistema de archivos del USB, (5) el cálculo de fragmentación muestra el procedimiento (no sólo el resultado), (6) el plan de particionado tiene 3 particiones justificadas y el tipo de tabla, (7) hay tres recomendaciones y una reflexión.</p>
   </div>
 
-  <!-- Reto 3: Calcular fragmentación interna -->
-  <div class="challenge">
-    <div class="challenge-head">
-      <span class="challenge-badge">Reto 3</span>
-      <span class="challenge-title">🧮 Calcula la fragmentación interna</span>
+  <div class="caja-destacada">
+    <h4>📋 Rúbrica de evaluación (100 pts)</h4>
+    <div class="contenedor-tabla" style="margin-top:0.6rem;">
+      <table class="tabla-compara">
+        <thead><tr><th>Criterio</th><th>Pts</th><th>Indicador</th></tr></thead>
+        <tbody>
+          <tr><td>Diagnóstico inicial</td><td>10</td><td>Párrafo escrito antes de medir, con síntoma, hipótesis y plan de medición.</td></tr>
+          <tr><td>Salida de <code>lsblk</code> / <code>diskpart</code></td><td>20</td><td>Comando + salida literal + identificación correcta de discos, particiones y USB.</td></tr>
+          <tr><td>Salida de <code>df -h</code> / <code>blkid</code></td><td>20</td><td>Comando + salida literal + sistema de archivos del USB identificado y explicación de por qué no aparece.</td></tr>
+          <tr><td>Cálculo de fragmentación</td><td>15</td><td>Bloques (3) y KB desperdiciados (2 KB) correctos, con procedimiento paso a paso.</td></tr>
+          <tr><td>Plan de particionado</td><td>15</td><td>3 particiones con tamaños y sistemas de archivos justificados; tipo de tabla (GPT/MBR) con razón.</td></tr>
+          <tr><td>Recomendaciones y reflexión</td><td>20</td><td>Tres acciones concretas + párrafo de reflexión sobre el aprendizaje.</td></tr>
+        </tbody>
+      </table>
     </div>
-    <p>Un archivo pesa <strong>10 KB</strong>. Cada bloque del sistema de archivos mide <strong>4 KB</strong>. ¿Cuántos bloques necesita y cuántos KB se desperdician dentro del último bloque?</p>
-
-    <div class="ws-block">
-      <div class="code-live">
-        Bloques necesarios =
-        <span class="hl-line"><input class="ws-input" data-ans="3" data-ws="3" placeholder="?" inputmode="numeric"></span>
-      </div>
-      <div class="code-live" style="margin-top:0.5rem;">
-        KB desperdiciados en el último bloque =
-        <span class="hl-line"><input class="ws-input" data-ans="2" data-ws="3b" placeholder="?" inputmode="numeric"></span>
-      </div>
-      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
-      <div class="resultado-ws" id="ws-fb-3"></div>
-    </div>
+    <p style="margin-top:0.6rem;font-size:0.9rem;"><strong>Entrega:</strong> un solo archivo <code>.txt</code> por pareja, nombrado <code>taller7-usb-camila-&lt;integrante1&gt;-&lt;integrante2&gt;.txt</code>.</p>
   </div>
 
-  <!-- Reto 4: Jefe final — caso de uso -->
-  <div class="challenge">
-    <div class="challenge-head">
-      <span class="challenge-badge adv">Jefe Final</span>
-      <span class="challenge-title">🏆 Escenario: la PC no arranca</span>
-    </div>
-    <p>Tu compañero/a te dice: "Mi PC no arranca y me pide que formatee C:. ¿Si formateo rápido se arregla?". Toca la respuesta correcta:</p>
-
-    <div class="ws-block" id="reto4Opts">
-      <div class="ws-options">
-        <button class="ws-chip" data-r4="4A">❌ Sí, el formato rápido repara cualquier problema de arranque</button>
-        <button class="ws-chip" data-r4="4B">✅ El formateo rápido no repara fallos de hardware ni errores del bootloader; primero hay que diagnosticar y respaldar</button>
-        <button class="ws-chip" data-r4="4C">❌ No, porque el formato rápido es físico y destruye el disco</button>
-        <button class="ws-chip" data-r4="4D">❌ Formatear siempre arregla todo, no importa cuál sea el problema</button>
-      </div>
-      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
-      <div class="resultado-ws" id="ws-fb-4"></div>
-    </div>
+  <div class="caja-tip">
+    <h4>🧩 Investigación (punto extra, 10 pts)</h4>
+    <p>Investiguen y agreguen al final del <code>.txt</code>: ¿qué es <code>fsck</code> en Linux (o <code>chkdsk</code> en Windows) y en qué se diferencia de un formateo? Mencionen <strong>dos casos</strong> en los que usarían <code>fsck</code> y <strong>uno</strong> en el que sería mejor formatear. Pista: <code>fsck</code> repara el sistema de archivos sin borrar los datos; formatear reconstruye la tabla desde cero.</p>
   </div>
 
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Storage Master!</h2>
-    <p class="lead">Ya sabes que el <strong>sistema de archivos</strong> es la biblioteca del disco, que la <strong>asignación de espacio</strong> decide dónde vive cada archivo, que las <strong>particiones</strong> dividen el disco sin romperlo (con GPT o MBR) y que el <strong>formateo lógico</strong> construye el sistema de archivos mientras el <strong>físico</strong> prepara la superficie. Eso te pone un escalón por encima de quien ve el disco como una caja mágica. 💪</p>
-    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿dónde guarda el SO los metadatos de un archivo? Ya tienes la respuesta: en las estructuras del sistema de archivos. 💾</p>
+    <p class="lead">Ya saben que el <strong>sistema de archivos</strong> es la biblioteca del disco, que la <strong>asignación de espacio</strong> decide dónde vive cada archivo (y desperdicia lo que sobra del último bloque), que las <strong>particiones</strong> dividen el disco sin romperlo (con GPT o MBR) y que el <strong>formateo lógico</strong> construye el sistema de archivos mientras el <strong>físico</strong> prepara la superficie. Pero sobre todo: ya hicieron <strong>de técnicos de almacenamiento</strong>. Diagnosticaron un disco real, leyeron salidas reales y propusieron soluciones reales. Eso es, literalmente, lo que hace un administrador de sistemas junior. 💪</p>
+    <p style="margin-top:1rem;font-size:1.05rem;color:var(--verde);font-weight:700;">Vuelve al Módulo 0 y comprueba: ¿dónde guarda el SO los metadatos de un archivo? Ya tienen la respuesta comprobada: en las estructuras del sistema de archivos (tabla de inodos / MFT). 💾</p>
     <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
   </div>
 

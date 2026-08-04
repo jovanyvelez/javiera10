@@ -2475,3 +2475,46 @@ pre::-webkit-scrollbar-thumb { background: var(--tarjeta-borde); border-radius: 
   font-size: 0.78rem;
   color: var(--texto-suave);
 }
+
+/* -------- TALLER ENTREGABLE (soluciones plegables) -------- */
+.taller-er {
+  background: var(--tarjeta);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: var(--radio);
+  padding: 1.5rem;
+  margin: 1.75rem 0;
+}
+.taller-er-step {
+  margin: 1.25rem 0;
+  padding: 1.1rem;
+  background: var(--fondo-claro);
+  border-left: 4px solid var(--morado);
+  border-radius: 8px;
+}
+.taller-er-step h4 { color: var(--morado-claro); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.taller-er-step .step-num {
+  display: inline-flex;
+  width: 28px; height: 28px;
+  background: var(--gradiente-cian);
+  color: #000;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.taller-sol-toggle {
+  background: var(--tarjeta-alt);
+  border: 1.5px solid var(--tarjeta-borde);
+  color: var(--texto);
+  padding: 0.55rem 1.1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-top: 0.6rem;
+  transition: all 0.2s;
+}
+.taller-sol-toggle:hover { border-color: var(--cian); color: var(--cian-claro); }
+.taller-sol { display: none; margin-top: 0.8rem; }
+.taller-sol.visible { display: block; animation: aparece 0.4s ease; }
