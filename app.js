@@ -45,6 +45,7 @@ function cargarProgresoPorClase() {
     'curso-so-gestion-procesos': 5,
     'curso-so-gestion-memoria': 5,
     'curso-so-gestion-almacenamiento': 5,
+    'curso-so-interfaz-linea-comandos-cli': 5,
     'curso-introduccion-programacion-web': 6
   };
 
@@ -206,7 +207,7 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-so-gestion-almacenamiento', 'curso-introduccion-programacion-web'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-so-gestion-almacenamiento', 'curso-so-interfaz-linea-comandos-cli', 'curso-introduccion-programacion-web'];
 
   let tienePrograma = false;
 

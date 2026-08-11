@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖥️ Sistemas Operativos · Clase 8 · Línea de Comandos (CLI)</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- =================== HEADER + PROGRESO =================== -->
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">⌨️</span>
+    <div>
+      <h1>Sistemas Operativos · Clase 8</h1>
+      <p class="subtitulo">Línea de Comandos (CLI) · Administrando el SO desde la consola (Linux vs Windows)</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 475 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso">
+      <div class="barra-progreso-llenado" id="barra"></div>
+    </div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<!-- =================== NAVEGACIÓN =================== -->
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">💻 ¿Qué es la CLI?</button>
+  <button class="btn-modulo" data-modulo="2">🧭 Navegación</button>
+  <button class="btn-modulo" data-modulo="3">📂 Crear y borrar</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🎯 Retos CLI</button>
+  <button class="btn-modulo" data-modulo="6">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- ============================================================
+     MÓDULO 0 — BIENVENIDA
+============================================================ -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>⌨️ ¡Bienvenid@ a la consola!</h2>
+    <p class="lead">En la clase 7 bajaste al <strong>almacenamiento</strong>: archivos, particiones y formateo. Hoy abrimos la puerta que el SO ofrece para controlar todo eso con palabras: la <strong>línea de comandos</strong>. Aprenderás a moverte, crear, leer y borrar archivos <strong>sin tocar el ratón</strong>, en <strong>Linux (Bash)</strong> y en <strong>Windows (PowerShell)</strong>, con un simulador que no instala nada. Al final sabrás por qué los programadores y administradores viven en la terminal — y por qué `rm` con un espacio de más puede borrar todo un disco. 🚀</p>
+
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ Bash — Linux / ⌘ PowerShell — Windows 10</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">estudiante@javiera10:~$</span> <span class="cmd">ls -la</span></div>
+        <div class="out">documentos  descargas  música  fotos  notas.txt</div>
+        <div><span class="prompt">estudiante@javiera10:~$</span> <span class="cmd">mkdir Proyectos &amp;&amp; touch Proyectos/notas.txt</span></div>
+        <div class="out">→ carpeta y archivo creados con dos comandos</div>
+        <div><span class="prompt">PS C:\Users\Estudiante&gt;</span> <span class="cmd">Get-ChildItem Proyectos</span></div>
+        <div class="out">notas.txt</div>
+        <div><span class="prompt">estudiante@javiera10:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">⏱️</span>
+      <h3>Duración total</h3>
+      <p>4 horas en 7 módulos cortos (uno de descanso), con pausa de 15 minutos a la mitad. Trabaja en pareja con tu compañer@ de computadora.</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🎯</span>
+      <h3>Objetivo</h3>
+      <p>Dominar la línea de comandos para administrar el SO: navegar, crear, leer y borrar archivos y carpetas, entendiendo las equivalencias entre Bash (Linux) y PowerShell (Windows).</p>
+    </div>
+    <div class="tarjeta">
+      <span class="emoji">🧰</span>
+      <h3>Lo que necesitas</h3>
+      <p>Haber visto las clases 1 a 7. Hoy usaremos el <strong>simulador de consola</strong> integrado (no instalas nada). Si quieres practicar de verdad: <strong>PowerShell</strong> en Windows 10 o la <strong>Terminal</strong> en Linux.</p>
+    </div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es la CLI?</td><td style="color:var(--cian)">Bash vs PowerShell, prompt y por qué usarla</td><td>40 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Navegación</td><td style="color:var(--rosa)">pwd, ls/dir, cd y rutas absolutas/relativas</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Crear y borrar</td><td style="color:var(--ambar)">mkdir, touch/New-Item, cat/type, rm/del</td><td>50 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Retos CLI</td><td style="color:var(--verde)">Misiones con autovalidación en el simulador</td><td>45 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Taller entregable</td><td style="color:var(--morado)">Caso "El backup de Mateo" — consola en acción</td><td>35 min</td><td>100 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Antes de empezar: abran la terminal de su PC. En Windows: tecla <code>Win</code>, escriban <code>powershell</code> y Enter. En Linux: <code>Ctrl+Alt+T</code>. Escriban <code>pwd</code> y presionen Enter. Pregunta: <strong>¿qué significa la ruta que apareció?</strong> Anótenla; en el Módulo 1 entenderán qué les dice el SO.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es la CLI? →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 1 — ¿QUÉ ES LA CLI?
+============================================================ -->
+<section class="modulo" data-modulo="1">
+  <h2>💻 ¿Qué es la línea de comandos?</h2>
+  <p class="meta-modulo">⏱️ 40 minutos · "Hablar con el SO" — Bash vs PowerShell, el prompt y por qué existe la terminal</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La <strong>interfaz gráfica</strong> (ventanas, iconos, el ratón) es cómoda, pero la <strong>línea de comandos (CLI)</strong> es directa: escribes una orden, el SO la cumple y responde con texto. Es el modo original de usar un ordenador y sigue siendo la herramienta favorita de quien administra sistemas, programa o automatiza tareas, porque <strong>es más rápida, potente y scriptable</strong> (puedes encadenar comandos). En esta clase la usaremos sin riesgo en un simulador dentro del navegador.</p>
+  </div>
+
+  <h3>🐧 Bash vs 🪟 PowerShell: dos dialectos</h3>
+  <p>La línea de comandos no es única: cada sistema trae la suya.</p>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead>
+        <tr><th>Aspecto</th><th>🐧 Linux · Bash</th><th>🪟 Windows · PowerShell</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Prompt (el "cartel" que te invita a escribir)</td><td><code>estudiante@javiera10:~$</code></td><td><code>PS C:\Users\Estudiante&gt;</code></td></tr>
+        <tr><td>Separador de rutas</td><td><code>/</code> (barra normal)</td><td><code>\</code> (barra invertida)</td></tr>
+        <tr><td>¿Dónde estoy?</td><td><code>pwd</code></td><td><code>pwd</code> o <code>Get-Location</code></td></tr>
+        <tr><td>Listar archivos</td><td><code>ls</code></td><td><code>dir</code> o <code>Get-ChildItem</code> (<code>ls</code> es alias)</td></tr>
+        <tr><td>Cambiar de carpeta</td><td><code>cd</code></td><td><code>cd</code> o <code>Set-Location</code></td></tr>
+        <tr><td>Mayúsculas importan</td><td>Sí: <code>LS</code> ≠ <code>ls</code></td><td>No: <code>CD</code> = <code>cd</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tip-linea"><span class="tip-ico">💡</span> PowerShell es amable con quien viene de Linux: muchos comandos de Bash (<code>ls</code>, <code>cd</code>, <code>pwd</code>, <code>cp</code>) son <strong>alias</strong> que funcionan, aunque con diferencias (¡ojo con <code>ls -la</code>!).</p>
+
+  <h3>🔍 Anatomía del prompt</h3>
+  <div class="terminal-demo">
+    <div class="td-line"><span class="td-user">estudiante</span><span class="td-at">@</span><span class="td-host">javiera10</span><span class="td-dp">:</span><span class="td-path">~</span><span class="td-sig">$</span> <span class="td-cmd">pwd</span></div>
+    <div class="td-out">/home/estudiante</div>
+  </div>
+  <ul>
+    <li><strong>estudiante</strong> → tu nombre de usuario.</li>
+    <li><strong>@javiera10</strong> → el nombre de la máquina (host).</li>
+    <li><strong>:~</strong> → la carpeta donde estás. <code>~</code> es un atajo para tu <em>carpeta personal</em> (<code>/home/estudiante</code>).</li>
+    <li><strong>$</strong> → el final del prompt; detrás escribes el comando. (En Windows, <code>PS ...&gt;</code> cumple el mismo rol.)</li>
+  </ul>
+
+  <div class="caja-tip">
+    <h4>🧪 Pruébalo aquí mismo</h4>
+    <p>Abre la <strong>pestaña "🎯 Retos CLI"</strong> cuando quieras y escribe <code>help</code> en el simulador. Verás la lista de comandos disponibles en Bash y PowerShell sin salir de la página.</p>
+  </div>
+
+  <!-- Quiz 1 -->
+  <div class="quiz" data-quiz="q1">
+    <h3>🧩 Comprobemos lo aprendido</h3>
+    <div class="pregunta" data-correcta="b">
+      <p class="p-pregunta">1. En el prompt <code>estudiante@javiera10:~$</code>, ¿qué significa el <code>~</code>?</p>
+      <button class="opcion" data-op="a">a) Que el sistema está esperando</button>
+      <button class="opcion" data-op="b">b) Tu carpeta personal (home)</button>
+      <button class="opcion" data-op="c">c) Una carpeta llamada "tilde"</button>
+      <button class="opcion" data-op="d">d) El nombre del disco</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p class="p-pregunta">2. En Windows, ¿cuál es el separador de rutas en la terminal?</p>
+      <button class="opcion" data-op="a">a) <code>/</code> (barra normal)</button>
+      <button class="opcion" data-op="b">b) <code>.</code> (punto)</button>
+      <button class="opcion" data-op="c">c) <code>\</code> (barra invertida)</button>
+      <button class="opcion" data-op="d">d) <code>-</code> (guion)</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p class="p-pregunta">3. En Bash, si escribes <code>LS</code> (en mayúsculas), ¿qué pasa?</p>
+      <button class="opcion" data-op="a">a) Da error: en Bash mayúsculas importan, <code>LS</code> no existe</button>
+      <button class="opcion" data-op="b">b) Lista igual que <code>ls</code></button>
+      <button class="opcion" data-op="c">c) Apaga el equipo</button>
+      <button class="opcion" data-op="d">d) Crea una carpeta</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Módulo 2: Navegación →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 2 — NAVEGACIÓN
+============================================================ -->
+<section class="modulo" data-modulo="2">
+  <h2>🧭 Navegación: ¿dónde estoy y a dónde voy?</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · pwd, ls/dir y cd — rutas absolutas y relativas, <code>.</code> y <code>..</code></p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Antes de crear o borrar algo, necesitas saber <strong>dónde estás</strong> y <strong>cómo llegar</strong> a otra carpeta. Tres comandos son tu brújula: <code>pwd</code> (¿dónde estoy?), <code>ls</code>/<code>dir</code> (¿qué hay aquí?) y <code>cd</code> (cambiar de carpeta). El resto de la consola se construye sobre estos tres.</p>
+  </div>
+
+  <h3>📍 pwd — "print working directory"</h3>
+  <p>Imprime la ruta absoluta de la carpeta actual.</p>
+  <div class="terminal-demo">
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">pwd</span></div>
+    <div class="td-out">/home/estudiante/documentos</div>
+    <div class="td-line"><span class="td-ps">PS C:\Users\Estudiante&gt;</span> <span class="td-cmd">pwd</span></div>
+    <div class="td-out">C:\Users\Estudiante\Documentos</div>
+  </div>
+
+  <h3>📋 ls / dir — listar contenido</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Linux (Bash)</th><th>Windows (PowerShell)</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td><code>ls</code></td><td><code>dir</code> / <code>ls</code></td><td>Lista archivos y carpetas</td></tr>
+        <tr><td><code>ls -l</code></td><td><code>dir</code> (siempre largo)</td><td>Formato largo (detalles)</td></tr>
+        <tr><td><code>ls -a</code></td><td><code>dir -Force</code></td><td>Incluye ocultos (empiezan con <code>.</code>)</td></tr>
+        <tr><td><code>ls documentos</code></td><td><code>dir documentos</code></td><td>Lista el contenido de esa subcarpeta</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tip-linea"><span class="tip-ico">⚠️</span> En PowerShell, <code>ls -la</code> <strong>no funciona</strong>: <code>ls</code> es un alias de <code>Get-ChildItem</code> y no acepta las banderas de Bash. El simulador te lo recordará amablemente si lo intentas.</p>
+
+  <h3>🚪 cd — "change directory"</h3>
+  <p>Te mueve a otra carpeta. Acepta <strong>rutas absolutas</strong> (desde la raíz) y <strong>relativas</strong> (desde donde estás).</p>
+  <div class="terminal-demo">
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">cd /home/estudiante/descargas</span> <span class="td-com"># absoluta</span></div>
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">cd documentos</span> <span class="td-com"># relativa: entra a la subcarpeta</span></div>
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">cd ..</span> <span class="td-com"># sube a la carpeta padre</span></div>
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">cd</span> <span class="td-com"># sin argumentos: vuelve a tu home</span></div>
+  </div>
+
+  <h3>`.` y `..`: los dos atajos mágicos</h3>
+  <ul>
+    <li><code>.</code> → la carpeta <strong>actual</strong>.</li>
+    <li><code>..</code> → la carpeta <strong>padre</strong> (la que contiene a la actual).</li>
+    <li><code>../..</code> → sube dos niveles. Y <code>cd ../../descargas</code> sube dos y baja a <code>descargas</code>.</li>
+  </ul>
+  <p class="tip-linea"><span class="tip-ico">🛡️</span> ¿Y si te pasas? <code>cd ../../../..</code> desde el home simplemente te deja en la raíz (<code>/</code> en Linux, <code>C:\</code> en Windows). El SO no se rompe: <strong>no puedes subir más arriba de la raíz</strong>.</p>
+
+  <!-- Quiz 2 -->
+  <div class="quiz" data-quiz="q2">
+    <h3>🧩 Comprobemos lo aprendido</h3>
+    <div class="pregunta" data-correcta="b">
+      <p class="p-pregunta">1. Estás en <code>/home/estudiante/documentos</code> y escribes <code>cd ..</code>. ¿Dónde quedas?</p>
+      <button class="opcion" data-op="a">a) <code>/home</code></button>
+      <button class="opcion" data-op="b">b) <code>/home/estudiante</code></button>
+      <button class="opcion" data-op="c">c) <code>/home/estudiante/documentos/..</code></button>
+      <button class="opcion" data-op="d">d) En la raíz <code>/</code></button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p class="p-pregunta">2. ¿Qué comando lista los archivos incluidos los ocultos en Bash?</p>
+      <button class="opcion" data-op="a">a) <code>ls -l</code></button>
+      <button class="opcion" data-op="b">b) <code>ls hidden</code></button>
+      <button class="opcion" data-op="c">c) <code>ls -a</code></button>
+      <button class="opcion" data-op="d">d) <code>ls all</code></button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p class="p-pregunta">3. Escribes <code>cd /etc/../../../..</code> en Linux. ¿Qué pasa?</p>
+      <button class="opcion" data-op="a">a) Llegas a <code>/</code> (raíz): no se puede subir más</button>
+      <button class="opcion" data-op="b">b) Error: el comando se rompe</button>
+      <button class="opcion" data-op="c">c) Llegas a una carpeta por encima de la raíz</button>
+      <button class="opcion" data-op="d">d) Borra <code>/etc</code></button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Módulo 3: Crear y borrar →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 3 — CREAR Y BORRAR
+============================================================ -->
+<section class="modulo" data-modulo="3">
+  <h2>📂 Crear, leer y borrar</h2>
+  <p class="meta-modulo">⏱️ 50 minutos · mkdir, touch / New-Item, cat / type, rm / del, rmdir — y el peligro de un espacio de más</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Ya sabes moverte. Ahora vamos a <strong>modificar</strong> el sistema de archivos: crear carpetas y archivos, leer su contenido y borrar lo que no necesitas. Estos comandos son poderosos y, en un equipo real, <strong>no piden confirmación</strong>: lo que borras con <code>rm</code> no va a la papelera. Por eso los practicamos en el simulador.</p>
+  </div>
+
+  <h3>📁 Crear carpetas — mkdir</h3>
+  <div class="terminal-demo">
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">mkdir Proyectos</span></div>
+    <div class="td-line"><span class="td-ps">PS C:\Users\Estudiante&gt;</span> <span class="td-cmd">mkdir Proyectos</span></div>
+  </div>
+  <p>Funciona igual en ambos. En PowerShell, <code>mkdir</code> es un atajo de <code>New-Item -ItemType Directory</code>.</p>
+
+  <h3>📄 Crear archivos — touch / New-Item</h3>
+  <div class="terminal-demo">
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">touch notas.txt</span> <span class="td-com"># Linux: crea archivo vacío</span></div>
+    <div class="td-line"><span class="td-ps">PS C:\Users\Estudiante&gt;</span> <span class="td-cmd">New-Item -ItemType File notas.txt</span></div>
+  </div>
+
+  <h3>✍️ Escribir contenido — echo con redirección</h3>
+  <div class="terminal-demo">
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">echo "Hola clase 8" &gt; notas.txt</span></div>
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">echo "segunda línea" &gt;&gt; notas.txt</span> <span class="td-com"># &gt;&gt; añade sin borrar</span></div>
+  </div>
+  <ul>
+    <li><code>&gt;</code> <strong> sobreescribe</strong> el archivo (lo deja solo con el nuevo contenido).</li>
+    <li><code>&gt;&gt;</code> <strong>añade</strong> al final (append).</li>
+  </ul>
+
+  <h3>📖 Leer archivos — cat / type</h3>
+  <div class="terminal-demo">
+    <div class="td-line"><span class="td-sig">$</span> <span class="td-cmd">cat notas.txt</span></div>
+    <div class="td-out">Hola clase 8</div>
+    <div class="td-out">segunda línea</div>
+    <div class="td-line"><span class="td-ps">PS C:\Users\Estudiante&gt;</span> <span class="td-cmd">type notas.txt</span></div>
+  </div>
+
+  <h3>🗑️ Borrar — rm / del, rmdir</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Linux (Bash)</th><th>Windows (PowerShell)</th><th>Qué borra</th></tr></thead>
+      <tbody>
+        <tr><td><code>rm notas.txt</code></td><td><code>del notas.txt</code></td><td>Un archivo</td></tr>
+        <tr><td><code>rmdir vacia</code></td><td><code>rmdir vacia</code></td><td>Una carpeta <em>vacía</em></td></tr>
+        <tr><td><code>rm -r Proyectos</code></td><td><code>del Proyectos -Recurse</code></td><td>Una carpeta con todo su contenido</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El espacio que lo borra todo</h4>
+    <p>El comando <code>rm -rf / carpeta</code> (con un espacio después de <code>/</code>) significa "<strong>borra la raíz</strong> <em>y además</em> <code>carpeta</code>". En un equipo real eso destruye el sistema. La regla de oro: si una ruta tiene espacios, ponla entre comillas: <code>rm -rf "/mis documentos"</code>. En el simulador estás a salvo, pero graba el hábito.</p>
+  </div>
+
+  <!-- Quiz 3 -->
+  <div class="quiz" data-quiz="q3">
+    <h3>🧩 Comprobemos lo aprendido</h3>
+    <div class="pregunta" data-correcta="b">
+      <p class="p-pregunta">1. ¿Qué diferencia hay entre <code>&gt;</code> y <code>&gt;&gt;</code> al escribir en un archivo?</p>
+      <button class="opcion" data-op="a">a) No hay diferencia</button>
+      <button class="opcion" data-op="b">b) <code>&gt;</code> sobreescribe; <code>&gt;&gt;</code> añade al final</button>
+      <button class="opcion" data-op="c">c) <code>&gt;</code> añade; <code>&gt;&gt;</code> borra</button>
+      <button class="opcion" data-op="d">d) <code>&gt;&gt;</code> crea; <code>&gt;</code> lee</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p class="p-pregunta">2. En Linux, ¿cómo borras una carpeta que tiene archivos dentro?</p>
+      <button class="opcion" data-op="a">a) <code>rmdir carpeta</code></button>
+      <button class="opcion" data-op="b">b) <code>del carpeta</code></button>
+      <button class="opcion" data-op="c">c) <code>rm -r carpeta</code></button>
+      <button class="opcion" data-op="d">d) <code>cat carpeta</code></button>
+    </div>
+    <div class="pregunta" data-correcta="d">
+      <p class="p-pregunta">3. ¿Por qué conviene poner entre comillas una ruta con espacios al borrarla?</p>
+      <button class="opcion" data-op="a">a) Por estética</button>
+      <button class="opcion" data-op="b">b) Para que se vea bonita</button>
+      <button class="opcion" data-op="c">c) Porque el SO no acepta espacios</button>
+      <button class="opcion" data-op="d">d) Para que el espacio no se interprete como separador y borre cosas de más</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Módulo 4: Descanso ☕ →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 4 — DESCANSO
+============================================================ -->
+<section class="modulo" data-modulo="4">
+  <h2>☕ Descanso activo</h2>
+  <p class="meta-modulo">⏱️ 15 minutos · Estira, hidrátate y resuelve la trivia</p>
+
+  <div class="caja-pareja">
+    <h4>🤸 Estira 2 minutos</h4>
+    <p>Lejos de la pantalla. Cierra los ojos 20 segundos mirando a lo lejos (regla 20-20-20). Gira las muñecas: la consola las usa mucho con <code>Tab</code> y las flechas.</p>
+  </div>
+
+  <h3>🎮 Trivia rápida</h3>
+  <p>¿En PowerShell, cuál de estos NO es un alias válido equivalente a <code>Get-ChildItem</code> (listar archivos)?</p>
+  <div id="triviaOpts" class="trivia-opts" data-tcorrecta="b">
+    <button class="trivia-opt" data-top="a">a) <code>ls</code></button>
+    <button class="trivia-opt" data-top="b">b) <code>cat</code></button>
+    <button class="trivia-opt" data-top="c">c) <code>dir</code></button>
+    <button class="trivia-opt" data-top="d">d) <code>gci</code></button>
+  </div>
+  <div id="triviaResult" class="trivia-result"></div>
+
+  <div class="caja-tip">
+    <h4>💡 Recuerda antes de seguir</h4>
+    <p>Tu brújula es <code>pwd</code> + <code>ls</code>/<code>dir</code> + <code>cd</code>. Lo demás (crear, leer, borrar) se hace <strong>desde la carpeta correcta</strong>. En el siguiente módulo lo pondrás en práctica con misiones reales en el simulador.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Módulo 5: Retos CLI 🎯 →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 5 — RETOS CLI (SIMULADOR)
+============================================================ -->
+<section class="modulo" data-modulo="5">
+  <h2>🎯 Retos CLI: la consola en acción</h2>
+  <p class="meta-modulo">⏱️ 45 minutos · Practica en el simulador con autovalidación · Bash y PowerShell</p>
+
+  <div class="caja-concepto">
+    <h3>🎮 Cómo funciona</h3>
+    <p>Abajo tienes una <strong>consola de verdad</strong> (sin instalar nada). Cambia entre <strong>🐧 Bash</strong> y <strong>🪟 PowerShell</strong> con las pestañas. Cada <strong>reto</strong> te pide una misión; cuando el estado del sistema de archivos virtual cumple la condición, se marca como completado automáticamente. Usa <kbd>Tab</kbd> para autocompletar y las flechas <kbd>↑</kbd>/<kbd>↓</kbd> para el historial.</p>
+  </div>
+
+  <!-- Retos panel -->
+  <div class="retos-panel" id="retosPanel">
+    <div class="reto" data-reto="0">
+      <div class="reto-head"><span class="reto-num">Reto 1</span><span class="reto-estado pendiente">⏳ Pendiente</span></div>
+      <p class="reto-desc">Crea una carpeta llamada <code>Proyectos</code> dentro de tu carpeta personal.</p>
+    </div>
+    <div class="reto" data-reto="1">
+      <div class="reto-head"><span class="reto-num">Reto 2</span><span class="reto-estado pendiente">⏳ Pendiente</span></div>
+      <p class="reto-desc">Dentro de <code>Proyectos</code>, crea un archivo vacío llamado <code>notas.txt</code>.</p>
+    </div>
+    <div class="reto" data-reto="2">
+      <div class="reto-head"><span class="reto-num">Reto 3</span><span class="reto-estado pendiente">⏳ Pendiente</span></div>
+      <p class="reto-desc">Escribe <code>Hola SO</code> dentro de <code>Proyectos/notas.txt</code> usando redirección.</p>
+    </div>
+    <div class="reto" data-reto="3">
+      <div class="reto-head"><span class="reto-num">Reto 4</span><span class="reto-estado pendiente">⏳ Pendiente</span></div>
+      <p class="reto-desc">Navega con <code>cd</code> hasta <code>descargas</code> y vuelve a tu carpeta personal con un solo <code>cd</code> (sin argumentos).</p>
+    </div>
+    <div class="reto" data-reto="4">
+      <div class="reto-head"><span class="reto-num">Reto 5</span><span class="reto-estado pendiente">⏳ Pendiente</span></div>
+      <p class="reto-desc">Borra la carpeta <code>Proyectos</code> con todo su contenido (recursivo).</p>
+    </div>
+  </div>
+
+  <p class="tip-linea"><span class="tip-ico">👆</span> Toca un reto (pendiente o completado) para ver una <strong>pista de diagnóstico</strong> según el estado actual de tu consola.</p>
+
+  <!-- Terminal widget -->
+  <div class="terminal-widget" id="terminalWidget">
+    <div class="terminal-tabs">
+      <button class="tab-term activo" data-shell="bash">🐧 Bash (Linux)</button>
+      <button class="tab-term" data-shell="powershell">🪟 PowerShell (Windows)</button>
+      <span class="tab-spacer"></span>
+      <button class="tab-aux" id="btnReiniciarFS" title="Reiniciar el sistema de archivos del simulador">♻️ Reiniciar</button>
+    </div>
+    <div class="terminal-pantalla" id="termPantalla">
+      <!-- salida inyectada por JS -->
+    </div>
+    <div class="terminal-entrada">
+      <span class="te-prompt" id="tePrompt">estudiante@javiera10:~$</span>
+      <input type="text" id="termInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Entrada de comandos" placeholder="Escribe un comando y presiona Enter. Tab autocompleta. help para ayuda.">
+    </div>
+  </div>
+
+  <p class="tip-linea"><span class="tip-ico">ℹ️</span> El simulador guarda tu progreso en el navegador (localStorage). Si refrescas, tu consola y tus retos siguen donde los dejaste. Usa <code>help</code> para ver todos los comandos.</p>
+
+  <!-- Quiz 5 (refuerzo del simulador) -->
+  <div class="quiz" data-quiz="q5">
+    <h3>🧩 Reflexión del simulador</h3>
+    <div class="pregunta" data-correcta="b">
+      <p class="p-pregunta">1. En el simulador, presionas <kbd>Tab</kbd>. ¿Qué hace?</p>
+      <button class="opcion" data-op="a">a) Borra la línea</button>
+      <button class="opcion" data-op="b">b) Autocompleta el comando o la ruta</button>
+      <button class="opcion" data-op="c">c) Cambia de pestaña</button>
+      <button class="opcion" data-op="d">d) Apaga la consola</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p class="p-pregunta">2. Si refrescas la página, ¿qué pasa con tu consola y retos?</p>
+      <button class="opcion" data-op="a">a) Se reinician desde cero</button>
+      <button class="opcion" data-op="b">a) Se borran del disco</button>
+      <button class="opcion" data-op="c">c) Se conservan gracias a localStorage</button>
+      <button class="opcion" data-op="d">d) Cambian a Windows solos</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Módulo 6: Taller 🛠️ →</button>
+  </div>
+</section>
+
+<!-- ============================================================
+     MÓDULO 6 — TALLER
+============================================================ -->
+<section class="modulo" data-modulo="6">
+  <h2>🛠️ Taller: "El backup de Mateo"</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · Caso práctico entregable — consola en acción</p>
+
+  <div class="caja-historia">
+    <h4>📜 El caso</h4>
+    <p>Mateo tiene un USB lleno de tareas desordenadas. Quiere organizarlas: crear una carpeta <code>Backup</code>, copiar (en el simulador: recrear) sus archivos importantes dentro, verificar el contenido y borrar el original. No recuerda cómo hacerlo con el ratón… pero tú acabas de aprender la consola. Ayúdalo paso a paso.</p>
+  </div>
+
+  <h3>📝 Instrucciones</h3>
+  <ol>
+    <li>Abre el simulador en la pestaña <strong>🎯 Retos CLI</strong> (o úsalo aquí mismo abajo en el navegador si tu docente lo habilita).</li>
+    <li>Completa en orden: <code>pwd</code> → <code>mkdir Backup</code> → crea dentro los archivos <code>tarea1.txt</code>, <code>tarea2.txt</code> → escribe en cada uno una línea con <code>echo</code> → verifica con <code>cat</code> → borra los originales.</li>
+    <li>Responde las preguntas del taller más abajo.</li>
+  </ol>
+
+  <h3>✅ Lista de verificación</h3>
+  <div class="taller-checks" id="tallerChecks">
+    <label class="chk"><input type="checkbox" data-check="t0"> Usé <code>pwd</code> para confirmar dónde estaba</label>
+    <label class="chk"><input type="checkbox" data-check="t1"> Creé la carpeta <code>Backup</code> con <code>mkdir</code></label>
+    <label class="chk"><input type="checkbox" data-check="t2"> Creé <code>tarea1.txt</code> y <code>tarea2.txt</code> dentro (con <code>touch</code> o <code>New-Item</code>)</label>
+    <label class="chk"><input type="checkbox" data-check="t3"> Escribí contenido con <code>echo ... &gt; archivo</code></label>
+    <label class="chk"><input type="checkbox" data-check="t4"> Verifiqué el contenido con <code>cat</code> / <code>type</code></label>
+    <label class="chk"><input type="checkbox" data-check="t5"> Borré los archivos originales sin tocar <code>Backup</code></label>
+  </div>
+
+  <!-- Quiz taller -->
+  <div class="quiz" data-quiz="q6">
+    <h3>🧩 Preguntas del taller</h3>
+    <div class="pregunta" data-correcta="a">
+      <p class="p-pregunta">1. ¿Por qué Mateo prefiere la consola para organizar muchos archivos?</p>
+      <button class="opcion" data-op="a">a) Porque puede encadenar comandos y repetirlos en un script, más rápido que el ratón</button>
+      <button class="opcion" data-op="b">a) Porque no tiene ratón</button>
+      <button class="opcion" data-op="c">c) Porque la consola nunca borra nada</button>
+      <button class="opcion" data-op="d">d) Porque no necesita saber dónde está</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p class="p-pregunta">2. Antes de borrar, ¿qué deberías SIEMPRE hacer?</p>
+      <button class="opcion" data-op="a">a) Apagar el equipo</button>
+      <button class="opcion" data-op="b">b) <code>pwd</code> y <code>ls</code> para confirmar dónde estás y qué borrarás</button>
+      <button class="opcion" data-op="c">c) Formatear el disco</button>
+      <button class="opcion" data-op="d">d) Nada, <code>rm</code> es seguro</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>📦 Entrega</h4>
+    <p>Captura la pantalla del simulador con la carpeta <code>Backup</code> creada y su contenido verificado con <code>cat</code>/<code>type</code>, y responde las preguntas. ¡Felicidades, acabas de administrar un SO desde la consola! 🎉</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="0" data-reiniciar>↺ Volver al inicio</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <p>Sistemas Operativos · Clase 8 · Línea de Comandos (CLI) — javiera10.vercel.app</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
