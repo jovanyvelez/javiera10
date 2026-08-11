@@ -1007,6 +1007,36 @@ function configurarTerminal() {
     el.title = 'Toca para ver una pista de diagnóstico';
     el.addEventListener('click', () => mostrarToast('💡 ' + diagnosticReto(i)));
   });
+
+  // Barra de atajos para móvil: inyecta caracteres o dispara Tab/↑/↓ reutilizando
+  // el manejador de teclado existente.
+  configurarAtajos();
+}
+
+/* ---------- BARRA DE ATAJOS MÓVIL ---------- */
+function configurarAtajos() {
+  const barra = document.getElementById('termAtajos');
+  if (!barra || barra.dataset.bound) return;
+  barra.dataset.bound = '1';
+  barra.querySelectorAll('.btn-atajo').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById('termInput');
+      if (!input) return;
+      const tecla = btn.dataset.atajo;
+      if (tecla === 'Tab' || tecla === 'ArrowUp' || tecla === 'ArrowDown') {
+        // reutiliza la lógica de autocompletado / historial vía tecla sintética
+        input.focus();
+        input.dispatchEvent(new KeyboardEvent('keydown', { key: tecla, bubbles: true }));
+      } else {
+        // inserta el carácter en la posición del cursor
+        const pos = input.selectionStart ?? input.value.length;
+        input.value = input.value.slice(0, pos) + tecla + input.value.slice(input.selectionEnd ?? pos);
+        const nuevaPos = pos + tecla.length;
+        input.focus();
+        try { input.setSelectionRange(nuevaPos, nuevaPos); } catch (e) { input.value = input.value; }
+      }
+    });
+  });
 }
 
 function shellActiva() {

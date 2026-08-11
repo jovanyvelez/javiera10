@@ -594,6 +594,9 @@ main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
 }
 
 /* -------- RESPONSIVE -------- */
+/* Barra de atajos para móvil: oculta en escritorio, visible en pantallas pequeñas */
+.term-atajos { display: none; }
+
 @media (max-width: 760px) {
   .cabecera { padding: 1rem; }
   .menu-modulos { padding: 0.8rem 1rem; }
@@ -607,4 +610,33 @@ main { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
   .navegacion-modulo { flex-direction: column; }
   .btn-anterior, .btn-siguiente { width: 100%; text-align: center; }
   .tabla-compara { font-size: 0.82rem; }
+
+  /* Barra de atajos rápida (UX touch): caracteres y teclas frecuentes */
+  .term-atajos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.45rem 0.5rem;
+    background: var(--term-bg, #04130c);
+    border-top: 1px solid rgba(0, 255, 157, 0.18);
+  }
+  .btn-atajo {
+    flex: 1 1 auto;
+    min-width: 2.6rem;
+    padding: 0.5rem 0.3rem;
+    font-family: 'Fira Code', 'Consolas', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--verde, #00ff9d);
+    background: rgba(0, 255, 157, 0.08);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s ease, transform 0.05s ease;
+  }
+  .btn-atajo:active {
+    background: rgba(0, 255, 157, 0.25);
+    transform: scale(0.95);
+  }
 }

@@ -450,6 +450,16 @@
     <div class="terminal-pantalla" id="termPantalla">
       <!-- salida inyectada por JS -->
     </div>
+    <!-- Barra de atajos rápida para móvil (visible solo en pantallas < 768px) -->
+    <div class="term-atajos" id="termAtajos" aria-label="Atajos de teclado para móvil">
+      <button type="button" class="btn-atajo" data-atajo="/" title="Barra diagonal">/</button>
+      <button type="button" class="btn-atajo" data-atajo="\" title="Barra inversa (Windows)">\</button>
+      <button type="button" class="btn-atajo" data-atajo="~" title="Carpeta personal">~</button>
+      <button type="button" class="btn-atajo" data-atajo="-" title="Guion (opciones)">-</button>
+      <button type="button" class="btn-atajo" data-atajo="Tab" title="Autocompletar (Tab)">Tab</button>
+      <button type="button" class="btn-atajo" data-atajo="ArrowUp" title="Comando anterior">▲</button>
+      <button type="button" class="btn-atajo" data-atajo="ArrowDown" title="Comando siguiente">▼</button>
+    </div>
     <div class="terminal-entrada">
       <span class="te-prompt" id="tePrompt">estudiante@javiera10:~$</span>
       <input type="text" id="termInput" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Entrada de comandos" placeholder="Escribe un comando y presiona Enter. Tab autocompleta. help para ayuda.">
