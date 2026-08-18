@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌍 Herramientas de Programación I · Clase 1 · Introducción a la web y primera página HTML</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🌍</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 1</h1>
+      <p class="subtitulo">Introducción a la web · Internet · Navegador · Servidor · Primera página HTML</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🌍 Internet y la web</button>
+  <button class="btn-modulo" data-modulo="2">🧱 HTML, CSS y JS</button>
+  <button class="btn-modulo" data-modulo="3">📄 Estructura de una página</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🏷️ Etiquetas básicas</button>
+  <button class="btn-modulo" data-modulo="6">👤 Tu página "Sobre mí"</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🌍 ¡Bienvenido/a a tu primera página web!</h2>
+    <p class="lead">Hoy vas a dar el primer paso para convertirte en desarrollador/a web: entender <strong>cómo funciona Internet</strong> y crear <strong>tu primera página HTML</strong>. Al final de esta clase tendrás una página "Sobre mí" escrita por ti, de cero.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "¿Qué es una página web?"</span></div>
+        <div class="out">"Un archivo HTML que el navegador convierte en lo que ves."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"HTML es el esqueleto de la página."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Entender qué es Internet, el navegador, el servidor y el cliente, y crear tu primer archivo HTML.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Ganas de crear. No hace falta saber programar: empezamos desde cero, con analogías y simuladores.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Internet y la web</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · HTML, CSS y JavaScript</td><td style="color:var(--morado-claro)">Las 3 tecnologías</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Estructura de una página</td><td style="color:var(--ambar)">DOCTYPE/html/head/body</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Etiquetas básicas</td><td style="color:var(--verde)">h1-h6, p, a, br, hr</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Tu página "Sobre mí"</td><td style="color:var(--morado)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, respondan en una frase: <strong>¿qué creen que pasa cuando escriben "google.com" y presionan Enter?</strong> No busquen la respuesta correcta, solo escriban su intuición. La confirmaremos al final de la clase.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Internet y la web →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🌍 Internet y la web</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La red de redes" — quién habla con quién</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p><strong>Internet</strong> es una red gigante de computadores conectados entre sí por cables, fibra óptica y señales inalámbricas. La <strong>web</strong> es una de las cosas que viajan por esa red: páginas, imágenes, videos.</p>
+    <p>En esa conversación hay dos protagonistas: el <strong>cliente</strong> (tu navegador, que pide) y el <strong>servidor</strong> (un computador lejano, que responde). El <strong>navegador</strong> es el programa que usas para ver la web: Chrome, Firefox, Edge.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🌐 Internet</h4>
+      <p>La <strong>red física</strong>: cables, routers, servidores. Es la "carretera" por donde viaja la información.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🕸️ La Web</h4>
+      <p>El <strong>contenido</strong> que viaja por Internet: páginas, sitios, videos. Es lo que "circula" por la carretera.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🧭 Navegador</h4>
+      <p>El <strong>programa</strong> que usas para ver la web: Chrome, Firefox, Edge. Es tu "ventana" a Internet.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: La conversación cliente-servidor</h3>
+  <p>Presiona "Pedir página" y observa cómo el cliente (navegador) pide y el servidor responde.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🌍 Cliente ↔ Servidor</div>
+    <div class="state-panel">
+      <div class="state-title">Estado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Cliente (navegador)</div><span class="sval" id="cs-cliente">Esperando</span></div>
+        <div class="state-cell"><div class="label">Servidor</div><span class="sval" id="cs-servidor">Esperando</span></div>
+        <div class="state-cell"><div class="label">Páginas servidas</div><span class="sval" id="cs-contador">0</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary big" id="cs-pedir">📨 Pedir página</button>
+      <button class="btn ghost" id="cs-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="cs-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="cs-feedback-txt">Presiona "Pedir página" para ver la conversación.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Internet y web <strong>no son lo mismo</strong>. Internet es la red; la web es el contenido. También hay otras cosas que viajan por Internet: el correo electrónico, los mensajes de WhatsApp, las videollamadas. La web es solo una de ellas.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es Internet?</p>
+      <button class="opcion" data-op="a">Un programa para ver páginas</button>
+      <button class="opcion" data-op="b">Una red gigante de computadores conectados</button>
+      <button class="opcion" data-op="c">Un lenguaje de programación</button>
+      <button class="opcion" data-op="d">Un tipo de computador</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Quién es el "cliente" en la web?</p>
+      <button class="opcion" data-op="a">Tu navegador, que pide páginas</button>
+      <button class="opcion" data-op="b">El servidor lejano</button>
+      <button class="opcion" data-op="c">El cable de fibra óptica</button>
+      <button class="opcion" data-op="d">El router de tu casa</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: HTML, CSS y JS →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🧱 HTML, CSS y JavaScript</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Las 3 tecnologías de la web" — estructura, estilo y comportamiento</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Toda página web se construye con <strong>tres tecnologías</strong> que trabajan juntas. Como una casa: <strong>HTML</strong> son los muros (la estructura), <strong>CSS</strong> es la pintura (el estilo) y <strong>JavaScript</strong> es la electricidad (el comportamiento).</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🏗️ HTML</h4>
+      <p><strong>Estructura</strong>. Define qué hay en la página: títulos, párrafos, enlaces, imágenes. Es el esqueleto.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🎨 CSS</h4>
+      <p><strong>Estilo</strong>. Colores, tamaños, márgenes. Hace que la página se vea bonita.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>⚡ JavaScript</h4>
+      <p><strong>Comportamiento</strong>. Hace que los botones funcionen y la página responda.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Apaga una capa</h3>
+  <p>Toca cada botón para ver qué pasa cuando "apagamos" una tecnología de una página.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎛️ Las 3 capas de una página</div>
+    <div class="state-panel">
+      <div class="state-title">Estado de las capas</div>
+      <div class="state-grid">
+        <div class="state-cell" id="capa-html-cell"><div class="label">HTML</div><span class="sval" id="capa-html-val">ON</span></div>
+        <div class="state-cell" id="capa-css-cell"><div class="label">CSS</div><span class="sval" id="capa-css-val">ON</span></div>
+        <div class="state-cell" id="capa-js-cell"><div class="label">JavaScript</div><span class="sval" id="capa-js-val">ON</span></div>
+      </div>
+    </div>
+    <div class="capas-demo" id="capasDemo">
+      <div class="demo-head">
+        <div class="demo-dots"><span></span><span></span><span></span></div>
+        <div class="demo-url">mi-pagina.html</div>
+      </div>
+      <div class="demo-body" id="demoBody">
+        <h1 id="demoH1">¡Hola, décimo! 👋</h1>
+        <p id="demoP">Esta es una mini-página. Toca los botones y observa.</p>
+        <button id="demoBtn">🎉 Contar clics: 0</button>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="toggleHtml">🏗️ Toggle HTML</button>
+      <button class="btn primary" id="toggleCss">🎨 Toggle CSS</button>
+      <button class="btn primary" id="toggleJs">⚡ Toggle JS</button>
+      <button class="btn ghost" id="demoReset">🔄 Restaurar</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="capasExplicacionTxt">Las 3 capas están activas.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Regla mnemotécnica</h4>
+    <p><strong>"HTML pone los ladrillos, CSS los pinta, JavaScript enciende las luces."</strong> En este curso empezaremos por HTML, luego CSS y al final JavaScript.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace HTML?</p>
+      <button class="opcion" data-op="a">Define la estructura: títulos, párrafos, enlaces</button>
+      <button class="opcion" data-op="b">Colorea y da estilo</button>
+      <button class="opcion" data-op="c">Hace que los botones respondan</button>
+      <button class="opcion" data-op="d">Conecta con el servidor</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué hace JavaScript?</p>
+      <button class="opcion" data-op="a">Define la estructura</button>
+      <button class="opcion" data-op="b">Pinta los colores</button>
+      <button class="opcion" data-op="c">Agrega comportamiento e interactividad</button>
+      <button class="opcion" data-op="d">Guarda los archivos</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Estructura de una página →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>📄 Estructura de una página HTML</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El esqueleto mínimo" — DOCTYPE, html, head y body</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Toda página HTML tiene un <strong>esqueleto mínimo</strong> que se repite siempre. Son cuatro piezas: la declaración <code>&lt;!DOCTYPE html&gt;</code>, la etiqueta <code>&lt;html&gt;</code>, la <code>&lt;head&gt;</code> (información invisible) y el <code>&lt;body&gt;</code> (lo que se ve).</p>
+  </div>
+
+  <h3>🦴 Las 4 piezas del esqueleto</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Pieza</th><th>Qué es</th><th>¿Se ve?</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;!DOCTYPE html&gt;</code></td><td>Le dice al navegador "esto es HTML moderno"</td><td>No</td></tr>
+        <tr><td><code>&lt;html&gt;</code></td><td>Envuelve toda la página</td><td>No</td></tr>
+        <tr><td><code>&lt;head&gt;</code></td><td>Información: título, idioma, enlaces a estilos</td><td>No (salvo el título en la pestaña)</td></tr>
+        <tr><td><code>&lt;body&gt;</code></td><td>Todo el contenido visible</td><td>Sí</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>💻 El esqueleto mínimo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="esqueleto">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Mi primera página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;¡Hola, mundo!&lt;/h1&gt;
+  &lt;p&gt;Esta es mi primera página web.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Arma el esqueleto</h3>
+  <p>Ordena las piezas del esqueleto HTML de arriba hacia abajo.</p>
+  <div class="simulador">
+    <div class="sim-head">🦴 Esqueleto HTML — orden correcto</div>
+    <div class="ws-block" data-ws-order="esqueleto">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="doctype" draggable="true"><span class="ord-num">?</span> &lt;!DOCTYPE html&gt;</div>
+        <div class="ws-order-item" data-oid="html" draggable="true"><span class="ord-num">?</span> &lt;html&gt;</div>
+        <div class="ws-order-item" data-oid="head" draggable="true"><span class="ord-num">?</span> &lt;head&gt;</div>
+        <div class="ws-order-item" data-oid="body" draggable="true"><span class="ord-num">?</span> &lt;body&gt;</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="esqueleto">✓ Validar orden</button>
+      <div class="resultado-ws" id="ws-fb-esqueleto"></div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar el &lt;body&gt;</h4>
+    <p>Todo lo que quieras que se <strong>vea</strong> en la página debe ir dentro de <code>&lt;body&gt;</code>. Si lo pones en <code>&lt;head&gt;</code>, no se mostrará (o se mostrará mal). El <code>&lt;head&gt;</code> es solo para información "invisible".</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Dónde va el contenido visible de la página?</p>
+      <button class="opcion" data-op="a">En &lt;head&gt;</button>
+      <button class="opcion" data-op="b">En &lt;body&gt;</button>
+      <button class="opcion" data-op="c">En &lt;!DOCTYPE&gt;</button>
+      <button class="opcion" data-op="d">En &lt;html&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Para qué sirve &lt;!DOCTYPE html&gt;?</p>
+      <button class="opcion" data-op="a">Le dice al navegador que es HTML moderno</button>
+      <button class="opcion" data-op="b">Muestra un título en la página</button>
+      <button class="opcion" data-op="c">Agrega colores</button>
+      <button class="opcion" data-op="d">Crea un enlace</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué es HTML con tus palabras.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa HTML?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">HyperText Markup Language</button>
+      <button class="trivia-opt" data-top="b">High Tech Modern Language</button>
+      <button class="trivia-opt" data-top="c">Home Tool Markup Language</button>
+      <button class="trivia-opt" data-top="d">Hyper Transfer Markup Language</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Etiquetas básicas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🏷️ Etiquetas básicas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "h1-h6, p, a, br, hr" — las etiquetas que usarás siempre</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Las <strong>etiquetas</strong> son las palabras entre <code>&lt; &gt;</code> que le dicen al navegador qué mostrar. Hay decenas, pero estas cinco son las que usarás en casi toda página: <strong>encabezados</strong> (h1-h6), <strong>párrafos</strong> (p), <strong>enlaces</strong> (a), <strong>salto de línea</strong> (br) y <strong>línea horizontal</strong> (hr).</p>
+  </div>
+
+  <h3>🏷️ Las 5 etiquetas esenciales</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Etiqueta</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code></td><td>Encabezados (h1 el más grande, h6 el más chico)</td><td><code>&lt;h1&gt;Título&lt;/h1&gt;</code></td></tr>
+        <tr><td><code>&lt;p&gt;</code></td><td>Párrafo de texto</td><td><code>&lt;p&gt;Hola&lt;/p&gt;</code></td></tr>
+        <tr><td><code>&lt;a&gt;</code></td><td>Enlace a otra página</td><td><code>&lt;a href="..."&gt;Ir&lt;/a&gt;</code></td></tr>
+        <tr><td><code>&lt;br&gt;</code></td><td>Salto de línea (no necesita cierre)</td><td><code>Línea 1&lt;br&gt;Línea 2</code></td></tr>
+        <tr><td><code>&lt;hr&gt;</code></td><td>Línea horizontal separadora</td><td><code>&lt;hr&gt;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El constructor de etiquetas</h3>
+  <p>Toca una etiqueta para ver qué produce en la página.</p>
+  <div class="simulador">
+    <div class="sim-head">🏷️ Etiquetas en acción</div>
+    <div class="btn-row">
+      <button class="btn primary" data-tag="h1">h1</button>
+      <button class="btn primary" data-tag="h2">h2</button>
+      <button class="btn primary" data-tag="p">p</button>
+      <button class="btn primary" data-tag="a">a</button>
+      <button class="btn primary" data-tag="br">br</button>
+      <button class="btn primary" data-tag="hr">hr</button>
+    </div>
+    <div class="code-live" id="tag-code" style="margin-top:1rem;">
+<span class="cm">&lt;!-- Toca una etiqueta para ver su efecto --&gt;</span>
+    </div>
+    <div class="caja-tip" id="tag-feedback" style="margin-top:1rem;">
+      <h4>👁️ Resultado</h4>
+      <p id="tag-feedback-txt">Toca una etiqueta para ver qué hace.</p>
+    </div>
+  </div>
+
+  <h3>💻 Atributos y comentarios</h3>
+  <p>Las etiquetas pueden tener <strong>atributos</strong> (información extra) y puedes dejar <strong>comentarios</strong> que el navegador ignora:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>atributos.html</div>
+      <button class="copy-btn" data-copy="atributos">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;!-- Esto es un comentario: el navegador lo ignora --&gt;
+
+&lt;a href="https://www.google.com"&gt;Ir a Google&lt;/a&gt;
+&lt;!--        ^^^^^^ el atributo href indica a dónde lleva el enlace --&gt;
+
+&lt;img src="foto.jpg" alt="Mi foto"&gt;
+&lt;!--    ^^^^ ruta de la imagen   ^^^^ texto alternativo --&gt;</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip: VS Code y Live Server</h4>
+    <p>Para escribir HTML usa <strong>VS Code</strong> (editor gratuito). Con la extensión <strong>Live Server</strong> puedes ver tu página actualizarse en el navegador cada vez que guardas, sin recargar a mano. Es la forma más cómoda de trabajar.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué etiqueta crea un párrafo?</p>
+      <button class="opcion" data-op="a">&lt;h1&gt;</button>
+      <button class="opcion" data-op="b">&lt;p&gt;</button>
+      <button class="opcion" data-op="c">&lt;br&gt;</button>
+      <button class="opcion" data-op="d">&lt;hr&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué etiqueta es el encabezado más grande?</p>
+      <button class="opcion" data-op="a">&lt;h1&gt;</button>
+      <button class="opcion" data-op="b">&lt;h6&gt;</button>
+      <button class="opcion" data-op="c">&lt;p&gt;</button>
+      <button class="opcion" data-op="d">&lt;a&gt;</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Tu página "Sobre mí" →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>👤 Tu página "Sobre mí"</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — crea tu primera página real</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Vas a crear tu primera página web: una página <strong>"Sobre mí"</strong> con título, encabezado principal, párrafos y un enlace. Es el mismo entregable que pedirá el plan de la clase.</p>
+  </div>
+
+  <h3>🎮 Simulador: Constructor de "Sobre mí"</h3>
+  <p>Selecciona las secciones que quieres incluir y observa cómo se arma el HTML.</p>
+  <div class="simulador">
+    <div class="sim-head">👤 Constructor de página "Sobre mí"</div>
+    <div class="btn-row">
+      <button class="btn primary" data-sobre="titulo">➕ Título</button>
+      <button class="btn primary" data-sobre="h1">➕ Encabezado h1</button>
+      <button class="btn primary" data-sobre="parrafo">➕ Párrafo</button>
+      <button class="btn primary" data-sobre="enlace">➕ Enlace</button>
+      <button class="btn ghost" id="sobre-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="code-live" id="sobre-code" style="margin-top:1rem;">
+<span class="cm">&lt;!-- Toca los botones para construir tu página --&gt;</span>
+    </div>
+  </div>
+
+  <h3>💻 La página "Sobre mí" completa</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>sobre-mi.html</div>
+      <button class="copy-btn" data-copy="sobre">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Sobre mí&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hola, soy [tu nombre]&lt;/h1&gt;
+  &lt;p&gt;Tengo [tu edad] años y estudio en grado décimo.&lt;/p&gt;
+  &lt;p&gt;Me gusta [tus gustos].&lt;/p&gt;
+  &lt;hr&gt;
+  &lt;a href="https://www.google.com"&gt;Mi sitio favorito&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 10 minutos</h4>
+    <p>Con tu compañero/a, creen una carpeta de proyecto y un archivo <code>index.html</code> en VS Code. Escriban su propia página "Sobre mí" con: título, encabezado principal, al menos dos párrafos y un enlace. Ábranla con Live Server y compárenla con la del otro equipo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué debe tener tu página "Sobre mí" según el entregable?</p>
+      <button class="opcion" data-op="a">Solo un video</button>
+      <button class="opcion" data-op="b">Solo colores</button>
+      <button class="opcion" data-op="c">Título, encabezado, párrafos y un enlace</button>
+      <button class="opcion" data-op="d">Solo una imagen</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué extensión tiene un archivo HTML?</p>
+      <button class="opcion" data-op="a">.html</button>
+      <button class="opcion" data-op="b">.css</button>
+      <button class="opcion" data-op="c">.js</button>
+      <button class="opcion" data-op="d">.txt</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: Internet, las 3 tecnologías, la estructura HTML y las etiquetas básicas. Al superarlos, recibirás tu insignia de <strong>Web Builder</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🌍 Empareja cada concepto con su definición</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Internet</button>
+        <button class="ws-chip" data-mid="1b">Navegador</button>
+        <button class="ws-chip" data-mid="1c">Servidor</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">La red de computadores conectados</button>
+        <button class="ws-chip" data-mid="1B">El programa que usas para ver la web</button>
+        <button class="ws-chip" data-mid="1C">El computador que responde a las peticiones</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📄 Ordena el esqueleto HTML</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2doctype" draggable="true"><span class="ord-num">?</span> &lt;!DOCTYPE html&gt;</div>
+        <div class="ws-order-item" data-oid="2html" draggable="true"><span class="ord-num">?</span> &lt;html&gt;</div>
+        <div class="ws-order-item" data-oid="2head" draggable="true"><span class="ord-num">?</span> &lt;head&gt;</div>
+        <div class="ws-order-item" data-oid="2body" draggable="true"><span class="ord-num">?</span> &lt;body&gt;</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🏷️ Completa la etiqueta de párrafo</span></div>
+    <p>Completa la etiqueta que crea un párrafo:</p>
+    <div class="ws-block">
+      <div class="code-live">
+&lt;<input class="ws-input" data-ans="p" data-ws="3" placeholder="?">&gt;Hola, mundo&lt;/<input class="ws-input" data-ans="p" data-ws="3" placeholder="?">&gt;
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;h1&gt;Mi título&lt;/h1&gt;
+  &lt;/head&gt;
+&lt;/html&gt;
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">El contenido visible va en &lt;body&gt;, no en &lt;head&gt;</button>
+        <button class="ws-chip" data-mid="4B">Falta la etiqueta &lt;!DOCTYPE&gt;</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Web Builder!</h2>
+    <p class="lead">Ya sabes qué es Internet, la diferencia entre HTML/CSS/JS, la estructura de una página y las etiquetas básicas. Y creaste tu primera página "Sobre mí". <strong>HTML es el esqueleto de la página.</strong> En la próxima clase aprenderás a estructurarla con etiquetas semánticas.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 1 · Plataforma interactiva</div>
+  <div>Introducción a la web · Internet · Navegador · Servidor · Primera página HTML · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

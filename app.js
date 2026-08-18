@@ -47,6 +47,7 @@ function cargarProgresoPorClase() {
     'curso-so-gestion-almacenamiento': 5,
     'curso-so-interfaz-linea-comandos-cli': 5,
     'curso-introduccion-programacion-web': 6,
+    'curso-introduccion-web-html': 6,
     'curso-html-semantico': 6,
     'curso-imagenes-tablas': 6,
     'curso-formularios-html': 6,
@@ -129,7 +130,7 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 4,   800);
-  animarNumero(document.getElementById('stat-clases'), 0, 35,  900);
+  animarNumero(document.getElementById('stat-clases'), 0, 36,  900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
@@ -228,7 +229,7 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-so-gestion-almacenamiento', 'curso-so-interfaz-linea-comandos-cli', 'curso-introduccion-programacion-web', 'curso-html-semantico', 'curso-imagenes-tablas', 'curso-formularios-html', 'curso-introduccion-css', 'curso-box-model', 'curso-flexbox', 'curso-css-grid', 'curso-responsive-design', 'curso-componentes-animaciones', 'curso-introduccion-javascript', 'curso-condicionales-bucles', 'curso-funciones-arrays', 'curso-objetos-metodos-array', 'curso-dom-seleccion', 'curso-eventos', 'curso-formularios-js', 'curso-localstorage-json', 'curso-crud-crear-leer', 'curso-crud-actualizar-eliminar', 'curso-proyecto-final', 'curso-presentacion-evaluacion'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-so-gestion-almacenamiento', 'curso-so-interfaz-linea-comandos-cli', 'curso-introduccion-programacion-web', 'curso-introduccion-web-html', 'curso-html-semantico', 'curso-imagenes-tablas', 'curso-formularios-html', 'curso-introduccion-css', 'curso-box-model', 'curso-flexbox', 'curso-css-grid', 'curso-responsive-design', 'curso-componentes-animaciones', 'curso-introduccion-javascript', 'curso-condicionales-bucles', 'curso-funciones-arrays', 'curso-objetos-metodos-array', 'curso-dom-seleccion', 'curso-eventos', 'curso-formularios-js', 'curso-localstorage-json', 'curso-crud-crear-leer', 'curso-crud-actualizar-eliminar', 'curso-proyecto-final', 'curso-presentacion-evaluacion'];
 
   let tienePrograma = false;
 
