@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎨 Herramientas de Programación I · Clase 5 · Introducción a CSS</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🎨</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 5</h1>
+      <p class="subtitulo">Introducción a CSS · Selectores · Colores · Tipografía</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🎨 ¿Qué es CSS?</button>
+  <button class="btn-modulo" data-modulo="2">🎯 Selectores</button>
+  <button class="btn-modulo" data-modulo="3">🌈 Colores</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🔤 Tipografía</button>
+  <button class="btn-modulo" data-modulo="6">⚖️ Cascada y especificidad</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🎨 ¡Bienvenido/a a CSS!</h2>
+    <p class="lead">En las clases anteriores construiste la <strong>estructura</strong> de tu página con HTML. Hoy vas a aprender a darle <strong>estilo</strong>: colores, fuentes, tamaños y espaciados. Eso se hace con <strong>CSS</strong> (Cascading Style Sheets, "hojas de estilo en cascada").</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "HTML es el esqueleto, CSS es la ropa"</span></div>
+        <div class="out">"HTML es el esqueleto, CSS es la ropa"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"CSS permite separar presentación y estructura."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Estilizar una página con selectores, colores y tipografía, usando una hoja de estilos externa.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML básico (etiquetas, clases e id). Aquí aprenderás a <em>darle vida</em> con CSS.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es CSS y cómo se incluye?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Selectores</td><td style="color:var(--morado-claro)">etiqueta/clase/id</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Colores</td><td style="color:var(--ambar)">nombre/hex/rgb/hsl</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Tipografía</td><td style="color:var(--verde)">fuentes y tamaños</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Cascada y especificidad</td><td style="color:var(--morado)">Consejos</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong>. Busquen la pestaña <strong>Styles</strong> (o "Estilos"). ¿Ven reglas como <code>color</code>, <code>font-size</code> o <code>background</code>? ¿Cuántas encuentran?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es CSS? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🎨 ¿Qué es CSS y cómo se incluye?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La ropa de la página" — por qué separamos presentación y estructura</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina que HTML es el <strong>esqueleto</strong> de una persona y CSS es su <strong>ropa</strong>: el color de la camisa, el tamaño de las letras, el espacio entre los párrafos. CSS significa <strong>Cascading Style Sheets</strong> (hojas de estilo en cascada) y sirve para controlar <strong>cómo se ve</strong> la página, sin tocar su estructura.</p>
+    <p>La gran ventaja: si cambias una regla de CSS, cambia el estilo de <strong>toda</strong> la página a la vez. Separar presentación (CSS) de estructura (HTML) hace tu código más limpio y fácil de mantener.</p>
+  </div>
+
+  <h3>📦 Las 3 formas de incluir CSS</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Forma</th><th>Dónde va</th><th>Cuándo usarla</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;link&gt;</code> externo</td><td>En el <code>&lt;head&gt;</code>, apunta a un archivo <code>.css</code></td><td>La recomendada: reutilizable en varias páginas</td></tr>
+        <tr><td>Interno <code>&lt;style&gt;</code></td><td>Dentro del <code>&lt;head&gt;</code> de la misma página</td><td>Para una sola página pequeña</td></tr>
+        <tr><td>En línea <code>style=""</code></td><td>En el atributo de una etiqueta</td><td>Casos puntuales; evítalo en general</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: ¿Cómo se incluye?</h3>
+  <p>Toca cada botón para ver cómo se escribe cada forma de incluir CSS y cuándo conviene usarla.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Formas de incluir CSS</div>
+    <div class="state-panel">
+      <div class="state-title">Forma seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Forma</div><span class="sval" id="css-forma">—</span></div>
+        <div class="state-cell"><div class="label">Cuándo usarla</div><span class="sval" id="css-cuando">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-css="externo">🔗 Externo</button>
+      <button class="btn primary" data-css="interno">📄 Interno</button>
+      <button class="btn primary" data-css="enlinea">✍️ En línea</button>
+    </div>
+    <div class="code-live" id="css-ejemplo" style="margin-top:1rem;">
+<span class="cm">&lt;!-- Toca un botón para ver el código --&gt;</span>
+    </div>
+    <div class="caja-tip" id="css-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="css-feedback-txt">Toca una forma para ver cómo se escribe y cuándo conviene usarla.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>La forma <strong>externa</strong> (con <code>&lt;link&gt;</code>) es la mejor práctica: un solo archivo <code>styles.css</code> puede dar estilo a <strong>todas</strong> las páginas de tu sitio. Si mañana quieres cambiar el color de los títulos, lo cambias en un solo lugar.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué significa CSS?</p>
+      <button class="opcion" data-op="a">Computer Style System</button>
+      <button class="opcion" data-op="b">Cascading Style Sheets</button>
+      <button class="opcion" data-op="c">Creative Style Software</button>
+      <button class="opcion" data-op="d">Color Style Sheets</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál es la forma recomendada de incluir CSS?</p>
+      <button class="opcion" data-op="a">En línea, con style=""</button>
+      <button class="opcion" data-op="b">Interno, con &lt;style&gt;</button>
+      <button class="opcion" data-op="c">Externo, con &lt;link&gt; a un archivo .css</button>
+      <button class="opcion" data-op="d">No se incluye, va solo</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Selectores →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🎯 Selectores</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "A quién le pones la ropa" — etiqueta, clase, id y universal</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>selector</strong> le dice a CSS <strong>a qué elementos</strong> aplicar un estilo. Es como elegir a quién le pones la ropa: ¿a todos los párrafos? ¿a los que tienen una clase? ¿a uno solo con un id? Hay cuatro selectores básicos que debes dominar.</p>
+  </div>
+
+  <h3>🎯 Los 4 selectores básicos</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Selector</th><th>Sintaxis</th><th>Qué selecciona</th></tr></thead>
+      <tbody>
+        <tr><td>Etiqueta</td><td><code>p { }</code></td><td>Todos los elementos de esa etiqueta</td></tr>
+        <tr><td>Clase</td><td><code>.destacado { }</code></td><td>Todos los elementos con esa clase</td></tr>
+        <tr><td>Id</td><td><code>#titulo { }</code></td><td>Un único elemento con ese id</td></tr>
+        <tr><td>Universal</td><td><code>* { }</code></td><td>Todos los elementos de la página</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El probador de selectores</h3>
+  <p>Toca cada selector para ver a qué elementos apunta y un ejemplo de código.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎯 ¿Qué selecciona cada selector?</div>
+    <div class="state-panel">
+      <div class="state-title">Selector seleccionado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Selector</div><span class="sval" id="sel-nombre">—</span></div>
+        <div class="state-cell"><div class="label">Selecciona</div><span class="sval" id="sel-que">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-sel="etiqueta">🏷️ Etiqueta</button>
+      <button class="btn primary" data-sel="clase">🔖 Clase</button>
+      <button class="btn primary" data-sel="id">🆔 Id</button>
+      <button class="btn primary" data-sel="universal">⭐ Universal</button>
+    </div>
+    <div class="code-live" id="sel-ejemplo" style="margin-top:1rem;">
+<span class="cm">&lt;!-- Toca un selector para ver su código --&gt;</span>
+    </div>
+    <div class="caja-tip" id="sel-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="sel-feedback-txt">Toca un selector para ver a qué apunta.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: id repetido</h4>
+    <p>El <code>id</code> debe ser <strong>único</strong> en toda la página: solo un elemento puede tener <code>id="titulo"</code>. Si necesitas estilizar varios elementos, usa una <strong>clase</strong> (<code>class="..."</code>), que sí puede repetirse.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué selector usas para estilizar TODOS los párrafos?</p>
+      <button class="opcion" data-op="a">p { }</button>
+      <button class="opcion" data-op="b">.p { }</button>
+      <button class="opcion" data-op="c">#p { }</button>
+      <button class="opcion" data-op="d">*p { }</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué selector apunta a un único elemento con id="menu"?</p>
+      <button class="opcion" data-op="a">.menu { }</button>
+      <button class="opcion" data-op="b">menu { }</button>
+      <button class="opcion" data-op="c">#menu { }</button>
+      <button class="opcion" data-op="d">*menu { }</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Colores →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🌈 Colores</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Pintar la página" — nombres, hexadecimal, RGB y HSL</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>En CSS puedes escribir un color de <strong>cuatro maneras</strong> distintas. Todas producen el mismo resultado visual, pero cada una tiene su momento. Conocerlas te permite leer y escribir cualquier hoja de estilos.</p>
+  </div>
+
+  <h3>🎨 Las 4 formas de escribir un color</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Forma</th><th>Ejemplo</th><th>Cuándo usarla</th></tr></thead>
+      <tbody>
+        <tr><td>Nombre</td><td><code>red</code>, <code>blue</code></td><td>Colores básicos, rápido de escribir</td></tr>
+        <tr><td>Hexadecimal</td><td><code>#ff0000</code></td><td>La más usada; precisa y compacta</td></tr>
+        <tr><td>RGB</td><td><code>rgb(255, 0, 0)</code></td><td>Cuando quieres controlar cada canal</td></tr>
+        <tr><td>HSL</td><td><code>hsl(0, 100%, 50%)</code></td><td>Matiz, saturación y luminosidad</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El mezclador de colores</h3>
+  <p>Toca cada formato para ver el mismo color rojo escrito de cuatro maneras distintas.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🌈 Cuatro formas, un mismo color</div>
+    <div class="state-panel">
+      <div class="state-title">Color seleccionado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Formato</div><span class="sval" id="col-formato">—</span></div>
+        <div class="state-cell"><div class="label">Valor</div><span class="sval" id="col-valor">—</span></div>
+        <div class="state-cell"><div class="label">Muestra</div><span class="sval" id="col-muestra" style="display:inline-block;width:100%;height:1.4em;border-radius:6px;background:#ff0000;">&nbsp;</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-col="nombre">🔴 Nombre</button>
+      <button class="btn primary" data-col="hex">🔶 Hexadecimal</button>
+      <button class="btn primary" data-col="rgb">🟥 RGB</button>
+      <button class="btn primary" data-col="hsl">🟠 HSL</button>
+    </div>
+    <div class="caja-tip" id="col-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="col-feedback-txt">Toca un formato para ver cómo se escribe el color rojo.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El <strong>hexadecimal</strong> es el más usado en la web: <code>#RRGGBB</code>, donde cada par de letras va de <code>00</code> (nada) a <code>ff</code> (máximo). <code>#ff0000</code> = rojo puro, <code>#00ff00</code> = verde, <code>#0000ff</code> = azul.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué formato de color es el más usado en la web?</p>
+      <button class="opcion" data-op="a">Nombre (red)</button>
+      <button class="opcion" data-op="b">Hexadecimal (#ff0000)</button>
+      <button class="opcion" data-op="c">Solo mayúsculas</button>
+      <button class="opcion" data-op="d">Ninguno</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> En HSL, ¿qué representa la "H"?</p>
+      <button class="opcion" data-op="a">Hue (matiz o tono)</button>
+      <button class="opcion" data-op="b">Height (altura)</button>
+      <button class="opcion" data-op="c">Hex (hexadecimal)</button>
+      <button class="opcion" data-op="d">Hard (duro)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una forma de escribir un color en CSS.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa la "C" de CSS?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Cascading (en cascada)</button>
+      <button class="trivia-opt" data-top="b">Color</button>
+      <button class="trivia-opt" data-top="c">Computer (computadora)</button>
+      <button class="trivia-opt" data-top="d">Creative (creativo)</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Tipografía →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🔤 Tipografía</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La letra importa" — font-family, font-size, font-weight y line-height</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La <strong>tipografía</strong> es el arte de elegir y ajustar las letras. En CSS controlas cuatro cosas principales: qué <strong>fuente</strong> usar, qué <strong>tamaño</strong>, qué <strong>grosor</strong> y cuánto <strong>espacio entre líneas</strong>. Una buena tipografía hace tu página legible y agradable.</p>
+  </div>
+
+  <h3>🔤 Las 4 propiedades clave</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Propiedad</th><th>Ejemplo</th><th>Qué controla</th></tr></thead>
+      <tbody>
+        <tr><td><code>font-family</code></td><td><code>font-family: Arial;</code></td><td>La fuente o tipo de letra</td></tr>
+        <tr><td><code>font-size</code></td><td><code>font-size: 16px;</code></td><td>El tamaño de la letra</td></tr>
+        <tr><td><code>font-weight</code></td><td><code>font-weight: bold;</code></td><td>El grosor (normal, bold, 100-900)</td></tr>
+        <tr><td><code>line-height</code></td><td><code>line-height: 1.5;</code></td><td>El espacio entre líneas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El sastre de letras</h3>
+  <p>Toca cada propiedad para ver cómo cambia el texto de ejemplo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔤 Ajusta la tipografía</div>
+    <div class="state-panel">
+      <div class="state-title">Vista previa</div>
+      <div class="state-cell" id="tipo-preview" style="font-size:1.2rem;padding:1rem;">La letra importa: legible y agradable.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-tipo="familia">🔠 font-family</button>
+      <button class="btn primary" data-tipo="tamano">📏 font-size</button>
+      <button class="btn primary" data-tipo="grosor">💪 font-weight</button>
+      <button class="btn primary" data-tipo="linea">↕️ line-height</button>
+    </div>
+    <div class="code-live" id="tipo-codigo" style="margin-top:1rem;">
+<span class="cm">&lt;!-- Toca una propiedad para ver su código --&gt;</span>
+    </div>
+    <div class="caja-tip" id="tipo-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tipo-feedback-txt">Toca una propiedad para ver qué controla.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Usa <strong>fuentes seguras</strong> (que existen en casi todos los dispositivos) como <code>Arial</code>, <code>Verdana</code> o <code>Georgia</code>. Y un <code>line-height</code> de <code>1.5</code> hace que los párrafos se lean mucho mejor.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad cambia el tipo de letra?</p>
+      <button class="opcion" data-op="a">font-size</button>
+      <button class="opcion" data-op="b">font-family</button>
+      <button class="opcion" data-op="c">font-weight</button>
+      <button class="opcion" data-op="d">line-height</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad controla el espacio entre líneas?</p>
+      <button class="opcion" data-op="a">line-height</button>
+      <button class="opcion" data-op="b">font-size</button>
+      <button class="opcion" data-op="c">font-family</button>
+      <button class="opcion" data-op="d">color</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Cascada y especificidad →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>⚖️ Cascada y especificidad</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "¿Quién gana?" — por qué una regla se impone sobre otra</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando dos reglas de CSS apuntan al mismo elemento, ¿cuál gana? La respuesta está en dos conceptos: la <strong>cascada</strong> (el orden y origen de las reglas) y la <strong>especificidad</strong> (qué tan "específico" es un selector). Entender esto evita el clásico "¿por qué no se aplica mi estilo?".</p>
+  </div>
+
+  <h3>⚖️ La escala de especificidad</h3>
+  <p>De menor a mayor "poder", los selectores se ordenan así:</p>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Selector</th><th>Poder</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Etiqueta</td><td>Bajo</td><td><code>p { color: blue; }</code></td></tr>
+        <tr><td>Clase</td><td>Medio</td><td><code>.aviso { color: green; }</code></td></tr>
+        <tr><td>Id</td><td>Alto</td><td><code>#titulo { color: red; }</code></td></tr>
+        <tr><td>En línea</td><td>Máximo</td><td><code>&lt;p style="color: black"&gt;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🌊 Cascada</h4>
+      <p>Si dos reglas tienen la <strong>misma especificidad</strong>, gana la que aparece <strong>después</strong> en el código. Es como una cascada: lo último que cae, se queda encima.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🎯 Especificidad</h4>
+      <p>Si las reglas tienen <strong>distinta especificidad</strong>, gana la más específica, <strong>sin importar el orden</strong>. Un <code>#id</code> vence a una <code>.clase</code>, y una <code>.clase</code> vence a una etiqueta.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El atajo peligroso: !important</h4>
+    <p>Existe <code>!important</code>, que fuerza una regla por encima de todas. Pero es un <strong>mal hábito</strong>: hace el código difícil de mantener. Úsalo solo como último recurso, nunca como solución habitual.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> Si una regla con .clase y otra con #id apuntan al mismo elemento, ¿cuál gana?</p>
+      <button class="opcion" data-op="a">La .clase</button>
+      <button class="opcion" data-op="b">La que aparezca después</button>
+      <button class="opcion" data-op="c">La #id (más específica)</button>
+      <button class="opcion" data-op="d">Ninguna</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> Si dos reglas tienen la misma especificidad, ¿cuál gana?</p>
+      <button class="opcion" data-op="a">La que aparece después en el código</button>
+      <button class="opcion" data-op="b">La que aparece antes</button>
+      <button class="opcion" data-op="c">La más corta</button>
+      <button class="opcion" data-op="d">Ninguna, se anulan</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: selectores, colores, tipografía y especificidad. Al superarlos, recibirás tu insignia de <strong>Estilista CSS</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🎯 Empareja cada selector con su sintaxis</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Etiqueta</button>
+        <button class="ws-chip" data-mid="1b">Clase</button>
+        <button class="ws-chip" data-mid="1c">Id</button>
+        <button class="ws-chip" data-mid="1d">Universal</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">p { }</button>
+        <button class="ws-chip" data-mid="1B">.destacado { }</button>
+        <button class="ws-chip" data-mid="1C">#titulo { }</button>
+        <button class="ws-chip" data-mid="1D">* { }</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">⚖️ Ordena de menor a mayor especificidad</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2etiqueta" draggable="true"><span class="ord-num">?</span> Etiqueta (p)</div>
+        <div class="ws-order-item" data-oid="2clase" draggable="true"><span class="ord-num">?</span> Clase (.aviso)</div>
+        <div class="ws-order-item" data-oid="2id" draggable="true"><span class="ord-num">?</span> Id (#titulo)</div>
+        <div class="ws-order-item" data-oid="2inline" draggable="true"><span class="ord-num">?</span> En línea (style="")</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🌈 Completa el color</span></div>
+    <p>Completa la regla para pintar el párrafo de rojo:</p>
+    <div class="ws-block">
+      <div class="code-live">
+p {
+  color: <input class="ws-input" data-ans="red" data-ws="3" placeholder="?">;
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: ¿qué regla gana?</span></div>
+    <p>Un compañero escribió este código. ¿De qué color se pinta el párrafo?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+p { color: blue; }
+.aviso { color: green; }
+#titulo { color: red; }
+      </div>
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="4a">¿Qué color gana?</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Rojo (el #id es más específico)</button>
+        <button class="ws-chip" data-mid="4B">Azul (la etiqueta va primero)</button>
+        <button class="ws-chip" data-mid="4C">Verde (la clase está en el medio)</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Estilista CSS!</h2>
+    <p class="lead">Ya sabes incluir CSS, usar selectores, aplicar colores y tipografía, y entender la cascada y la especificidad. Tu página ya tiene estilo. Recuerda: <strong>CSS permite separar presentación y estructura.</strong></p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 5 · Plataforma interactiva</div>
+  <div>Introducción a CSS · Selectores · Colores · Tipografía · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

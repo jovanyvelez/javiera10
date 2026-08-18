@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧩 Herramientas de Programación I · Clase 14 · Objetos y métodos de array</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🧩</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 14</h1>
+      <p class="subtitulo">Objetos literales · Acceso a propiedades · forEach, map, filter, find, some</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📦 Objetos literales</button>
+  <button class="btn-modulo" data-modulo="2">🔑 Acceso a propiedades</button>
+  <button class="btn-modulo" data-modulo="3">🔁 forEach y map</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🔍 filter, find y some</button>
+  <button class="btn-modulo" data-modulo="6">🗂️ Array de objetos</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🧩 ¡Bienvenido/a a Objetos y métodos de array!</h2>
+    <p class="lead">Hasta ahora guardabas datos sueltos en variables. Hoy vas a aprender a <strong>agruparlos en objetos</strong> y a <strong>recorrer, transformar y filtrar listas</strong> con los métodos de array. Es la base para manejar datos reales en tu proyecto final.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">node -e "console.log(typeof {})"</span></div>
+        <div class="out">"object"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">node -e "console.log([1,2,3].map(x => x*2))"</span></div>
+        <div class="out">[ 2, 4, 6 ]</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Un objeto agrupa datos; un método de array los transforma."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Crear objetos literales, acceder a sus propiedades y usar forEach, map, filter, find y some sobre arrays de objetos.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber declarar variables, arrays y funciones. Aquí aprenderás a <em>organizar y procesar</em> datos.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Objetos literales</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Acceso a propiedades</td><td style="color:var(--morado-claro)">punto/corchetes</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · forEach y map</td><td style="color:var(--ambar)">recorrer/transformar</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · filter, find y some</td><td style="color:var(--verde)">filtrar/buscar</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Array de objetos</td><td style="color:var(--morado)">Integración</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, piensen en una <strong>tarea del colegio</strong> (hacer un trabajo, estudiar para un examen, entregar un proyecto). ¿Qué datos la describen? Anoten al menos 4: por ejemplo, <code>titulo</code>, <code>materia</code>, <code>completada</code>, <code>id</code>. Esos datos serán las <strong>propiedades</strong> de un objeto.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Objetos literales →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📦 Objetos literales</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Un objeto agrupa datos que van juntos" — propiedades y métodos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina que quieres guardar los datos de una tarea: su título, su materia y si está completada. Podrías usar tres variables sueltas, pero es un lío. Un <strong>objeto</strong> te deja agruparlas en una sola "caja" con nombre.</p>
+    <p>Un <strong>objeto literal</strong> se escribe entre llaves <code>{ }</code>. Dentro van <strong>propiedades</strong> (pares <code>clave: valor</code>) separadas por comas. Si una propiedad guarda una función, se llama <strong>método</strong>.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Variables sueltas</h4>
+      <p>Tres variables separadas que no saben que van juntas. Difícil de pasar de un lado a otro.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">let</span> titulo = <span class="str">"Estudiar"</span>;
+<span class="kw">let</span> materia = <span class="str">"Matemáticas"</span>;
+<span class="kw">let</span> completada = <span class="kw">false</span>;
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Un objeto</h4>
+      <p>Todo agrupado en una sola variable. Claro y fácil de manejar.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">const</span> tarea = {
+  titulo: <span class="str">"Estudiar"</span>,
+  materia: <span class="str">"Matemáticas"</span>,
+  completada: <span class="kw">false</span>
+};
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Construye tu objeto</h3>
+  <p>Toca los botones para agregar propiedades a un objeto "tarea" y observa cómo se escribe el objeto literal en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Constructor de objetos — arma tu tarea</div>
+    <div class="btn-row">
+      <button class="btn primary" data-prop="titulo">➕ titulo</button>
+      <button class="btn primary" data-prop="materia">➕ materia</button>
+      <button class="btn primary" data-prop="completada">➕ completada</button>
+      <button class="btn primary" data-prop="id">➕ id</button>
+      <button class="btn ghost" id="obj-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="code-live" id="obj-code" style="margin-top:1rem;">
+<span class="cm">// Toca los botones para construir el objeto</span>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Propiedades vs métodos</h4>
+    <p>Una <strong>propiedad</strong> guarda un dato (un texto, un número, un booleano). Un <strong>método</strong> guarda una función que hace algo con esos datos. Por ejemplo, <code>tarea.mostrar()</code> podría imprimir el título de la tarea.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es un objeto literal?</p>
+      <button class="opcion" data-op="a">Una lista de números separados por comas</button>
+      <button class="opcion" data-op="b">Un conjunto de propiedades (clave: valor) entre llaves { }</button>
+      <button class="opcion" data-op="c">Una función que se ejecuta sola</button>
+      <button class="opcion" data-op="d">Un tipo de bucle</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cómo se llama una propiedad que guarda una función?</p>
+      <button class="opcion" data-op="a">Variable</button>
+      <button class="opcion" data-op="b">Array</button>
+      <button class="opcion" data-op="c">Método</button>
+      <button class="opcion" data-op="d">Índice</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Acceso a propiedades →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🔑 Acceso a propiedades</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "punto y corchetes" — dos formas de leer y escribir datos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una vez que tienes un objeto, necesitas <strong>leer</strong> y <strong>cambiar</strong> sus propiedades. Hay dos formas: con <strong>punto</strong> (<code>objeto.propiedad</code>) y con <strong>corchetes</strong> (<code>objeto["propiedad"]</code>). Ambas hacen lo mismo, pero los corchetes tienen un superpoder: permiten usar una <strong>variable</strong> como nombre de propiedad.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔹 Notación de punto</h4>
+      <p>Rápida y legible. Úsala cuando conoces el nombre exacto de la propiedad.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">const</span> tarea = { titulo: <span class="str">"Estudiar"</span> };
+tarea.titulo; <span class="cm">// "Estudiar"</span>
+tarea.titulo = <span class="str">"Repasar"</span>;
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🔸 Notación de corchetes</h4>
+      <p>Permite usar una variable o un nombre con espacios. Más flexible.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">const</span> clave = <span class="str">"titulo"</span>;
+tarea[clave]; <span class="cm">// "Estudiar"</span>
+tarea[<span class="str">"titulo"</span>] = <span class="str">"Repasar"</span>;
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Punto vs corchetes</h3>
+  <p>Selecciona una propiedad y una forma de acceso para ver el resultado en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔑 ¿Cómo accedo a la propiedad?</div>
+    <div class="state-panel">
+      <div class="state-title">Objeto en memoria</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">titulo</div><span class="sval">"Estudiar"</span></div>
+        <div class="state-cell"><div class="label">materia</div><span class="sval">"Matemáticas"</span></div>
+        <div class="state-cell"><div class="label">completada</div><span class="sval">false</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-acc="titulo">titulo</button>
+      <button class="btn primary" data-acc="materia">materia</button>
+      <button class="btn primary" data-acc="completada">completada</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-forma="punto">🔹 punto</button>
+      <button class="btn" data-forma="corchetes">🔸 corchetes</button>
+    </div>
+    <div class="code-live" id="acc-code" style="margin-top:1rem;">
+<span class="cm">// Elige una propiedad y una forma de acceso</span>
+    </div>
+    <div class="caja-tip" id="acc-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="acc-feedback-txt">Toca una propiedad y luego una forma de acceso para ver el código.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: punto con variable</h4>
+    <p>Si tienes <code>const clave = "titulo"</code>, escribir <code>tarea.clave</code> busca una propiedad llamada literalmente <code>"clave"</code>, que no existe. Para usar el valor de la variable debes usar corchetes: <code>tarea[clave]</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Cuál es la forma correcta de leer la propiedad <code>titulo</code> con punto?</p>
+      <button class="opcion" data-op="a">tarea.titulo</button>
+      <button class="opcion" data-op="b">tarea->titulo</button>
+      <button class="opcion" data-op="c">tarea(titulo)</button>
+      <button class="opcion" data-op="d">tarea::titulo</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuándo es obligatorio usar corchetes?</p>
+      <button class="opcion" data-op="a">Siempre</button>
+      <button class="opcion" data-op="b">Nunca</button>
+      <button class="opcion" data-op="c">Cuando el nombre de la propiedad está en una variable</button>
+      <button class="opcion" data-op="d">Cuando el objeto es muy grande</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: forEach y map →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔁 forEach y map</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "recorrer y transformar" — dos métodos para trabajar con arrays</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un array guarda varios elementos. Para trabajar con ellos necesitas <strong>recorrerlos</strong>. <code>forEach()</code> ejecuta una función por cada elemento (para "hacer algo" con cada uno). <code>map()</code> también recorre, pero <strong>devuelve un array nuevo</strong> con los resultados (para "transformar" cada elemento).</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔁 forEach — hacer algo</h4>
+      <p>Recorre y ejecuta una acción. No devuelve nada nuevo.</p>
+      <div class="code-live" style="margin-top:.5rem">
+[<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>].forEach(n => {
+  console.log(n);
+});
+<span class="cm">// 1 2 3</span>
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🗺️ map — transformar</h4>
+      <p>Recorre y devuelve un array nuevo con cada elemento transformado.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">const</span> dobles = [<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>].map(n => n * <span class="num">2</span>);
+<span class="cm">// [2, 4, 6]</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Recorre y transforma tareas</h3>
+  <p>Tenemos un array de tareas. Elige un método y observa qué hace con cada elemento.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔁 Laboratorio de arrays — forEach vs map</div>
+    <div class="state-panel">
+      <div class="state-title">Array de entrada</div>
+      <div class="code-live" id="arr-entrada" style="margin-top:.5rem;">
+[<span class="str">"Estudiar"</span>, <span class="str">"Leer"</span>, <span class="str">"Practicar"</span>]
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-arr="forEach">🔁 forEach (mostrar)</button>
+      <button class="btn primary" data-arr="map">🗺️ map (transformar)</button>
+    </div>
+    <div class="state-panel" style="margin-top:1rem;">
+      <div class="state-title">Resultado</div>
+      <div class="code-live" id="arr-salida" style="margin-top:.5rem;">
+<span class="cm">// Elige un método para ver el resultado</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Regla rápida: si quieres <strong>hacer algo</strong> con cada elemento (imprimir, guardar, enviar), usa <code>forEach</code>. Si quieres <strong>obtener un array nuevo</strong> (con los títulos, con los dobles, etc.), usa <code>map</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué método devuelve un array nuevo con los elementos transformados?</p>
+      <button class="opcion" data-op="a">forEach</button>
+      <button class="opcion" data-op="b">map</button>
+      <button class="opcion" data-op="c">console.log</button>
+      <button class="opcion" data-op="d">alert</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Para qué sirve forEach?</p>
+      <button class="opcion" data-op="a">Ejecutar una acción por cada elemento del array</button>
+      <button class="opcion" data-op="b">Ordenar el array</button>
+      <button class="opcion" data-op="c">Eliminar elementos</button>
+      <button class="opcion" data-op="d">Crear un objeto</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a un método de array que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué método de array devuelve un array nuevo transformando cada elemento?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-top="a">forEach</button>
+      <button class="trivia-opt" data-tcorrecta="b" data-top="b">map</button>
+      <button class="trivia-opt" data-top="c">filter</button>
+      <button class="trivia-opt" data-top="d">find</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: filter, find y some →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🔍 filter, find y some</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "filtrar, buscar y comprobar" — tres métodos que responden preguntas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Estos tres métodos responden preguntas sobre un array usando una <strong>condición</strong> (una función que devuelve <code>true</code> o <code>false</code>):</p>
+    <ul>
+      <li><code>filter()</code> — devuelve un array con <strong>todos</strong> los elementos que cumplen la condición.</li>
+      <li><code>find()</code> — devuelve el <strong>primer</strong> elemento que cumple la condición (o <code>undefined</code>).</li>
+      <li><code>some()</code> — devuelve <code>true</code> si <strong>al menos uno</strong> cumple la condición.</li>
+    </ul>
+  </div>
+
+  <h3>🎮 Simulador: Filtra, busca y comprueba tareas</h3>
+  <p>Tenemos un array de tareas con su estado. Aplica cada método y observa el resultado en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔍 Laboratorio de tareas — filter, find, some</div>
+    <div class="state-panel">
+      <div class="state-title">Array de tareas</div>
+      <div class="code-live" id="tareas-entrada" style="margin-top:.5rem;">
+[
+  { id: <span class="num">1</span>, titulo: <span class="str">"Estudiar"</span>, completada: <span class="kw">true</span> },
+  { id: <span class="num">2</span>, titulo: <span class="str">"Leer"</span>, completada: <span class="kw">false</span> },
+  { id: <span class="num">3</span>, titulo: <span class="str">"Practicar"</span>, completada: <span class="kw">true</span> }
+]
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-tarea="filter">🔍 filter (completadas)</button>
+      <button class="btn primary" data-tarea="find">🎯 find (id 2)</button>
+      <button class="btn primary" data-tarea="some">❓ some (¿hay completadas?)</button>
+    </div>
+    <div class="state-panel" style="margin-top:1rem;">
+      <div class="state-title">Resultado</div>
+      <div class="code-live" id="tareas-salida" style="margin-top:.5rem;">
+<span class="cm">// Elige un método para ver el resultado</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ No confundas find con filter</h4>
+    <p><code>find()</code> devuelve <strong>un solo elemento</strong> (el primero que cumple). <code>filter()</code> devuelve <strong>un array</strong> con todos los que cumplen. Si buscas "la tarea con id 2", usa <code>find</code>. Si quieres "todas las tareas completadas", usa <code>filter</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué método devuelve un array con todos los elementos que cumplen una condición?</p>
+      <button class="opcion" data-op="a">find</button>
+      <button class="opcion" data-op="b">some</button>
+      <button class="opcion" data-op="c">filter</button>
+      <button class="opcion" data-op="d">map</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué devuelve some()?</p>
+      <button class="opcion" data-op="a">true o false (si al menos uno cumple)</button>
+      <button class="opcion" data-op="b">Un array nuevo</button>
+      <button class="opcion" data-op="c">El primer elemento</button>
+      <button class="opcion" data-op="d">Nada</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Array de objetos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🗂️ Array de objetos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "datos reales" — combinar objetos y métodos de array</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>En la vida real, casi nunca tienes un solo objeto: tienes <strong>muchos</strong>. Una lista de tareas, de productos, de estudiantes. Por eso guardas los objetos dentro de un <strong>array</strong>, y usas los métodos de array para trabajar con ellos. Es la combinación más poderosa de JavaScript.</p>
+  </div>
+
+  <h3>💻 El patrón completo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tareas.js</div>
+      <button class="copy-btn" data-copy="tareas">📋 Copiar</button>
+    </div>
+    <pre><code>const tareas = [
+  { id: 1, titulo: "Estudiar", materia: "Matemáticas", completada: true },
+  { id: 2, titulo: "Leer", materia: "Español", completada: false },
+  { id: 3, titulo: "Practicar", materia: "Inglés", completada: true }
+];
+
+// Listar todas con forEach
+tareas.forEach(t => console.log(t.titulo));
+
+// Filtrar las completadas
+const hechas = tareas.filter(t => t.completada);
+
+// Buscar una por id
+const tarea2 = tareas.find(t => t.id === 2);
+
+// ¿Hay alguna completada?
+const hayHechas = tareas.some(t => t.completada);</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El flujo de trabajo</h4>
+    <p>1. <strong>Crear</strong> el array de objetos. 2. <strong>Listar</strong> con <code>forEach</code>. 3. <strong>Filtrar</strong> con <code>filter</code>. 4. <strong>Buscar</strong> con <code>find</code>. 5. <strong>Comprobar</strong> con <code>some</code>. Este es exactamente el patrón que usarás en tu proyecto final.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cómo guardas muchos objetos relacionados?</p>
+      <button class="opcion" data-op="a">En variables sueltas</button>
+      <button class="opcion" data-op="b">Dentro de un array</button>
+      <button class="opcion" data-op="c">En un solo objeto gigante</button>
+      <button class="opcion" data-op="d">En el HTML</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> Para buscar una tarea por su id, ¿qué método usas?</p>
+      <button class="opcion" data-op="a">filter</button>
+      <button class="opcion" data-op="b">map</button>
+      <button class="opcion" data-op="c">find</button>
+      <button class="opcion" data-op="d">some</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: objetos literales, acceso a propiedades, y los métodos de array. Al superarlos, recibirás tu insignia de <strong>Maestro de Datos</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📦 Empareja cada método con lo que hace</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">forEach</button>
+        <button class="ws-chip" data-mid="1b">map</button>
+        <button class="ws-chip" data-mid="1c">filter</button>
+        <button class="ws-chip" data-mid="1d">find</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Recorre y ejecuta una acción</button>
+        <button class="ws-chip" data-mid="1B">Devuelve un array transformado</button>
+        <button class="ws-chip" data-mid="1C">Devuelve los que cumplen una condición</button>
+        <button class="ws-chip" data-mid="1D">Devuelve el primero que cumple</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🔑 Ordena los pasos para crear y usar un objeto</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2crear" draggable="true"><span class="ord-num">?</span> Crear el objeto literal con { }</div>
+        <div class="ws-order-item" data-oid="2acceder" draggable="true"><span class="ord-num">?</span> Acceder a sus propiedades con punto</div>
+        <div class="ws-order-item" data-oid="2guardar" draggable="true"><span class="ord-num">?</span> Guardar varios objetos en un array</div>
+        <div class="ws-order-item" data-oid="2recorrer" draggable="true"><span class="ord-num">?</span> Recorrerlos con forEach</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📝 Completa el código del objeto</span></div>
+    <p>Completa las palabras que faltan para crear un objeto tarea:</p>
+    <div class="ws-block">
+      <div class="code-live">
+<span class="kw">const</span> tarea = <input class="ws-input" data-ans="{" data-ws="3" placeholder="?">
+  titulo: <span class="str">"Estudiar"</span>,
+  completada: <span class="kw">false</span>
+<input class="ws-input" data-ans="}" data-ws="3" placeholder="?">;
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: elige el método correcto</span></div>
+    <p>Quieres obtener un array con <strong>solo las tareas completadas</strong>. ¿Qué método usas?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">filter(t => t.completada)</button>
+        <button class="ws-chip" data-mid="4B">find(t => t.completada)</button>
+        <button class="ws-chip" data-mid="4C">map(t => t.completada)</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro de Datos!</h2>
+    <p class="lead">Ya sabes crear objetos literales, acceder a sus propiedades y usar forEach, map, filter, find y some sobre arrays de objetos. El proyecto final usará arrays de objetos para representar los datos.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🧩 Herramientas de Programación I · Clase 14 · Plataforma interactiva</div>
+  <div>Objetos literales · Acceso a propiedades · forEach, map, filter, find, some · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

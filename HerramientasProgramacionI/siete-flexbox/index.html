@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📦 Herramientas de Programación I · Clase 7 · Flexbox</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">📦</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 7</h1>
+      <p class="subtitulo">Flexbox · Contenedor flexible · Distribución en una dimensión</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📦 El contenedor flexible</button>
+  <button class="btn-modulo" data-modulo="2">🎯 justify y align</button>
+  <button class="btn-modulo" data-modulo="3">↔️ direction y wrap</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🧒 Propiedades de los hijos</button>
+  <button class="btn-modulo" data-modulo="6">🍔 Menú y tarjetas</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>📦 ¡Bienvenido/a a Flexbox!</h2>
+    <p class="lead">Hasta ahora has colocado elementos con <strong>bloques</strong> y <strong>flotantes</strong>, que son rígidos y difíciles de centrar. Hoy aprenderás <strong>Flexbox</strong>: un sistema moderno para <strong>distribuir elementos en una dimensión</strong> (una fila o una columna) de forma flexible y elegante.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "display: flex"</span></div>
+        <div class="out">"display: flex"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Flexbox es ideal para distribuciones en una dimensión."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Dominar el contenedor flexible y sus propiedades para crear menús, filas de tarjetas y centrar elementos.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML y CSS básico (clases 1 a 6). Aquí aprenderás a <em>distribuir</em> elementos.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · El contenedor flexible</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · justify-content y align-items</td><td style="color:var(--morado-claro)">Alineación</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · flex-direction y flex-wrap</td><td style="color:var(--ambar)">Dirección</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Propiedades de los hijos</td><td style="color:var(--verde)">flex-grow/shrink/basis</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Menú y tarjetas</td><td style="color:var(--morado)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong>. Busquen en los estilos la propiedad <code>display: flex</code>. ¿Cuántos elementos la usan? ¿Qué creen que hace?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: El contenedor flexible →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📦 El contenedor flexible</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "display: flex" — la puerta de entrada a Flexbox</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Flexbox funciona con <strong>dos roles</strong>: un <strong>contenedor</strong> (el padre) y sus <strong>hijos</strong> (los elementos flex). Al poner <code>display: flex</code> en el contenedor, todos sus hijos se convierten en <strong>elementos flexibles</strong> que se distribuyen automáticamente a lo largo de un <strong>eje principal</strong>.</p>
+    <p>Antes, para poner tres cajas en fila usabas <code>float</code> o <code>display: inline-block</code>, y centrar algo verticalmente era un dolor de cabeza. Con Flexbox, una sola línea lo resuelve.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sin Flexbox</h4>
+      <p>Usas <code>float</code>, <code>inline-block</code> o márgenes mágicos. Centrar verticalmente es casi imposible y el código se llena de trucos.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Con Flexbox</h4>
+      <p>Pones <code>display: flex</code> en el padre y los hijos se alinean solos. Centrar en ambas direcciones es una línea de código.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Activa el contenedor</h3>
+  <p>Toca el botón para activar <code>display: flex</code> en el contenedor y observa cómo cambian las cajas de colores.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Contenedor flexible — antes y después</div>
+    <div class="state-panel">
+      <div class="state-title">Estado del contenedor</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">display</div><span class="sval" id="flex-display">block</span></div>
+        <div class="state-cell"><div class="label">Hijos</div><span class="sval" id="flex-hijos">3 cajas</span></div>
+      </div>
+    </div>
+    <div id="flex-demo" style="background:#04121c;border:1px solid var(--tarjeta-borde);border-radius:12px;padding:1rem;min-height:120px;display:block;gap:0.6rem;transition:all .4s;">
+      <div style="background:var(--cian);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;">Caja 1</div>
+      <div style="background:var(--morado);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;">Caja 2</div>
+      <div style="background:var(--ambar);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;">Caja 3</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="flex-on">✅ display: flex</button>
+      <button class="btn ghost" id="flex-off">🔄 display: block</button>
+    </div>
+    <div class="caja-tip" id="flex-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="flex-feedback-txt">Con <code>display: block</code>, cada caja ocupa toda la fila. Activa flex para verlas en fila.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Flexbox es el estándar moderno para <strong>layouts</strong>. Casi todos los sitios web actuales lo usan para menús, tarjetas, botones y centrado. Dominarlo te ahorra horas de frustración con <code>float</code> y márgenes.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad convierte un elemento en contenedor flexible?</p>
+      <button class="opcion" data-op="a">display: block</button>
+      <button class="opcion" data-op="b">display: flex</button>
+      <button class="opcion" data-op="c">position: flex</button>
+      <button class="opcion" data-op="d">float: flex</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Quiénes se convierten en elementos flexibles?</p>
+      <button class="opcion" data-op="a">El contenedor</button>
+      <button class="opcion" data-op="b">Los elementos hermanos del contenedor</button>
+      <button class="opcion" data-op="c">Los hijos directos del contenedor</button>
+      <button class="opcion" data-op="d">Toda la página</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: justify y align →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🎯 justify-content y align-items</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Alinear en el eje principal y en el eje cruzado"</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Flexbox tiene <strong>dos ejes</strong>: el <strong>eje principal</strong> (por defecto, horizontal) y el <strong>eje cruzado</strong> (por defecto, vertical). <code>justify-content</code> alinea los hijos a lo largo del <strong>eje principal</strong>, y <code>align-items</code> los alinea a lo largo del <strong>eje cruzado</strong>.</p>
+  </div>
+
+  <h3>🎮 Simulador: Mueve las cajas</h3>
+  <p>Usa los botones para cambiar <code>justify-content</code> y <code>align-items</code> y observa cómo se mueven las cajas de colores.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎯 Laboratorio de alineación</div>
+    <div class="state-panel">
+      <div class="state-title">Propiedades actuales</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">justify-content</div><span class="sval" id="jc-val">flex-start</span></div>
+        <div class="state-cell"><div class="label">align-items</div><span class="sval" id="ai-val">stretch</span></div>
+      </div>
+    </div>
+    <div id="align-demo" style="background:#04121c;border:1px solid var(--tarjeta-borde);border-radius:12px;padding:1rem;min-height:180px;display:flex;gap:0.6rem;justify-content:flex-start;align-items:stretch;transition:all .4s;">
+      <div style="background:var(--cian);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:60px;">A</div>
+      <div style="background:var(--morado);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:60px;">B</div>
+      <div style="background:var(--ambar);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:60px;">C</div>
+    </div>
+    <p style="margin-top:1rem;font-weight:700;">justify-content (eje principal):</p>
+    <div class="btn-row">
+      <button class="btn" data-jc="flex-start">flex-start</button>
+      <button class="btn" data-jc="center">center</button>
+      <button class="btn" data-jc="flex-end">flex-end</button>
+      <button class="btn" data-jc="space-between">space-between</button>
+      <button class="btn" data-jc="space-around">space-around</button>
+      <button class="btn" data-jc="space-evenly">space-evenly</button>
+    </div>
+    <p style="margin-top:1rem;font-weight:700;">align-items (eje cruzado):</p>
+    <div class="btn-row">
+      <button class="btn" data-ai="stretch">stretch</button>
+      <button class="btn" data-ai="flex-start">flex-start</button>
+      <button class="btn" data-ai="center">center</button>
+      <button class="btn" data-ai="flex-end">flex-end</button>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: confundir los ejes</h4>
+    <p><code>justify-content</code> trabaja en el <strong>eje principal</strong> y <code>align-items</code> en el <strong>eje cruzado</strong>. Si cambias <code>flex-direction</code> a <code>column</code>, los ejes se intercambian. Recuerda: <strong>justify = principal, align = cruzado</strong>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué propiedad alinea los hijos en el eje principal?</p>
+      <button class="opcion" data-op="a">justify-content</button>
+      <button class="opcion" data-op="b">align-items</button>
+      <button class="opcion" data-op="c">flex-wrap</button>
+      <button class="opcion" data-op="d">gap</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué valor de justify-content reparte el espacio sobrante entre los elementos?</p>
+      <button class="opcion" data-op="a">flex-start</button>
+      <button class="opcion" data-op="b">center</button>
+      <button class="opcion" data-op="c">space-between</button>
+      <button class="opcion" data-op="d">stretch</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: direction y wrap →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>↔️ flex-direction y flex-wrap</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cambiar la dirección y permitir el salto de línea"</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p><code>flex-direction</code> define la <strong>dirección del eje principal</strong>: <code>row</code> (fila, por defecto), <code>column</code> (columna), y sus versiones invertidas <code>row-reverse</code> y <code>column-reverse</code>. <code>flex-wrap</code> decide si los hijos <strong>saltan de línea</strong> cuando no caben (<code>wrap</code>) o se aprietan (<code>nowrap</code>).</p>
+  </div>
+
+  <h3>🎮 Simulador: Dirección y salto de línea</h3>
+  <p>Cambia la dirección y activa el salto de línea para ver cómo se reorganizan las cajas.</p>
+
+  <div class="simulador">
+    <div class="sim-head">↔️ Laboratorio de dirección</div>
+    <div class="state-panel">
+      <div class="state-title">Propiedades actuales</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">flex-direction</div><span class="sval" id="fd-val">row</span></div>
+        <div class="state-cell"><div class="label">flex-wrap</div><span class="sval" id="fw-val">nowrap</span></div>
+      </div>
+    </div>
+    <div id="dir-demo" style="background:#04121c;border:1px solid var(--tarjeta-borde);border-radius:12px;padding:1rem;min-height:160px;display:flex;gap:0.6rem;flex-direction:row;flex-wrap:nowrap;transition:all .4s;">
+      <div style="background:var(--cian);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:70px;">1</div>
+      <div style="background:var(--morado);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:70px;">2</div>
+      <div style="background:var(--ambar);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:70px;">3</div>
+      <div style="background:var(--verde);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:70px;">4</div>
+      <div style="background:var(--rosa);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;min-width:70px;">5</div>
+    </div>
+    <p style="margin-top:1rem;font-weight:700;">flex-direction:</p>
+    <div class="btn-row">
+      <button class="btn" data-fd="row">row</button>
+      <button class="btn" data-fd="row-reverse">row-reverse</button>
+      <button class="btn" data-fd="column">column</button>
+      <button class="btn" data-fd="column-reverse">column-reverse</button>
+    </div>
+    <p style="margin-top:1rem;font-weight:700;">flex-wrap:</p>
+    <div class="btn-row">
+      <button class="btn" data-fw="nowrap">nowrap</button>
+      <button class="btn" data-fw="wrap">wrap</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Para crear <strong>filas y columnas</strong> con Flexbox: usa <code>flex-direction: row</code> para filas y <code>flex-direction: column</code> para columnas. Combinado con <code>flex-wrap: wrap</code>, puedes hacer rejillas que se adaptan al ancho de la pantalla.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es el valor por defecto de flex-direction?</p>
+      <button class="opcion" data-op="a">column</button>
+      <button class="opcion" data-op="b">row</button>
+      <button class="opcion" data-op="c">row-reverse</button>
+      <button class="opcion" data-op="d">wrap</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué hace flex-wrap: wrap?</p>
+      <button class="opcion" data-op="a">Permite que los hijos salten a una nueva línea si no caben</button>
+      <button class="opcion" data-op="b">Aprieta los hijos para que quepan en una línea</button>
+      <button class="opcion" data-op="c">Invierte el orden de los hijos</button>
+      <button class="opcion" data-op="d">Centra los hijos</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una propiedad de Flexbox que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "flex" en Flexbox?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Flexible (que se adapta)</button>
+      <button class="trivia-opt" data-top="b">Flecha (por la dirección)</button>
+      <button class="trivia-opt" data-top="c">Fila (por el eje)</button>
+      <button class="trivia-opt" data-top="d">Fuerte (por la resistencia)</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Propiedades de los hijos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🧒 Propiedades de los hijos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "flex-grow, flex-shrink y flex-basis" — cómo crecen y se encogen los elementos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Los hijos flexibles tienen sus propias propiedades: <code>flex-grow</code> (cuánto <strong>crece</strong> para ocupar espacio sobrante), <code>flex-shrink</code> (cuánto <strong>se encoge</strong> cuando falta espacio) y <code>flex-basis</code> (el <strong>tamaño base</strong> antes de crecer o encogerse).</p>
+  </div>
+
+  <h3>📐 Las tres propiedades</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Propiedad</th><th>Qué hace</th><th>Valor típico</th></tr></thead>
+      <tbody>
+        <tr><td><code>flex-grow</code></td><td>Cuánto crece el elemento para repartir el espacio sobrante</td><td>0 (no crece) o 1 (crece)</td></tr>
+        <tr><td><code>flex-shrink</code></td><td>Cuánto se encoge cuando falta espacio</td><td>1 (se encoge) o 0 (no)</td></tr>
+        <tr><td><code>flex-basis</code></td><td>Tamaño base del elemento antes de crecer/encogerse</td><td>auto o un valor como 200px</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Haz crecer las cajas</h3>
+  <p>Toca una caja para darle <code>flex-grow: 1</code> y observa cómo se reparte el espacio sobrante.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧒 Laboratorio de crecimiento</div>
+    <div id="grow-demo" style="background:#04121c;border:1px solid var(--tarjeta-borde);border-radius:12px;padding:1rem;min-height:100px;display:flex;gap:0.6rem;transition:all .4s;">
+      <div class="grow-box" data-grow="0" style="background:var(--cian);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;flex-grow:0;cursor:pointer;transition:all .4s;">A</div>
+      <div class="grow-box" data-grow="0" style="background:var(--morado);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;flex-grow:0;cursor:pointer;transition:all .4s;">B</div>
+      <div class="grow-box" data-grow="0" style="background:var(--ambar);color:#000;font-weight:700;padding:1rem;border-radius:8px;text-align:center;flex-grow:0;cursor:pointer;transition:all .4s;">C</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn ghost" id="grow-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p>Toca las cajas para darles <code>flex-grow: 1</code>. Las que crecen se reparten el espacio sobrante por igual.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El atajo: flex</h4>
+    <p>En lugar de escribir las tres por separado, usa el atajo <code>flex: 1</code>, que equivale a <code>flex-grow: 1; flex-shrink: 1; flex-basis: 0</code>. Es la forma más común de hacer que un elemento ocupe el espacio disponible.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad hace que un hijo crezca para ocupar espacio sobrante?</p>
+      <button class="opcion" data-op="a">flex-shrink</button>
+      <button class="opcion" data-op="b">flex-grow</button>
+      <button class="opcion" data-op="c">flex-basis</button>
+      <button class="opcion" data-op="d">gap</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué significa flex: 1?</p>
+      <button class="opcion" data-op="a">flex-grow: 1; flex-shrink: 1; flex-basis: 0</button>
+      <button class="opcion" data-op="b">flex-direction: row</button>
+      <button class="opcion" data-op="c">Un solo elemento flexible</button>
+      <button class="opcion" data-op="d">justify-content: center</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Menú y tarjetas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🍔 Menú y tarjetas con Flexbox</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — un menú responsive y una fila de tarjetas</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Vas a construir dos patrones clásicos de Flexbox: un <strong>menú de navegación responsive</strong> (que se adapta al ancho de la pantalla) y una <strong>fila de tarjetas</strong> (que se reparten el espacio). Ambos usan las propiedades que ya viste.</p>
+  </div>
+
+  <h3>💻 El menú responsive</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>menu.html</div>
+      <button class="copy-btn" data-copy="menu">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;nav class="menu"&gt;
+  &lt;a href="#" class="logo"&gt;Mi Sitio&lt;/a&gt;
+  &lt;ul class="enlaces"&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Servicios&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="#"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;style&gt;
+  .menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .enlaces {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+  }
+&lt;/style&gt;</code></pre>
+  </div>
+
+  <h3>💻 La fila de tarjetas</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tarjetas.html</div>
+      <button class="copy-btn" data-copy="tarjetas">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;section class="tarjetas"&gt;
+  &lt;article class="tarjeta"&gt;Tarjeta 1&lt;/article&gt;
+  &lt;article class="tarjeta"&gt;Tarjeta 2&lt;/article&gt;
+  &lt;article class="tarjeta"&gt;Tarjeta 3&lt;/article&gt;
+&lt;/section&gt;
+
+&lt;style&gt;
+  .tarjetas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .tarjeta {
+    flex: 1 1 200px;
+    padding: 1rem;
+    border: 1px solid #ccc;
+  }
+&lt;/style&gt;</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Centra el elemento</h3>
+  <p>El centrado perfecto es el "hola mundo" de Flexbox. Toca el botón para centrar la caja vertical y horizontalmente.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎯 Centrado perfecto</div>
+    <div id="center-demo" style="background:#04121c;border:1px solid var(--tarjeta-borde);border-radius:12px;padding:1rem;min-height:180px;display:flex;justify-content:flex-start;align-items:flex-start;transition:all .4s;">
+      <div style="background:var(--morado);color:#000;font-weight:700;padding:1.5rem;border-radius:8px;text-align:center;">Centro</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="center-on">✅ Centrar</button>
+      <button class="btn ghost" id="center-off">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p>El centrado perfecto usa <code>justify-content: center</code> y <code>align-items: center</code> juntos.</p>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Con tu compañero/a, definan el <strong>navbar</strong> y la <strong>sección de tarjetas</strong> de su proyecto final: qué enlaces tendrá el menú y qué tarjetas mostrarán. Lo usarán en el taller.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué dos propiedades logran el centrado perfecto?</p>
+      <button class="opcion" data-op="a">flex-direction y flex-wrap</button>
+      <button class="opcion" data-op="b">flex-grow y flex-shrink</button>
+      <button class="opcion" data-op="c">justify-content: center y align-items: center</button>
+      <button class="opcion" data-op="d">gap y flex-basis</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad hace que un menú se adapte al ancho de la pantalla?</p>
+      <button class="opcion" data-op="a">flex-wrap: wrap</button>
+      <button class="opcion" data-op="b">flex-grow: 0</button>
+      <button class="opcion" data-op="c">position: fixed</button>
+      <button class="opcion" data-op="d">display: block</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: contenedor flexible, alineación, dirección y propiedades de los hijos. Al superarlos, recibirás tu insignia de <strong>Maestro Flexbox</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📦 Empareja cada propiedad con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">justify-content</button>
+        <button class="ws-chip" data-mid="1b">align-items</button>
+        <button class="ws-chip" data-mid="1c">flex-direction</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Alinea en el eje principal</button>
+        <button class="ws-chip" data-mid="1B">Alinea en el eje cruzado</button>
+        <button class="ws-chip" data-mid="1C">Define la dirección del eje principal</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">↔️ Ordena los pasos para crear un layout Flexbox</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> Poner display: flex en el contenedor</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Elegir flex-direction (row o column)</div>
+        <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> Alinear con justify-content y align-items</div>
+        <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> Ajustar el espacio con gap</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📝 Completa el código del centrado</span></div>
+    <p>Completa las propiedades que faltan para centrar la caja vertical y horizontalmente:</p>
+    <div class="ws-block">
+      <div class="code-live">
+.contenedor {
+  display: flex;
+  justify-content: <input class="ws-input" data-ans="center" data-ws="3" placeholder="?">;
+  align-items: <input class="ws-input" data-ans="center" data-ws="3" placeholder="?">;
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código para una fila de tarjetas. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+.tarjetas {
+  display: block;
+  justify-content: space-between;
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Usa display: block en vez de display: flex, así que justify-content no funciona</button>
+        <button class="ws-chip" data-mid="4B">Falta la propiedad gap</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro Flexbox!</h2>
+    <p class="lead">Ya sabes distribuir elementos en una dimensión con Flexbox: contenedor flexible, alineación, dirección y propiedades de los hijos. Tu layout con navbar y tarjetas ya es profesional. Recuerda: <strong>Flexbox es ideal para distribuciones en una dimensión.</strong></p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 7 · Plataforma interactiva</div>
+  <div>Flexbox · Contenedor flexible · Distribución en una dimensión · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

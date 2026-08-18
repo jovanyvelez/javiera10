@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏆 Herramientas de Programación I · Clase 22 · Presentación y evaluación</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🏆</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 22</h1>
+      <p class="subtitulo">Presentación final · Evaluación · Cierre del curso</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🎬 Preparar la demo</button>
+  <button class="btn-modulo" data-modulo="2">🎤 Presentación 5 min</button>
+  <button class="btn-modulo" data-modulo="3">🔍 Revisión de código</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🤝 Pruebas cruzadas</button>
+  <button class="btn-modulo" data-modulo="6">📊 Evaluación final</button>
+  <button class="btn-modulo" data-modulo="7">🏆 Cierre</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🏆 ¡Bienvenido/a a la clase final!</h2>
+    <p class="lead">Llegaste al final del curso. Hoy no hay código nuevo: hoy es el día de <strong>mostrar lo que construiste</strong>, <strong>evaluar tu trabajo</strong> y <strong>cerrar el ciclo</strong>. Vas a preparar tu demostración, presentar tu proyecto, revisar código con tus compañeros y recibir tu evaluación final.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">git log --oneline --all</span></div>
+        <div class="out">22 clases · 1 proyecto · 1 gran presentación</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">./presentar.sh</span></div>
+        <div class="out">"El código que funciona y se explica vale el doble."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Presentar tu proyecto, evaluarlo con una rúbrica y trazar tus próximos pasos de aprendizaje.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Tu proyecto final funcionando (index.html, styles.css, script.js) y ganas de compartirlo.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Preparar la demostración</td><td style="color:var(--cian)">Checklist</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · La presentación de 5 minutos</td><td style="color:var(--morado-claro)">Guion</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Revisión de código</td><td style="color:var(--ambar)">Retroalimentación</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Pruebas cruzadas</td><td style="color:var(--verde)">Compañeros</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Evaluación final y rúbrica</td><td style="color:var(--morado)">Nota</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Cierre y próximos pasos</td><td style="color:var(--rosa)">Autoevaluación</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran el proyecto final de cada uno y verifiquen que tenga los tres archivos: <code>index.html</code>, <code>styles.css</code> y <code>script.js</code>. ¿Están todos? ¿El proyecto abre sin errores en el navegador?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Preparar la demostración →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🎬 Preparar la demostración</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Antes de mostrar, prepara" — el checklist del presentador</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una buena presentación no se improvisa: se <strong>prepara</strong>. Antes de pararte frente a tus compañeros, debes asegurarte de que tu proyecto <strong>funciona</strong>, que sabes <strong>qué vas a decir</strong> y que tienes todo <strong>a mano</strong>. La preparación es la mitad del éxito.</p>
+    <p>Piensa en un músico antes de un concierto: afina su instrumento, repasa las canciones y revisa el sonido. Tú harás lo mismo con tu proyecto.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sin preparación</h4>
+      <p>Llegas, abres el proyecto y... no carga. No recuerdas qué hace cada función. Te quedas en blanco. Los nervios te ganan.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Con preparación</h4>
+      <p>Probaste todo antes, tienes un guion mental, sabes qué mostrar y qué decir. Los nervios se convierten en energía.</p>
+    </div>
+  </div>
+
+  <h3>✅ Simulador: Checklist de preparación</h3>
+  <p>Marca cada casilla cuando tengas listo ese punto. Al completar todo, ganas XP.</p>
+
+  <div class="simulador">
+    <div class="sim-head">✅ Checklist del presentador</div>
+    <div class="ws-block" id="checklist-prep">
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-check="1" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Mi proyecto abre sin errores en el navegador</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-check="2" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Probé todas las funcionalidades (incluido el CRUD)</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-check="3" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Verifiqué que localStorage guarda y carga los datos</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-check="4" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Tengo claro qué voy a decir en cada parte</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-check="5" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Identifiqué una dificultad y su solución para contarla</span>
+      </label>
+    </div>
+    <div class="resultado-ws" id="checklist-fb"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Prueba tu proyecto en <strong>otro navegador</strong> y en <strong>otra pantalla</strong> (más pequeña). Muchos errores aparecen solo cuando cambias de entorno. Si funciona en dos lugares, es más probable que funcione en la presentación.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es el primer paso para preparar una buena demostración?</p>
+      <button class="opcion" data-op="a">Memorizar el código de memoria</button>
+      <button class="opcion" data-op="b">Probar que el proyecto funciona sin errores</button>
+      <button class="opcion" data-op="c">Diseñar diapositivas bonitas</button>
+      <button class="opcion" data-op="d">Esperar a que llegue el día</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Por qué conviene probar el proyecto en otro navegador?</p>
+      <button class="opcion" data-op="a">Porque es obligatorio por ley</button>
+      <button class="opcion" data-op="b">Para perder tiempo</button>
+      <button class="opcion" data-op="c">Porque algunos errores solo aparecen en entornos distintos</button>
+      <button class="opcion" data-op="d">Para que se vea más profesional</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: La presentación de 5 minutos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🎤 La presentación de 5 minutos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Tu momento" — el guion de una demo efectiva</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Tienes <strong>5 minutos</strong> para mostrar tu proyecto. Parece poco, pero es suficiente si sigues un <strong>guion</strong>. La estructura clásica es: mostrar la app, explicar las funcionalidades, mostrar el código y contar las dificultades y soluciones.</p>
+  </div>
+
+  <h3>🎬 El guion de 5 minutos</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Paso</th><th>Qué hacer</th><th>Tiempo</th></tr></thead>
+      <tbody>
+        <tr><td>1. Saludo</td><td>Di tu nombre y el título de tu proyecto</td><td>15 seg</td></tr>
+        <tr><td>2. Mostrar la app</td><td>Ejecuta la app y muestra lo que hace</td><td>1 min</td></tr>
+        <tr><td>3. Funcionalidades</td><td>Explica cada función principal (CRUD, etc.)</td><td>1.5 min</td></tr>
+        <tr><td>4. Mostrar el código</td><td>Abre el editor y señala las partes clave</td><td>1 min</td></tr>
+        <tr><td>5. Dificultades</td><td>Cuenta un problema que tuviste y cómo lo resolviste</td><td>1 min</td></tr>
+        <tr><td>6. Cierre</td><td>Resume qué aprendiste y agradece</td><td>15 seg</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Arma tu guion</h3>
+  <p>Ordena los pasos de la presentación de arriba hacia abajo. Arrastra o usa las flechas.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎬 Guion de la presentación — orden correcto</div>
+    <div class="ws-block" data-ws-order="guion">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="saludo" draggable="true"><span class="ord-num">?</span> Saludo y título del proyecto</div>
+        <div class="ws-order-item" data-oid="app" draggable="true"><span class="ord-num">?</span> Mostrar la app funcionando</div>
+        <div class="ws-order-item" data-oid="funciones" draggable="true"><span class="ord-num">?</span> Explicar las funcionalidades</div>
+        <div class="ws-order-item" data-oid="codigo" draggable="true"><span class="ord-num">?</span> Mostrar el código</div>
+        <div class="ws-order-item" data-oid="dificultades" draggable="true"><span class="ord-num">?</span> Contar dificultades y soluciones</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="guion">✓ Validar orden</button>
+      <div class="resultado-ws" id="ws-fb-guion"></div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: hablarle a la pantalla</h4>
+    <p>No leas el código en voz alta ni hables mirando tu computadora. Mira a tu <strong>audiencia</strong>, habla con claridad y usa el código solo como apoyo visual. La presentación es para las personas, no para la máquina.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Cuánto tiempo tienes para presentar tu proyecto?</p>
+      <button class="opcion" data-op="a">5 minutos</button>
+      <button class="opcion" data-op="b">30 minutos</button>
+      <button class="opcion" data-op="c">1 hora</button>
+      <button class="opcion" data-op="d">No hay límite</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué debes hacer al final de la presentación?</p>
+      <button class="opcion" data-op="a">Salir corriendo</button>
+      <button class="opcion" data-op="b">Borrar el proyecto</button>
+      <button class="opcion" data-op="c">Resumir qué aprendiste y agradecer</button>
+      <button class="opcion" data-op="d">Mostrar más código</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Revisión de código →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔍 Revisión de código y retroalimentación</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Aprender de los demás" — revisar y recibir feedback</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La <strong>revisión de código</strong> (code review) es cuando otra persona lee tu código y te da <strong>retroalimentación</strong>: qué está bien, qué se puede mejorar. Es una de las prácticas más valiosas de la programación profesional, porque te ayuda a ver errores que tú no ves.</p>
+  </div>
+
+  <h3>💬 Cómo dar y recibir retroalimentación</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Retroalimentación destructiva</h4>
+      <p>"Tu código es un desastre." "Esto está mal." Críticas sin explicación ni propuesta. Hace que la persona se cierre y no aprenda.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Retroalimentación constructiva</h4>
+      <p>"Me gusta cómo organizaste el HTML. En el CSS, podrías agrupar los colores en variables para reutilizarlos." Específica, amable y con propuesta.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Detecta la buena retroalimentación</h3>
+  <p>Mira cada comentario y decide si es constructivo o destructivo.</p>
+  <div class="simulador">
+    <div class="sim-head">🔍 Revisor de feedback</div>
+    <div class="code-live" id="revisor-code">
+"Tu código no sirve para nada."
+    </div>
+    <p style="margin-top:.8rem;">¿Este comentario es una buena retroalimentación?</p>
+    <div class="btn-row">
+      <button class="btn primary" id="revisor-bien">✅ Es constructivo</button>
+      <button class="btn primary" id="revisor-mal">❌ Es destructivo</button>
+    </div>
+    <div class="caja-tip" id="revisor-feedback" style="display:none;margin-top:1rem;">
+      <h4>👁️ Resultado</h4>
+      <p id="revisor-feedback-txt"></p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 La regla del sándwich</h4>
+    <p>Para dar retroalimentación usa el "sándwich": empieza con algo <strong>positivo</strong>, luego la <strong>mejora</strong> sugerida, y termina con <strong>ánimo</strong>. Ejemplo: "El CRUD funciona genial. Podrías validar los campos vacíos. ¡Sigue así, vas muy bien!"</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es la revisión de código?</p>
+      <button class="opcion" data-op="a">Borrar el código de otro</button>
+      <button class="opcion" data-op="b">Que otra persona lea tu código y te dé retroalimentación</button>
+      <button class="opcion" data-op="c">Copiar el código de un compañero</button>
+      <button class="opcion" data-op="d">Comprimir el código</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cómo debe ser una buena retroalimentación?</p>
+      <button class="opcion" data-op="a">Específica, amable y con propuesta de mejora</button>
+      <button class="opcion" data-op="b">Vaga y sin explicación</button>
+      <button class="opcion" data-op="c">Solo crítica, sin nada positivo</button>
+      <button class="opcion" data-op="d">Secreta, sin decírselo a nadie</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar antes de las pruebas cruzadas. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una funcionalidad de tu proyecto que te enorgullezca.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "CRUD" en programación?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Create, Read, Update, Delete</button>
+      <button class="trivia-opt" data-top="b">Código Rápido y Útil de Datos</button>
+      <button class="trivia-opt" data-top="c">Crear, Repetir, Unir, Dividir</button>
+      <button class="trivia-opt" data-top="d">Computadora Rápida y Única</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Pruebas cruzadas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🤝 Pruebas cruzadas entre compañeros</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Tu app en manos de otro" — probar el proyecto de un compañero</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Las <strong>pruebas cruzadas</strong> consisten en que un compañero <strong>use tu aplicación</strong> como si fuera un usuario real, y tú uses la suya. Es la mejor forma de encontrar errores: otra persona hará clic donde tú nunca pensaste.</p>
+  </div>
+
+  <h3>🧪 Cómo probar la app de un compañero</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Paso</th><th>Qué hacer</th></tr></thead>
+      <tbody>
+        <tr><td>1. Abrir</td><td>Abre el proyecto y observa si carga bien</td></tr>
+        <tr><td>2. Explorar</td><td>Navega por todas las secciones sin instrucciones</td></tr>
+        <tr><td>3. Probar el CRUD</td><td>Intenta crear, leer, actualizar y borrar datos</td></tr>
+        <tr><td>4. Romper</td><td>Intenta hacer cosas "raras": campos vacíos, datos repetidos</td></tr>
+        <tr><td>5. Anotar</td><td>Escribe lo que funcionó y lo que falló</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Clasifica el hallazgo</h3>
+  <p>Para cada situación, decide si es un error (bug) o una mejora (sugerencia).</p>
+  <div class="simulador">
+    <div class="sim-head">🧩 ¿Bug o mejora?</div>
+    <div class="ws-block" data-ws-match="hallazgos">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="a">La app se cae al borrar un elemento</button>
+        <button class="ws-chip" data-mid="b">Los botones podrían tener más color</button>
+        <button class="ws-chip" data-mid="c">No guarda los datos al recargar</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="A">🐛 Bug (error)</button>
+        <button class="ws-chip" data-mid="B">💡 Mejora (sugerencia)</button>
+        <button class="ws-chip" data-mid="C">🐛 Bug (error)</button>
+      </div>
+      <button class="btn primary" data-check-ws="hallazgos">✓ Validar</button>
+      <div class="resultado-ws" id="ws-fb-hallazgos"></div>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 10 minutos</h4>
+    <p>Intercambien proyectos. Cada uno prueba la app del otro durante 5 minutos siguiendo los pasos de la tabla. Luego, compartan sus hallazgos usando la <strong>regla del sándwich</strong>: algo positivo, una mejora, y ánimo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué son las pruebas cruzadas?</p>
+      <button class="opcion" data-op="a">Probar tu propia app dos veces</button>
+      <button class="opcion" data-op="b">Que un compañero use tu app y tú uses la suya</button>
+      <button class="opcion" data-op="c">Copiar el proyecto de otro</button>
+      <button class="opcion" data-op="d">Borrar los datos de prueba</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué son útiles las pruebas cruzadas?</p>
+      <button class="opcion" data-op="a">Porque otra persona encuentra errores que tú no ves</button>
+      <button class="opcion" data-op="b">Porque son obligatorias</button>
+      <button class="opcion" data-op="c">Para perder tiempo</button>
+      <button class="opcion" data-op="d">Para comparar notas</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Evaluación final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>📊 Evaluación final y rúbrica</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Tu nota" — la rúbrica de evaluación del proyecto</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Tu proyecto se evalúa con una <strong>rúbrica</strong>: una tabla que desglosa la nota en criterios con su peso. Saber la rúbrica de antemano te dice <strong>qué se valora más</strong> y dónde enfocar tu esfuerzo.</p>
+  </div>
+
+  <h3>📋 La rúbrica de evaluación</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Peso</th></tr></thead>
+      <tbody>
+        <tr><td>HTML semántico</td><td style="color:var(--cian)">10%</td></tr>
+        <tr><td>CSS responsive</td><td style="color:var(--morado-claro)">20%</td></tr>
+        <tr><td>JavaScript y lógica</td><td style="color:var(--ambar)">20%</td></tr>
+        <tr><td>Manipulación del DOM</td><td style="color:var(--verde)">15%</td></tr>
+        <tr><td>CRUD completo</td><td style="color:var(--morado)">20%</td></tr>
+        <tr><td>Uso correcto de localStorage</td><td style="color:var(--naranja)">10%</td></tr>
+        <tr><td>Presentación y buenas prácticas</td><td style="color:var(--rosa)">5%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Rúbrica de autoevaluación</h3>
+  <p>Marca los criterios que crees que lograste. Verás tu puntaje estimado en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📊 Autoevaluación con rúbrica</div>
+    <div class="ws-block" id="rubrica">
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-rub="10" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>HTML semántico (10%)</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-rub="20" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>CSS responsive (20%)</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-rub="20" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>JavaScript y lógica (20%)</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-rub="15" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Manipulación del DOM (15%)</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-rub="20" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>CRUD completo (20%)</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-rub="10" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Uso correcto de localStorage (10%)</span>
+      </label>
+      <label class="check-item" style="display:flex;align-items:center;gap:.6rem;padding:.5rem .7rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:8px;margin:.4rem 0;cursor:pointer;">
+        <input type="checkbox" data-rub="5" style="width:18px;height:18px;accent-color:var(--morado);">
+        <span>Presentación y buenas prácticas (5%)</span>
+      </label>
+    </div>
+    <div class="state-panel" style="margin-top:1rem;">
+      <div class="state-title">Tu puntaje estimado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Puntaje</div><span class="sval" id="rubrica-score">0%</span></div>
+        <div class="state-cell"><div class="label">Criterios logrados</div><span class="sval" id="rubrica-count">0 / 7</span></div>
+      </div>
+    </div>
+    <div class="caja-tip" id="rubrica-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="rubrica-feedback-txt">Marca los criterios para ver tu puntaje estimado.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El entregable final</h4>
+    <p>Tu proyecto debe estar <strong>publicado o ejecutable localmente</strong> con estos archivos: <code>index.html</code>, <code>styles.css</code> y <code>script.js</code>. Opcionalmente, un <code>README</code> simple explicando qué hace tu app y cómo usarla.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué criterio tiene más peso en la rúbrica?</p>
+      <button class="opcion" data-op="a">HTML semántico (10%)</button>
+      <button class="opcion" data-op="b">Presentación (5%)</button>
+      <button class="opcion" data-op="c">CSS responsive, JavaScript y CRUD (20% cada uno)</button>
+      <button class="opcion" data-op="d">localStorage (10%)</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué archivos debe tener tu entregable final?</p>
+      <button class="opcion" data-op="a">index.html, styles.css y script.js</button>
+      <button class="opcion" data-op="b">Solo index.html</button>
+      <button class="opcion" data-op="c">Un PDF con capturas</button>
+      <button class="opcion" data-op="d">Un video de YouTube</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Cierre y próximos pasos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — CIERRE -->
+<section class="modulo" data-modulo="7">
+  <h2>🏆 Cierre y próximos pasos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El final es un comienzo" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión final</h3>
+    <p>Cuatro retos integran todo lo aprendido en el curso. Al superarlos, recibirás tu insignia de <strong>Desarrollador Web</strong> y cerrarás el ciclo con tus próximos pasos de aprendizaje.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📊 Empareja cada criterio con su peso</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">HTML semántico</button>
+        <button class="ws-chip" data-mid="1b">CSS responsive</button>
+        <button class="ws-chip" data-mid="1c">CRUD completo</button>
+        <button class="ws-chip" data-mid="1d">localStorage</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">10%</button>
+        <button class="ws-chip" data-mid="1B">20%</button>
+        <button class="ws-chip" data-mid="1C">20%</button>
+        <button class="ws-chip" data-mid="1D">10%</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🎬 Ordena los pasos de la presentación</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2saludo" draggable="true"><span class="ord-num">?</span> Saludo y título</div>
+        <div class="ws-order-item" data-oid="2app" draggable="true"><span class="ord-num">?</span> Mostrar la app</div>
+        <div class="ws-order-item" data-oid="2funciones" draggable="true"><span class="ord-num">?</span> Explicar funcionalidades</div>
+        <div class="ws-order-item" data-oid="2codigo" draggable="true"><span class="ord-num">?</span> Mostrar el código</div>
+        <div class="ws-order-item" data-oid="2dificultades" draggable="true"><span class="ord-num">?</span> Dificultades y soluciones</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📁 Completa el nombre del archivo principal</span></div>
+    <p>Completa el nombre del archivo principal de tu entregable final:</p>
+    <div class="ws-block">
+      <div class="code-live">
+<input class="ws-input" data-ans="index.html" data-ws="3" placeholder="?">
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa la retroalimentación</span></div>
+    <p>Un compañero te da este comentario sobre tu proyecto. ¿Es una buena retroalimentación?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+"Tu CRUD funciona muy bien. Podrías validar
+los campos vacíos para evitar errores.
+¡Sigue así, vas muy bien!"
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">✅ Sí, es constructiva (positivo + mejora + ánimo)</button>
+        <button class="ws-chip" data-mid="4B">❌ No, es destructiva</button>
+        <button class="ws-chip" data-mid="4C">🤷 No aporta nada</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Curso completado, Desarrollador Web!</h2>
+    <p class="lead">Aprendiste HTML semántico, CSS responsive, JavaScript, manipulación del DOM, CRUD y localStorage. Construiste un proyecto completo, lo presentaste y lo evaluaste. Ahora tienes las bases para seguir: frameworks, bases de datos, APIs y mucho más. ¡El final de este curso es el comienzo de tu camino como desarrollador/a!</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🏆 Herramientas de Programación I · Clase 22 · Plataforma interactiva</div>
+  <div>Presentación final · Evaluación · Cierre del curso · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

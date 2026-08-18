@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Herramientas de Programación I · Clase 11 · Introducción a JavaScript</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">⚡</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 11</h1>
+      <p class="subtitulo">Introducción a JavaScript · Variables · Tipos · Operadores · Consola</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🧠 ¿Qué es JavaScript?</button>
+  <button class="btn-modulo" data-modulo="2">📦 Variables let y const</button>
+  <button class="btn-modulo" data-modulo="3">🔢 Tipos de datos</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">➕ Operadores y template literals</button>
+  <button class="btn-modulo" data-modulo="6">🖥️ La consola y console.log</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>⚡ ¡Bienvenido/a a JavaScript!</h2>
+    <p class="lead">Hasta ahora tu página era <strong>estructura</strong> (HTML) y <strong>estilo</strong> (CSS). Hoy le vas a dar <strong>vida</strong>: JavaScript es el lenguaje que agrega <em>lógica e interactividad</em> a la web. Es el tercer pilar de la tríada.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">node -e "console.log('Hola, JavaScript')"</span></div>
+        <div class="out">Hola, JavaScript</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"HTML estructura, CSS decora, JavaScript da vida."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Escribir tu primer script: variables, tipos de datos, operadores y mensajes en consola.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML y CSS. Aquí aprenderás a <em>programar</em> el comportamiento de la página.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es JavaScript?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Variables let y const</td><td style="color:var(--morado-claro)">let/const</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Tipos de datos</td><td style="color:var(--ambar)">string/number/boolean</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Operadores y template literals</td><td style="color:var(--verde)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · La consola y console.log</td><td style="color:var(--morado)">Herramienta</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong> → pestaña <strong>Console</strong>. Escriban <code>alert("hola")</code> y presionen Enter. ¿Qué pasa? (No se preocupen, no rompen nada: es solo su navegador).</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es JavaScript? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🧠 ¿Qué es JavaScript?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El tercer pilar" — HTML estructura, CSS decora, JavaScript da vida</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>JavaScript es un <strong>lenguaje de programación</strong> que se ejecuta en el navegador. Mientras HTML define <em>qué hay</em> en la página y CSS define <em>cómo se ve</em>, JavaScript define <em>qué hace</em>: reacciona a clics, valida formularios, anima elementos, carga datos y mucho más.</p>
+    <p>Es el único lenguaje que los navegadores entienden de forma nativa. Por eso, junto con HTML y CSS, forma la <strong>tríada de la web</strong>.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🏗️ HTML</h4>
+      <p>La <strong>estructura</strong>: títulos, párrafos, imágenes, enlaces. Es el esqueleto.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🎨 CSS</h4>
+      <p>El <strong>estilo</strong>: colores, tamaños, posiciones. Es la ropa y el maquillaje.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>⚡ JavaScript</h4>
+      <p>El <strong>comportamiento</strong>: lógica, reacciones, interactividad. Es el cerebro y los músculos.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: ¿Qué hace cada tecnología?</h3>
+  <p>Toca cada botón para ver qué aporta cada pilar de la web a una misma página.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧩 La tríada de la web</div>
+    <div class="state-panel">
+      <div class="state-title">Tecnología seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Tecnología</div><span class="sval" id="triada-tag">—</span></div>
+        <div class="state-cell"><div class="label">Su trabajo</div><span class="sval" id="triada-rol">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-triada="html">🏗️ HTML</button>
+      <button class="btn primary" data-triada="css">🎨 CSS</button>
+      <button class="btn primary" data-triada="js">⚡ JavaScript</button>
+    </div>
+    <div class="caja-tip" id="triada-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="triada-feedback-txt">Toca una tecnología para ver qué hace en la página.</p>
+    </div>
+  </div>
+
+  <h3>💻 Cómo incluir JavaScript en tu página</h3>
+  <p>El código JavaScript se escribe en un archivo <code>.js</code> y se enlaza desde el HTML con la etiqueta <code>&lt;script&gt;</code>. El atributo <code>defer</code> le dice al navegador que espere a que el HTML termine de cargar antes de ejecutar el script.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="script">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Mi página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hola&lt;/h1&gt;
+
+  &lt;!-- El script se carga al final, con defer --&gt;
+  &lt;script src="script.js" defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué <code>defer</code>?</h4>
+    <p>Si el script se ejecuta antes de que el HTML cargue, no encontrará los elementos que quiere manipular. Con <code>defer</code> (o colocando el <code>&lt;script&gt;</code> al final del <code>&lt;body&gt;</code>) te aseguras de que la página ya existe cuando el código corre.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace JavaScript en una página web?</p>
+      <button class="opcion" data-op="a">Define la estructura del contenido</button>
+      <button class="opcion" data-op="b">Agrega lógica e interactividad</button>
+      <button class="opcion" data-op="c">Define colores y estilos</button>
+      <button class="opcion" data-op="d">Almacena la base de datos</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Con qué etiqueta se enlaza un archivo JavaScript?</p>
+      <button class="opcion" data-op="a">&lt;style&gt;</button>
+      <button class="opcion" data-op="b">&lt;link&gt;</button>
+      <button class="opcion" data-op="c">&lt;script&gt;</button>
+      <button class="opcion" data-op="d">&lt;js&gt;</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Variables let y const →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📦 Variables: let y const</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cajas con nombre" — guardar datos para usarlos después</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>variable</strong> es una caja con nombre donde guardas un valor para usarlo más tarde. En JavaScript moderno se declaran con <code>let</code> o <code>const</code>.</p>
+    <p>La diferencia clave: <code>let</code> permite <strong>cambiar</strong> el valor después, mientras que <code>const</code> es <strong>constante</strong> — una vez asignado, no se puede reasignar.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔁 let — cambiable</h4>
+      <p>Úsala cuando el valor va a cambiar: un contador, una puntuación, la edad.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">let</span> puntaje = <span class="num">0</span>;
+puntaje = <span class="num">10</span>;  <span class="cm">// ✅ se puede</span>
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🔒 const — constante</h4>
+      <p>Úsala cuando el valor no debe cambiar: el nombre de un usuario, una configuración.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">const</span> nombre = <span class="str">"Ana"</span>;
+nombre = <span class="str">"Luis"</span>;  <span class="cm">// ❌ error</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: La caja de variables</h3>
+  <p>Escribe un valor y guárdalo con <code>let</code> o con <code>const</code>. Luego intenta cambiarlo y observa qué pasa.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Caja de variables — let vs const</div>
+    <div class="state-panel">
+      <div class="state-title">Estado de la variable</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Nombre</div><span class="sval" id="var-nombre">miVariable</span></div>
+        <div class="state-cell"><div class="label">Tipo</div><span class="sval" id="var-tipo">—</span></div>
+        <div class="state-cell"><div class="label">Valor</div><span class="sval" id="var-valor">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <input class="ws-input" id="var-input" placeholder="ej: 42" style="flex:1;min-width:140px;">
+      <button class="btn primary" id="var-let">🔁 Guardar con let</button>
+      <button class="btn primary" id="var-const">🔒 Guardar con const</button>
+      <button class="btn ghost" id="var-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="var-cambiar">✏️ Intentar cambiar el valor</button>
+    </div>
+    <div class="caja-tip" id="var-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="var-feedback-txt">Guarda un valor con let o const para empezar.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Regla de oro</h4>
+    <p>Usa <code>const</code> por defecto. Solo cambia a <code>let</code> cuando sepas que el valor <strong>va a cambiar</strong>. Esto evita errores: si intentas reasignar un <code>const</code>, JavaScript te avisa con un error en la consola.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué palabra clave usas para una variable que NO va a cambiar?</p>
+      <button class="opcion" data-op="a">const</button>
+      <button class="opcion" data-op="b">let</button>
+      <button class="opcion" data-op="c">var</button>
+      <button class="opcion" data-op="d">static</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Qué pasa si intentas reasignar un const?</p>
+      <button class="opcion" data-op="a">Nada, se cambia sin problema</button>
+      <button class="opcion" data-op="b">JavaScript lanza un error</button>
+      <button class="opcion" data-op="c">Se borra la variable</button>
+      <button class="opcion" data-op="d">Se reinicia la página</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Tipos de datos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔢 Tipos de datos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "string, number, boolean, null, undefined" — qué puede guardar una variable</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cada valor en JavaScript tiene un <strong>tipo</strong>. Conocer los tipos te ayuda a saber qué puedes hacer con cada dato: sumar números, unir textos, decidir con verdaderos y falsos.</p>
+  </div>
+
+  <h3>🔢 Los 5 tipos básicos</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Tipo</th><th>Qué guarda</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>string</code></td><td>Texto, entre comillas</td><td><code>"Hola"</code>, <code>'Ana'</code></td></tr>
+        <tr><td><code>number</code></td><td>Números (enteros y decimales)</td><td><code>42</code>, <code>3.14</code></td></tr>
+        <tr><td><code>boolean</code></td><td>Verdadero o falso</td><td><code>true</code>, <code>false</code></td></tr>
+        <tr><td><code>null</code></td><td>"Nada" a propósito (vacío intencional)</td><td><code>null</code></td></tr>
+        <tr><td><code>undefined</code></td><td>Variable declarada sin valor</td><td><code>let x;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El detector de tipos</h3>
+  <p>JavaScript tiene un operador llamado <code>typeof</code> que te dice el tipo de un valor. Toca cada botón para verlo en acción.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔍 typeof — ¿qué tipo es?</div>
+    <div class="state-panel">
+      <div class="state-title">Resultado de typeof</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Valor</div><span class="sval" id="tipo-valor">—</span></div>
+        <div class="state-cell"><div class="label">Tipo</div><span class="sval" id="tipo-resultado">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-tipo="'Hola'">"Hola"</button>
+      <button class="btn primary" data-tipo="42">42</button>
+      <button class="btn primary" data-tipo="true">true</button>
+      <button class="btn primary" data-tipo="null">null</button>
+      <button class="btn primary" data-tipo="undefined">undefined</button>
+    </div>
+    <div class="caja-tip" id="tipo-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tipo-feedback-txt">Toca un valor para ver su tipo.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Los <code>string</code> siempre van entre comillas (simples o dobles). Si escribes <code>42</code> es un <code>number</code>, pero <code>"42"</code> es un <code>string</code>. ¡No son lo mismo! <code>42 + 1</code> da <code>43</code>, pero <code>"42" + 1</code> da <code>"421"</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué tipo de dato es <code>"Hola"</code>?</p>
+      <button class="opcion" data-op="a">number</button>
+      <button class="opcion" data-op="b">boolean</button>
+      <button class="opcion" data-op="c">string</button>
+      <button class="opcion" data-op="d">null</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué tipo de dato es <code>true</code>?</p>
+      <button class="opcion" data-op="a">boolean</button>
+      <button class="opcion" data-op="b">string</button>
+      <button class="opcion" data-op="c">number</button>
+      <button class="opcion" data-op="d">undefined</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a la diferencia entre let y const.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿En qué año se creó JavaScript?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">1995</button>
+      <button class="trivia-opt" data-top="b">2005</button>
+      <button class="trivia-opt" data-top="c">1985</button>
+      <button class="trivia-opt" data-top="d">2015</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Operadores y template literals →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>➕ Operadores y template literals</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Hacer cuentas y armar textos" — operadores aritméticos y cadenas con variables</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Los <strong>operadores</strong> te permiten hacer cálculos con los datos: sumar, restar, comparar. Y los <strong>template literals</strong> te permiten armar textos mezclando variables de forma limpia, usando comillas invertidas <code>`</code> y <code>${...}</code>.</p>
+  </div>
+
+  <h3>➕ Operadores aritméticos</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Operador</th><th>Qué hace</th><th>Ejemplo</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td><code>+</code></td><td>Suma</td><td><code>5 + 3</code></td><td><code>8</code></td></tr>
+        <tr><td><code>-</code></td><td>Resta</td><td><code>5 - 3</code></td><td><code>2</code></td></tr>
+        <tr><td><code>*</code></td><td>Multiplicación</td><td><code>5 * 3</code></td><td><code>15</code></td></tr>
+        <tr><td><code>/</code></td><td>División</td><td><code>6 / 3</code></td><td><code>2</code></td></tr>
+        <tr><td><code>%</code></td><td>Módulo (resto)</td><td><code>7 % 3</code></td><td><code>1</code></td></tr>
+        <tr><td><code>**</code></td><td>Potencia</td><td><code>2 ** 3</code></td><td><code>8</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>📝 Template literals</h3>
+  <p>Antes, para unir texto y variables se usaba el <code>+</code>. Ahora usamos comillas invertidas y <code>${}</code>:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>script.js</div>
+      <button class="copy-btn" data-copy="template">📋 Copiar</button>
+    </div>
+    <pre><code>const nombre = "Ana";
+const edad = 15;
+
+// Antes (concatenación con +)
+console.log("Hola " + nombre + ", tienes " + edad + " años");
+
+// Ahora (template literal)
+console.log(`Hola ${nombre}, tienes ${edad} años`);</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: El constructor de frases</h3>
+  <p>Escribe tu nombre y tu edad, y observa cómo se arma la frase con un template literal.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📝 Template literal en vivo</div>
+    <div class="btn-row">
+      <input class="ws-input" id="tpl-nombre" placeholder="Tu nombre" style="flex:1;min-width:120px;">
+      <input class="ws-input" id="tpl-edad" placeholder="Tu edad" style="flex:1;min-width:100px;">
+    </div>
+    <div class="code-live" id="tpl-code" style="margin-top:1rem;">
+<span class="cm">// Escribe tu nombre y edad arriba</span>
+    </div>
+    <div class="caja-tip" id="tpl-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tpl-feedback-txt">El template literal inserta las variables dentro del texto.</p>
+    </div>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué operador calcula el resto de una división?</p>
+      <button class="opcion" data-op="a">/</button>
+      <button class="opcion" data-op="b">%</button>
+      <button class="opcion" data-op="c">*</button>
+      <button class="opcion" data-op="d">**</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué comillas usan los template literals?</p>
+      <button class="opcion" data-op="a">Comillas simples ''</button>
+      <button class="opcion" data-op="b">Comillas dobles ""</button>
+      <button class="opcion" data-op="c">Comillas invertidas ``</button>
+      <button class="opcion" data-op="d">Paréntesis ()</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: La consola y console.log →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🖥️ La consola y console.log</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Tu mejor amiga" — ver qué hace tu código en tiempo real</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La <strong>consola del navegador</strong> es una herramienta donde JavaScript muestra mensajes. Con <code>console.log()</code> puedes imprimir valores para ver qué está pasando en tu código. Es la forma más rápida de depurar (encontrar errores).</p>
+  </div>
+
+  <h3>🖥️ Cómo abrir la consola</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Navegador</th><th>Atajo</th></tr></thead>
+      <tbody>
+        <tr><td>Chrome / Edge</td><td><code>F12</code> o <code>Ctrl + Shift + J</code></td></tr>
+        <tr><td>Firefox</td><td><code>F12</code> o <code>Ctrl + Shift + K</code></td></tr>
+        <tr><td>Safari</td><td><code>Cmd + Option + C</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Mini-consola JavaScript</h3>
+  <p>Escribe una expresión JavaScript simple y presiona <strong>Ejecutar</strong> para ver el resultado, como en la consola real.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🖥️ Mini-consola — evalúa tu expresión</div>
+    <div class="code-live" id="consola-log" style="min-height:120px;max-height:220px;overflow-y:auto;">
+<span class="cm">// Escribe una expresión y presiona Ejecutar</span>
+    </div>
+    <div class="btn-row">
+      <input class="ws-input" id="consola-input" placeholder="ej: 2 + 3 * 4" style="flex:1;min-width:200px;">
+      <button class="btn primary" id="consola-run">▶ Ejecutar</button>
+      <button class="btn ghost" id="consola-clear">🧹 Limpiar</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-ejemplo="2 + 3">2 + 3</button>
+      <button class="btn" data-ejemplo="'Hola' + ' mundo'">'Hola' + ' mundo'</button>
+      <button class="btn" data-ejemplo="10 % 3">10 % 3</button>
+      <button class="btn" data-ejemplo="Math.max(3, 7, 2)">Math.max(3, 7, 2)</button>
+      <button class="btn" data-ejemplo="2 ** 5">2 ** 5</button>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Puedes imprimir varios valores separados por comas: <code>console.log("edad:", 15)</code>. Y para ver el tipo de algo: <code>console.log(typeof 42)</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace console.log()?</p>
+      <button class="opcion" data-op="a">Muestra un mensaje en la consola</button>
+      <button class="opcion" data-op="b">Borra la consola</button>
+      <button class="opcion" data-op="c">Cierra el navegador</button>
+      <button class="opcion" data-op="d">Guarda un archivo</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Qué atajo abre la consola en Chrome?</p>
+      <button class="opcion" data-op="a">Ctrl + C</button>
+      <button class="opcion" data-op="b">F12</button>
+      <button class="opcion" data-op="c">Ctrl + P</button>
+      <button class="opcion" data-op="d">Alt + Tab</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: JavaScript, variables, tipos, operadores y la consola. Al superarlos, recibirás tu insignia de <strong>Programador JavaScript</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📦 Empareja cada concepto con su descripción</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">let</button>
+        <button class="ws-chip" data-mid="1b">const</button>
+        <button class="ws-chip" data-mid="1c">console.log()</button>
+        <button class="ws-chip" data-mid="1d">template literal</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Variable que se puede reasignar</button>
+        <button class="ws-chip" data-mid="1B">Variable que no se puede reasignar</button>
+        <button class="ws-chip" data-mid="1C">Muestra mensajes en la consola</button>
+        <button class="ws-chip" data-mid="1D">Texto con variables dentro con ${}</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena los pasos para crear tu primer script</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2crear" draggable="true"><span class="ord-num">?</span> Crear el archivo script.js</div>
+        <div class="ws-order-item" data-oid="2enlazar" draggable="true"><span class="ord-num">?</span> Enlazarlo con &lt;script src="script.js"&gt;</div>
+        <div class="ws-order-item" data-oid="2variables" draggable="true"><span class="ord-num">?</span> Declarar variables con let/const</div>
+        <div class="ws-order-item" data-oid="2log" draggable="true"><span class="ord-num">?</span> Mostrar mensajes con console.log()</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📝 Completa el template literal</span></div>
+    <p>Completa la variable que falta dentro del <code>${}</code> para que la frase use el nombre:</p>
+    <div class="ws-block">
+      <div class="code-live">
+<span class="kw">const</span> nombre = <span class="str">"Ana"</span>;
+console.log(<span class="str">`Hola, ${</span><input class="ws-input" data-ans="nombre" data-ws="3" placeholder="?"><span class="str">}`</span>);
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: encuentra el error</span></div>
+    <p>Un compañero escribió este código. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+<span class="kw">const</span> edad = <span class="num">15</span>;
+edad = <span class="num">16</span>;
+      </div>
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="4a">Este código</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Error: const no se puede reasignar</button>
+        <button class="ws-chip" data-mid="4B">El código está bien</button>
+        <button class="ws-chip" data-mid="4C">Falta un console.log()</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Programador JavaScript!</h2>
+    <p class="lead">Ya sabes qué es JavaScript, cómo declarar variables con let y const, los tipos de datos, los operadores, los template literals y cómo usar la consola. JavaScript agrega lógica e interactividad a tus páginas. En la próxima clase daremos el siguiente paso: condicionales y decisiones.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">⚡ Herramientas de Programación I · Clase 11 · Plataforma interactiva</div>
+  <div>Introducción a JavaScript · Variables · Tipos · Operadores · Consola · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

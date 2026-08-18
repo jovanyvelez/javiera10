@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🗑️ Herramientas de Programación I · Clase 20 · CRUD: actualizar y eliminar</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🗑️</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 20</h1>
+      <p class="subtitulo">CRUD: actualizar y eliminar · filter · find · map · delegación de eventos</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🆔 Identificar por ID</button>
+  <button class="btn-modulo" data-modulo="2">🗑️ Eliminar con filter</button>
+  <button class="btn-modulo" data-modulo="3">✏️ Editar con find y map</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🎯 Delegación de eventos</button>
+  <button class="btn-modulo" data-modulo="6">✅ Completar y confirmar</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🗑️ ¡Bienvenido/a a CRUD: actualizar y eliminar!</h2>
+    <p class="lead">Ya sabes <strong>crear</strong> y <strong>leer</strong> tareas. Hoy completas el ciclo: vas a aprender a <strong>actualizar</strong> (editar) y <strong>eliminar</strong> elementos. Al final tendrás un <strong>CRUD completo</strong>: Crear, Leer, Actualizar y Eliminar.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "CRUD = Create, Read, Update, Delete"</span></div>
+        <div class="out">"CRUD = Create, Read, Update, Delete"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Una app que no puede editar ni borrar es solo una lista de lectura."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Completar el CRUD de tu gestor de tareas: editar y eliminar elementos, y persistir cada cambio en localStorage.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber crear y leer tareas (clases anteriores). Aquí aprenderás a <em>modificarlas</em> y <em>borrarlas</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Identificar por ID</td><td style="color:var(--cian)">getElementById</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Eliminar con filter</td><td style="color:var(--morado-claro)">filter()</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Editar con find y map</td><td style="color:var(--ambar)">find()/map()</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Delegación de eventos</td><td style="color:var(--verde)">event.target</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Completar y confirmar</td><td style="color:var(--morado)">confirm()</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran el gestor de tareas que construyeron en clases anteriores. ¿Qué pasa si quieren <strong>cambiar el título</strong> de una tarea ya creada? ¿Y si quieren <strong>borrarla</strong>? ¿Su app actual lo permite? Anoten qué les falta.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Identificar por ID →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🆔 Identificar elementos por ID</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cada elemento con su nombre" — cómo encontrar un elemento exacto en el DOM</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Para <strong>editar</strong> o <strong>eliminar</strong> una tarea, primero tienes que <strong>encontrarla</strong>. En el DOM, cada elemento puede tener un <code>id</code> único, y JavaScript lo localiza con <code>document.getElementById()</code>.</p>
+    <p>Es como buscar a una persona por su <strong>cédula</strong>: el <code>id</code> es único, así que te devuelve exactamente un elemento, no una lista.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sin id</h4>
+      <p>Buscas por etiqueta o clase y obtienes <strong>muchos</strong> elementos. Tienes que filtrar manualmente cuál es el correcto.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Con id</h4>
+      <p><code>getElementById("tarea-3")</code> te devuelve <strong>un solo</strong> elemento, directo y sin ambigüedad.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El buscador de elementos</h3>
+  <p>Mira cómo <code>getElementById</code> encuentra un elemento exacto entre varios. Toca cada botón para "seleccionar" un elemento por su id.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔍 getElementById — ¿qué elemento encuentro?</div>
+    <div class="state-panel">
+      <div class="state-title">Elemento encontrado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">id buscado</div><span class="sval" id="id-buscado">—</span></div>
+        <div class="state-cell"><div class="label">Contenido</div><span class="sval" id="id-contenido">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-id="tarea-1">🔎 tarea-1</button>
+      <button class="btn primary" data-id="tarea-2">🔎 tarea-2</button>
+      <button class="btn primary" data-id="tarea-3">🔎 tarea-3</button>
+      <button class="btn primary" data-id="tarea-4">🔎 tarea-4</button>
+    </div>
+    <div class="caja-tip" id="id-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="id-feedback-txt">Toca un botón para ver qué elemento devuelve getElementById.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Cuando el usuario toca "Editar" en una tarea, necesitas saber <strong>cuál</strong> tarea es. Si cada tarea tiene un <code>id</code> único (por ejemplo <code>tarea-3</code>), puedes encontrarla al instante y cargar sus datos en el formulario.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué método devuelve un elemento por su id?</p>
+      <button class="opcion" data-op="a">document.querySelectorAll()</button>
+      <button class="opcion" data-op="b">document.getElementById()</button>
+      <button class="opcion" data-op="c">document.getElementsByTagName()</button>
+      <button class="opcion" data-op="d">document.createElement()</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuántos elementos devuelve getElementById?</p>
+      <button class="opcion" data-op="a">Todos los que coincidan</button>
+      <button class="opcion" data-op="b">Ninguno</button>
+      <button class="opcion" data-op="c">Uno solo (el id es único)</button>
+      <button class="opcion" data-op="d">Dos como máximo</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Eliminar con filter →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🗑️ Delete: eliminar con filter</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Adiós, tarea" — cómo quitar un elemento de un array sin romper nada</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Para <strong>eliminar</strong> una tarea, no la "borras" del array directamente. Usas <code>filter()</code>, que crea un <strong>nuevo array</strong> con todos los elementos <em>excepto</em> el que quieres quitar.</p>
+    <p><code>filter()</code> recorre el array y se queda solo con los elementos que cumplen una condición. Para eliminar la tarea con id 3, te quedas con todas las que <strong>NO</strong> tienen id 3.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="eliminar">📋 Copiar</button>
+    </div>
+    <pre><code>// Eliminar la tarea con id 3
+const tareas = [
+  { id: 1, titulo: "Estudiar" },
+  { id: 2, titulo: "Comprar pan" },
+  { id: 3, titulo: "Llamar a mamá" }
+];
+
+const nuevasTareas = tareas.filter(t => t.id !== 3);
+
+// nuevasTareas = [ {id:1}, {id:2} ]
+// La tarea 3 ya no está.</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: El gestor de tareas (eliminar)</h3>
+  <p>Este es tu <strong>gestor de tareas real</strong>. Agrega tareas y luego elimínalas con el botón 🗑️. Observa cómo <code>filter()</code> las quita y cómo se guarda en localStorage.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📝 Gestor de tareas — prueba eliminar</div>
+    <div class="btn-row" style="margin-top:0;">
+      <input type="text" id="crud-input" placeholder="Escribe una tarea..." style="flex:1;min-width:180px;padding:0.55rem 0.9rem;border-radius:8px;border:1px solid var(--tarjeta-borde);background:var(--fondo-claro);color:var(--texto);font-family:inherit;">
+      <button class="btn primary" id="crud-agregar">➕ Agregar</button>
+    </div>
+    <div id="crud-lista" style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;"></div>
+    <div class="caja-tip" id="crud-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="crud-feedback-txt">Agrega tareas y luego elimínalas. Cada cambio se guarda en localStorage.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: mutar el array</h4>
+    <p>No uses <code>splice()</code> para eliminar mientras recorres el array: cambia los índices y puedes saltarte elementos. <code>filter()</code> es más seguro porque <strong>no modifica</strong> el array original, crea uno nuevo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace filter()?</p>
+      <button class="opcion" data-op="a">Crea un nuevo array con los elementos que cumplen una condición</button>
+      <button class="opcion" data-op="b">Modifica el array original</button>
+      <button class="opcion" data-op="c">Ordena el array alfabéticamente</button>
+      <button class="opcion" data-op="d">Cuenta los elementos del array</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> Para eliminar la tarea con id 5, ¿qué condición usas?</p>
+      <button class="opcion" data-op="a">t.id === 5</button>
+      <button class="opcion" data-op="b">t.id &gt; 5</button>
+      <button class="opcion" data-op="c">t.id !== 5</button>
+      <button class="opcion" data-op="d">t.id &lt; 5</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Editar con find y map →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>✏️ Update: editar con find y map</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cambiar sin romper" — cómo actualizar un elemento del array</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Para <strong>editar</strong> una tarea necesitas dos pasos: primero <strong>encontrarla</strong> con <code>find()</code>, y luego <strong>reemplazarla</strong> con <code>map()</code>.</p>
+    <p><code>find()</code> devuelve el <strong>primer</strong> elemento que cumple una condición. <code>map()</code> crea un nuevo array transformando cada elemento: si es el que quieres editar, devuelves la versión nueva; si no, lo dejas igual.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="editar">📋 Copiar</button>
+    </div>
+    <pre><code>// Editar el título de la tarea con id 2
+const tareas = [
+  { id: 1, titulo: "Estudiar" },
+  { id: 2, titulo: "Comprar pan" }
+];
+
+// 1. Encontrar la tarea
+const tarea = tareas.find(t => t.id === 2);
+
+// 2. Reemplazarla con map()
+const nuevasTareas = tareas.map(t =>
+  t.id === 2 ? { ...t, titulo: "Comprar pan y leche" } : t
+);
+
+// La tarea 2 ahora dice "Comprar pan y leche"</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Editar una tarea</h3>
+  <p>En el gestor de tareas, toca el botón ✏️ de una tarea. Sus datos se cargan en el formulario, los cambias y tocas "Guardar cambios". Observa cómo <code>find()</code> y <code>map()</code> la actualizan.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📝 Gestor de tareas — prueba editar</div>
+    <div class="btn-row" style="margin-top:0;">
+      <input type="text" id="crud-input-2" placeholder="Escribe una tarea..." style="flex:1;min-width:180px;padding:0.55rem 0.9rem;border-radius:8px;border:1px solid var(--tarjeta-borde);background:var(--fondo-claro);color:var(--texto);font-family:inherit;">
+      <button class="btn primary" id="crud-agregar-2">➕ Agregar</button>
+    </div>
+    <div id="crud-lista-2" style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;"></div>
+    <div class="caja-tip" id="crud-feedback-2" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="crud-feedback-txt-2">Agrega tareas, toca ✏️ para editar y guarda los cambios.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El operador <code>...</code> (spread) copia todas las propiedades de un objeto: <code>{ ...t, titulo: "nuevo" }</code> crea una copia de <code>t</code> pero con el título cambiado. Así no pierdes el <code>id</code> ni las demás propiedades.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué método devuelve el primer elemento que cumple una condición?</p>
+      <button class="opcion" data-op="a">map()</button>
+      <button class="opcion" data-op="b">find()</button>
+      <button class="opcion" data-op="c">filter()</button>
+      <button class="opcion" data-op="d">reduce()</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué hace map()?</p>
+      <button class="opcion" data-op="a">Crea un nuevo array transformando cada elemento</button>
+      <button class="opcion" data-op="b">Elimina elementos del array</button>
+      <button class="opcion" data-op="c">Busca un solo elemento</button>
+      <button class="opcion" data-op="d">Ordena el array</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué hace filter() y qué hace map().</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa la "U" de CRUD?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="b" data-top="a">Unify (unificar)</button>
+      <button class="trivia-opt" data-top="b">Update (actualizar)</button>
+      <button class="trivia-opt" data-top="c">Upload (subir)</button>
+      <button class="trivia-opt" data-top="d">Undo (deshacer)</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Delegación de eventos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🎯 Delegación de eventos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Un solo escuchador para todos" — cómo manejar botones que se crean dinámicamente</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando creas botones de "Eliminar" o "Editar" <strong>dinámicamente</strong> (con JavaScript), no puedes ponerles un <code>addEventListener</code> a cada uno al crearlos... o sí, pero es frágil. La <strong>delegación de eventos</strong> es mejor: pones <strong>un solo</strong> escuchador en el contenedor, y detectas <em>qué botón</em> se tocó con <code>event.target</code>.</p>
+    <p>Es como un profesor que escucha a toda la clase: no necesita ir alumno por alumno, solo pregunta "¿quién levantó la mano?"</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="delegacion">📋 Copiar</button>
+    </div>
+    <pre><code>// Un solo escuchador en la lista
+lista.addEventListener('click', (event) => {
+  const boton = event.target.closest('button');
+
+  if (boton.dataset.accion === 'eliminar') {
+    eliminarTarea(boton.dataset.id);
+  }
+  if (boton.dataset.accion === 'editar') {
+    editarTarea(boton.dataset.id);
+  }
+});</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Detecta el botón</h3>
+  <p>Toca los botones de abajo. El escuchador está en el contenedor, no en cada botón, y usa <code>event.target</code> para saber cuál tocaste.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎯 Delegación de eventos — ¿qué botón tocaste?</div>
+    <div class="state-panel">
+      <div class="state-title">Evento detectado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Acción</div><span class="sval" id="del-accion">—</span></div>
+        <div class="state-cell"><div class="label">id de la tarea</div><span class="sval" id="del-id">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row" id="del-contenedor">
+      <button class="btn pink" data-accion="eliminar" data-id="1">🗑️ Eliminar tarea 1</button>
+      <button class="btn primary" data-accion="editar" data-id="2">✏️ Editar tarea 2</button>
+      <button class="btn warm" data-accion="completar" data-id="3">✅ Completar tarea 3</button>
+    </div>
+    <div class="caja-tip" id="del-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="del-feedback-txt">Toca un botón. El contenedor detecta cuál fue con event.target.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: escuchadores repetidos</h4>
+    <p>Si pones <code>addEventListener</code> a cada botón al crearlo, y luego vuelves a renderizar la lista, puedes duplicar escuchadores o perderlos. Con delegación, el escuchador vive en el contenedor y <strong>siempre funciona</strong>, sin importar cuántas veces redibujes.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Dónde pones el escuchador en la delegación de eventos?</p>
+      <button class="opcion" data-op="a">En cada botón individual</button>
+      <button class="opcion" data-op="b">En el documento entero, siempre</button>
+      <button class="opcion" data-op="c">En el contenedor padre de los botones</button>
+      <button class="opcion" data-op="d">No se usa escuchador</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad te dice qué elemento se tocó?</p>
+      <button class="opcion" data-op="a">event.target</button>
+      <button class="opcion" data-op="b">event.key</button>
+      <button class="opcion" data-op="c">event.time</button>
+      <button class="opcion" data-op="d">event.type</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Completar y confirmar →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>✅ Marcar completada y confirmar</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Los toques finales" — cambiar estado y pedir confirmación antes de borrar</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Dos detalles que hacen tu app <strong>profesional</strong>: (1) poder <strong>marcar una tarea como completada</strong> (cambiar una propiedad <code>completada</code> de <code>false</code> a <code>true</code>), y (2) pedir <strong>confirmación</strong> antes de eliminar, para no borrar por accidente.</p>
+    <p>Marcar completada es solo otra edición: usas <code>map()</code> para cambiar la propiedad. La confirmación usa <code>confirm()</code>, que muestra un cuadro de "Aceptar / Cancelar".</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="completar">📋 Copiar</button>
+    </div>
+    <pre><code>// Marcar completada
+function marcarCompletada(id) {
+  tareas = tareas.map(t =>
+    t.id === id ? { ...t, completada: !t.completada } : t
+  );
+  guardar();
+}
+
+// Eliminar con confirmación
+function eliminarTarea(id) {
+  if (confirm('¿Seguro que quieres eliminar esta tarea?')) {
+    tareas = tareas.filter(t => t.id !== id);
+    guardar();
+  }
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: El gestor completo</h3>
+  <p>Este es el gestor de tareas <strong>completo</strong>: agrega, edita, elimina (con confirmación) y marca como completada. Todo se guarda en localStorage.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📝 Gestor de tareas — CRUD completo</div>
+    <div class="btn-row" style="margin-top:0;">
+      <input type="text" id="crud-input-3" placeholder="Escribe una tarea..." style="flex:1;min-width:180px;padding:0.55rem 0.9rem;border-radius:8px;border:1px solid var(--tarjeta-borde);background:var(--fondo-claro);color:var(--texto);font-family:inherit;">
+      <button class="btn primary" id="crud-agregar-3">➕ Agregar</button>
+    </div>
+    <div id="crud-lista-3" style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;"></div>
+    <div class="caja-tip" id="crud-feedback-3" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="crud-feedback-txt-3">Prueba todo: agregar, editar, completar y eliminar (te pedirá confirmación).</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Después de <strong>cada</strong> cambio (agregar, editar, eliminar, completar), llama a <code>guardar()</code> para escribir en localStorage. Así, si el usuario recarga la página, sus tareas siguen ahí.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué función muestra un cuadro de "Aceptar / Cancelar"?</p>
+      <button class="opcion" data-op="a">alert()</button>
+      <button class="opcion" data-op="b">confirm()</button>
+      <button class="opcion" data-op="c">prompt()</button>
+      <button class="opcion" data-op="d">console.log()</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> Para marcar una tarea como completada, ¿qué haces?</p>
+      <button class="opcion" data-op="a">Cambiar su propiedad completada con map()</button>
+      <button class="opcion" data-op="b">Eliminarla del array</button>
+      <button class="opcion" data-op="c">Crear una tarea nueva</button>
+      <button class="opcion" data-op="d">Recargar la página</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: identificar por ID, eliminar con filter, editar con find/map y delegación de eventos. Al superarlos, recibirás tu insignia de <strong>Maestro del CRUD</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🆔 Empareja cada método con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">filter()</button>
+        <button class="ws-chip" data-mid="1b">find()</button>
+        <button class="ws-chip" data-mid="1c">map()</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Eliminar elementos</button>
+        <button class="ws-chip" data-mid="1B">Encontrar un elemento</button>
+        <button class="ws-chip" data-mid="1C">Transformar cada elemento</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🗑️ Ordena los pasos para eliminar una tarea</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> El usuario toca el botón 🗑️</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Se pide confirmación con confirm()</div>
+        <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> Se filtra el array con filter()</div>
+        <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> Se guarda en localStorage</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">✏️ Completa el código para editar</span></div>
+    <p>Completa el método que falta para encontrar la tarea a editar:</p>
+    <div class="ws-block">
+      <div class="code-live">
+const tarea = tareas.<input class="ws-input" data-ans="find" data-ws="3" placeholder="?">(t =&gt; t.id === 2);
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código para eliminar tareas. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+tareas.forEach((t, i) =&gt; {
+  if (t.id === 3) tareas.splice(i, 1);
+});
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Usa splice() dentro de forEach, lo que puede saltarse elementos</button>
+        <button class="ws-chip" data-mid="4B">El código está perfecto</button>
+        <button class="ws-chip" data-mid="4C">Falta un console.log()</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro del CRUD!</h2>
+    <p class="lead">Ya sabes crear, leer, actualizar y eliminar tareas. Con esto el proyecto ya cumple el requisito principal del curso: un <strong>CRUD completo</strong> con persistencia en localStorage. ¡Felicidades!</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 20 · Plataforma interactiva</div>
+  <div>CRUD: actualizar y eliminar · filter · find · map · delegación de eventos · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

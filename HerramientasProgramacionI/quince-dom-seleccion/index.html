@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌐 Herramientas de Programación I · Clase 15 · DOM: seleccionar y modificar</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🌳</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 15</h1>
+      <p class="subtitulo">DOM · Seleccionar y modificar elementos · JavaScript en vivo</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🌳 ¿Qué es el DOM?</button>
+  <button class="btn-modulo" data-modulo="2">🎯 Seleccionar elementos</button>
+  <button class="btn-modulo" data-modulo="3">✏️ Modificar contenido</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🎨 Clases y atributos</button>
+  <button class="btn-modulo" data-modulo="6">➕ Crear elementos</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🌳 ¡Bienvenido/a al DOM!</h2>
+    <p class="lead">Hasta ahora escribiste HTML y CSS "a mano". Hoy vas a aprender a <strong>manipular la página con JavaScript</strong>: seleccionar elementos, cambiar su contenido y crear nuevos, <em>sin recargar la página</em>. Eso es el <strong>DOM</strong>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">document.querySelector('h1').textContent = '¡Hola!'</span></div>
+        <div class="out">"El título cambió al instante, sin recargar."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"JavaScript puede modificar la página sin recargarla."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Seleccionar elementos del DOM y modificar su contenido, atributos y clases con JavaScript.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML y CSS básicos. Aquí aprenderás a <em>controlarlos</em> desde JavaScript.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es el DOM?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Seleccionar elementos</td><td style="color:var(--morado-claro)">getElementById/querySelector</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Modificar contenido</td><td style="color:var(--ambar)">textContent/innerHTML</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Clases y atributos</td><td style="color:var(--verde)">classList/setAttribute</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Crear elementos</td><td style="color:var(--morado)">createElement/append</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong> → pestaña <strong>Console</strong>. Escriban <code>document.body</code> y presionen Enter. ¿Qué aparece? Es el <strong>DOM</strong>: la página entera convertida en un objeto que JavaScript puede tocar.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es el DOM? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🌳 ¿Qué es el DOM?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El árbol de la página" — cómo el navegador convierte tu HTML en un objeto</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando el navegador carga tu HTML, no lo guarda como texto plano: lo convierte en un <strong>árbol de objetos</strong> llamado <strong>DOM</strong> (Document Object Model, "Modelo de Objetos del Documento"). Cada etiqueta se vuelve un <strong>nodo</strong> del árbol, y JavaScript puede <strong>leer y modificar</strong> esos nodos en tiempo real.</p>
+    <p>Por eso, cuando cambias algo con JavaScript, la página se actualiza <strong>al instante</strong>, sin recargar. El HTML original no cambia: cambia el DOM que el navegador tiene en memoria.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📄 HTML (el archivo)</h4>
+      <p>Es el texto que escribes en tu editor. Estático: no cambia solo. Es la "receta" de la página.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🌳 DOM (en memoria)</h4>
+      <p>Es la versión viva de esa receta, convertida en un árbol de nodos. JavaScript puede modificarla al vuelo.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El árbol DOM</h3>
+  <p>Este es un mini-árbol DOM. Toca un nodo para ver qué representa y cómo JavaScript lo "ve".</p>
+
+  <div class="simulador">
+    <div class="sim-head">🌳 Árbol DOM — explora los nodos</div>
+    <div class="state-panel">
+      <div class="state-title">Nodo seleccionado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Nodo</div><span class="sval" id="dom-tag">—</span></div>
+        <div class="state-cell"><div class="label">Qué representa</div><span class="sval" id="dom-meaning">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-dom="document">📄 document</button>
+      <button class="btn primary" data-dom="html">🌐 html</button>
+      <button class="btn primary" data-dom="body">🧍 body</button>
+      <button class="btn primary" data-dom="h1">🔤 h1</button>
+      <button class="btn primary" data-dom="p">📝 p</button>
+      <button class="btn primary" data-dom="ul">📋 ul</button>
+      <button class="btn primary" data-dom="li">🔘 li</button>
+    </div>
+    <div class="caja-tip" id="dom-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="dom-feedback-txt">Toca un nodo para ver qué representa en el árbol DOM.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Sin el DOM, JavaScript no podría tocar la página. Todo lo que harás hoy —cambiar textos, agregar elementos, reaccionar a clics— pasa por el DOM. Es el <strong>puente</strong> entre tu HTML y tu JavaScript.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es el DOM?</p>
+      <button class="opcion" data-op="a">Un lenguaje de programación</button>
+      <button class="opcion" data-op="b">El árbol de objetos que el navegador crea a partir del HTML</button>
+      <button class="opcion" data-op="c">Un archivo de estilos CSS</button>
+      <button class="opcion" data-op="d">Un servidor web</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué significa la sigla DOM?</p>
+      <button class="opcion" data-op="a">Digital Object Machine</button>
+      <button class="opcion" data-op="b">Data Order Model</button>
+      <button class="opcion" data-op="c">Document Object Model</button>
+      <button class="opcion" data-op="d">Document Order Method</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Seleccionar elementos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🎯 Seleccionar elementos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Encontrar el nodo correcto" — getElementById, querySelector y querySelectorAll</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Para modificar un elemento, primero hay que <strong>encontrarlo</strong>. JavaScript te da varios métodos para "agarrar" nodos del DOM. Los tres más usados son <code>getElementById()</code>, <code>querySelector()</code> y <code>querySelectorAll()</code>.</p>
+  </div>
+
+  <h3>🔍 Los tres buscadores</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Método</th><th>Qué busca</th><th>Qué devuelve</th></tr></thead>
+      <tbody>
+        <tr><td><code>getElementById('x')</code></td><td>Un elemento por su <code>id</code></td><td>Un solo elemento (o null)</td></tr>
+        <tr><td><code>querySelector('.clase')</code></td><td>El primer elemento que coincide con un selector CSS</td><td>Un solo elemento (o null)</td></tr>
+        <tr><td><code>querySelectorAll('li')</code></td><td>Todos los elementos que coinciden con un selector CSS</td><td>Una lista (NodeList)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El selector en vivo</h3>
+  <p>Escribe un selector CSS y mira qué elementos "atrapa" en esta mini-página. Prueba con <code>h2</code>, <code>.item</code>, <code>#titulo</code> o <code>li</code>.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎯 Selector en vivo — ¿qué atrapa tu selector?</div>
+    <div class="state-panel">
+      <div class="state-title">Mini-página de prueba</div>
+      <div id="selector-demo" style="background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:10px;padding:1rem;font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.8;">
+        <h2 id="titulo" style="margin:0;font-size:1.1rem;color:var(--cian);">Título principal</h2>
+        <p style="margin:0;color:var(--texto-suave);">Un párrafo de ejemplo.</p>
+        <ul style="margin:0.5rem 0 0 1.2rem;color:var(--texto);">
+          <li class="item">Elemento 1</li>
+          <li class="item">Elemento 2</li>
+          <li class="item">Elemento 3</li>
+        </ul>
+      </div>
+    </div>
+    <div class="btn-row" style="align-items:center;">
+      <input id="selector-input" type="text" placeholder="ej. .item" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;padding:0.5rem 0.8rem;border-radius:8px;font-size:0.9rem;outline:none;flex:1;min-width:180px;">
+      <button class="btn primary" id="selector-run">🔍 Buscar</button>
+    </div>
+    <div class="caja-tip" id="selector-feedback" style="margin-top:1rem;">
+      <h4>👁️ Resultado</h4>
+      <p id="selector-feedback-txt">Escribe un selector y pulsa "Buscar".</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar el punto o el #</h4>
+    <p>En <code>querySelector()</code> y <code>querySelectorAll()</code> debes usar la sintaxis CSS completa: <code>.clase</code> con punto, <code>#id</code> con numeral. Si escribes <code>querySelector('item')</code> sin punto, no encontrará nada.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué método selecciona un elemento por su id?</p>
+      <button class="opcion" data-op="a">getElementById()</button>
+      <button class="opcion" data-op="b">querySelectorAll()</button>
+      <button class="opcion" data-op="c">createElement()</button>
+      <button class="opcion" data-op="d">appendChild()</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué devuelve querySelectorAll('li')?</p>
+      <button class="opcion" data-op="a">El primer &lt;li&gt; de la página</button>
+      <button class="opcion" data-op="b">Nada, no existe ese método</button>
+      <button class="opcion" data-op="c">Una lista con todos los &lt;li&gt; de la página</button>
+      <button class="opcion" data-op="d">Un número con la cantidad de &lt;li&gt;</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Modificar contenido →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>✏️ Modificar contenido</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cambiar lo que dice la página" — textContent e innerHTML</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una vez que seleccionaste un elemento, puedes cambiar lo que muestra. Hay dos formas principales: <code>textContent</code> (cambia solo el texto) e <code>innerHTML</code> (cambia el HTML interno, incluyendo etiquetas).</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔤 textContent</h4>
+      <p>Cambia <strong>solo el texto</strong>. Si le pasas etiquetas, las muestra como texto literal. Más seguro y rápido.</p>
+      <div class="code-live" style="margin-top:.5rem">
+el.textContent = 'Hola';
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🧩 innerHTML</h4>
+      <p>Cambia el <strong>HTML interno</strong>. Puedes insertar etiquetas nuevas, pero ten cuidado con contenido no confiable.</p>
+      <div class="code-live" style="margin-top:.5rem">
+el.innerHTML = '&lt;strong&gt;Hola&lt;/strong&gt;';
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Cambia el texto</h3>
+  <p>Escribe un texto y mira cómo cambia el elemento en vivo. Prueba también con etiquetas para ver la diferencia entre <code>textContent</code> e <code>innerHTML</code>.</p>
+
+  <div class="simulador">
+    <div class="sim-head">✏️ Editor de contenido en vivo</div>
+    <div class="state-panel">
+      <div class="state-title">Elemento objetivo</div>
+      <div id="contenido-demo" style="background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:10px;padding:1rem;font-size:1.1rem;color:var(--cian);">Texto original</div>
+    </div>
+    <div class="btn-row" style="align-items:center;">
+      <input id="contenido-input" type="text" placeholder="Escribe algo, ej. &lt;strong&gt;Hola&lt;/strong&gt;" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;padding:0.5rem 0.8rem;border-radius:8px;font-size:0.9rem;outline:none;flex:1;min-width:180px;">
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="contenido-text">🔤 textContent</button>
+      <button class="btn primary" id="contenido-html">🧩 innerHTML</button>
+      <button class="btn ghost" id="contenido-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="contenido-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="contenido-feedback-txt">Escribe algo y elige un método para aplicarlo.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Usa <code>textContent</code> cuando solo quieras cambiar texto (es más seguro). Usa <code>innerHTML</code> cuando necesites insertar etiquetas HTML nuevas. Nunca uses <code>innerHTML</code> con datos que vengan de un usuario sin validar.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad cambia solo el texto de un elemento?</p>
+      <button class="opcion" data-op="a">innerHTML</button>
+      <button class="opcion" data-op="b">textContent</button>
+      <button class="opcion" data-op="c">className</button>
+      <button class="opcion" data-op="d">style</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad te permite insertar etiquetas HTML nuevas?</p>
+      <button class="opcion" data-op="a">innerHTML</button>
+      <button class="opcion" data-op="b">textContent</button>
+      <button class="opcion" data-op="c">getElementById</button>
+      <button class="opcion" data-op="d">appendChild</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a un método del DOM que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa la "D" de DOM?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Document (documento)</button>
+      <button class="trivia-opt" data-top="b">Digital (digital)</button>
+      <button class="trivia-opt" data-top="c">Data (datos)</button>
+      <button class="trivia-opt" data-top="d">Dynamic (dinámico)</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Clases y atributos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🎨 Modificar clases y atributos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cambiar el estilo y los atributos" — classList y setAttribute</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Además del contenido, puedes cambiar el <strong>estilo</strong> (agregando o quitando clases CSS) y los <strong>atributos</strong> (como <code>src</code>, <code>href</code> o <code>disabled</code>). Para las clases usas <code>classList</code>; para los atributos, <code>setAttribute()</code>.</p>
+  </div>
+
+  <h3>🎨 classList: los tres comandos</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Método</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td><code>classList.add('x')</code></td><td>Agrega la clase <code>x</code></td></tr>
+        <tr><td><code>classList.remove('x')</code></td><td>Quita la clase <code>x</code></td></tr>
+        <tr><td><code>classList.toggle('x')</code></td><td>La agrega si no está, la quita si está (interruptor)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El interruptor de clases</h3>
+  <p>Toca los botones para agregar, quitar o alternar clases en el elemento. Observa cómo cambia su estilo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎨 Laboratorio de clases</div>
+    <div class="state-panel">
+      <div class="state-title">Elemento objetivo</div>
+      <div id="clase-demo" style="background:var(--fondo-claro);border:2px solid var(--tarjeta-borde);border-radius:10px;padding:1.2rem;text-align:center;font-size:1.1rem;color:var(--texto);transition:all 0.3s;">Soy un elemento</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-clase="destacado">➕ add('destacado')</button>
+      <button class="btn primary" data-clase="oculto">➕ add('oculto')</button>
+      <button class="btn" data-clase-remove="destacado">➖ remove('destacado')</button>
+      <button class="btn" data-clase-remove="oculto">➖ remove('oculto')</button>
+      <button class="btn warm" data-clase-toggle="destacado">🔁 toggle('destacado')</button>
+      <button class="btn ghost" id="clase-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="clase-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="clase-feedback-txt">Toca un botón para modificar las clases del elemento.</p>
+    </div>
+  </div>
+
+  <h3>🔧 Modificar atributos</h3>
+  <p>Para cambiar un atributo usas <code>setAttribute('nombre', 'valor')</code>. Por ejemplo, cambiar el <code>src</code> de una imagen o el <code>href</code> de un enlace.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>atributos.js</div>
+      <button class="copy-btn" data-copy="atributos">📋 Copiar</button>
+    </div>
+    <pre><code>// Cambiar el src de una imagen
+const img = document.querySelector('img');
+img.setAttribute('src', 'nueva-imagen.jpg');
+
+// Cambiar el href de un enlace
+const enlace = document.querySelector('a');
+enlace.setAttribute('href', 'https://otra-pagina.com');
+
+// Deshabilitar un botón
+const boton = document.querySelector('button');
+boton.setAttribute('disabled', '');</code></pre>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué método alterna una clase (la agrega si no está, la quita si está)?</p>
+      <button class="opcion" data-op="a">classList.add()</button>
+      <button class="opcion" data-op="b">classList.remove()</button>
+      <button class="opcion" data-op="c">classList.toggle()</button>
+      <button class="opcion" data-op="d">classList.set()</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué método cambia un atributo como src o href?</p>
+      <button class="opcion" data-op="a">setAttribute()</button>
+      <button class="opcion" data-op="b">textContent</button>
+      <button class="opcion" data-op="c">innerHTML</button>
+      <button class="opcion" data-op="d">appendChild()</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Crear elementos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>➕ Crear elementos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Fabricar nodos nuevos" — createElement, append y appendChild</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>No solo puedes modificar lo que ya existe: también puedes <strong>crear elementos nuevos</strong> desde cero y agregarlos a la página. Con <code>createElement()</code> fabricas el nodo, y con <code>append()</code> o <code>appendChild()</code> lo insertas en el DOM.</p>
+  </div>
+
+  <h3>📋 La receta para crear un elemento</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>crear.js</div>
+      <button class="copy-btn" data-copy="crear">📋 Copiar</button>
+    </div>
+    <pre><code>// 1. Crear el elemento
+const li = document.createElement('li');
+
+// 2. Darle contenido
+li.textContent = 'Nueva tarea';
+
+// 3. Agregarlo a la lista
+const lista = document.querySelector('ul');
+lista.append(li);</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: El renderizador de lista</h3>
+  <p>Este simulador tiene un <strong>array de tareas</strong>. Toca "Agregar tarea" para crear un elemento nuevo y agregarlo a la lista, tal como lo haría JavaScript.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📋 Renderizador de lista de tareas</div>
+    <div class="state-panel">
+      <div class="state-title">Lista de tareas (renderizada en el DOM)</div>
+      <ul id="lista-tareas" style="margin:0.5rem 0 0 1.2rem;color:var(--texto);font-size:0.95rem;line-height:1.9;">
+        <li>Estudiar el DOM</li>
+      </ul>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="tarea-agregar">➕ Agregar tarea</button>
+      <button class="btn ghost" id="tarea-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="tarea-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tarea-feedback-txt">Cada clic crea un &lt;li&gt; nuevo y lo agrega a la lista, sin recargar la página.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip: DocumentFragment</h4>
+    <p>Si vas a agregar <strong>muchos</strong> elementos a la vez, usa un <code>DocumentFragment</code>: es un contenedor temporal que agrupa nodos y los inserta todos de una sola vez, más eficiente que agregar uno por uno.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué método crea un elemento nuevo?</p>
+      <button class="opcion" data-op="a">querySelector()</button>
+      <button class="opcion" data-op="b">createElement()</button>
+      <button class="opcion" data-op="c">getElementById()</button>
+      <button class="opcion" data-op="d">setAttribute()</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué método agrega un elemento al DOM?</p>
+      <button class="opcion" data-op="a">append()</button>
+      <button class="opcion" data-op="b">remove()</button>
+      <button class="opcion" data-op="c">toggle()</button>
+      <button class="opcion" data-op="d">select()</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: el DOM, seleccionar elementos, modificar contenido y crear nodos. Al superarlos, recibirás tu insignia de <strong>Domador del DOM</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🎯 Empareja cada método con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">getElementById()</button>
+        <button class="ws-chip" data-mid="1b">querySelectorAll()</button>
+        <button class="ws-chip" data-mid="1c">createElement()</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Selecciona un elemento por su id</button>
+        <button class="ws-chip" data-mid="1B">Selecciona todos los elementos que coinciden</button>
+        <button class="ws-chip" data-mid="1C">Crea un elemento nuevo</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">➕ Ordena los pasos para crear un elemento</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2create" draggable="true"><span class="ord-num">?</span> createElement('li')</div>
+        <div class="ws-order-item" data-oid="2text" draggable="true"><span class="ord-num">?</span> li.textContent = 'Tarea'</div>
+        <div class="ws-order-item" data-oid="2append" draggable="true"><span class="ord-num">?</span> lista.append(li)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">✏️ Completa el código para cambiar el texto</span></div>
+    <p>Completa la propiedad que falta para cambiar el texto del título:</p>
+    <div class="ws-block">
+      <div class="code-live">
+const titulo = document.querySelector('h1');
+titulo.<input class="ws-input" data-ans="textContent" data-ws="3" placeholder="?"> = 'Nuevo título';
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código para seleccionar todos los elementos con clase "item". ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+const items = document.querySelector('item');
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Falta el punto: debería ser '.item'</button>
+        <button class="ws-chip" data-mid="4B">Debería usar getElementById</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Domador del DOM!</h2>
+    <p class="lead">Ya sabes seleccionar elementos, modificar su contenido, cambiar clases y atributos, y crear nodos nuevos. <strong>JavaScript puede modificar la página sin recargarla.</strong> En la próxima clase aprenderás a reaccionar a eventos como clics y teclas.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 15 · Plataforma interactiva</div>
+  <div>DOM · Seleccionar y modificar elementos · JavaScript en vivo · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

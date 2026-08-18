@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌐 Herramientas de Programación I · Clase 4 · Formularios HTML</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">📝</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 4</h1>
+      <p class="subtitulo">Formularios HTML · Accesibilidad básica · Tipos de input</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📝 La etiqueta form</button>
+  <button class="btn-modulo" data-modulo="2">⌨️ Tipos de input</button>
+  <button class="btn-modulo" data-modulo="3">♿ label y accesibilidad</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">📬 Formulario de contacto</button>
+  <button class="btn-modulo" data-modulo="6">✅ Formulario de tareas</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>📝 ¡Bienvenido/a a Formularios HTML!</h2>
+    <p class="lead">Hasta ahora tu página solo <strong>mostraba</strong> información. Hoy vas a aprender a <strong>recibirla</strong>: con formularios, el usuario puede escribir, elegir y enviar datos. Y lo harás de forma <strong>accesible</strong>, para que todas las personas puedan usarlos.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "&lt;form&gt; es la puerta de entrada de datos"</span></div>
+        <div class="out">"&lt;form&gt; es la puerta de entrada de datos"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"HTML no tiene lógica, solo estructura. La lógica llegará con JavaScript."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Crear formularios con form, label, input, textarea, select y button, y hacerlos accesibles.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML semántico y sus etiquetas básicas. Aquí aprenderás a <em>recibir datos</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · La etiqueta form y sus partes</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Tipos de input</td><td style="color:var(--morado-claro)">text/email/password</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · label y accesibilidad</td><td style="color:var(--ambar)">Accesibilidad</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Formulario de contacto</td><td style="color:var(--verde)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Formulario de tareas</td><td style="color:var(--morado)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página con un formulario (el inicio de sesión del correo, por ejemplo) y hagan clic derecho → <strong>Inspeccionar</strong>. Busquen las etiquetas <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code> y <code>&lt;label&gt;</code>. ¿Cuántas hay de cada una?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: La etiqueta form →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📝 La etiqueta form y sus partes</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La puerta de entrada de datos" — form, label, input, textarea, select, button</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>formulario</strong> es la forma en que una página <strong>recibe información</strong> del usuario: su nombre, su correo, un mensaje, una contraseña. Todo vive dentro de la etiqueta <code>&lt;form&gt;</code>, que es el contenedor. Dentro de ella van los <strong>campos</strong>: cada uno con su etiqueta y su control de entrada.</p>
+    <p>Piensa en un formulario de papel: tiene un título, campos con su nombre ("Nombre:", "Correo:") y espacios para escribir. En HTML es igual, pero con etiquetas.</p>
+  </div>
+
+  <h3>🧩 Las 6 piezas de un formulario</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Etiqueta</th><th>Qué representa</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;form&gt;</code></td><td>Contenedor de todos los campos</td><td>Todo el formulario</td></tr>
+        <tr><td><code>&lt;label&gt;</code></td><td>Texto que describe cada campo</td><td>"Nombre:"</td></tr>
+        <tr><td><code>&lt;input&gt;</code></td><td>Campo de entrada (texto, correo, etc.)</td><td>Una caja para escribir</td></tr>
+        <tr><td><code>&lt;textarea&gt;</code></td><td>Área de texto grande (varias líneas)</td><td>Un mensaje largo</td></tr>
+        <tr><td><code>&lt;select&gt;</code></td><td>Menú desplegable con opciones</td><td>Elegir un país</td></tr>
+        <tr><td><code>&lt;button&gt;</code></td><td>Botón para enviar o ejecutar</td><td>"Enviar"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El inspector de formularios</h3>
+  <p>Toca cada etiqueta para ver qué hace dentro de un formulario. Es como inspeccionar un formulario real.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔍 Inspector — ¿qué hace cada etiqueta?</div>
+    <div class="state-panel">
+      <div class="state-title">Etiqueta seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Etiqueta</div><span class="sval" id="form-tag">—</span></div>
+        <div class="state-cell"><div class="label">Función</div><span class="sval" id="form-meaning">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-form="form">📦 form</button>
+      <button class="btn primary" data-form="label">🏷️ label</button>
+      <button class="btn primary" data-form="input">⌨️ input</button>
+      <button class="btn primary" data-form="textarea">📄 textarea</button>
+      <button class="btn primary" data-form="select">🔽 select</button>
+      <button class="btn primary" data-form="button">🔘 button</button>
+    </div>
+    <div class="caja-tip" id="form-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="form-feedback-txt">Toca una etiqueta para ver qué hace dentro del formulario.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Sin formularios, la web sería de <strong>solo lectura</strong>: no podrías iniciar sesión, buscar en Google, comentar ni comprar. Los formularios son la forma en que <strong>tú le hablas a la página</strong>. Dominarlos es esencial para cualquier sitio real.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué etiqueta es el contenedor de todos los campos de un formulario?</p>
+      <button class="opcion" data-op="a">&lt;input&gt;</button>
+      <button class="opcion" data-op="b">&lt;form&gt;</button>
+      <button class="opcion" data-op="c">&lt;label&gt;</button>
+      <button class="opcion" data-op="d">&lt;div&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué etiqueta usas para un mensaje largo de varias líneas?</p>
+      <button class="opcion" data-op="a">&lt;input&gt;</button>
+      <button class="opcion" data-op="b">&lt;select&gt;</button>
+      <button class="opcion" data-op="c">&lt;textarea&gt;</button>
+      <button class="opcion" data-op="d">&lt;button&gt;</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Tipos de input →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>⌨️ Tipos de input</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cada dato tiene su campo" — text, email, password, number, date, checkbox, radio</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La etiqueta <code>&lt;input&gt;</code> es una sola, pero cambia de forma según su atributo <code>type</code>. Un <code>type="text"</code> es una caja de texto, un <code>type="password"</code> oculta lo que escribes, y un <code>type="checkbox"</code> es una casilla. Elegir el tipo correcto hace el formulario más fácil de usar.</p>
+  </div>
+
+  <h3>🎮 Simulador: El probador de inputs</h3>
+  <p>Toca cada tipo para ver cómo se ve y para qué sirve. Observa la vista previa.</p>
+
+  <div class="simulador">
+    <div class="sim-head">⌨️ Probador de tipos de input</div>
+    <div class="state-panel">
+      <div class="state-title">Tipo seleccionado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Tipo</div><span class="sval" id="tipo-tag">—</span></div>
+        <div class="state-cell"><div class="label">Para qué sirve</div><span class="sval" id="tipo-meaning">—</span></div>
+        <div class="state-cell"><div class="label">Vista previa</div><span class="sval" id="tipo-preview">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-tipo="text">🔤 text</button>
+      <button class="btn primary" data-tipo="email">✉️ email</button>
+      <button class="btn primary" data-tipo="password">🔒 password</button>
+      <button class="btn primary" data-tipo="number">🔢 number</button>
+      <button class="btn primary" data-tipo="date">📅 date</button>
+      <button class="btn primary" data-tipo="checkbox">☑️ checkbox</button>
+      <button class="btn primary" data-tipo="radio">🔘 radio</button>
+    </div>
+    <div class="caja-tip" id="tipo-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tipo-feedback-txt">Toca un tipo para ver cómo se ve y para qué sirve.</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>☑️ checkbox — varias opciones</h4>
+      <p>Casillas de verificación. El usuario puede <strong>marcar varias</strong> a la vez. Ideal para "¿qué te gusta?" con varias respuestas.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🔘 radio — una sola opción</h4>
+      <p>Botones de opción. El usuario elige <strong>solo una</strong> de un grupo. Ideal para "elige tu género" o "elige un plan".</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: confundir checkbox y radio</h4>
+    <p>Si el usuario puede elegir <strong>varias</strong> opciones, usa <code>checkbox</code>. Si debe elegir <strong>solo una</strong>, usa <code>radio</code> (y dale el mismo <code>name</code> a todas las del grupo para que se excluyan entre sí).</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué tipo de input oculta los caracteres que escribe el usuario?</p>
+      <button class="opcion" data-op="a">password</button>
+      <button class="opcion" data-op="b">text</button>
+      <button class="opcion" data-op="c">email</button>
+      <button class="opcion" data-op="d">number</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué tipo usas para que el usuario elija UNA sola opción de un grupo?</p>
+      <button class="opcion" data-op="a">checkbox</button>
+      <button class="opcion" data-op="b">text</button>
+      <button class="opcion" data-op="c">radio</button>
+      <button class="opcion" data-op="d">date</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: label y accesibilidad →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>♿ label y accesibilidad</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Un formulario para todos" — relacionar label con input, tabulación, contraste, foco</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un formulario <strong>accesible</strong> es uno que cualquier persona puede usar, incluida una persona ciega que usa un <strong>lector de pantalla</strong>. La clave está en la etiqueta <code>&lt;label&gt;</code>: cuando la relacionas con su campo, el lector de pantalla puede decir "Nombre, campo de texto" en lugar de solo "campo de texto".</p>
+  </div>
+
+  <h3>🔗 Cómo relacionar label con input</h3>
+  <p>Hay dos formas. La más recomendada es usar el atributo <code>for</code> en el <code>&lt;label&gt;</code> y el atributo <code>id</code> en el <code>&lt;input&gt;</code>, con el mismo valor.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>accesible.html</div>
+      <button class="copy-btn" data-copy="accesible">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;!-- ✅ Accesible: label relacionado con input --&gt;
+&lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+&lt;input type="text" id="nombre" name="nombre"&gt;
+
+&lt;!-- ❌ Inaccesible: input sin label --&gt;
+&lt;input type="text" name="nombre"&gt;</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Empareja label con su campo</h3>
+  <p>Relaciona cada texto con el tipo de campo que le corresponde. Toca uno de la izquierda y luego uno de la derecha.</p>
+  <div class="simulador">
+    <div class="sim-head">🧩 ¿Qué campo va con cada texto?</div>
+    <div class="ws-block" data-ws-match="labels">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="a">Nombre del usuario</button>
+        <button class="ws-chip" data-mid="b">Correo electrónico</button>
+        <button class="ws-chip" data-mid="c">Mensaje largo</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="A">&lt;input type="text"&gt;</button>
+        <button class="ws-chip" data-mid="B">&lt;input type="email"&gt;</button>
+        <button class="ws-chip" data-mid="C">&lt;textarea&gt;</button>
+      </div>
+      <button class="btn primary" data-check-ws="labels">✓ Validar</button>
+      <div class="resultado-ws" id="ws-fb-labels"></div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Las 4 reglas de accesibilidad</h4>
+    <p>(1) <strong>Relaciona</strong> cada <code>label</code> con su campo. (2) Mantén un <strong>orden lógico de tabulación</strong>: al presionar Tab, el foco debe ir de arriba a abajo. (3) Usa <strong>contraste</strong> suficiente entre texto y fondo. (4) Asegura un <strong>foco visible</strong>: que se vea claramente qué campo está seleccionado.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué atributo del &lt;label&gt; lo relaciona con su &lt;input&gt;?</p>
+      <button class="opcion" data-op="a">name</button>
+      <button class="opcion" data-op="b">for</button>
+      <button class="opcion" data-op="c">type</button>
+      <button class="opcion" data-op="d">value</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿A quién ayuda principalmente un formulario accesible?</p>
+      <button class="opcion" data-op="a">A personas con discapacidad que usan lectores de pantalla</button>
+      <button class="opcion" data-op="b">Solo a los diseñadores</button>
+      <button class="opcion" data-op="c">Solo a los programadores</button>
+      <button class="opcion" data-op="d">A nadie, es solo estética</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a un tipo de input que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué atributo hace que un campo sea obligatorio de llenar?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">required</button>
+      <button class="trivia-opt" data-top="b">placeholder</button>
+      <button class="trivia-opt" data-top="c">value</button>
+      <button class="trivia-opt" data-top="d">name</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Formulario de contacto →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>📬 Construye un formulario de contacto</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — un formulario completo y accesible</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Un <strong>formulario de contacto</strong> es el clásico de toda página: nombre, correo y mensaje. Vas a armarlo con todas las piezas que viste: <code>&lt;form&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code> y <code>&lt;button&gt;</code>, con accesibilidad y validación.</p>
+  </div>
+
+  <h3>💻 El formulario de contacto completo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>contacto.html</div>
+      <button class="copy-btn" data-copy="contacto">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;form&gt;
+  &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+  &lt;input type="text" id="nombre" name="nombre" required&gt;
+
+  &lt;label for="correo"&gt;Correo:&lt;/label&gt;
+  &lt;input type="email" id="correo" name="correo" required&gt;
+
+  &lt;label for="mensaje"&gt;Mensaje:&lt;/label&gt;
+  &lt;textarea id="mensaje" name="mensaje" required&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 El atributo required</h4>
+    <p>El atributo <code>required</code> le dice al navegador: "este campo no puede ir vacío". Si el usuario intenta enviar sin llenarlo, el navegador muestra un aviso y no envía. Es validación <strong>sin escribir una sola línea de JavaScript</strong>.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Con tu compañero/a, definan el <strong>contenido mínimo de su proyecto final</strong>: título, descripción y las categorías posibles. Escríbanlo en un papel o archivo. Lo usarán en el formulario de tareas y en las próximas clases.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué atributo hace que un campo no pueda ir vacío?</p>
+      <button class="opcion" data-op="a">placeholder</button>
+      <button class="opcion" data-op="b">required</button>
+      <button class="opcion" data-op="c">value</button>
+      <button class="opcion" data-op="d">name</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué tipo de input usas para el correo en un formulario de contacto?</p>
+      <button class="opcion" data-op="a">email</button>
+      <button class="opcion" data-op="b">text</button>
+      <button class="opcion" data-op="c">password</button>
+      <button class="opcion" data-op="d">number</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Formulario de tareas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>✅ Construye un formulario de tareas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Tu proyecto toma forma" — título, descripción, categoría y estado</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Ahora un formulario más completo: para <strong>agregar una tarea</strong> a tu proyecto. Tiene un título, una descripción, una <strong>categoría</strong> (con <code>&lt;select&gt;</code>) y un <strong>estado</strong> (con <code>radio</code>). Aquí combinas todo lo aprendido.</p>
+  </div>
+
+  <h3>💻 El formulario de tareas completo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tareas.html</div>
+      <button class="copy-btn" data-copy="tareas">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;form&gt;
+  &lt;label for="titulo"&gt;Título:&lt;/label&gt;
+  &lt;input type="text" id="titulo" name="titulo" required&gt;
+
+  &lt;label for="descripcion"&gt;Descripción:&lt;/label&gt;
+  &lt;textarea id="descripcion" name="descripcion"&gt;&lt;/textarea&gt;
+
+  &lt;label for="categoria"&gt;Categoría:&lt;/label&gt;
+  &lt;select id="categoria" name="categoria"&gt;
+    &lt;option value="casa"&gt;Casa&lt;/option&gt;
+    &lt;option value="colegio"&gt;Colegio&lt;/option&gt;
+    &lt;option value="personal"&gt;Personal&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;p&gt;Estado:&lt;/p&gt;
+  &lt;input type="radio" id="pendiente" name="estado" value="pendiente"&gt;
+  &lt;label for="pendiente"&gt;Pendiente&lt;/label&gt;
+  &lt;input type="radio" id="hecha" name="estado" value="hecha"&gt;
+  &lt;label for="hecha"&gt;Hecha&lt;/label&gt;
+
+  &lt;button type="submit"&gt;Agregar tarea&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El atributo name en los radio</h4>
+    <p>Fíjate que los dos <code>radio</code> de "estado" tienen el <strong>mismo</strong> <code>name="estado"</code>. Eso es lo que los agrupa: al elegir uno, el otro se desmarca automáticamente. Si tuvieran <code>name</code> distintos, podrías marcar los dos a la vez.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué etiqueta usas para un menú desplegable de categorías?</p>
+      <button class="opcion" data-op="a">&lt;input&gt;</button>
+      <button class="opcion" data-op="b">&lt;textarea&gt;</button>
+      <button class="opcion" data-op="c">&lt;select&gt;</button>
+      <button class="opcion" data-op="d">&lt;button&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué deben compartir los radio de un mismo grupo para excluirse entre sí?</p>
+      <button class="opcion" data-op="a">El mismo atributo name</button>
+      <button class="opcion" data-op="b">El mismo atributo value</button>
+      <button class="opcion" data-op="c">El mismo atributo id</button>
+      <button class="opcion" data-op="d">Nada, se excluyen solos</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: etiquetas de formulario, tipos de input, atributos y accesibilidad. Al superarlos, recibirás tu insignia de <strong>Maestro de Formularios</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🏷️ Empareja cada atributo con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">required</button>
+        <button class="ws-chip" data-mid="1b">placeholder</button>
+        <button class="ws-chip" data-mid="1c">name</button>
+        <button class="ws-chip" data-mid="1d">value</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Obligatorio: no deja enviar vacío</button>
+        <button class="ws-chip" data-mid="1B">Texto de ejemplo dentro del campo</button>
+        <button class="ws-chip" data-mid="1C">Identifica el campo al enviar</button>
+        <button class="ws-chip" data-mid="1D">Valor inicial del campo</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena las partes del formulario</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2form" draggable="true"><span class="ord-num">?</span> &lt;form&gt;</div>
+        <div class="ws-order-item" data-oid="2label" draggable="true"><span class="ord-num">?</span> &lt;label&gt;</div>
+        <div class="ws-order-item" data-oid="2input" draggable="true"><span class="ord-num">?</span> &lt;input&gt;</div>
+        <div class="ws-order-item" data-oid="2button" draggable="true"><span class="ord-num">?</span> &lt;button&gt;</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">⌨️ Completa el tipo de input</span></div>
+    <p>Completa el tipo de input correcto para un campo de correo electrónico:</p>
+    <div class="ws-block">
+      <div class="code-live">
+&lt;label for="correo"&gt;Correo:&lt;/label&gt;
+&lt;input type="<input class="ws-input" data-ans="email" data-ws="3" placeholder="?">" id="correo" name="correo"&gt;
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: accesibilidad</span></div>
+    <p>Relaciona cada situación con su consecuencia de accesibilidad:</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="4a">Un input sin label</button>
+        <button class="ws-chip" data-mid="4b">Un label con for</button>
+        <button class="ws-chip" data-mid="4c">Un button sin type</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Inaccesible: el lector no sabe qué es</button>
+        <button class="ws-chip" data-mid="4B">Accesible: relaciona etiqueta y campo</button>
+        <button class="ws-chip" data-mid="4C">Puede enviar el formulario por error</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro de Formularios!</h2>
+    <p class="lead">Ya sabes crear formularios con form, label, input, textarea, select y button, elegir el tipo de input correcto y hacerlos accesibles. Recuerda: <strong>HTML no tiene lógica, solo estructura. La lógica llegará con JavaScript.</strong></p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 4 · Plataforma interactiva</div>
+  <div>Formularios HTML · Accesibilidad · Tipos de input · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

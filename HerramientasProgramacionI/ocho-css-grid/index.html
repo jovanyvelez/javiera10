@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌐 Herramientas de Programación I · Clase 8 · CSS Grid</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🔲</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 8</h1>
+      <p class="subtitulo">CSS Grid · Filas y columnas · Áreas · Layout responsive</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🔲 El concepto de grid</button>
+  <button class="btn-modulo" data-modulo="2">📐 Columnas y filas</button>
+  <button class="btn-modulo" data-modulo="3">📏 Unidades fr, auto, minmax</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🗺️ grid-template-areas</button>
+  <button class="btn-modulo" data-modulo="6">🖼️ Galería y dashboard</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🔲 ¡Bienvenido/a a CSS Grid!</h2>
+    <p class="lead">Hasta ahora has maquetado con <strong>flexbox</strong> y con <strong>flotantes</strong>. Hoy vas a conocer la herramienta más poderosa para crear <strong>layouts en dos dimensiones</strong>: filas <em>y</em> columnas a la vez. Se llama <strong>CSS Grid</strong>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "display: grid"</span></div>
+        <div class="out">"display: grid"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Grid es ideal para layouts en filas y columnas."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Construir layouts en filas y columnas con grid-template-columns, rows, areas y unidades fr.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber CSS básico y flexbox. Aquí aprenderás a <em>maquetar en dos dimensiones</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · El concepto de grid</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Columnas y filas</td><td style="color:var(--morado-claro)">grid-template</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Unidades fr, auto, minmax</td><td style="color:var(--ambar)">repeat()</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · grid-template-areas</td><td style="color:var(--verde)">Áreas</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Galería y dashboard</td><td style="color:var(--morado)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong>. Busquen en los estilos la propiedad <code>display: grid</code>. ¿Cuántos elementos la usan? ¿Pueden ver las líneas de la cuadrícula?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: El concepto de grid →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🔲 El concepto de grid</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Filas y columnas" — por qué grid cambió la maquetación web</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina una hoja cuadriculada: tiene <strong>filas</strong> (horizontales) y <strong>columnas</strong> (verticales). CSS Grid convierte un contenedor en una hoja cuadriculada donde cada celda puede ocupar una o varias filas y columnas.</p>
+    <p>Antes de Grid, maquetar una página era un dolor: se usaban tablas, flotantes (<code>float</code>) y trucos. Con Grid, defines la cuadrícula <strong>en el contenedor</strong> y los elementos se colocan solos.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sin grid</h4>
+      <p>Usar <code>float</code>, <code>position</code> y márgenes negativos para alinear elementos. Frágil, difícil de mantener y poco responsive.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Con grid</h4>
+      <p>Defines <code>display: grid</code> y las columnas/filas. Los elementos se colocan en la cuadrícula de forma limpia y predecible.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Activa la cuadrícula</h3>
+  <p>Mira qué pasa cuando activas <code>display: grid</code> en un contenedor con 6 celdas. Toca los botones para comparar.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔲 display: block vs display: grid</div>
+    <div class="state-panel">
+      <div class="state-title">Estado del contenedor</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">display</div><span class="sval" id="grid-display">block</span></div>
+        <div class="state-cell"><div class="label">Columnas</div><span class="sval" id="grid-cols">—</span></div>
+      </div>
+    </div>
+    <div id="grid-demo" style="display:block; gap:8px; padding:12px; background:#04121c; border:1px solid var(--tarjeta-borde); border-radius:10px; min-height:120px;">
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--cian); border-radius:6px; padding:14px; text-align:center;">1</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--cian); border-radius:6px; padding:14px; text-align:center;">2</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--cian); border-radius:6px; padding:14px; text-align:center;">3</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--cian); border-radius:6px; padding:14px; text-align:center;">4</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--cian); border-radius:6px; padding:14px; text-align:center;">5</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--cian); border-radius:6px; padding:14px; text-align:center;">6</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-grid-mode="block">📦 block</button>
+      <button class="btn primary" data-grid-mode="grid">🔲 grid</button>
+      <button class="btn primary" data-grid-mode="grid3">🔲 grid (3 columnas)</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="grid-feedback-txt">Con <code>display: block</code> las celdas se apilan una debajo de otra. Activa grid para verlas en columnas.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Grid es <strong>bidimensional</strong>: controla filas y columnas a la vez. Flexbox es <strong>unidimensional</strong> (una fila o una columna). Por eso Grid es ideal para el <strong>layout general</strong> de la página, y flexbox para alinear elementos dentro de una celda.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad activa CSS Grid en un contenedor?</p>
+      <button class="opcion" data-op="a">display: flex</button>
+      <button class="opcion" data-op="b">display: grid</button>
+      <button class="opcion" data-op="c">grid: true</button>
+      <button class="opcion" data-op="d">position: grid</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿En cuántas dimensiones trabaja CSS Grid?</p>
+      <button class="opcion" data-op="a">Una (solo filas)</button>
+      <button class="opcion" data-op="b">Una (solo columnas)</button>
+      <button class="opcion" data-op="c">Dos (filas y columnas)</button>
+      <button class="opcion" data-op="d">Tres (filas, columnas y profundidad)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Columnas y filas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📐 grid-template-columns y grid-template-rows</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El esqueleto de la cuadrícula" — definir cuántas columnas y filas hay</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Con <code>display: grid</code> solo activas la cuadrícula, pero no le dices cuántas columnas ni filas tiene. Para eso usas <code>grid-template-columns</code> (columnas) y <code>grid-template-rows</code> (filas). Cada valor que escribes crea una pista (track) de la cuadrícula.</p>
+  </div>
+
+  <h3>📐 Las dos propiedades clave</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Propiedad</th><th>Qué define</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>grid-template-columns</code></td><td>El ancho de cada columna</td><td><code>200px 1fr 1fr</code></td></tr>
+        <tr><td><code>grid-template-rows</code></td><td>El alto de cada fila</td><td><code>100px auto</code></td></tr>
+        <tr><td><code>gap</code></td><td>El espacio entre celdas</td><td><code>gap: 10px</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Cambia las columnas</h3>
+  <p>Toca los botones para cambiar <code>grid-template-columns</code> y observa cómo se reorganizan las celdas en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📐 grid-template-columns en acción</div>
+    <div class="state-panel">
+      <div class="state-title">Propiedad actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">grid-template-columns</div><span class="sval" id="cols-value">1fr 1fr 1fr</span></div>
+      </div>
+    </div>
+    <div id="cols-demo" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; padding:12px; background:#04121c; border:1px solid var(--tarjeta-borde); border-radius:10px; min-height:120px;">
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--morado); border-radius:6px; padding:14px; text-align:center;">A</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--morado); border-radius:6px; padding:14px; text-align:center;">B</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--morado); border-radius:6px; padding:14px; text-align:center;">C</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--morado); border-radius:6px; padding:14px; text-align:center;">D</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--morado); border-radius:6px; padding:14px; text-align:center;">E</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--morado); border-radius:6px; padding:14px; text-align:center;">F</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-cols="1fr 1fr 1fr">3 iguales</button>
+      <button class="btn primary" data-cols="2fr 1fr">2fr + 1fr</button>
+      <button class="btn primary" data-cols="1fr 1fr 1fr 1fr">4 columnas</button>
+      <button class="btn primary" data-cols="200px 1fr 1fr">200px + 1fr + 1fr</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="cols-feedback-txt">Con <code>1fr 1fr 1fr</code> hay 3 columnas iguales. Cambia los valores para ver cómo se reparten el espacio.</p>
+    </div>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="columnas">📋 Copiar</button>
+    </div>
+    <pre><code>.contenedor {
+  display: grid;
+  grid-template-columns: 200px 1fr 1fr;
+  grid-template-rows: 100px auto;
+  gap: 10px;
+}</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar el gap</h4>
+    <p>Sin <code>gap</code>, las celdas quedan pegadas unas a otras y el diseño se ve apretado. El <code>gap</code> es el "aire" entre celdas: <code>gap: 10px</code> separa filas y columnas. También puedes usar <code>row-gap</code> y <code>column-gap</code> por separado.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué propiedad define el ancho de las columnas?</p>
+      <button class="opcion" data-op="a">grid-template-columns</button>
+      <button class="opcion" data-op="b">grid-template-rows</button>
+      <button class="opcion" data-op="c">grid-gap</button>
+      <button class="opcion" data-op="d">grid-area</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve la propiedad gap?</p>
+      <button class="opcion" data-op="a">Para definir el color de las celdas</button>
+      <button class="opcion" data-op="b">Para activar grid</button>
+      <button class="opcion" data-op="c">Para el espacio entre celdas</button>
+      <button class="opcion" data-op="d">Para el número de columnas</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Unidades fr, auto, minmax →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>📏 Unidades fr, auto, minmax y repeat</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Las herramientas de medida" — cómo repartir el espacio de forma inteligente</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Grid tiene unidades especiales para repartir el espacio. La más importante es <code>fr</code> (fracción): reparte el espacio disponible en partes iguales. Junto con <code>auto</code>, <code>minmax()</code> y <code>repeat()</code>, puedes crear layouts flexibles sin calcular píxeles a mano.</p>
+  </div>
+
+  <h3>📏 Las 4 herramientas</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Herramienta</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>fr</code></td><td>Fracción del espacio libre</td><td><code>1fr 2fr</code> → 1/3 y 2/3</td></tr>
+        <tr><td><code>auto</code></td><td>Se ajusta al contenido</td><td><code>auto 1fr</code></td></tr>
+        <tr><td><code>minmax()</code></td><td>Mínimo y máximo de una pista</td><td><code>minmax(200px, 1fr)</code></td></tr>
+        <tr><td><code>repeat()</code></td><td>Repite una pista N veces</td><td><code>repeat(3, 1fr)</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔁 repeat()</h4>
+      <p>En vez de escribir <code>1fr 1fr 1fr 1fr</code>, escribes <code>repeat(4, 1fr)</code>. Más corto y fácil de leer.</p>
+      <div class="code-live" style="margin-top:.5rem">
+grid-template-columns: repeat(4, 1fr);
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>📏 minmax()</h4>
+      <p>Define un mínimo y un máximo. La pista nunca será más chica que el mínimo ni más grande que el máximo.</p>
+      <div class="code-live" style="margin-top:.5rem">
+grid-template-columns: minmax(200px, 1fr);
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: auto-fit vs auto-fill</h3>
+  <p>Con <code>repeat(auto-fit, minmax(...))</code> las columnas se crean solas según el ancho disponible. Toca los botones para ver la diferencia.</p>
+  <div class="simulador">
+    <div class="sim-head">🔁 repeat(auto-fit, minmax())</div>
+    <div class="state-panel">
+      <div class="state-title">Propiedad actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">grid-template-columns</div><span class="sval" id="fit-value">repeat(auto-fit, minmax(150px, 1fr))</span></div>
+      </div>
+    </div>
+    <div id="fit-demo" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:8px; padding:12px; background:#04121c; border:1px solid var(--tarjeta-borde); border-radius:10px; min-height:120px;">
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--verde); border-radius:6px; padding:14px; text-align:center;">1</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--verde); border-radius:6px; padding:14px; text-align:center;">2</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--verde); border-radius:6px; padding:14px; text-align:center;">3</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--verde); border-radius:6px; padding:14px; text-align:center;">4</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--verde); border-radius:6px; padding:14px; text-align:center;">5</div>
+      <div style="background:var(--tarjeta-alt); border:1px solid var(--verde); border-radius:6px; padding:14px; text-align:center;">6</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-fit="repeat(auto-fit, minmax(150px, 1fr))">auto-fit 150px</button>
+      <button class="btn primary" data-fit="repeat(auto-fit, minmax(250px, 1fr))">auto-fit 250px</button>
+      <button class="btn primary" data-fit="repeat(auto-fill, minmax(150px, 1fr))">auto-fill 150px</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="fit-feedback-txt">Con <code>auto-fit</code> las columnas se estiran para llenar el espacio. Cambia el mínimo para ver cómo cambia el número de columnas.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p><code>auto-fit</code> y <code>auto-fill</code> son casi iguales. La diferencia: <code>auto-fit</code> <strong>colapsa</strong> las columnas vacías y estira las que tienen contenido; <code>auto-fill</code> <strong>mantiene</strong> las columnas vacías reservando espacio. Para galerías responsive, <code>auto-fit</code> suele ser la mejor opción.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué significa la unidad fr?</p>
+      <button class="opcion" data-op="a">Fila</button>
+      <button class="opcion" data-op="b">Fracción del espacio disponible</button>
+      <button class="opcion" data-op="c">Frecuencia</button>
+      <button class="opcion" data-op="d">Fondo</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué hace repeat(3, 1fr)?</p>
+      <button class="opcion" data-op="a">Crea 3 columnas de 1fr cada una</button>
+      <button class="opcion" data-op="b">Repite el contenido 3 veces</button>
+      <button class="opcion" data-op="c">Crea 1 columna de 3fr</button>
+      <button class="opcion" data-op="d">Borra 3 columnas</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una propiedad de grid que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "fr" en CSS Grid?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Fracción (fraction)</button>
+      <button class="trivia-opt" data-top="b">Fila (row)</button>
+      <button class="trivia-opt" data-top="c">Frecuencia (frequency)</button>
+      <button class="trivia-opt" data-top="d">Fondo (background)</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: grid-template-areas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🗺️ grid-template-areas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El mapa de la página" — nombrar áreas y colocarlas visualmente</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p><code>grid-template-areas</code> te deja <strong>dibujar el layout con texto</strong>. Le das un nombre a cada zona (cabecera, menú, contenido, pie) y las colocas en una "matriz" de texto. Es la forma más visual de maquetar una página.</p>
+  </div>
+
+  <h3>🗺️ El mapa de una página</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="areas">📋 Copiar</button>
+    </div>
+    <pre><code>.contenedor {
+  display: grid;
+  grid-template-areas:
+    "cabecera cabecera"
+    "menu     contenido"
+    "pie      pie";
+  grid-template-columns: 200px 1fr;
+}
+
+.cabecera { grid-area: cabecera; }
+.menu     { grid-area: menu; }
+.contenido{ grid-area: contenido; }
+.pie      { grid-area: pie; }</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Reorganiza las áreas</h3>
+  <p>Toca los botones para cambiar el layout con <code>grid-template-areas</code> y observa cómo se mueven las secciones.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🗺️ grid-template-areas en acción</div>
+    <div class="state-panel">
+      <div class="state-title">Layout actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Áreas</div><span class="sval" id="areas-value">cabecera / menu contenido / pie</span></div>
+      </div>
+    </div>
+    <div id="areas-demo" style="display:grid; grid-template-columns:1fr 2fr; grid-template-areas:'cabecera cabecera' 'menu contenido' 'pie pie'; gap:8px; padding:12px; background:#04121c; border:1px solid var(--tarjeta-borde); border-radius:10px; min-height:160px;">
+      <div style="grid-area:cabecera; background:var(--tarjeta-alt); border:1px solid var(--cian); border-radius:6px; padding:14px; text-align:center;">Cabecera</div>
+      <div style="grid-area:menu; background:var(--tarjeta-alt); border:1px solid var(--morado); border-radius:6px; padding:14px; text-align:center;">Menú</div>
+      <div style="grid-area:contenido; background:var(--tarjeta-alt); border:1px solid var(--verde); border-radius:6px; padding:14px; text-align:center;">Contenido</div>
+      <div style="grid-area:pie; background:var(--tarjeta-alt); border:1px solid var(--ambar); border-radius:6px; padding:14px; text-align:center;">Pie</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-areas="clasico">Clásico</button>
+      <button class="btn primary" data-areas="menu-arriba">Menú arriba</button>
+      <button class="btn primary" data-areas="sidebar-derecha">Sidebar derecha</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="areas-feedback-txt">El layout clásico tiene cabecera arriba, menú a la izquierda y pie abajo. Cambia las áreas para reorganizar todo sin tocar el HTML.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: áreas con forma irregular</h4>
+    <p>Cada área debe formar un <strong>rectángulo</strong>. No puedes tener un área en forma de "L". Si dibujas una forma irregular, el navegador ignora el layout y las áreas se rompen.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace grid-template-areas?</p>
+      <button class="opcion" data-op="a">Define los colores de las celdas</button>
+      <button class="opcion" data-op="b">Dibuja el layout con nombres de áreas</button>
+      <button class="opcion" data-op="c">Activa el modo oscuro</button>
+      <button class="opcion" data-op="d">Crea animaciones</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad asigna un elemento a un área?</p>
+      <button class="opcion" data-op="a">grid-area</button>
+      <button class="opcion" data-op="b">grid-column</button>
+      <button class="opcion" data-op="c">grid-row</button>
+      <button class="opcion" data-op="d">grid-gap</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Galería y dashboard →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🖼️ Galería responsive y dashboard</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — dos layouts reales construidos con Grid</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Vas a construir dos layouts clásicos: una <strong>galería responsive</strong> (que se adapta al ancho de la pantalla) y un <strong>dashboard</strong> (panel con cabecera, barra lateral y tarjetas de estadísticas). Ambos usan Grid.</p>
+  </div>
+
+  <h3>🖼️ La galería responsive</h3>
+  <p>La clave es <code>repeat(auto-fit, minmax(200px, 1fr))</code>: las columnas se crean solas según el espacio.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>galeria.css</div>
+      <button class="copy-btn" data-copy="galeria">📋 Copiar</button>
+    </div>
+    <pre><code>.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.galeria img {
+  width: 100%;
+  border-radius: 8px;
+}</code></pre>
+  </div>
+
+  <h3>📊 El dashboard</h3>
+  <p>Un dashboard usa <code>grid-template-areas</code> para organizar cabecera, barra lateral y tarjetas.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>dashboard.css</div>
+      <button class="copy-btn" data-copy="dashboard">📋 Copiar</button>
+    </div>
+    <pre><code>.dashboard {
+  display: grid;
+  grid-template-areas:
+    "cabecera cabecera cabecera"
+    "sidebar  stats    stats"
+    "sidebar  stats    stats";
+  grid-template-columns: 200px 1fr 1fr;
+  gap: 15px;
+}
+
+.cabecera { grid-area: cabecera; }
+.sidebar  { grid-area: sidebar; }
+.stats    { grid-area: stats; }</code></pre>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Con tu compañero/a, definan el layout de su proyecto final usando <code>grid-template-areas</code>. Dibujen en papel la matriz de áreas (cabecera, menú, contenido, pie) y escriban el CSS que la genera. Lo usarán en el taller.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué patrón hace una galería responsive?</p>
+      <button class="opcion" data-op="a">grid-template-columns: 100px 100px 100px</button>
+      <button class="opcion" data-op="b">display: flex</button>
+      <button class="opcion" data-op="c">repeat(auto-fit, minmax(200px, 1fr))</button>
+      <button class="opcion" data-op="d">float: left</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad organiza un dashboard con áreas?</p>
+      <button class="opcion" data-op="a">grid-template-areas</button>
+      <button class="opcion" data-op="b">grid-gap</button>
+      <button class="opcion" data-op="c">grid-auto-flow</button>
+      <button class="opcion" data-op="d">grid-line</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: concepto de grid, columnas/filas, unidades y áreas. Al superarlos, recibirás tu insignia de <strong>Maestro del Grid</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🔲 Empareja cada propiedad con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">display: grid</button>
+        <button class="ws-chip" data-mid="1b">grid-template-columns</button>
+        <button class="ws-chip" data-mid="1c">gap</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Activa la cuadrícula</button>
+        <button class="ws-chip" data-mid="1B">Define el ancho de las columnas</button>
+        <button class="ws-chip" data-mid="1C">Espacio entre celdas</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena los pasos para crear un grid</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2display" draggable="true"><span class="ord-num">?</span> display: grid</div>
+        <div class="ws-order-item" data-oid="2cols" draggable="true"><span class="ord-num">?</span> grid-template-columns</div>
+        <div class="ws-order-item" data-oid="2gap" draggable="true"><span class="ord-num">?</span> gap</div>
+        <div class="ws-order-item" data-oid="2areas" draggable="true"><span class="ord-num">?</span> grid-template-areas</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📏 Completa el código del grid</span></div>
+    <p>Completa la propiedad que falta para crear 3 columnas iguales:</p>
+    <div class="ws-block">
+      <div class="code-live">
+.contenedor {
+  display: grid;
+  grid-template-columns: <input class="ws-input" data-ans="repeat(3, 1fr)" data-ws="3" placeholder="?">;
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este layout. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+grid-template-areas:
+  "cabecera cabecera"
+  "menu     contenido"
+  "pie      contenido";
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">El área "contenido" tiene forma de L (no es un rectángulo)</button>
+        <button class="ws-chip" data-mid="4B">Falta display: grid</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro del Grid!</h2>
+    <p class="lead">Ya sabes maquetar con CSS Grid: columnas, filas, unidades fr, repeat, auto-fit y áreas. Grid es ideal para layouts en filas y columnas. En la próxima clase combinaremos Grid con flexbox para layouts aún más potentes.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 8 · Plataforma interactiva</div>
+  <div>CSS Grid · Filas y columnas · Áreas · Layout responsive · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

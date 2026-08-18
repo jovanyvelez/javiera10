@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📦 Herramientas de Programación I · Clase 6 · Box model, display y posicionamiento</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">📦</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 6</h1>
+      <p class="subtitulo">Box model · Display · Posicionamiento · z-index · Sombras</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📦 Box model</button>
+  <button class="btn-modulo" data-modulo="2">🧱 Display</button>
+  <button class="btn-modulo" data-modulo="3">🧭 Posicionamiento</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🎨 z-index y sombras</button>
+  <button class="btn-modulo" data-modulo="6">🧩 Card y botón</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>📦 ¡Bienvenido/a al box model!</h2>
+    <p class="lead">Hasta ahora viste que HTML es la <strong>estructura</strong> y CSS le da <strong>estilo</strong>. Hoy vas a dominar el secreto mejor guardado del diseño web: el <strong>box model</strong>. Todo elemento de una página es una <em>caja</em>, y entender cómo se comporta esa caja es la clave para controlar el diseño.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "todo elemento es una caja"</span></div>
+        <div class="out">"todo elemento es una caja"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Entender el box model es clave para controlar el diseño."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Controlar el espacio y la posición de los elementos con box model, display y posicionamiento.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber qué es CSS y sus selectores básicos. Aquí aprenderás a <em>controlar el espacio</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · El box model</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Display</td><td style="color:var(--morado-claro)">block/inline</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Posicionamiento</td><td style="color:var(--ambar)">static/relative/absolute</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · z-index y sombras</td><td style="color:var(--verde)">Capas y profundidad</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Card y botón</td><td style="color:var(--morado)">Componentes</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong>. En la pestaña <strong>Estilos</strong>, busquen el diagrama del box model (el cuadro con <code>margin</code>, <code>border</code>, <code>padding</code> y <code>content</code>). ¿Lo encuentran? ¿Qué colores tiene cada capa?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: El box model →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📦 El box model</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Todo es una caja" — content, padding, border y margin</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>En CSS, <strong>todo elemento es una caja rectangular</strong>. Esa caja tiene cuatro capas, de adentro hacia afuera: el <strong>contenido</strong> (<code>content</code>), el <strong>relleno</strong> (<code>padding</code>), el <strong>borde</strong> (<code>border</code>) y el <strong>margen</strong> (<code>margin</code>). Entender estas cuatro capas es entender cómo se distribuye el espacio en una página.</p>
+    <p>Imagina un regalo: el <strong>contenido</strong> es el objeto, el <strong>padding</strong> es el papel de burbujas que lo protege por dentro, el <strong>border</strong> es la caja de cartón, y el <strong>margin</strong> es el espacio que dejas entre esta caja y las demás.</p>
+  </div>
+
+  <h3>🎁 Las 4 capas de la caja</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Capa</th><th>Qué es</th><th>Propiedad</th></tr></thead>
+      <tbody>
+        <tr><td><code>content</code></td><td>El contenido real: texto, imagen, etc.</td><td><code>width</code> / <code>height</code></td></tr>
+        <tr><td><code>padding</code></td><td>Espacio interno, entre el contenido y el borde</td><td><code>padding</code></td></tr>
+        <tr><td><code>border</code></td><td>La línea que rodea el padding</td><td><code>border</code></td></tr>
+        <tr><td><code>margin</code></td><td>Espacio externo, entre el borde y otros elementos</td><td><code>margin</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Juega con la caja</h3>
+  <p>Toca los botones para aumentar o disminuir el <code>padding</code>, el <code>border</code> y el <code>margin</code>. Observa cómo cambia la caja y el CSS generado.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Simulador del box model</div>
+    <div class="state-panel">
+      <div class="state-title">Valores actuales</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">padding</div><span class="sval" id="bm-padding">0px</span></div>
+        <div class="state-cell"><div class="label">border</div><span class="sval" id="bm-border">0px</span></div>
+        <div class="state-cell"><div class="label">margin</div><span class="sval" id="bm-margin">0px</span></div>
+        <div class="state-cell"><div class="label">width</div><span class="sval" id="bm-width">200px</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-bm="padding" data-dir="-1">− padding</button>
+      <button class="btn" data-bm="padding" data-dir="1">+ padding</button>
+      <button class="btn" data-bm="border" data-dir="-1">− border</button>
+      <button class="btn" data-bm="border" data-dir="1">+ border</button>
+      <button class="btn" data-bm="margin" data-dir="-1">− margin</button>
+      <button class="btn" data-bm="margin" data-dir="1">+ margin</button>
+    </div>
+    <div id="bm-preview" style="margin-top:1.25rem;padding:0.5rem;"></div>
+    <div class="code-live" id="bm-code" style="margin-top:1rem;"></div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El truco de box-sizing</h4>
+    <p>Por defecto, <code>width</code> solo mide el <strong>contenido</strong>: si pones <code>width: 200px</code> y le sumas <code>padding: 20px</code> y <code>border: 5px</code>, la caja real mide <strong>250px</strong>. Con <code>box-sizing: border-box</code>, el <code>width</code> incluye padding y border, y la caja mide exactamente lo que dijiste. Es el ajuste más útil que harás en CSS.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es el orden correcto de las capas, de adentro hacia afuera?</p>
+      <button class="opcion" data-op="a">margin → border → padding → content</button>
+      <button class="opcion" data-op="b">content → padding → border → margin</button>
+      <button class="opcion" data-op="c">padding → content → margin → border</button>
+      <button class="opcion" data-op="d">border → content → margin → padding</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué propiedad crea espacio interno entre el contenido y el borde?</p>
+      <button class="opcion" data-op="a">margin</button>
+      <button class="opcion" data-op="b">border</button>
+      <button class="opcion" data-op="c">padding</button>
+      <button class="opcion" data-op="d">width</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Display →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🧱 Display</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cómo se comporta cada caja" — block, inline, inline-block y none</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La propiedad <code>display</code> decide <strong>cómo se comporta una caja</strong> en el flujo de la página: si ocupa todo el ancho, si se alinea en línea con otras, o si desaparece. Es la base de todo layout.</p>
+  </div>
+
+  <h3>🔀 Los 4 valores principales</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Valor</th><th>Comportamiento</th><th>Ejemplo típico</th></tr></thead>
+      <tbody>
+        <tr><td><code>block</code></td><td>Ocupa todo el ancho disponible y empieza en una línea nueva</td><td><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code></td></tr>
+        <tr><td><code>inline</code></td><td>Ocupa solo su contenido y fluye en línea; ignora width/height</td><td><code>&lt;span&gt;</code>, <code>&lt;a&gt;</code></td></tr>
+        <tr><td><code>inline-block</code></td><td>Fluye en línea pero respeta width/height y padding</td><td>Botones, tarjetas en fila</td></tr>
+        <tr><td><code>none</code></td><td>El elemento desaparece por completo del flujo</td><td>Ocultar menús, modales</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Cambia el display</h3>
+  <p>Selecciona un valor de <code>display</code> y observa cómo se comportan las tres cajas A, B y C.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧱 Simulador de display</div>
+    <div class="btn-row">
+      <button class="btn primary" data-display="block">block</button>
+      <button class="btn primary" data-display="inline">inline</button>
+      <button class="btn primary" data-display="inline-block">inline-block</button>
+      <button class="btn primary" data-display="none">none</button>
+    </div>
+    <div id="display-stage" style="margin-top:1.25rem;padding:1rem;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:10px;min-height:120px;">
+      <span class="display-item" style="background:#22d3ee;color:#000;padding:10px 16px;margin:4px;border-radius:6px;font-weight:700;">A</span>
+      <span class="display-item" style="background:#a855f7;color:#000;padding:10px 16px;margin:4px;border-radius:6px;font-weight:700;">B</span>
+      <span class="display-item" style="background:#facc15;color:#000;padding:10px 16px;margin:4px;border-radius:6px;font-weight:700;">C</span>
+    </div>
+    <div class="caja-tip" id="display-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="display-feedback-txt">Toca un valor de display para ver cómo se comportan las cajas.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El valor <code>display: none</code> <strong>elimina</strong> el elemento del flujo (no ocupa espacio). No lo confundas con <code>visibility: hidden</code>, que lo oculta pero <strong>sí</strong> deja su espacio reservado.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué valor de display ocupa todo el ancho y empieza en línea nueva?</p>
+      <button class="opcion" data-op="a">block</button>
+      <button class="opcion" data-op="b">inline</button>
+      <button class="opcion" data-op="c">none</button>
+      <button class="opcion" data-op="d">inline-block</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué valor hace que el elemento desaparezca por completo?</p>
+      <button class="opcion" data-op="a">inline</button>
+      <button class="opcion" data-op="b">block</button>
+      <button class="opcion" data-op="c">none</button>
+      <button class="opcion" data-op="d">inline-block</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Posicionamiento →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🧭 Posicionamiento</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Dónde va cada caja" — static, relative, absolute, fixed y sticky</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La propiedad <code>position</code> decide <strong>cómo se coloca un elemento</strong> en la página. Por defecto todo es <code>static</code> (fluye normal). Los otros valores te permiten mover elementos con <code>top</code>, <code>right</code>, <code>bottom</code> y <code>left</code>.</p>
+  </div>
+
+  <h3>📍 Los 5 valores de position</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Valor</th><th>Comportamiento</th><th>¿Cuándo usarlo?</th></tr></thead>
+      <tbody>
+        <tr><td><code>static</code></td><td>Posición normal (por defecto). Ignora top/left</td><td>La mayoría de elementos</td></tr>
+        <tr><td><code>relative</code></td><td>Se mueve respecto a su posición original</td><td>Ajustes finos sin sacar del flujo</td></tr>
+        <tr><td><code>absolute</code></td><td>Se posiciona respecto al ancestro posicionado más cercano</td><td>Menús desplegables, badges</td></tr>
+        <tr><td><code>fixed</code></td><td>Se fija a la ventana; no se mueve al hacer scroll</td><td>Barras de navegación fijas</td></tr>
+        <tr><td><code>sticky</code></td><td>Se comporta como relative hasta que "se pega" al hacer scroll</td><td>Encabezados de tablas</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Posiciona la caja</h3>
+  <p>Selecciona un valor de <code>position</code> y observa dónde se coloca la caja naranja dentro del contenedor.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧭 Simulador de posicionamiento</div>
+    <div class="btn-row">
+      <button class="btn primary" data-pos="static">static</button>
+      <button class="btn primary" data-pos="relative">relative</button>
+      <button class="btn primary" data-pos="absolute">absolute</button>
+      <button class="btn primary" data-pos="fixed">fixed</button>
+      <button class="btn primary" data-pos="sticky">sticky</button>
+    </div>
+    <div id="pos-stage" style="margin-top:1.25rem;position:relative;height:180px;background:var(--fondo-claro);border:1px solid var(--tarjeta-borde);border-radius:10px;overflow:auto;">
+      <div id="pos-box" style="width:80px;height:80px;background:#ff7a29;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;">caja</div>
+    </div>
+    <div class="caja-tip" id="pos-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="pos-feedback-txt">Toca un valor de position para ver cómo se coloca la caja.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ absolute necesita un ancestro posicionado</h4>
+    <p>Un elemento con <code>position: absolute</code> se posiciona respecto al <strong>ancestro posicionado más cercano</strong> (uno con <code>position: relative</code>, <code>absolute</code> o <code>fixed</code>). Si no hay ninguno, se posiciona respecto a la página entera. Por eso es común poner <code>position: relative</code> al contenedor padre.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué valor de position se queda fijo en la ventana al hacer scroll?</p>
+      <button class="opcion" data-op="a">static</button>
+      <button class="opcion" data-op="b">fixed</button>
+      <button class="opcion" data-op="c">relative</button>
+      <button class="opcion" data-op="d">sticky</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Respecto a qué se posiciona un elemento con position: absolute?</p>
+      <button class="opcion" data-op="a">Al ancestro posicionado más cercano</button>
+      <button class="opcion" data-op="b">Siempre a la ventana</button>
+      <button class="opcion" data-op="c">A su posición original</button>
+      <button class="opcion" data-op="d">Al centro de la página</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una capa del box model que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "CSS"?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Cascading Style Sheets</button>
+      <button class="trivia-opt" data-top="b">Computer Style System</button>
+      <button class="trivia-opt" data-top="c">Creative Style Software</button>
+      <button class="trivia-opt" data-top="d">Color Style Sheets</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: z-index y sombras →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🎨 z-index y box-shadow</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Profundidad y relieve" — apilar capas y dar sombras</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando los elementos se superponen, necesitas decidir <strong>cuál va encima</strong>. Eso lo controla <code>z-index</code>. Y para dar sensación de profundidad y relieve, usas <code>box-shadow</code>, que dibuja una sombra alrededor de la caja.</p>
+  </div>
+
+  <h3>📚 z-index: el orden de apilamiento</h3>
+  <p>El <code>z-index</code> es un número que decide qué elemento se dibuja encima de otro. Solo funciona en elementos <strong>posicionados</strong> (con <code>position</code> distinto de <code>static</code>). Un <code>z-index</code> mayor va encima de uno menor.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>z-index.css</div>
+      <button class="copy-btn" data-copy="zindex">📋 Copiar</button>
+    </div>
+    <pre><code>.caja-azul {
+  position: relative;
+  z-index: 1;   /* va debajo */
+}
+
+.caja-roja {
+  position: relative;
+  z-index: 2;   /* va encima */
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Sombras con box-shadow</h3>
+  <p>Toca los botones para aplicar distintos tipos de sombra a la caja.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎨 Simulador de box-shadow</div>
+    <div class="btn-row">
+      <button class="btn primary" data-shadow="none">sin sombra</button>
+      <button class="btn primary" data-shadow="suave">suave</button>
+      <button class="btn primary" data-shadow="media">media</button>
+      <button class="btn primary" data-shadow="glow">glow</button>
+    </div>
+    <div id="shadow-box" style="margin:1.5rem auto;width:160px;height:100px;background:#22d3ee;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;">caja</div>
+    <div class="code-live" id="shadow-code" style="margin-top:1rem;"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 La sintaxis de box-shadow</h4>
+    <p><code>box-shadow: desplazamientoX desplazamientoY desenfoque color;</code>. Por ejemplo <code>box-shadow: 0 10px 30px rgba(0,0,0,0.4);</code> crea una sombra suave hacia abajo. Es la base de las tarjetas "flotantes" que ves en todas las apps modernas.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué propiedad controla qué elemento se dibuja encima de otro?</p>
+      <button class="opcion" data-op="a">box-shadow</button>
+      <button class="opcion" data-op="b">display</button>
+      <button class="opcion" data-op="c">z-index</button>
+      <button class="opcion" data-op="d">margin</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Qué propiedad dibuja una sombra alrededor de la caja?</p>
+      <button class="opcion" data-op="a">text-shadow</button>
+      <button class="opcion" data-op="b">box-shadow</button>
+      <button class="opcion" data-op="c">border</button>
+      <button class="opcion" data-op="d">outline</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Card y botón →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🧩 Componentes: card y botón</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — combinar box model, display y sombras</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Ahora vas a combinar todo lo aprendido para crear dos <strong>componentes</strong> reales: una <strong>tarjeta</strong> (card) y un <strong>botón</strong>. Una card usa padding, border, margin y box-shadow. Un botón usa padding, border-radius y display. Son los bloques de construcción de casi toda interfaz moderna.</p>
+  </div>
+
+  <h3>💻 La card y el botón</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>componentes.css</div>
+      <button class="copy-btn" data-copy="componentes">📋 Copiar</button>
+    </div>
+    <pre><code>.card {
+  width: 300px;
+  padding: 20px;
+  margin: 20px auto;
+  border: 1px solid #1c3252;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  background: #0c1626;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn:hover {
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+  transform: translateY(-2px);
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Construye tu card</h3>
+  <p>Selecciona las partes que quieres incluir y observa cómo se arma el CSS de la card en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧩 Constructor de card</div>
+    <div class="btn-row">
+      <button class="btn primary" data-card="padding">➕ padding</button>
+      <button class="btn primary" data-card="border">➕ border</button>
+      <button class="btn primary" data-card="radius">➕ border-radius</button>
+      <button class="btn primary" data-card="shadow">➕ box-shadow</button>
+      <button class="btn ghost" id="card-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="code-live" id="card-code" style="margin-top:1rem;">
+<span class="cm">/* Toca los botones para construir la card */</span>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Con tu compañero/a, definan el diseño de una <strong>card</strong> para su proyecto final: ¿qué contenido tendrá (título, imagen, descripción, botón)? ¿Qué padding y sombra usarán? Escríbanlo para usarlo en las próximas clases.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad le da las esquinas redondeadas a un botón?</p>
+      <button class="opcion" data-op="a">box-shadow</button>
+      <button class="opcion" data-op="b">border-radius</button>
+      <button class="opcion" data-op="c">padding</button>
+      <button class="opcion" data-op="d">margin</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad hace que una card parezca "flotar" sobre la página?</p>
+      <button class="opcion" data-op="a">box-shadow</button>
+      <button class="opcion" data-op="b">display</button>
+      <button class="opcion" data-op="c">z-index</button>
+      <button class="opcion" data-op="d">position</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: box model, display, posicionamiento y sombras. Al superarlos, recibirás tu insignia de <strong>Maestro del Diseño</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📦 Empareja cada propiedad con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">padding</button>
+        <button class="ws-chip" data-mid="1b">margin</button>
+        <button class="ws-chip" data-mid="1c">border</button>
+        <button class="ws-chip" data-mid="1d">box-sizing</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Espacio interno entre contenido y borde</button>
+        <button class="ws-chip" data-mid="1B">Espacio externo entre el elemento y otros</button>
+        <button class="ws-chip" data-mid="1C">Línea que rodea el padding</button>
+        <button class="ws-chip" data-mid="1D">Define si width incluye padding y border</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🎁 Ordena las capas del box model</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2content" draggable="true"><span class="ord-num">?</span> content — contenido</div>
+        <div class="ws-order-item" data-oid="2padding" draggable="true"><span class="ord-num">?</span> padding — relleno</div>
+        <div class="ws-order-item" data-oid="2border" draggable="true"><span class="ord-num">?</span> border — borde</div>
+        <div class="ws-order-item" data-oid="2margin" draggable="true"><span class="ord-num">?</span> margin — margen</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📐 Completa el código de la caja</span></div>
+    <p>Completa el valor que falta para que el <code>width</code> incluya padding y border:</p>
+    <div class="ws-block">
+      <div class="code-live">
+.caja {
+  width: 200px;
+  padding: 20px;
+  box-sizing: <input class="ws-input" data-ans="border-box" data-ws="3" placeholder="?">;
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero quiere posicionar un menú desplegable dentro de un contenedor, pero el menú se sale y se posiciona respecto a la página entera. ¿Qué le falta al contenedor?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+.contenedor {
+  /* ¿qué falta aquí? */
+}
+.menu {
+  position: absolute;
+  top: 100%;
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">position: relative</button>
+        <button class="ws-chip" data-mid="4B">display: none</button>
+        <button class="ws-chip" data-mid="4C">z-index: 999</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro del Diseño!</h2>
+    <p class="lead">Ya sabes controlar el espacio con el box model, decidir cómo se comporta cada caja con display, posicionar elementos y darles profundidad con sombras. Entender el box model es clave para controlar el diseño. En la próxima clase pondremos todo junto en un layout completo.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">📦 Herramientas de Programación I · Clase 6 · Plataforma interactiva</div>
+  <div>Box model · Display · Posicionamiento · z-index · Sombras · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -46,7 +46,28 @@ function cargarProgresoPorClase() {
     'curso-so-gestion-memoria': 5,
     'curso-so-gestion-almacenamiento': 5,
     'curso-so-interfaz-linea-comandos-cli': 5,
-    'curso-introduccion-programacion-web': 6
+    'curso-introduccion-programacion-web': 6,
+    'curso-html-semantico': 6,
+    'curso-imagenes-tablas': 6,
+    'curso-formularios-html': 6,
+    'curso-introduccion-css': 6,
+    'curso-box-model': 6,
+    'curso-flexbox': 6,
+    'curso-css-grid': 6,
+    'curso-responsive-design': 6,
+    'curso-componentes-animaciones': 6,
+    'curso-introduccion-javascript': 6,
+    'curso-condicionales-bucles': 6,
+    'curso-funciones-arrays': 6,
+    'curso-objetos-metodos-array': 6,
+    'curso-dom-seleccion': 6,
+    'curso-eventos': 6,
+    'curso-formularios-js': 6,
+    'curso-localstorage-json': 6,
+    'curso-crud-crear-leer': 6,
+    'curso-crud-actualizar-eliminar': 6,
+    'curso-proyecto-final': 6,
+    'curso-presentacion-evaluacion': 6
   };
 
   let totalGlobal = 0;
@@ -108,11 +129,11 @@ function actualizarBarraClase(card, pct) {
 function animarStats() {
   // Los 3 primeros son fijos
   animarNumero(document.getElementById('stat-cursos'),  0, 4,   800);
-  animarNumero(document.getElementById('stat-clases'), 0, 12,  900);
+  animarNumero(document.getElementById('stat-clases'), 0, 35,  900);
   // El cuarto (horas) tiene "+" al final
   const elHoras = document.getElementById('stat-horas');
   if (elHoras) {
-    animarNumero(elHoras, 0, 72, 1000, valor => valor + '+');
+    animarNumero(elHoras, 0, 130, 1000, valor => valor + '+');
   }
 }
 
@@ -207,7 +228,7 @@ document.addEventListener('keydown', (e) => {
 
 /* ---------- TOAST DE BIENVENIDA SI HAY PROGRESO ---------- */
 window.addEventListener('load', () => {
-  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-so-gestion-almacenamiento', 'curso-so-interfaz-linea-comandos-cli', 'curso-introduccion-programacion-web'];
+  const keys = ['curso-contadores-acum-banderas', 'curso-ordenacion-sortlab', 'curso-validacion-arreglos', 'curso-integracion-estructuras', 'curso-maraton-algoritmos', 'curso-so-que-es-sistema-operativo', 'curso-so-funciones-componentes', 'curso-so-tipos-sistemas-operativos', 'curso-so-planeacion-instalacion', 'curso-so-gestion-procesos', 'curso-so-gestion-memoria', 'curso-so-gestion-almacenamiento', 'curso-so-interfaz-linea-comandos-cli', 'curso-introduccion-programacion-web', 'curso-html-semantico', 'curso-imagenes-tablas', 'curso-formularios-html', 'curso-introduccion-css', 'curso-box-model', 'curso-flexbox', 'curso-css-grid', 'curso-responsive-design', 'curso-componentes-animaciones', 'curso-introduccion-javascript', 'curso-condicionales-bucles', 'curso-funciones-arrays', 'curso-objetos-metodos-array', 'curso-dom-seleccion', 'curso-eventos', 'curso-formularios-js', 'curso-localstorage-json', 'curso-crud-crear-leer', 'curso-crud-actualizar-eliminar', 'curso-proyecto-final', 'curso-presentacion-evaluacion'];
 
   let tienePrograma = false;
 

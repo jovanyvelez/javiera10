@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🖼️ Herramientas de Programación I · Clase 3 · Imágenes, multimedia, tablas y listas</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🖼️</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 3</h1>
+      <p class="subtitulo">Imágenes · Multimedia · Tablas · Listas</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🖼️ Imágenes y alt</button>
+  <button class="btn-modulo" data-modulo="2">🖼️ Figure y figcaption</button>
+  <button class="btn-modulo" data-modulo="3">📊 Tablas</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🎬 Video y audio</button>
+  <button class="btn-modulo" data-modulo="6">🖼️ Galería y accesibilidad</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🖼️ ¡Bienvenido/a a Imágenes, multimedia, tablas y listas!</h2>
+    <p class="lead">En la clase 2 aprendiste a <strong>estructurar</strong> la página con HTML semántico. Hoy vas a llenarla de <strong>contenido</strong>: imágenes con su descripción, tablas para organizar datos, y una probadita de video y audio. Todo con un objetivo: que tu página sea <em>útil y accesible para todos</em>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "&lt;img&gt; sin alt es una imagen muda"</span></div>
+        <div class="out">"&lt;img&gt; sin alt es una imagen muda"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Una imagen vale más que mil palabras... solo si le pones alt."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Insertar imágenes con alt, crear tablas con thead/tbody, y conocer video y audio.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML semántico (header, main, section). Aquí aprenderás a <em>llenar</em> la página de contenido.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Imágenes y atributo alt</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Figure y figcaption</td><td style="color:var(--morado-claro)">figure/figcaption</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Tablas</td><td style="color:var(--ambar)">table/thead/tbody</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Video y audio</td><td style="color:var(--verde)">video/audio</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Galería y accesibilidad</td><td style="color:var(--morado)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong>. Busquen una etiqueta <code>&lt;img&gt;</code>. ¿Tiene el atributo <code>alt</code>? ¿Qué dice? ¿Y encuentran alguna <code>&lt;table&gt;</code>?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Imágenes y atributo alt →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🖼️ Imágenes y atributo alt</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Una imagen vale más que mil palabras" — pero solo si le pones alt</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Para poner una imagen en tu página usas la etiqueta <code>&lt;img&gt;</code>. Tiene dos atributos clave: <code>src</code> (la ruta de la imagen) y <code>alt</code> (el texto alternativo). El <code>alt</code> es lo que se muestra si la imagen no carga, y lo que lee el lector de pantalla a una persona ciega.</p>
+    <p>Una imagen <strong>sin</strong> <code>alt</code> es invisible para quien no puede verla. Con un buen <code>alt</code>, todos entienden qué hay en la imagen.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Imagen sin alt</h4>
+      <p><code>&lt;img src="gato.jpg"&gt;</code> — si la imagen no carga, no se sabe qué era. El lector de pantalla no dice nada.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Imagen con alt</h4>
+      <p><code>&lt;img src="gato.jpg" alt="Un gato naranja durmiendo"&gt;</code> — todos saben qué representa, incluso sin verla.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El lector de pantalla</h3>
+  <p>Un <strong>lector de pantalla</strong> lee la página en voz alta. Toca cada imagen para escuchar (leer) lo que "ve" una persona ciega. Nota la diferencia entre tener <code>alt</code> y no tenerlo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔊 Lector de pantalla — ¿qué "ve" cada imagen?</div>
+    <div class="state-panel">
+      <div class="state-title">Imagen seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Imagen</div><span class="sval" id="img-tag">—</span></div>
+        <div class="state-cell"><div class="label">Lo que lee el lector</div><span class="sval" id="img-meaning">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-img="gato">🐱 gato.jpg</button>
+      <button class="btn primary" data-img="logo">🏫 logo.png</button>
+      <button class="btn primary" data-img="grafico">📈 grafico.png</button>
+      <button class="btn primary" data-img="foto">📷 foto.jpg</button>
+    </div>
+    <div class="caja-tip" id="img-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="img-feedback-txt">Toca una imagen para ver qué lee el lector de pantalla.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Cómo escribir un buen alt?</h4>
+    <p>Describe <strong>qué hay</strong> en la imagen y <strong>para qué sirve</strong>, en una frase corta. No repitas "imagen de...". Si la imagen es decorativa (solo adorna), usa <code>alt=""</code> (vacío) para que el lector la ignore.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué atributo de &lt;img&gt; indica la ruta de la imagen?</p>
+      <button class="opcion" data-op="a">alt</button>
+      <button class="opcion" data-op="b">src</button>
+      <button class="opcion" data-op="c">href</button>
+      <button class="opcion" data-op="d">title</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve el atributo alt?</p>
+      <button class="opcion" data-op="a">Para ponerle color a la imagen</button>
+      <button class="opcion" data-op="b">Para agrandar la imagen</button>
+      <button class="opcion" data-op="c">Para describir la imagen a quien no puede verla</button>
+      <button class="opcion" data-op="d">Para enlazar la imagen a otra página</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Figure y figcaption →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🖼️ Figure y figcaption</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La imagen con su pie de foto" — figure y figcaption</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>A veces una imagen necesita un <strong>pie de foto</strong>: un texto que la explique o le dé crédito. Para eso existen <code>&lt;figure&gt;</code> (el contenedor) y <code>&lt;figcaption&gt;</code> (el pie). Juntos forman una unidad: la imagen y su descripción van de la mano.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>figura.html</div>
+      <button class="copy-btn" data-copy="figura">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;figure&gt;
+  &lt;img src="volcan.jpg" alt="El volcán Nevado del Ruiz"&gt;
+  &lt;figcaption&gt;El volcán Nevado del Ruiz, visto desde Manizales.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Cuándo usar figure?</h4>
+    <p>Usa <code>&lt;figure&gt;</code> cuando la imagen (o diagrama, o gráfico) tiene una <strong>relación directa</strong> con un texto que la explica. Si la imagen es solo decorativa, no hace falta: basta con <code>&lt;img&gt;</code> y su <code>alt</code>.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: confundir alt con figcaption</h4>
+    <p>El <code>alt</code> es para el <strong>lector de pantalla</strong> (no se ve normalmente). El <code>figcaption</code> es un texto <strong>visible</strong> para todos, debajo de la imagen. No son lo mismo: puedes tener ambos, y cada uno cumple su papel.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué etiqueta es el contenedor de una imagen con su pie de foto?</p>
+      <button class="opcion" data-op="a">&lt;figure&gt;</button>
+      <button class="opcion" data-op="b">&lt;img&gt;</button>
+      <button class="opcion" data-op="c">&lt;div&gt;</button>
+      <button class="opcion" data-op="d">&lt;section&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué etiqueta es el pie de foto visible?</p>
+      <button class="opcion" data-op="a">&lt;alt&gt;</button>
+      <button class="opcion" data-op="b">&lt;caption&gt;</button>
+      <button class="opcion" data-op="c">&lt;figcaption&gt;</button>
+      <button class="opcion" data-op="d">&lt;footer&gt;</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Tablas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>📊 Tablas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Organizar datos en filas y columnas" — table, thead, tbody, tr, th, td</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>tabla</strong> organiza información en <strong>filas</strong> y <strong>columnas</strong>. Se construye con varias etiquetas: <code>&lt;table&gt;</code> (la tabla), <code>&lt;thead&gt;</code> (encabezado), <code>&lt;tbody&gt;</code> (cuerpo), <code>&lt;tr&gt;</code> (fila), <code>&lt;th&gt;</code> (celda de encabezado) y <code>&lt;td&gt;</code> (celda de dato).</p>
+  </div>
+
+  <h3>🦴 La anatomía de una tabla</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Etiqueta</th><th>Qué representa</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;table&gt;</code></td><td>La tabla completa</td></tr>
+        <tr><td><code>&lt;thead&gt;</code></td><td>La fila de encabezados (títulos de columnas)</td></tr>
+        <tr><td><code>&lt;tbody&gt;</code></td><td>El cuerpo con los datos</td></tr>
+        <tr><td><code>&lt;tr&gt;</code></td><td>Una fila (table row)</td></tr>
+        <tr><td><code>&lt;th&gt;</code></td><td>Una celda de encabezado (table header)</td></tr>
+        <tr><td><code>&lt;td&gt;</code></td><td>Una celda de dato (table data)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Explora la tabla</h3>
+  <p>Toca cada parte de la tabla para ver qué etiqueta la genera y qué hace.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📊 Anatomía de una tabla — toca cada parte</div>
+    <div class="state-panel">
+      <div class="state-title">Parte seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Etiqueta</div><span class="sval" id="tab-tag">—</span></div>
+        <div class="state-cell"><div class="label">Función</div><span class="sval" id="tab-meaning">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-tab="table">📦 table</button>
+      <button class="btn primary" data-tab="thead">🔝 thead</button>
+      <button class="btn primary" data-tab="tbody">📚 tbody</button>
+      <button class="btn primary" data-tab="tr">↔️ tr</button>
+      <button class="btn primary" data-tab="th">🔤 th</button>
+      <button class="btn primary" data-tab="td">🔢 td</button>
+    </div>
+    <div class="caja-tip" id="tab-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tab-feedback-txt">Toca una etiqueta para ver qué hace dentro de la tabla.</p>
+    </div>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tabla.html</div>
+      <button class="copy-btn" data-copy="tabla">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Producto&lt;/th&gt;
+      &lt;th&gt;Precio&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Manzana&lt;/td&gt;
+      &lt;td&gt;$1.000&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Pera&lt;/td&gt;
+      &lt;td&gt;$1.500&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>En el proyecto final los datos se mostrarán como <strong>tarjetas o listas</strong>, no necesariamente tablas. Pero entender tablas te ayuda a <strong>estructurar información</strong> en filas y columnas, una habilidad que sirve para todo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué etiqueta representa una fila de la tabla?</p>
+      <button class="opcion" data-op="a">&lt;td&gt;</button>
+      <button class="opcion" data-op="b">&lt;tr&gt;</button>
+      <button class="opcion" data-op="c">&lt;th&gt;</button>
+      <button class="opcion" data-op="d">&lt;table&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué etiqueta es una celda de encabezado?</p>
+      <button class="opcion" data-op="a">&lt;th&gt;</button>
+      <button class="opcion" data-op="b">&lt;td&gt;</button>
+      <button class="opcion" data-op="c">&lt;tr&gt;</button>
+      <button class="opcion" data-op="d">&lt;thead&gt;</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a para qué sirve el atributo alt.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa la "M" de HTML?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Markup (marcado)</button>
+      <button class="trivia-opt" data-top="b">Machine (máquina)</button>
+      <button class="trivia-opt" data-top="c">Media (medios)</button>
+      <button class="trivia-opt" data-top="d">Mobile (móvil)</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Video y audio →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🎬 Video y audio introductorio</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Sonido e imagen en movimiento" — video y audio</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>HTML también puede reproducir <strong>video</strong> y <strong>audio</strong> con las etiquetas <code>&lt;video&gt;</code> y <code>&lt;audio&gt;</code>. Ambas usan el atributo <code>src</code> para el archivo y el atributo <code>controls</code> para mostrar los botones de reproducir/pausar.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>multimedia.html</div>
+      <button class="copy-btn" data-copy="multimedia">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;!-- Video con controles --&gt;
+&lt;video src="video.mp4" controls&gt;&lt;/video&gt;
+
+&lt;!-- Audio con controles --&gt;
+&lt;audio src="cancion.mp3" controls&gt;&lt;/audio&gt;</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El atributo <code>controls</code> es clave: sin él, el video o audio se reproduce pero el usuario no puede pausarlo ni subir el volumen. Siempre que pongas multimedia, añade <code>controls</code>.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Accesibilidad en multimedia</h4>
+    <p>Así como las imágenes necesitan <code>alt</code>, los videos necesitan <strong>subtítulos</strong> y el audio una <strong>transcripción</strong>. Es la misma idea: que el contenido llegue a todos, incluso a quien no puede oírlo o verlo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué etiqueta reproduce un video?</p>
+      <button class="opcion" data-op="a">&lt;audio&gt;</button>
+      <button class="opcion" data-op="b">&lt;video&gt;</button>
+      <button class="opcion" data-op="c">&lt;img&gt;</button>
+      <button class="opcion" data-op="d">&lt;media&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué atributo muestra los botones de reproducir/pausar?</p>
+      <button class="opcion" data-op="a">controls</button>
+      <button class="opcion" data-op="b">alt</button>
+      <button class="opcion" data-op="c">src</button>
+      <button class="opcion" data-op="d">href</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Galería y accesibilidad →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🖼️ Galería y accesibilidad</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — una galería de imágenes accesible</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Vas a armar una <strong>galería</strong>: varias imágenes, cada una con su <code>alt</code> correcto. La regla de oro: cada <code>alt</code> debe describir la imagen de forma útil, no repetir "imagen de..." ni dejarlo vacío cuando la imagen aporta información.</p>
+  </div>
+
+  <h3>🎮 Simulador: Revisor de alt</h3>
+  <p>Mira cada <code>alt</code> y decide si es un buen texto alternativo o no.</p>
+  <div class="simulador">
+    <div class="sim-head">🔍 Revisor de alt</div>
+    <div class="code-live" id="revisor-code">
+&lt;img src="perro.jpg" alt="imagen de un perro"&gt;
+    </div>
+    <p style="margin-top:.8rem;">¿Este alt es correcto?</p>
+    <div class="btn-row">
+      <button class="btn primary" id="revisor-bien">✅ Está bien</button>
+      <button class="btn primary" id="revisor-mal">❌ Tiene un error</button>
+    </div>
+    <div class="caja-tip" id="revisor-feedback" style="display:none;margin-top:1rem;">
+      <h4>👁️ Resultado</h4>
+      <p id="revisor-feedback-txt"></p>
+    </div>
+  </div>
+
+  <h3>💻 La galería completa</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>galeria.html</div>
+      <button class="copy-btn" data-copy="galeria">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;section&gt;
+  &lt;h2&gt;Mi galería&lt;/h2&gt;
+  &lt;figure&gt;
+    &lt;img src="montana.jpg" alt="Una montaña nevada al amanecer"&gt;
+    &lt;figcaption&gt;La montaña al amanecer.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure&gt;
+    &lt;img src="rio.jpg" alt="Un río cristalino entre árboles"&gt;
+    &lt;figcaption&gt;El río en primavera.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+  &lt;figure&gt;
+    &lt;img src="ciudad.jpg" alt="Una ciudad iluminada de noche"&gt;
+    &lt;figcaption&gt;La ciudad de noche.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+&lt;/section&gt;</code></pre>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Con tu compañero/a, elijan <strong>3 imágenes</strong> para su proyecto final y escriban el <code>alt</code> de cada una. Recuerden: describir qué hay y para qué sirve, en una frase corta.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál es un buen alt para una imagen de un gato?</p>
+      <button class="opcion" data-op="a">"imagen de un gato"</button>
+      <button class="opcion" data-op="b">"gato.jpg"</button>
+      <button class="opcion" data-op="c">"Un gato naranja durmiendo en un sofá"</button>
+      <button class="opcion" data-op="d">"" (vacío)</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cuándo usas alt="" (vacío)?</p>
+      <button class="opcion" data-op="a">Cuando la imagen es solo decorativa</button>
+      <button class="opcion" data-op="b">Cuando la imagen es muy importante</button>
+      <button class="opcion" data-op="c">Siempre</button>
+      <button class="opcion" data-op="d">Nunca</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: imágenes y alt, figure/figcaption, tablas y multimedia. Al superarlos, recibirás tu insignia de <strong>Curador de Contenido</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🖼️ Empareja cada etiqueta con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">&lt;img&gt;</button>
+        <button class="ws-chip" data-mid="1b">alt</button>
+        <button class="ws-chip" data-mid="1c">&lt;table&gt;</button>
+        <button class="ws-chip" data-mid="1d">&lt;th&gt;</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Inserta una imagen</button>
+        <button class="ws-chip" data-mid="1B">Texto alternativo de la imagen</button>
+        <button class="ws-chip" data-mid="1C">Crea una tabla</button>
+        <button class="ws-chip" data-mid="1D">Celda de encabezado</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📊 Ordena la estructura de una tabla</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2table" draggable="true"><span class="ord-num">?</span> &lt;table&gt;</div>
+        <div class="ws-order-item" data-oid="2thead" draggable="true"><span class="ord-num">?</span> &lt;thead&gt;</div>
+        <div class="ws-order-item" data-oid="2tbody" draggable="true"><span class="ord-num">?</span> &lt;tbody&gt;</div>
+        <div class="ws-order-item" data-oid="2tr" draggable="true"><span class="ord-num">?</span> &lt;tr&gt;</div>
+        <div class="ws-order-item" data-oid="2td" draggable="true"><span class="ord-num">?</span> &lt;td&gt;</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🖼️ Completa la etiqueta de imagen</span></div>
+    <p>Completa el atributo que falta para que la imagen sea accesible:</p>
+    <div class="ws-block">
+      <div class="code-live">
+&lt;img src="gato.jpg" <input class="ws-input" data-ans="alt" data-ws="3" placeholder="?">="Un gato naranja"&gt;
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código. ¿Qué error de accesibilidad tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+&lt;img src="grafico-ventas.png"&gt;
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Falta el atributo alt: la imagen no es accesible</button>
+        <button class="ws-chip" data-mid="4B">Falta el atributo src</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Curador de Contenido!</h2>
+    <p class="lead">Ya sabes insertar imágenes con alt, crear tablas con thead/tbody, y usar figure/figcaption. Tu página ya tiene contenido accesible. En el proyecto final los datos se mostrarán como tarjetas o listas, no necesariamente tablas, pero entender tablas te ayuda a estructurar información.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🖼️ Herramientas de Programación I · Clase 3 · Plataforma interactiva</div>
+  <div>Imágenes · Multimedia · Tablas · Listas · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💾 Herramientas de Programación I · Clase 19 · CRUD: crear y leer</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">💾</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 19</h1>
+      <p class="subtitulo">CRUD: crear y leer · localStorage · IDs · renderizado</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📚 ¿Qué es CRUD?</button>
+  <button class="btn-modulo" data-modulo="2">🏗️ Arquitectura</button>
+  <button class="btn-modulo" data-modulo="3">🆔 Generar IDs</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">➕ Create: agregarTarea</button>
+  <button class="btn-modulo" data-modulo="6">📖 Read: cargar y renderizar</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>💾 ¡Bienvenido/a a CRUD: crear y leer!</h2>
+    <p class="lead">Hasta ahora tus páginas mostraban información <strong>fija</strong>. Hoy vas a dar el salto: tu app va a <strong>guardar lo que el usuario escribe</strong> y mostrarlo de nuevo, incluso después de recargar. Eso es el corazón de casi toda aplicación real: el <strong>CRUD</strong>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "CRUD = Create, Read, Update, Delete"</span></div>
+        <div class="out">"CRUD = Create, Read, Update, Delete"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Una app que recuerda lo que haces es una app que sirve."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Construir una app que cree tareas y las lea desde localStorage, con IDs únicos y renderizado automático.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber funciones, arrays y objetos en JavaScript. Aquí aprenderás a <em>persistir</em> datos.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es CRUD?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Arquitectura</td><td style="color:var(--morado-claro)">datos/almacén/render</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Generar IDs</td><td style="color:var(--ambar)">Date.now / randomUUID</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Create: agregarTarea</td><td style="color:var(--verde)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Read: cargar y renderizar</td><td style="color:var(--morado)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, piensen en una app que usen a diario (una red social, un juego, una lista de tareas). ¿Qué cosas <strong>crea</strong> el usuario? ¿Qué cosas <strong>lee</strong>? Anoten dos ejemplos de cada una.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es CRUD? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📚 ¿Qué es CRUD?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Las cuatro operaciones de toda app" — Create, Read, Update, Delete</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>CRUD es un acrónimo de las <strong>cuatro operaciones básicas</strong> que hace casi cualquier aplicación con sus datos: <strong>C</strong>reate (crear), <strong>R</strong>ead (leer), <strong>U</strong>pdate (actualizar) y <strong>D</strong>elete (borrar).</p>
+    <p>Piensa en tu lista de contactos del celular: puedes <strong>agregar</strong> un contacto (Create), <strong>ver</strong> la lista (Read), <strong>editar</strong> un número (Update) y <strong>eliminar</strong> a alguien (Delete). Esas cuatro acciones son el CRUD.</p>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Letra</th><th>Operación</th><th>En español</th><th>Ejemplo con tareas</th></tr></thead>
+      <tbody>
+        <tr><td><strong>C</strong></td><td>Create</td><td>Crear</td><td>Agregar una tarea nueva</td></tr>
+        <tr><td><strong>R</strong></td><td>Read</td><td>Leer</td><td>Ver la lista de tareas</td></tr>
+        <tr><td><strong>U</strong></td><td>Update</td><td>Actualizar</td><td>Marcar una tarea como hecha</td></tr>
+        <tr><td><strong>D</strong></td><td>Delete</td><td>Borrar</td><td>Eliminar una tarea</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: El explorador CRUD</h3>
+  <p>Toca cada letra para ver qué operación representa y un ejemplo concreto con una lista de tareas.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔍 Explorador CRUD — ¿qué hace cada letra?</div>
+    <div class="state-panel">
+      <div class="state-title">Operación seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Operación</div><span class="sval" id="crud-op">—</span></div>
+        <div class="state-cell"><div class="label">Significado</div><span class="sval" id="crud-meaning">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-crud="C">➕ C</button>
+      <button class="btn primary" data-crud="R">👀 R</button>
+      <button class="btn primary" data-crud="U">✏️ U</button>
+      <button class="btn primary" data-crud="D">🗑️ D</button>
+    </div>
+    <div class="caja-tip" id="crud-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="crud-feedback-txt">Toca una letra para ver qué operación representa.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Hoy vas a construir solo la <strong>C</strong> (crear) y la <strong>R</strong> (leer). Son la base: sin poder crear y leer datos, no hay app. En las próximas clases agregarás la <strong>U</strong> y la <strong>D</strong> para completar el CRUD.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué significa el acrónimo CRUD?</p>
+      <button class="opcion" data-op="a">Crear, Revisar, Usar, Descartar</button>
+      <button class="opcion" data-op="b">Create, Read, Update, Delete</button>
+      <button class="opcion" data-op="c">Código, Red, Usuario, Datos</button>
+      <button class="opcion" data-op="d">Copiar, Renombrar, Unir, Dividir</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué operación corresponde a "ver la lista de tareas"?</p>
+      <button class="opcion" data-op="a">Create</button>
+      <button class="opcion" data-op="b">Delete</button>
+      <button class="opcion" data-op="c">Read</button>
+      <button class="opcion" data-op="d">Update</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Arquitectura →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🏗️ Arquitectura: datos, almacenamiento y renderizado</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Tres piezas que trabajan juntas" — el patrón de toda app con datos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Toda app que maneja datos tiene <strong>tres piezas</strong> que se repiten una y otra vez: los <strong>datos</strong> (un array en memoria), el <strong>almacenamiento</strong> (localStorage, para que sobrevivan a la recarga) y el <strong>renderizado</strong> (pintar esos datos en la pantalla).</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📦 1. Datos</h4>
+      <p>Un array de objetos en memoria. Cada tarea es un objeto con <code>id</code> y <code>texto</code>. Es la "fuente de la verdad".</p>
+    </div>
+    <div class="compare-card b">
+      <h4>💾 2. Almacenamiento</h4>
+      <p><code>localStorage</code> guarda los datos como texto. Así, al recargar la página, la información no se pierde.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🖥️ 3. Renderizado</h4>
+      <p>Una función que lee el array y dibuja cada tarea en el HTML. Si el array cambia, la pantalla cambia.</p>
+    </div>
+  </div>
+
+  <h3>🔁 El ciclo de vida</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Paso</th><th>Qué pasa</th><th>Función</th></tr></thead>
+      <tbody>
+        <tr><td>1. Cargar</td><td>Al abrir la app, lee lo guardado</td><td><code>cargarTareas()</code></td></tr>
+        <tr><td>2. Renderizar</td><td>Pinta las tareas en pantalla</td><td><code>renderizarTareas()</code></td></tr>
+        <tr><td>3. Crear</td><td>El usuario agrega una tarea</td><td><code>agregarTarea()</code></td></tr>
+        <tr><td>4. Guardar</td><td>Se escribe en localStorage</td><td><code>guardarTareas()</code></td></tr>
+        <tr><td>5. Renderizar</td><td>Se vuelve a pintar la lista</td><td><code>renderizarTareas()</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar renderizar</h4>
+    <p>Si agregas una tarea al array pero <strong>no vuelves a llamar</strong> a <code>renderizarTareas()</code>, la pantalla no cambia. El dato está en memoria, pero el usuario no lo ve. Regla de oro: <strong>cada vez que cambian los datos, renderiza de nuevo</strong>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Cuáles son las tres piezas de la arquitectura de datos?</p>
+      <button class="opcion" data-op="a">Datos, almacenamiento y renderizado</button>
+      <button class="opcion" data-op="b">HTML, CSS y JavaScript</button>
+      <button class="opcion" data-op="c">Entrada, proceso y salida</button>
+      <button class="opcion" data-op="d">Servidor, cliente y red</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve localStorage en esta arquitectura?</p>
+      <button class="opcion" data-op="a">Para dibujar en la pantalla</button>
+      <button class="opcion" data-op="b">Para validar formularios</button>
+      <button class="opcion" data-op="c">Para que los datos sobrevivan a la recarga</button>
+      <button class="opcion" data-op="d">Para conectar con internet</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Generar IDs →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🆔 Generar IDs únicos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cada tarea necesita su cédula" — Date.now() y crypto.randomUUID()</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando creas muchas tareas, necesitas distinguirlas. Para eso cada tarea lleva un <strong>id</strong>: un valor único que la identifica. Hay dos formas comunes de generarlo en JavaScript: <code>Date.now()</code> y <code>crypto.randomUUID()</code>.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>⏱️ Date.now()</h4>
+      <p>Devuelve los <strong>milisegundos</strong> transcurridos desde 1970. Es un número grande y casi siempre único. Simple y rápido.</p>
+      <div class="code-live" style="margin-top:.5rem">const id = Date.now();<br>// 1720000000000</div>
+    </div>
+    <div class="compare-card b">
+      <h4>🔐 crypto.randomUUID()</h4>
+      <p>Genera un <strong>identificador universal</strong> (UUID) con letras y números. Prácticamente imposible que se repita.</p>
+      <div class="code-live" style="margin-top:.5rem">const id = crypto.randomUUID();<br>// "a1b2c3d4-..."</div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El generador de IDs</h3>
+  <p>Toca los botones para generar IDs con cada método y observa la diferencia.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🆔 Generador de IDs — Date.now() vs randomUUID()</div>
+    <div class="state-panel">
+      <div class="state-title">Último ID generado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Método</div><span class="sval" id="id-method">—</span></div>
+        <div class="state-cell"><div class="label">ID</div><span class="sval" id="id-value">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-genid="now">⏱️ Date.now()</button>
+      <button class="btn primary" data-genid="uuid">🔐 crypto.randomUUID()</button>
+    </div>
+    <div class="caja-tip" id="id-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="id-feedback-txt">Genera un ID con cada método para ver su forma.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Cuál usar?</h4>
+    <p>Para una app de tareas sencilla, <code>Date.now()</code> es suficiente y fácil de entender. <code>crypto.randomUUID()</code> es más robusto para apps grandes o con muchos usuarios. En esta clase usaremos <code>Date.now()</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué devuelve Date.now()?</p>
+      <button class="opcion" data-op="a">La fecha en formato texto</button>
+      <button class="opcion" data-op="b">Los milisegundos desde 1970</button>
+      <button class="opcion" data-op="c">Un número aleatorio entre 0 y 1</button>
+      <button class="opcion" data-op="d">La hora actual en segundos</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Para qué sirve el id de una tarea?</p>
+      <button class="opcion" data-op="a">Para identificarla de forma única</button>
+      <button class="opcion" data-op="b">Para darle color</button>
+      <button class="opcion" data-op="c">Para ordenarla alfabéticamente</button>
+      <button class="opcion" data-op="d">Para conectarla a internet</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué significa la "C" de CRUD.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "localStorage" en español?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Almacenamiento local</button>
+      <button class="trivia-opt" data-top="b">Tienda local</button>
+      <button class="trivia-opt" data-top="c">Lugar de archivos</button>
+      <button class="trivia-opt" data-top="d">Memoria de red</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Create: agregarTarea →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>➕ Create: la función agregarTarea</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — crear tareas y guardarlas automáticamente</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Vas a construir la <strong>C</strong> de CRUD: una función <code>agregarTarea()</code> que toma lo que escribe el usuario, le pone un <code>id</code>, lo agrega al array, lo guarda en localStorage y lo muestra en pantalla.</p>
+  </div>
+
+  <h3>💻 La función agregarTarea</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="agregar">📋 Copiar</button>
+    </div>
+    <pre><code>let tareas = [];
+
+function agregarTarea(texto) {
+  const tarea = {
+    id: Date.now(),
+    texto: texto
+  };
+  tareas.push(tarea);
+  guardarTareas();
+  renderizarTareas();
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Mini gestor de tareas</h3>
+  <p>Escribe una tarea y agrégala. Observa cómo se genera su <code>id</code>, se guarda en localStorage y aparece en la lista. <strong>Recarga la página</strong> y verás que tus tareas siguen ahí.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📝 Gestor de tareas — Create + Read en vivo</div>
+    <div class="state-panel">
+      <div class="state-title">Estado actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Tareas guardadas</div><span class="sval" id="sim-count">0</span></div>
+        <div class="state-cell"><div class="label">Último id</div><span class="sval" id="sim-lastid">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row" style="margin-top:0;">
+      <input type="text" id="sim-input" placeholder="Escribe una tarea..." style="flex:1;min-width:200px;padding:0.55rem 0.9rem;border-radius:8px;border:1px solid var(--tarjeta-borde);background:var(--fondo-claro);color:var(--texto);font-family:inherit;font-size:0.9rem;">
+      <button class="btn primary" id="sim-agregar">➕ Agregar</button>
+      <button class="btn ghost" id="sim-limpiar">🗑️ Limpiar</button>
+    </div>
+    <div id="sim-lista" style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;"></div>
+    <div class="caja-tip" id="sim-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="sim-feedback-txt">Agrega una tarea para ver el ciclo completo: crear → guardar → renderizar.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El orden importa</h4>
+    <p>En <code>agregarTarea()</code> el orden es: <strong>1)</strong> crear el objeto, <strong>2)</strong> hacer <code>push</code> al array, <strong>3)</strong> guardar, <strong>4)</strong> renderizar. Si guardas antes de hacer <code>push</code>, guardarás un array vacío.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace agregarTarea() al final?</p>
+      <button class="opcion" data-op="a">Borra todas las tareas</button>
+      <button class="opcion" data-op="b">Guarda y renderiza la lista actualizada</button>
+      <button class="opcion" data-op="c">Cierra la página</button>
+      <button class="opcion" data-op="d">Conecta con un servidor</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué método agrega un elemento al final de un array?</p>
+      <button class="opcion" data-op="a">push()</button>
+      <button class="opcion" data-op="b">pop()</button>
+      <button class="opcion" data-op="c">shift()</button>
+      <button class="opcion" data-op="d">slice()</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Read: cargar y renderizar →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>📖 Read: cargarTareas y renderizarTareas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Leer lo guardado" — traer datos de localStorage y pintarlos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La <strong>R</strong> de CRUD tiene dos funciones: <code>cargarTareas()</code> lee los datos de localStorage al abrir la app, y <code>renderizarTareas()</code> los dibuja en la pantalla. Juntas hacen que lo guardado "vuelva a la vida".</p>
+  </div>
+
+  <h3>💻 Las dos funciones de Read</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="leer">📋 Copiar</button>
+    </div>
+    <pre><code>function cargarTareas() {
+  const datos = JSON.parse(localStorage.getItem('tareas'));
+  tareas = datos || [];
+}
+
+function renderizarTareas() {
+  const lista = document.getElementById('lista');
+  lista.innerHTML = '';
+  tareas.forEach(tarea => {
+    const item = document.createElement('li');
+    item.textContent = tarea.texto;
+    lista.appendChild(item);
+  });
+}</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 JSON.parse y JSON.stringify</h4>
+    <p>localStorage solo guarda <strong>texto</strong>. Por eso, al guardar usas <code>JSON.stringify()</code> (convierte el array a texto) y al leer usas <code>JSON.parse()</code> (convierte el texto de vuelta a array). Son la pareja inseparable de la persistencia.</p>
+  </div>
+
+  <h3>🎮 Simulador: Cargar desde localStorage</h3>
+  <p>Este botón lee las tareas que guardaste en el módulo anterior y las muestra. Es exactamente lo que hace <code>cargarTareas()</code> al abrir la app.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📖 Leer tareas guardadas</div>
+    <div class="state-panel">
+      <div class="state-title">Contenido de localStorage</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Clave</div><span class="sval">curso-crud-simulador-tareas</span></div>
+        <div class="state-cell"><div class="label">Tareas encontradas</div><span class="sval" id="read-count">0</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="read-cargar">📖 cargarTareas()</button>
+      <button class="btn primary" id="read-render">🖥️ renderizarTareas()</button>
+    </div>
+    <div id="read-lista" style="margin-top:1rem;display:flex;flex-direction:column;gap:0.5rem;"></div>
+    <div class="caja-tip" id="read-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="read-feedback-txt">Carga y luego renderiza para ver el ciclo de lectura completo.</p>
+    </div>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué hace cargarTareas()?</p>
+      <button class="opcion" data-op="a">Borra el localStorage</button>
+      <button class="opcion" data-op="b">Dibuja en la pantalla</button>
+      <button class="opcion" data-op="c">Lee los datos guardados y los pone en el array</button>
+      <button class="opcion" data-op="d">Genera un id nuevo</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué función convierte un array a texto para guardarlo?</p>
+      <button class="opcion" data-op="a">JSON.stringify()</button>
+      <button class="opcion" data-op="b">JSON.parse()</button>
+      <button class="opcion" data-op="c">toString()</button>
+      <button class="opcion" data-op="d">join()</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: el concepto de CRUD, la arquitectura, los IDs y las funciones de crear y leer. Al superarlos, recibirás tu insignia de <strong>Maestro CRUD</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📚 Empareja cada operación con su significado</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Create</button>
+        <button class="ws-chip" data-mid="1b">Read</button>
+        <button class="ws-chip" data-mid="1c">Update</button>
+        <button class="ws-chip" data-mid="1d">Delete</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Crear</button>
+        <button class="ws-chip" data-mid="1B">Leer</button>
+        <button class="ws-chip" data-mid="1C">Actualizar</button>
+        <button class="ws-chip" data-mid="1D">Borrar</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">➕ Ordena los pasos de agregarTarea</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2id" draggable="true"><span class="ord-num">?</span> Generar el id con Date.now()</div>
+        <div class="ws-order-item" data-oid="2obj" draggable="true"><span class="ord-num">?</span> Crear el objeto tarea</div>
+        <div class="ws-order-item" data-oid="2push" draggable="true"><span class="ord-num">?</span> Hacer push al array</div>
+        <div class="ws-order-item" data-oid="2guardar" draggable="true"><span class="ord-num">?</span> Guardar en localStorage</div>
+        <div class="ws-order-item" data-oid="2render" draggable="true"><span class="ord-num">?</span> Renderizar la lista</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📖 Completa el código de cargarTareas</span></div>
+    <p>Completa el método que lee datos de localStorage:</p>
+    <div class="ws-block">
+      <div class="code-live">
+const datos = JSON.parse(localStorage.<input class="ws-input" data-ans="getItem" data-ws="3" placeholder="?">('tareas'));
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: el bug de la tarea fantasma</span></div>
+    <p>Un compañero agregó tareas, pero al recargar la página desaparecieron. ¿Qué olvidó?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+function agregarTarea(texto) {
+  tareas.push({ id: Date.now(), texto: texto });
+  renderizarTareas();
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Olvidó llamar a guardarTareas()</button>
+        <button class="ws-chip" data-mid="4B">Olvidó el CSS</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro CRUD!</h2>
+    <p class="lead">Tu app ya <strong>persiste información creada por el usuario</strong>: crea tareas, las guarda en localStorage y las lee de vuelta. En la próxima clase completarás el CRUD con Update y Delete.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">💾 Herramientas de Programación I · Clase 19 · Plataforma interactiva</div>
+  <div>CRUD: crear y leer · localStorage · IDs · renderizado · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

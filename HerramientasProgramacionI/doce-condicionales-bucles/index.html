@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔀 Herramientas de Programación I · Clase 12 · Condicionales y bucles</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🔀</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 12</h1>
+      <p class="subtitulo">Condicionales · Comparaciones · Operadores lógicos · Bucles</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🔀 Condicionales if/else</button>
+  <button class="btn-modulo" data-modulo="2">⚖️ Comparaciones y lógicos</button>
+  <button class="btn-modulo" data-modulo="3">🔁 El bucle for</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🔄 while y do while</button>
+  <button class="btn-modulo" data-modulo="6">🛑 break y continue</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🔀 ¡Bienvenido/a a Condicionales y bucles!</h2>
+    <p class="lead">Hasta ahora tus programas hacían <strong>siempre lo mismo</strong>, en el mismo orden. Hoy vas a darles un superpoder: la capacidad de <strong>tomar decisiones</strong> (condicionales) y de <strong>repetir tareas</strong> (bucles). Es el corazón de la lógica de programación.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@logica</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@logica:~$</span> <span class="cmd">node -e "if (18 >= 18) console.log('mayor de edad')"</span></div>
+        <div class="out">mayor de edad</div>
+        <div><span class="prompt">dev@logica:~$</span> <span class="cmd">node -e "for (let i=1; i<=3; i++) console.log(i)"</span></div>
+        <div class="out">1<br>2<br>3</div>
+        <div><span class="prompt">dev@logica:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Que tus programas decidan con <code>if</code>/<code>else</code> y repitan con <code>for</code>, <code>while</code> y <code>do while</code>.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber qué es una variable y un valor. Aquí aprenderás a <em>comparar</em> y a <em>repetir</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Condicionales if/else</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Comparaciones y lógicos</td><td style="color:var(--morado-claro)">=== / && / ||</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · El bucle for</td><td style="color:var(--ambar)">for</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · while y do while</td><td style="color:var(--verde)">while</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · break y continue</td><td style="color:var(--morado)">Control</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, piensen en una decisión que toman todos los días: "si tengo hambre, como; si no, sigo estudiando". Escríbanla como una frase con <strong>si... entonces... si no...</strong>. ¿Cuántas decisiones así toman en un día?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Condicionales if/else →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🔀 Condicionales if/else</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Si pasa esto, haz aquello" — cómo el programa toma decisiones</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>condicional</strong> es una instrucción que le dice al programa: <em>"si se cumple esta condición, haz esto; si no, haz esto otro"</em>. Es exactamente como decidir en la vida real: <em>si llueve, llevo paraguas; si no, no lo llevo</em>.</p>
+    <p>En JavaScript se escribe con <code>if</code> (si), <code>else if</code> (si no, si...) y <code>else</code> (si no). La condición va entre paréntesis y el código a ejecutar entre llaves <code>{ }</code>.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔀 if / else if / else</h4>
+      <p>La forma completa: evalúa varias condiciones en cadena. Solo se ejecuta <strong>una</strong> rama: la primera que sea verdadera.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">if</span> (edad &gt;= 18) {
+  <span class="cm">// mayor de edad</span>
+} <span class="kw">else if</span> (edad &gt;= 13) {
+  <span class="cm">// adolescente</span>
+} <span class="kw">else</span> {
+  <span class="cm">// niño/a</span>
+}
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>❓ Operador ternario</h4>
+      <p>Un <code>if/else</code> corto en una sola línea: <code>condición ? valorSiVerdadero : valorSiFalso</code>. Ideal para asignar un valor rápido.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">const</span> acceso = edad &gt;= 18
+  ? <span class="str">"Puedes entrar"</span>
+  : <span class="str">"No puedes entrar"</span>;
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El validador de edad</h3>
+  <p>Ingresa una edad y observa qué rama del <code>if</code> se ejecuta. Es el mismo código que usarías para validar si un usuario es mayor de edad.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎂 Validador de edad — ¿qué rama se ejecuta?</div>
+    <div class="state-panel">
+      <div class="state-title">Estado de la decisión</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Edad</div><span class="sval" id="edad-val">—</span></div>
+        <div class="state-cell"><div class="label">Rama ejecutada</div><span class="sval" id="edad-rama">—</span></div>
+        <div class="state-cell"><div class="label">Resultado</div><span class="sval" id="edad-resultado">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <input type="number" id="edad-input" placeholder="Tu edad" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;font-size:0.9rem;padding:0.4rem 0.7rem;border-radius:8px;min-width:120px;outline:none;text-align:center;font-weight:600;">
+      <button class="btn primary" id="edad-btn">✓ Validar</button>
+    </div>
+    <div class="code-live" id="edad-code" style="margin-top:1rem;">
+<span class="cm">// Ingresa una edad y toca "Validar"</span>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Los condicionales están en <strong>todas partes</strong>: un login que valida tu contraseña, un videojuego que decide si ganaste o perdiste, una app que te muestra contenido según tu edad. Sin <code>if</code>, un programa no puede reaccionar a nada.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué palabra clave se usa para "si no" en JavaScript?</p>
+      <button class="opcion" data-op="a">if</button>
+      <button class="opcion" data-op="b">else</button>
+      <button class="opcion" data-op="c">for</button>
+      <button class="opcion" data-op="d">while</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué hace el operador ternario?</p>
+      <button class="opcion" data-op="a">Repite un bloque muchas veces</button>
+      <button class="opcion" data-op="b">Declara una variable</button>
+      <button class="opcion" data-op="c">Un if/else corto en una sola línea</button>
+      <button class="opcion" data-op="d">Imprime en consola</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Comparaciones y lógicos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>⚖️ Comparaciones y operadores lógicos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "¿Es igual? ¿Es mayor? ¿Y si combino dos condiciones?"</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <code>if</code> necesita una <strong>condición</strong> que sea <strong>verdadera</strong> o <strong>falsa</strong> (un <em>booleano</em>). Para construir esa condición usamos <strong>comparaciones</strong> (<code>===</code>, <code>!==</code>, <code>&gt;</code>, <code>&lt;</code>) y <strong>operadores lógicos</strong> (<code>&amp;&amp;</code>, <code>||</code>, <code>!</code>) para combinar varias.</p>
+  </div>
+
+  <h3>⚖️ Los operadores de comparación</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>===</code></td><td>Igual estricto (mismo valor y tipo)</td><td><code>5 === 5</code> → true</td></tr>
+        <tr><td><code>!==</code></td><td>Diferente</td><td><code>5 !== 3</code> → true</td></tr>
+        <tr><td><code>&gt;</code></td><td>Mayor que</td><td><code>7 &gt; 4</code> → true</td></tr>
+        <tr><td><code>&lt;</code></td><td>Menor que</td><td><code>2 &lt; 9</code> → true</td></tr>
+        <tr><td><code>&gt;=</code></td><td>Mayor o igual</td><td><code>18 &gt;= 18</code> → true</td></tr>
+        <tr><td><code>&lt;=</code></td><td>Menor o igual</td><td><code>10 &lt;= 9</code> → false</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🔗 Los operadores lógicos</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔗 &amp;&amp; (Y)</h4>
+      <p>Verdadero solo si <strong>ambas</strong> condiciones son verdaderas.</p>
+      <div class="code-live" style="margin-top:.5rem">edad &gt;= 18 <span class="kw">&amp;&amp;</span> tieneCedula</div>
+    </div>
+    <div class="compare-card b">
+      <h4>🔀 || (O)</h4>
+      <p>Verdadero si <strong>al menos una</strong> condición es verdadera.</p>
+      <div class="code-live" style="margin-top:.5rem">esAdmin <span class="kw">||</span> esEditor</div>
+    </div>
+    <div class="compare-card c">
+      <h4>🚫 ! (NO)</h4>
+      <p>Invierte el valor: lo verdadero se vuelve falso y viceversa.</p>
+      <div class="code-live" style="margin-top:.5rem"><span class="kw">!</span>estaLogueado</div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El comparador lógico</h3>
+  <p>Elige dos números y un operador. El simulador te muestra la expresión y su resultado (verdadero o falso).</p>
+
+  <div class="simulador">
+    <div class="sim-head">⚖️ Comparador — ¿verdadero o falso?</div>
+    <div class="state-panel">
+      <div class="state-title">Resultado de la comparación</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Expresión</div><span class="sval" id="cmp-expr">—</span></div>
+        <div class="state-cell"><div class="label">Resultado</div><span class="sval" id="cmp-result">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <input type="number" id="cmp-a" value="5" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;font-size:0.9rem;padding:0.4rem 0.7rem;border-radius:8px;min-width:80px;outline:none;text-align:center;font-weight:600;">
+      <select id="cmp-op" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;font-size:0.9rem;padding:0.4rem 0.7rem;border-radius:8px;outline:none;font-weight:600;">
+        <option value="===">===</option>
+        <option value="!==">!==</option>
+        <option value=">">&gt;</option>
+        <option value="<">&lt;</option>
+        <option value=">=">&gt;=</option>
+        <option value="<=">&lt;=</option>
+      </select>
+      <input type="number" id="cmp-b" value="3" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;font-size:0.9rem;padding:0.4rem 0.7rem;border-radius:8px;min-width:80px;outline:none;text-align:center;font-weight:600;">
+      <button class="btn primary" id="cmp-btn">✓ Comparar</button>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: <code>=</code> vs <code>===</code></h4>
+    <p>Un solo <code>=</code> <strong>asigna</strong> un valor (<code>x = 5</code>). Tres <code>===</code> <strong>comparan</strong> (<code>x === 5</code>). Si escribes <code>if (x = 5)</code> en lugar de <code>if (x === 5)</code>, el programa asignará 5 y la condición siempre será verdadera. ¡Un error clásico de principiante!</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué operador compara igualdad estricta (valor y tipo)?</p>
+      <button class="opcion" data-op="a">===</button>
+      <button class="opcion" data-op="b">=</button>
+      <button class="opcion" data-op="c">==</button>
+      <button class="opcion" data-op="d">!=</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuándo es verdadera la expresión <code>a &amp;&amp; b</code>?</p>
+      <button class="opcion" data-op="a">Cuando a es verdadera</button>
+      <button class="opcion" data-op="b">Cuando b es verdadera</button>
+      <button class="opcion" data-op="c">Cuando ambas son verdaderas</button>
+      <button class="opcion" data-op="d">Nunca</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: El bucle for →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔁 El bucle for</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Repite esto N veces" — automatizar tareas repetitivas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>bucle</strong> (o <em>loop</em>) repite un bloque de código varias veces. El bucle <code>for</code> es el más usado cuando sabes <strong>cuántas veces</strong> quieres repetir. Tiene tres partes: <code>for (inicio; condición; incremento)</code>.</p>
+  </div>
+
+  <h3>🔁 Las 3 partes del for</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Parte</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>Inicio</td><td>Declara la variable contadora</td><td><code>let i = 0</code></td></tr>
+        <tr><td>Condición</td><td>Mientras sea verdadera, el bucle sigue</td><td><code>i &lt; 5</code></td></tr>
+        <tr><td>Incremento</td><td>Cambia el contador en cada vuelta</td><td><code>i++</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>bucle.js</div>
+      <button class="copy-btn" data-copy="for">📋 Copiar</button>
+    </div>
+    <pre><code>// Imprime los números del 1 al 5
+for (let i = 1; i &lt;= 5; i++) {
+  console.log(i);
+}
+
+// Recorre una lista simple
+const frutas = ["manzana", "pera", "uva"];
+for (let i = 0; i &lt; frutas.length; i++) {
+  console.log(frutas[i]);
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Generador de tabla de multiplicar</h3>
+  <p>Elige un número y el simulador genera su tabla de multiplicar usando un bucle <code>for</code>. Observa cómo el contador <code>i</code> va de 1 a 10.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔁 Tabla de multiplicar — bucle for en acción</div>
+    <div class="btn-row">
+      <input type="number" id="tabla-num" value="7" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;font-size:0.9rem;padding:0.4rem 0.7rem;border-radius:8px;min-width:80px;outline:none;text-align:center;font-weight:600;">
+      <button class="btn primary" id="tabla-btn">✓ Generar</button>
+    </div>
+    <div class="code-live" id="tabla-code" style="margin-top:1rem;">
+<span class="cm">// Elige un número y toca "Generar"</span>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El nombre <code>i</code> es una convención: significa <em>índice</em> o <em>iteración</em>. Verás <code>i</code>, <code>j</code>, <code>k</code> en casi todos los bucles del mundo. No es obligatorio, pero es lo que todo programador espera ver.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuántas veces se ejecuta <code>for (let i = 0; i &lt; 3; i++)</code>?</p>
+      <button class="opcion" data-op="a">2 veces</button>
+      <button class="opcion" data-op="b">3 veces</button>
+      <button class="opcion" data-op="c">4 veces</button>
+      <button class="opcion" data-op="d">Infinitas veces</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué hace <code>i++</code>?</p>
+      <button class="opcion" data-op="a">Suma 1 a i</button>
+      <button class="opcion" data-op="b">Resta 1 a i</button>
+      <button class="opcion" data-op="c">Multiplica i por 2</button>
+      <button class="opcion" data-op="d">Detiene el bucle</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a un condicional o bucle que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué palabra clave se usa para salir de un bucle inmediatamente?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">break</button>
+      <button class="trivia-opt" data-top="b">stop</button>
+      <button class="trivia-opt" data-top="c">exit</button>
+      <button class="trivia-opt" data-top="d">end</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: while y do while →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🔄 while y do while</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Repite mientras se cumpla una condición" — bucles sin contador fijo</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El bucle <code>while</code> repite un bloque <strong>mientras</strong> una condición sea verdadera. A diferencia del <code>for</code>, no necesitas saber cuántas veces: se usa cuando la repetición depende de algo que cambia (un contador, una respuesta del usuario, un dato que llega).</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔄 while</h4>
+      <p>Primero <strong>evalúa</strong> la condición y luego ejecuta. Si la condición es falsa desde el inicio, <strong>no se ejecuta ni una vez</strong>.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">let</span> n = 5;
+<span class="kw">while</span> (n &gt; 0) {
+  console.log(n);
+  n--;
+}
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🔁 do while</h4>
+      <p>Primero <strong>ejecuta</strong> y luego evalúa. Se ejecuta <strong>al menos una vez</strong>, aunque la condición sea falsa.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">let</span> n = 5;
+<span class="kw">do</span> {
+  console.log(n);
+  n--;
+} <span class="kw">while</span> (n &gt; 0);
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Cuenta regresiva</h3>
+  <p>Elige un número y observa cómo <code>while</code> y <code>do while</code> hacen la cuenta regresiva. Prueba con 0 para ver la diferencia clave.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔄 Cuenta regresiva — while vs do while</div>
+    <div class="btn-row">
+      <input type="number" id="while-num" value="5" style="background:var(--fondo-claro);border:1.5px dashed var(--morado);color:var(--morado-claro);font-family:'JetBrains Mono',monospace;font-size:0.9rem;padding:0.4rem 0.7rem;border-radius:8px;min-width:80px;outline:none;text-align:center;font-weight:600;">
+      <button class="btn primary" id="while-btn">✓ Ejecutar while</button>
+      <button class="btn primary" id="dowhile-btn">✓ Ejecutar do while</button>
+    </div>
+    <div class="code-live" id="while-code" style="margin-top:1rem;">
+<span class="cm">// Elige un número y ejecuta un bucle</span>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El bucle infinito</h4>
+    <p>Si la condición de un <code>while</code> <strong>nunca se vuelve falsa</strong>, el bucle no termina jamás y el programa se congela. Siempre asegúrate de que algo dentro del bucle cambie la condición (como <code>n--</code> en el ejemplo).</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál es la diferencia clave entre while y do while?</p>
+      <button class="opcion" data-op="a">while es más rápido</button>
+      <button class="opcion" data-op="b">do while no existe</button>
+      <button class="opcion" data-op="c">do while se ejecuta al menos una vez</button>
+      <button class="opcion" data-op="d">while no necesita condición</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué pasa si la condición de un while nunca se vuelve falsa?</p>
+      <button class="opcion" data-op="a">Bucle infinito: el programa se congela</button>
+      <button class="opcion" data-op="b">El bucle se detiene solo</button>
+      <button class="opcion" data-op="c">No pasa nada</button>
+      <button class="opcion" data-op="d">Se convierte en un for</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: break y continue →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🛑 break y continue</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Controla el flujo del bucle" — salir o saltar una vuelta</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>A veces necesitas <strong>controlar</strong> un bucle desde dentro: <code>break</code> lo <strong>detiene por completo</strong>, y <code>continue</code> <strong>salta a la siguiente vuelta</strong> sin ejecutar el resto del bloque. Son como los frenos y el acelerador de un bucle.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🛑 break</h4>
+      <p>Sale del bucle <strong>inmediatamente</strong>. Útil para detenerse al encontrar lo que buscas.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">for</span> (<span class="kw">let</span> i = 1; i &lt;= 10; i++) {
+  <span class="kw">if</span> (i === 5) <span class="kw">break</span>;
+  console.log(i); <span class="cm">// 1 2 3 4</span>
+}
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>⏭️ continue</h4>
+      <p>Salta a la <strong>siguiente vuelta</strong>, ignorando el resto del bloque actual.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">for</span> (<span class="kw">let</span> i = 1; i &lt;= 5; i++) {
+  <span class="kw">if</span> (i === 3) <span class="kw">continue</span>;
+  console.log(i); <span class="cm">// 1 2 4 5</span>
+}
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Cuándo usarlos?</h4>
+    <p><code>break</code>: cuando buscas un elemento en una lista y lo encuentras, no necesitas seguir. <code>continue</code>: cuando quieres <strong>saltarte</strong> ciertos valores (por ejemplo, los números pares o los que no cumplen una condición).</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace <code>break</code>?</p>
+      <button class="opcion" data-op="a">Salta a la siguiente vuelta</button>
+      <button class="opcion" data-op="b">Detiene el bucle por completo</button>
+      <button class="opcion" data-op="c">Reinicia el bucle</button>
+      <button class="opcion" data-op="d">Nada</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué imprime este código? <code>for (let i=1; i&lt;=4; i++) { if (i===2) continue; console.log(i); }</code></p>
+      <button class="opcion" data-op="a">1 3 4</button>
+      <button class="opcion" data-op="b">1 2 3 4</button>
+      <button class="opcion" data-op="c">1 2</button>
+      <button class="opcion" data-op="d">2 3 4</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: condicionales, comparaciones, operadores lógicos y bucles. Al superarlos, recibirás tu insignia de <strong>Maestro de la Lógica</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">⚖️ Empareja cada operador con su significado</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">===</button>
+        <button class="ws-chip" data-mid="1b">!==</button>
+        <button class="ws-chip" data-mid="1c">&amp;&amp;</button>
+        <button class="ws-chip" data-mid="1d">||</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Igual estricto</button>
+        <button class="ws-chip" data-mid="1B">Diferente</button>
+        <button class="ws-chip" data-mid="1C">Y lógico</button>
+        <button class="ws-chip" data-mid="1D">O lógico</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🔁 Ordena las partes del bucle for</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> <code>let i = 0</code> — inicio</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> <code>i &lt; 5</code> — condición</div>
+        <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> <code>i++</code> — incremento</div>
+        <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> <code>{ ... }</code> — cuerpo</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🔀 Completa la condición de mayor de edad</span></div>
+    <p>Completa la condición para que el programa valide si alguien es mayor de edad:</p>
+    <div class="ws-block">
+      <div class="code-live">
+<span class="kw">if</span> (edad &gt;= <input class="ws-input" data-ans="18" data-ws="3" placeholder="?">) {
+  console.log(<span class="str">"Mayor de edad"</span>);
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este bucle para imprimir los números del 1 al 5. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+<span class="kw">for</span> (<span class="kw">let</span> i = 1; i &lt;= 5; i--) {
+  console.log(i);
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">El incremento es i-- (decrece), así que el bucle nunca termina</button>
+        <button class="ws-chip" data-mid="4B">Falta el console.log</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro de la Lógica!</h2>
+    <p class="lead">Ya sabes hacer que tus programas tomen decisiones con <code>if</code>/<code>else</code>, comparen valores, combinen condiciones y repitan tareas con <code>for</code>, <code>while</code> y <code>do while</code>. La lógica permite que el programa tome decisiones. En la próxima clase pondremos todo esto junto en proyectos reales.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🔀 Herramientas de Programación I · Clase 12 · Plataforma interactiva</div>
+  <div>Condicionales · Comparaciones · Operadores lógicos · Bucles · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

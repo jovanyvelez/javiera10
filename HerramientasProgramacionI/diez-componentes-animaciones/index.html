@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎨 Herramientas de Programación I · Clase 10 · Componentes, animaciones y checkpoint CSS</title>
+<link rel="stylesheet" href="estilos.css">
+<style>
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-30px); } }
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@keyframes fade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🎨</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 10</h1>
+      <p class="subtitulo">Componentes · Animaciones · Checkpoint CSS</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🖱️ Pseudo-clases</button>
+  <button class="btn-modulo" data-modulo="2">⏳ Transiciones</button>
+  <button class="btn-modulo" data-modulo="3">🔄 Transformaciones</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🎬 Animaciones</button>
+  <button class="btn-modulo" data-modulo="6">🧭 UX y buenas prácticas</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🎨 ¡Bienvenido/a a Componentes y Animaciones!</h2>
+    <p class="lead">Hasta ahora tu CSS <strong>decora</strong>. Hoy vas a hacer que <strong>comunique</strong>: estados de los botones, movimientos suaves, transformaciones y animaciones. Al final tendrás una interfaz <strong>lista para recibir JavaScript</strong>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "CSS no solo decora: comunica estados"</span></div>
+        <div class="out">"CSS no solo decora: comunica estados"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Un botón que reacciona al hover le dice al usuario: 'soy clicable'."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Dominar pseudo-clases, transiciones, transformaciones y animaciones para pulir la interfaz de tu proyecto.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber CSS básico: selectores, colores, cajas. Aquí aprenderás a darles <em>vida</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Pseudo-clases</td><td style="color:var(--cian)">hover/focus/active</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Transiciones</td><td style="color:var(--morado-claro)">transition</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Transformaciones</td><td style="color:var(--ambar)">translate/scale/rotate</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Animaciones</td><td style="color:var(--verde)">@keyframes</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · UX y buenas prácticas</td><td style="color:var(--morado)">Consejos</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Checkpoint CSS</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y pasen el mouse por los botones y enlaces. ¿Qué cambia? ¿Color, tamaño, sombra? Anoten <strong>tres efectos</strong> que vean. Esos efectos son pseudo-clases y transiciones en acción.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Pseudo-clases →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🖱️ Pseudo-clases</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Los estados de un elemento" — :hover, :focus, :active, :disabled</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>pseudo-clase</strong> es un estado especial de un elemento. No es algo que escribas en el HTML, sino algo que <strong>le pasa</strong> al elemento: el mouse está encima, tiene el foco del teclado, lo estás presionando, o está deshabilitado. Con CSS puedes cambiar su estilo en cada uno de esos estados.</p>
+    <p>Se escriben con dos puntos: <code>:hover</code>, <code>:focus</code>, <code>:active</code>, <code>:disabled</code>. Son la base de la <strong>interactividad visual</strong>.</p>
+  </div>
+
+  <h3>🖱️ Las 4 pseudo-clases esenciales</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Pseudo-clase</th><th>Cuándo se activa</th><th>Ejemplo típico</th></tr></thead>
+      <tbody>
+        <tr><td><code>:hover</code></td><td>El mouse está encima</td><td>Cambiar color de un botón</td></tr>
+        <tr><td><code>:focus</code></td><td>El elemento tiene el foco (teclado)</td><td>Resaltar un campo de texto</td></tr>
+        <tr><td><code>:active</code></td><td>Se está presionando</td><td>Hundir un botón al hacer clic</td></tr>
+        <tr><td><code>:disabled</code></td><td>El elemento está deshabilitado</td><td>Atenuar un botón inactivo</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Estados de un botón</h3>
+  <p>Toca cada botón para ver cómo se ve el elemento en ese estado. La caja demo cambia con estilos aplicados en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🖱️ Laboratorio de pseudo-clases</div>
+    <div class="state-panel">
+      <div class="state-title">Estado actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Pseudo-clase</div><span class="sval" id="pc-tag">—</span></div>
+        <div class="state-cell"><div class="label">Descripción</div><span class="sval" id="pc-meaning">—</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:1.5rem 0;">
+      <div id="pc-demo" style="display:inline-block;padding:1rem 2rem;border-radius:12px;background:var(--tarjeta-alt);border:2px solid var(--tarjeta-borde);font-weight:700;font-size:1.1rem;transition:all 0.3s ease;">Botón demo</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-pc="hover">🖱️ :hover</button>
+      <button class="btn primary" data-pc="focus">⌨️ :focus</button>
+      <button class="btn primary" data-pc="active">👆 :active</button>
+      <button class="btn primary" data-pc="disabled">🚫 :disabled</button>
+      <button class="btn ghost" id="pc-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="pc-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="pc-feedback-txt">Toca una pseudo-clase para ver cómo cambia el botón demo.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Las pseudo-clases le dicen al usuario <strong>qué se puede hacer</strong>. Un botón que cambia al pasar el mouse comunica "soy clicable". Un campo que se resalta al enfocarse dice "escribe aquí". Sin estos estados, la interfaz se siente <strong>muerta</strong>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es una pseudo-clase?</p>
+      <button class="opcion" data-op="a">Una etiqueta HTML nueva</button>
+      <button class="opcion" data-op="b">Un estado especial de un elemento, como :hover</button>
+      <button class="opcion" data-op="c">Un tipo de color en CSS</button>
+      <button class="opcion" data-op="d">Un archivo de JavaScript</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuándo se activa <code>:focus</code>?</p>
+      <button class="opcion" data-op="a">Cuando el mouse está encima</button>
+      <button class="opcion" data-op="b">Cuando se está presionando</button>
+      <button class="opcion" data-op="c">Cuando el elemento tiene el foco del teclado</button>
+      <button class="opcion" data-op="d">Cuando está deshabilitado</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Transiciones →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>⏳ Transiciones</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El cambio suave" — transition y sus propiedades</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Sin transición, un cambio de estilo es <strong>instantáneo</strong>: el botón salta de un color a otro. Con <code>transition</code>, el cambio se <strong>anima suavemente</strong> a lo largo de un tiempo. Es la diferencia entre un corte brusco y un fundido elegante.</p>
+    <p>La propiedad <code>transition</code> combina: <strong>qué</strong> propiedad cambia, <strong>cuánto</strong> dura y <strong>cómo</strong> acelera (easing).</p>
+  </div>
+
+  <h3>💻 La sintaxis</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="transicion">📋 Copiar</button>
+    </div>
+    <pre><code>.boton {
+  background: #22d3ee;
+  transition: background 0.3s ease;  /* propiedad, duración, easing */
+}
+
+.boton:hover {
+  background: #a855f7;  /* este cambio ahora es suave */
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Controla la transición</h3>
+  <p>Elige una propiedad y una duración, y observa cómo la caja cambia suavemente.</p>
+
+  <div class="simulador">
+    <div class="sim-head">⏳ Laboratorio de transiciones</div>
+    <div style="text-align:center;padding:1.5rem 0;">
+      <div id="tr-demo" style="display:inline-block;width:120px;height:120px;border-radius:12px;background:var(--cian);transition:all 0.3s ease;"></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-tr="color">🎨 Cambiar color</button>
+      <button class="btn primary" data-tr="size">📏 Cambiar tamaño</button>
+      <button class="btn primary" data-tr="radius">⭕ Redondear</button>
+      <button class="btn ghost" id="tr-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-dur="0.1">0.1s</button>
+      <button class="btn" data-dur="0.5">0.5s</button>
+      <button class="btn" data-dur="1.5">1.5s</button>
+    </div>
+    <div class="caja-tip" id="tr-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tr-feedback-txt">Cambia la duración y nota la diferencia entre un cambio rápido y uno lento.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: transicionar lo que no se puede</h4>
+    <p>No todas las propiedades se pueden animar suavemente. <code>display</code>, por ejemplo, no transiciona (salta de golpe). Sí funcionan: <code>color</code>, <code>background</code>, <code>transform</code>, <code>opacity</code>, <code>width</code>, <code>height</code>. Usa <code>transform</code> y <code>opacity</code> para animaciones fluidas.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace la propiedad <code>transition</code>?</p>
+      <button class="opcion" data-op="a">Anima suavemente un cambio de estilo</button>
+      <button class="opcion" data-op="b">Cambia el color de fondo</button>
+      <button class="opcion" data-op="c">Oculta un elemento</button>
+      <button class="opcion" data-op="d">Agrega un borde</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál de estas propiedades SÍ se puede transicionar suavemente?</p>
+      <button class="opcion" data-op="a">display</button>
+      <button class="opcion" data-op="b">position</button>
+      <button class="opcion" data-op="c">opacity</button>
+      <button class="opcion" data-op="d">font-family</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Transformaciones →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔄 Transformaciones</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Mover, escalar y rotar" — translate, scale, rotate</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Las <strong>transformaciones</strong> cambian la posición, el tamaño o la rotación de un elemento <strong>sin afectar el flujo</strong> de la página. Son perfectas para efectos de hover: un botón que crece un poco, una tarjeta que se levanta, un icono que rota.</p>
+    <p>Se usan con la propiedad <code>transform</code> y tres funciones principales: <code>translate()</code>, <code>scale()</code> y <code>rotate()</code>.</p>
+  </div>
+
+  <h3>🔄 Las 3 transformaciones</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📦 translate()</h4>
+      <p>Mueve el elemento en X e Y. <code>translate(20px, -10px)</code> lo desplaza a la derecha y arriba.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🔍 scale()</h4>
+      <p>Cambia el tamaño. <code>scale(1.2)</code> lo agranda un 20%. <code>scale(0.8)</code> lo encoge.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🔄 rotate()</h4>
+      <p>Rota el elemento. <code>rotate(45deg)</code> lo gira 45 grados en el sentido de las agujas del reloj.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Transforma la caja</h3>
+  <p>Aplica transformaciones a la caja demo y observa el resultado. Puedes combinarlas.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔄 Laboratorio de transformaciones</div>
+    <div class="state-panel">
+      <div class="state-title">Transformación actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">transform</div><span class="sval" id="tf-value">none</span></div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:1.5rem 0;">
+      <div id="tf-demo" style="display:inline-block;width:100px;height:100px;border-radius:12px;background:var(--morado);transition:transform 0.4s ease;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">CSS</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-tf="translate">📦 translate</button>
+      <button class="btn primary" data-tf="scale">🔍 scale</button>
+      <button class="btn primary" data-tf="rotate">🔄 rotate</button>
+      <button class="btn primary" data-tf="combo">✨ combinar</button>
+      <button class="btn ghost" id="tf-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="tf-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="tf-feedback-txt">Toca un botón para transformar la caja.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Combina <code>transform</code> con <code>transition</code> para efectos de hover suaves: <code>.tarjeta:hover { transform: translateY(-4px) scale(1.02); }</code>. Es el patrón más usado en tarjetas y botones modernos.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace <code>scale(1.5)</code>?</p>
+      <button class="opcion" data-op="a">Mueve el elemento 1.5px</button>
+      <button class="opcion" data-op="b">Agranda el elemento un 50%</button>
+      <button class="opcion" data-op="c">Rota el elemento 1.5 grados</button>
+      <button class="opcion" data-op="d">Lo encoge a la mitad</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué función mueve un elemento sin afectar el flujo de la página?</p>
+      <button class="opcion" data-op="a">translate()</button>
+      <button class="opcion" data-op="b">color()</button>
+      <button class="opcion" data-op="c">display()</button>
+      <button class="opcion" data-op="d">border()</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una pseudo-clase que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "CSS"?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Cascading Style Sheets (Hojas de Estilo en Cascada)</button>
+      <button class="trivia-opt" data-top="b">Computer Style System</button>
+      <button class="trivia-opt" data-top="c">Color Style Sheets</button>
+      <button class="trivia-opt" data-top="d">Creative Style Software</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Animaciones →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🎬 Animaciones</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Movimiento con vida propia" — @keyframes y animation</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>transición</strong> va de un estado a otro (de A a B). Una <strong>animación</strong> puede tener <strong>muchos pasos</strong> y repetirse sola, sin necesidad de que el usuario haga algo. Se define con <code>@keyframes</code> (los fotogramas) y se aplica con <code>animation</code>.</p>
+    <p>Sirve para dar vida a la interfaz: un elemento que aparece, un icono que late, un fondo que se mueve.</p>
+  </div>
+
+  <h3>💻 La sintaxis</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="animacion">📋 Copiar</button>
+    </div>
+    <pre><code>@keyframes aparecer {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.tarjeta {
+  animation: aparecer 0.6s ease;
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Dispara animaciones</h3>
+  <p>Toca un botón para lanzar una animación sobre la caja demo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎬 Laboratorio de animaciones</div>
+    <div style="text-align:center;padding:1.5rem 0;">
+      <div id="an-demo" style="display:inline-block;width:100px;height:100px;border-radius:50%;background:var(--verde);font-weight:700;display:inline-flex;align-items:center;justify-content:center;">🎬</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-an="bounce">🏀 Rebote</button>
+      <button class="btn primary" data-an="pulse">💓 Latido</button>
+      <button class="btn primary" data-an="spin">🌀 Girar</button>
+      <button class="btn primary" data-an="fade">🌫️ Aparecer</button>
+      <button class="btn ghost" id="an-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="an-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="an-feedback-txt">Cada animación se define con @keyframes y se aplica con animation.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Menos es más</h4>
+    <p>Las animaciones son poderosas, pero <strong>demasiadas</strong> cansan y distraen. Úsalas con propósito: para guiar la atención, dar feedback o celebrar un logro. Una animación sutil vale más que diez llamativas.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué define los pasos de una animación?</p>
+      <button class="opcion" data-op="a">transition</button>
+      <button class="opcion" data-op="b">@keyframes</button>
+      <button class="opcion" data-op="c">transform</button>
+      <button class="opcion" data-op="d">display</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál es la diferencia clave entre transición y animación?</p>
+      <button class="opcion" data-op="a">No hay diferencia</button>
+      <button class="opcion" data-op="b">La transición es más rápida</button>
+      <button class="opcion" data-op="c">La animación puede tener muchos pasos y repetirse sola</button>
+      <button class="opcion" data-op="d">La animación solo funciona en móviles</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: UX y buenas prácticas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🧭 UX y buenas prácticas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Diseñar para personas" — sombras, bordes y experiencia de usuario</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>La <strong>UX</strong> (experiencia de usuario) es cómo se <em>siente</em> usar tu página. Los efectos visuales —sombras, bordes redondeados, transiciones— no son decoración: son <strong>señales</strong> que guían al usuario. Un buen diseño comunica qué es clicable, qué es importante y qué está pasando.</p>
+  </div>
+
+  <h3>✅ Las 5 reglas de oro de la UX</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Regla</th><th>Qué significa</th></tr></thead>
+      <tbody>
+        <tr><td>1. Feedback visual</td><td>Todo elemento interactivo debe reaccionar (hover, focus, active).</td></tr>
+        <tr><td>2. Consistencia</td><td>Mismos colores y efectos para acciones similares en toda la página.</td></tr>
+        <tr><td>3. Jerarquía visual</td><td>Sombras y tamaños para indicar qué es más importante.</td></tr>
+        <tr><td>4. Accesibilidad</td><td>Contraste suficiente y estados visibles para teclado y lector de pantalla.</td></tr>
+        <tr><td>5. Sutileza</td><td>Animaciones cortas y suaves, nunca bruscas ni excesivas.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Detecta la buena práctica</h3>
+  <p>Mira cada situación y decide si es una buena práctica de UX o no.</p>
+  <div class="simulador">
+    <div class="sim-head">🔍 Revisor de UX</div>
+    <div class="code-live" id="ux-code">
+&lt;button&gt;Enviar&lt;/button&gt;
+    </div>
+    <p style="margin-top:.8rem;">¿Este botón sigue buenas prácticas de UX?</p>
+    <div class="btn-row">
+      <button class="btn primary" id="ux-bien">✅ Está bien</button>
+      <button class="btn primary" id="ux-mal">❌ Tiene un problema</button>
+    </div>
+    <div class="caja-tip" id="ux-feedback" style="display:none;margin-top:1rem;">
+      <h4>👁️ Resultado</h4>
+      <p id="ux-feedback-txt"></p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El botón "muerto"</h4>
+    <p>Un botón que no cambia al pasar el mouse ni al hacer clic se siente <strong>roto</strong>. El usuario no sabe si funciona. Siempre agrega al menos un <code>:hover</code> y un <code>:active</code> a tus elementos interactivos. Es la señal mínima de que algo es clicable.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué es la UX?</p>
+      <button class="opcion" data-op="a">Un lenguaje de programación</button>
+      <button class="opcion" data-op="b">Un tipo de animación</button>
+      <button class="opcion" data-op="c">La experiencia de usuario: cómo se siente usar la página</button>
+      <button class="opcion" data-op="d">Un framework de CSS</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué un botón debe tener feedback visual?</p>
+      <button class="opcion" data-op="a">Para comunicar que es clicable y que responde</button>
+      <button class="opcion" data-op="b">Para que se vea más bonito</button>
+      <button class="opcion" data-op="c">Para que cargue más rápido</button>
+      <button class="opcion" data-op="d">No es necesario</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Checkpoint CSS" — 4 retos + cierre</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: pseudo-clases, transiciones, transformaciones, animaciones y UX. Al superarlos, recibirás tu insignia de <strong>Diseñador de Interfaces</strong> y tu proyecto quedará listo para recibir JavaScript.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🖱️ Empareja cada pseudo-clase con su estado</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">:hover</button>
+        <button class="ws-chip" data-mid="1b">:focus</button>
+        <button class="ws-chip" data-mid="1c">:active</button>
+        <button class="ws-chip" data-mid="1d">:disabled</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">El mouse está encima</button>
+        <button class="ws-chip" data-mid="1B">Tiene el foco del teclado</button>
+        <button class="ws-chip" data-mid="1C">Se está presionando</button>
+        <button class="ws-chip" data-mid="1D">Está deshabilitado</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">⏳ Ordena los pasos para animar un elemento</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> Definir @keyframes</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Aplicar animation al elemento</div>
+        <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> Definir duración y easing</div>
+        <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> Probar en el navegador</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🔄 Completa la transformación</span></div>
+    <p>Completa la función que agranda un elemento un 20%:</p>
+    <div class="ws-block">
+      <div class="code-live">
+.transformar {
+  transform: <input class="ws-input" data-ans="scale(1.2)" data-ws="3" placeholder="?">;
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa la UX</span></div>
+    <p>Un compañero diseñó un botón sin ningún estado. ¿Qué problema de UX tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+&lt;button&gt;Comprar&lt;/button&gt;
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">No da feedback visual: el usuario no sabe si es clicable</button>
+        <button class="ws-chip" data-mid="4B">El texto es demasiado corto</button>
+        <button class="ws-chip" data-mid="4C">El botón está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Checkpoint CSS superado, Diseñador de Interfaces!</h2>
+    <p class="lead">Ya sabes dar vida a tu interfaz con pseudo-clases, transiciones, transformaciones y animaciones. Tu página es responsive, tiene componentes estilizados y está lista para recibir JavaScript. Recuerda: <strong>CSS no solo decora: comunica estados y mejora la experiencia.</strong></p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🎨 Herramientas de Programación I · Clase 10 · Plataforma interactiva</div>
+  <div>Componentes · Animaciones · Checkpoint CSS · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

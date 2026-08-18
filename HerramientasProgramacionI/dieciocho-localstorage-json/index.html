@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>💾 Herramientas de Programación I · Clase 18 · Persistencia con localStorage y JSON</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">💾</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 18</h1>
+      <p class="subtitulo">Persistencia con localStorage y JSON · Guardar datos en el navegador</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">💾 ¿Qué es localStorage?</button>
+  <button class="btn-modulo" data-modulo="2">📥 setItem y getItem</button>
+  <button class="btn-modulo" data-modulo="3">🧩 JSON.stringify y parse</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🗑️ removeItem y clear</button>
+  <button class="btn-modulo" data-modulo="6">🔒 Limitaciones y seguridad</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>💾 ¡Bienvenido/a a la persistencia!</h2>
+    <p class="lead">Hasta ahora, todo lo que tu página guardaba en variables <strong>desaparecía al recargar</strong>. Hoy vas a aprender a guardar datos que <strong>sobreviven</strong> al cierre del navegador usando <strong>localStorage</strong> y <strong>JSON</strong>. Es el primer paso para que tus apps "recuerden" cosas.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">localStorage.setItem("nombre", "Javiera")</span></div>
+        <div class="out">undefined</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">localStorage.getItem("nombre")</span></div>
+        <div class="out">"Javiera"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd"># recargar la página...</span></div>
+        <div class="out">"Javiera"  ← ¡sigue ahí!</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Guardar y recuperar datos con localStorage, y convertir objetos a texto con JSON.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber qué es una variable y un objeto en JavaScript. Aquí aprenderás a <em>persistirlos</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es localStorage?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · setItem y getItem</td><td style="color:var(--morado-claro)">Guardar/leer</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · JSON.stringify y parse</td><td style="color:var(--ambar)">Objetos a texto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · removeItem y clear</td><td style="color:var(--verde)">Borrar</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Limitaciones y seguridad</td><td style="color:var(--morado)">Consejos</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic derecho → <strong>Inspeccionar</strong> → pestaña <strong>Application</strong> (o <strong>Almacenamiento</strong>) → <strong>Local Storage</strong>. ¿Cuántas claves guarda ese sitio? ¿Qué nombres tienen?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es localStorage? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>💾 ¿Qué es localStorage?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La memoria que no se olvida" — por qué los datos desaparecen y cómo evitarlo</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando declaras una variable en JavaScript, vive en la <strong>memoria RAM</strong> del navegador. Si recargas la página o cierras la pestaña, esa memoria se limpia y <strong>todo se pierde</strong>. El <strong>localStorage</strong> es un almacén <strong>persistente</strong>: guarda datos en el disco del navegador, y siguen ahí aunque cierres todo y vuelvas mañana.</p>
+    <p>Es como la diferencia entre escribir en una pizarra (se borra) y escribir en un cuaderno (se conserva).</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🧠 Memoria (variables)</h4>
+      <p>Vive en la RAM. Rápida, pero <strong>volátil</strong>: se borra al recargar o cerrar la página. Ideal para datos temporales.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>💾 Almacenamiento persistente</h4>
+      <p>Vive en el disco del navegador. <strong>Sobrevive</strong> a recargas y cierres. Ideal para preferencias, tareas, puntajes.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: La pizarra vs. el cuaderno</h3>
+  <p>Escribe algo en la "pizarra" (memoria) y en el "cuaderno" (localStorage). Luego toca <strong>Recargar</strong> y mira qué sobrevive.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧪 Memoria vs. persistencia</div>
+    <div class="state-panel">
+      <div class="state-title">Estado actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">🧠 Pizarra (memoria)</div><span class="sval" id="mem-val">—</span></div>
+        <div class="state-cell"><div class="label">💾 Cuaderno (localStorage)</div><span class="sval" id="ls-val">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="mem-escribir">✏️ Escribir en pizarra</button>
+      <button class="btn primary" id="ls-escribir">📓 Escribir en cuaderno</button>
+      <button class="btn ghost" id="mem-reload">🔄 Recargar</button>
+    </div>
+    <div class="caja-tip" id="mem-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="mem-feedback-txt">Escribe en ambos y luego recarga para ver la diferencia.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Dónde vive localStorage?</h4>
+    <p>El <code>localStorage</code> es un objeto global de JavaScript que guarda pares <strong>clave → valor</strong> como texto. Cada sitio web tiene su propio almacén: lo que guardas en una página no lo ve otra. Y se conserva por <strong>origen</strong> (dominio), no por pestaña.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué le pasa a una variable normal de JavaScript al recargar la página?</p>
+      <button class="opcion" data-op="a">Se guarda automáticamente</button>
+      <button class="opcion" data-op="b">Se pierde, porque vive en la memoria volátil</button>
+      <button class="opcion" data-op="c">Se convierte en JSON</button>
+      <button class="opcion" data-op="d">Se sube a internet</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué es localStorage?</p>
+      <button class="opcion" data-op="a">Un lenguaje de programación</button>
+      <button class="opcion" data-op="b">Una base de datos en la nube</button>
+      <button class="opcion" data-op="c">Un almacén persistente del navegador que guarda clave → valor</button>
+      <button class="opcion" data-op="d">Un tipo de variable</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: setItem y getItem →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📥 setItem y getItem</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Guardar y leer" — las dos funciones que usarás siempre</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Para guardar algo usas <code>localStorage.setItem(clave, valor)</code> y para leerlo <code>localStorage.getItem(clave)</code>. La <strong>clave</strong> es un nombre que tú eliges (como una etiqueta), y el <strong>valor</strong> siempre se guarda como <strong>texto</strong>.</p>
+  </div>
+
+  <h3>📥 Las dos funciones básicas</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Función</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>setItem(clave, valor)</code></td><td>Guarda (o sobrescribe) un valor bajo una clave</td><td><code>localStorage.setItem("nombre", "Javiera")</code></td></tr>
+        <tr><td><code>getItem(clave)</code></td><td>Lee el valor guardado; devuelve <code>null</code> si no existe</td><td><code>localStorage.getItem("nombre")</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Tu almacén en vivo</h3>
+  <p>Este simulador usa el <strong>localStorage real</strong> de tu navegador (con una clave de prueba). Guarda, lee y observa el contenido en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🗄️ Almacén localStorage — clave de prueba "demo-tarea"</div>
+    <div class="state-panel">
+      <div class="state-title">Contenido actual de localStorage</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Clave</div><span class="skey" id="alm-clave">demo-tarea</span></div>
+        <div class="state-cell"><div class="label">Valor</div><span class="sval" id="alm-valor">(vacío)</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <input class="ws-input" id="alm-input" placeholder="Escribe una tarea..." style="min-width:200px;">
+      <button class="btn primary" id="alm-guardar">💾 setItem</button>
+      <button class="btn primary" id="alm-leer">📖 getItem</button>
+      <button class="btn ghost" id="alm-limpiar">🧹 Limpiar demo</button>
+    </div>
+    <div class="caja-tip" id="alm-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="alm-feedback-txt">Escribe algo, guárdalo y luego recarga la página: el valor seguirá aquí.</p>
+    </div>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="setget">📋 Copiar</button>
+    </div>
+    <pre><code>// Guardar una tarea
+localStorage.setItem("tarea", "Hacer la tarea de matemáticas");
+
+// Leerla de vuelta
+const tarea = localStorage.getItem("tarea");
+console.log(tarea); // "Hacer la tarea de matemáticas"
+
+// Si la clave no existe, devuelve null
+const inexistente = localStorage.getItem("no-existe");
+console.log(inexistente); // null</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar que todo es texto</h4>
+    <p>Si guardas un número con <code>setItem("edad", 15)</code>, al leerlo con <code>getItem</code> recibirás el <strong>texto</strong> <code>"15"</code>, no el número <code>15</code>. Para operaciones matemáticas tendrás que convertirlo (por ejemplo con <code>Number()</code>).</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué función usas para guardar un valor en localStorage?</p>
+      <button class="opcion" data-op="a">setItem(clave, valor)</button>
+      <button class="opcion" data-op="b">getItem(clave)</button>
+      <button class="opcion" data-op="c">saveItem(clave)</button>
+      <button class="opcion" data-op="d">pushItem(valor)</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué devuelve getItem si la clave no existe?</p>
+      <button class="opcion" data-op="a">Un error</button>
+      <button class="opcion" data-op="b">Una cadena vacía ""</button>
+      <button class="opcion" data-op="c">null</button>
+      <button class="opcion" data-op="d">0</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: JSON.stringify y parse →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🧩 JSON.stringify y JSON.parse</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Objetos a texto y de vuelta" — guardar estructuras completas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>localStorage solo guarda <strong>texto</strong>. Pero tú quieres guardar un <strong>array de objetos</strong> (una lista de tareas, por ejemplo). Ahí entra <strong>JSON</strong>: un formato de texto que representa datos estructurados. <code>JSON.stringify()</code> convierte un objeto en texto, y <code>JSON.parse()</code> convierte ese texto de vuelta en objeto.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📦 JSON.stringify(objeto)</h4>
+      <p>Convierte un objeto o array en una <strong>cadena de texto</strong> JSON, lista para guardar en localStorage.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="fn">JSON.stringify</span>({ nombre: <span class="str">"Javiera"</span>, edad: 15 })
+<span class="cm">// → '{"nombre":"Javiera","edad":15}'</span>
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>📤 JSON.parse(texto)</h4>
+      <p>Convierte una cadena JSON de vuelta en un <strong>objeto o array</strong> utilizable en JavaScript.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="fn">JSON.parse</span>(<span class="str">'{"nombre":"Javiera","edad":15}'</span>)
+<span class="cm">// → { nombre: "Javiera", edad: 15 }</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El traductor JSON</h3>
+  <p>Escribe un objeto JavaScript y mira cómo se convierte a texto JSON y de vuelta.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔄 stringify ⇄ parse</div>
+    <div class="state-panel">
+      <div class="state-title">Resultado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Objeto original</div><span class="sval" id="json-obj">{ nombre: "Javiera", edad: 15 }</span></div>
+        <div class="state-cell"><div class="label">Texto JSON</div><span class="sval" id="json-txt">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="json-stringify">📦 stringify</button>
+      <button class="btn primary" id="json-parse">📤 parse</button>
+    </div>
+    <div class="caja-tip" id="json-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="json-feedback-txt">Toca "stringify" para ver el objeto convertido en texto JSON.</p>
+    </div>
+  </div>
+
+  <h3>💻 Guardar un array de objetos</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="json">📋 Copiar</button>
+    </div>
+    <pre><code>// Un array de objetos (tareas)
+const tareas = [
+  { id: 1, texto: "Estudiar", hecha: false },
+  { id: 2, texto: "Practicar", hecha: true }
+];
+
+// Guardar: convertir a texto y guardar
+localStorage.setItem("tareas", JSON.stringify(tareas));
+
+// Leer: recuperar el texto y convertirlo de vuelta
+const guardadas = JSON.parse(localStorage.getItem("tareas"));
+console.log(guardadas[0].texto); // "Estudiar"</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El patrón <code>JSON.stringify</code> al guardar y <code>JSON.parse</code> al leer es el <strong>más usado de la web</strong> para persistir datos. Lo verás en casi toda app que guarde listas, configuraciones o puntajes en el navegador.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace JSON.stringify()?</p>
+      <button class="opcion" data-op="a">Convierte texto en objeto</button>
+      <button class="opcion" data-op="b">Convierte un objeto en texto JSON</button>
+      <button class="opcion" data-op="c">Borra un dato de localStorage</button>
+      <button class="opcion" data-op="d">Ordena un array</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué necesitas JSON para guardar un array en localStorage?</p>
+      <button class="opcion" data-op="a">Porque localStorage solo guarda texto, y JSON convierte el array a texto</button>
+      <button class="opcion" data-op="b">Porque JSON es más rápido</button>
+      <button class="opcion" data-op="c">Porque localStorage no acepta arrays</button>
+      <button class="opcion" data-op="d">No se necesita, se guarda directo</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a para qué sirve JSON.stringify.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa la sigla "JSON"?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">JavaScript Object Notation</button>
+      <button class="trivia-opt" data-top="b">Java Simple Object Network</button>
+      <button class="trivia-opt" data-top="c">Just Some Object Names</button>
+      <button class="trivia-opt" data-top="d">JavaScript Online Node</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: removeItem y clear →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🗑️ removeItem y clear</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Borrar con cuidado" — eliminar un dato o todo el almacén</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Así como guardas y lees, también necesitas <strong>borrar</strong>. <code>removeItem(clave)</code> elimina una sola clave, y <code>clear()</code> vacía <strong>todo</strong> el almacén del sitio. Ojo: <code>clear()</code> no pide confirmación, así que úsalo con cuidado.</p>
+  </div>
+
+  <h3>🗑️ Las dos funciones de borrado</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Función</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>removeItem(clave)</code></td><td>Elimina solo la clave indicada</td><td><code>localStorage.removeItem("tarea")</code></td></tr>
+        <tr><td><code>clear()</code></td><td>Vacía todo el almacén del sitio</td><td><code>localStorage.clear()</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Borra con cuidado</h3>
+  <p>Guarda un par de valores y luego bórralos uno a uno o todos a la vez.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧹 Limpieza del almacén</div>
+    <div class="state-panel">
+      <div class="state-title">Claves guardadas (demo)</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">demo-a</div><span class="sval" id="bor-a">—</span></div>
+        <div class="state-cell"><div class="label">demo-b</div><span class="sval" id="bor-b">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="bor-guardar">💾 Guardar demo</button>
+      <button class="btn primary" id="bor-remove-a">🗑️ removeItem("demo-a")</button>
+      <button class="btn primary" id="bor-remove-b">🗑️ removeItem("demo-b")</button>
+      <button class="btn pink" id="bor-clear">💥 clear()</button>
+    </div>
+    <div class="caja-tip" id="bor-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="bor-feedback-txt">Guarda los valores y luego bórralos para ver la diferencia entre removeItem y clear.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ clear() no pide permiso</h4>
+    <p><code>localStorage.clear()</code> borra <strong>todas</strong> las claves de tu sitio de una sola vez, sin confirmación. En una app real, casi siempre preferirás <code>removeItem</code> para borrar solo lo que necesitas, y reservar <code>clear</code> para un botón de "borrar todo" bien señalizado.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué hace removeItem("nombre")?</p>
+      <button class="opcion" data-op="a">Borra todo el almacén</button>
+      <button class="opcion" data-op="b">Lee el valor de "nombre"</button>
+      <button class="opcion" data-op="c">Elimina solo la clave "nombre"</button>
+      <button class="opcion" data-op="d">Guarda "nombre"</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué hace clear()?</p>
+      <button class="opcion" data-op="a">Vacía todo el almacén del sitio</button>
+      <button class="opcion" data-op="b">Borra una sola clave</button>
+      <button class="opcion" data-op="c">Limpia la pantalla</button>
+      <button class="opcion" data-op="d">Reinicia el navegador</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Limitaciones y seguridad →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🔒 Limitaciones y seguridad</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Conocer los límites" — qué sí y qué no guardar en localStorage</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>localStorage es genial, pero <strong>no es una base de datos</strong>. Tiene límites de tamaño, solo guarda texto, y —lo más importante— <strong>no es seguro</strong> para datos sensibles. Saber qué guardar y qué no es parte de ser un buen desarrollador.</p>
+  </div>
+
+  <h3>🔒 Las 4 limitaciones clave</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Limitación</th><th>Qué significa</th></tr></thead>
+      <tbody>
+        <tr><td>1. Tamaño limitado</td><td>Unos 5–10 MB por sitio. No sirve para archivos grandes.</td></tr>
+        <tr><td>2. Solo texto</td><td>Guarda cadenas; para objetos necesitas JSON.</td></tr>
+        <tr><td>3. Solo en ese navegador</td><td>No se sincroniza entre dispositivos ni navegadores.</td></tr>
+        <tr><td>4. No es seguro</td><td>Cualquier script de la página puede leerlo. No guardes secretos.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-importante">
+    <h4>🚫 Nunca guardes datos sensibles</h4>
+    <p>Contraseñas, números de tarjeta, tokens de sesión o datos personales delicados <strong>no deben ir en localStorage</strong>. Cualquier código JavaScript que corra en la página (incluido un script malicioso) puede leerlos. Para eso existen soluciones seguras del lado del servidor.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Qué SÍ guardar?</h4>
+    <p>Preferencias de tema (claro/oscuro), tareas de una lista, puntajes de un juego, borradores de texto, configuraciones de la app. Datos <strong>no sensibles</strong> que mejoran la experiencia sin riesgo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuál de estos datos NO deberías guardar en localStorage?</p>
+      <button class="opcion" data-op="a">El tema claro/oscuro preferido</button>
+      <button class="opcion" data-op="b">Una lista de tareas</button>
+      <button class="opcion" data-op="c">Una contraseña</button>
+      <button class="opcion" data-op="d">El puntaje de un juego</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cuál es una limitación real de localStorage?</p>
+      <button class="opcion" data-op="a">Tiene un tamaño limitado (unos 5–10 MB)</button>
+      <button class="opcion" data-op="b">Solo funciona en celulares</button>
+      <button class="opcion" data-op="c">No puede guardar texto</button>
+      <button class="opcion" data-op="d">Se borra al recargar</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: localStorage, setItem/getItem, JSON y seguridad. Al superarlos, recibirás tu insignia de <strong>Guardián de Datos</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">💾 Empareja cada método con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">setItem()</button>
+        <button class="ws-chip" data-mid="1b">getItem()</button>
+        <button class="ws-chip" data-mid="1c">removeItem()</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Guardar un valor</button>
+        <button class="ws-chip" data-mid="1B">Leer un valor</button>
+        <button class="ws-chip" data-mid="1C">Borrar un valor</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📦 Ordena los pasos para guardar un array</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2stringify" draggable="true"><span class="ord-num">?</span> JSON.stringify(tareas)</div>
+        <div class="ws-order-item" data-oid="2set" draggable="true"><span class="ord-num">?</span> localStorage.setItem("tareas", ...)</div>
+        <div class="ws-order-item" data-oid="2get" draggable="true"><span class="ord-num">?</span> localStorage.getItem("tareas")</div>
+        <div class="ws-order-item" data-oid="2parse" draggable="true"><span class="ord-num">?</span> JSON.parse(...)</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🧩 Completa el código para guardar un array</span></div>
+    <p>Completa la función que falta para guardar el array como texto:</p>
+    <div class="ws-block">
+      <div class="code-live">
+const tareas = [{ texto: "Estudiar" }];
+localStorage.setItem("tareas", <input class="ws-input" data-ans="stringify" data-ws="3" placeholder="?">(tareas));
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código. ¿Qué error de seguridad tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+localStorage.setItem("contrasena", "miClaveSecreta123");
+localStorage.setItem("tarjeta", "1234-5678-9012");
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Guarda datos sensibles (contraseña y tarjeta) en localStorage</button>
+        <button class="ws-chip" data-mid="4B">Falta JSON.stringify</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Guardián de Datos!</h2>
+    <p class="lead">Ya sabes guardar datos que sobreviven a la recarga con localStorage, convertir objetos con JSON, y proteger la información sensible. Tu app ya puede "recordar" cosas. En la próxima clase conectaremos esto con eventos y formularios.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">💾 Herramientas de Programación I · Clase 18 · Plataforma interactiva</div>
+  <div>localStorage · JSON · Persistencia · Seguridad · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

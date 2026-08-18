@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🚀 Herramientas de Programación I · Clase 21 · Proyecto final</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🚀</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 21</h1>
+      <p class="subtitulo">Proyecto final · Filtros · Validaciones · UX · Despliegue</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🔍 Filtros</button>
+  <button class="btn-modulo" data-modulo="2">🔎 Buscador</button>
+  <button class="btn-modulo" data-modulo="3">🔢 Contador y mensajes</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">✅ Validaciones y accesibilidad</button>
+  <button class="btn-modulo" data-modulo="6">🌍 Despliegue</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🚀 ¡Bienvenido/a al Proyecto Final!</h2>
+    <p class="lead">Llegaste a la última clase. Hoy vas a convertir tu gestor de tareas en una <strong>aplicación completa</strong>: con filtros, buscador, contador, validaciones y mensajes de estado. Al final, sabrás cómo <strong>publicarla en internet</strong> para que cualquiera la use.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "un CRUD no es una app hasta que se siente bien"</span></div>
+        <div class="out">"un CRUD no es una app hasta que se siente bien"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://proyecto-final</span></div>
+        <div class="out">"El proyecto debe sentirse como una pequeña aplicación funcional."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Entregar un MVP: CRUD completo, persistencia con localStorage, interfaz responsive, validaciones y filtro o búsqueda.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Tu gestor de tareas de las clases anteriores. Aquí le pondrás los <em>toques finales</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Filtros</td><td style="color:var(--cian)">todas/pendientes/completadas</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Buscador por texto</td><td style="color:var(--morado-claro)">búsqueda en vivo</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Contador y mensajes</td><td style="color:var(--ambar)">estado de la app</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Validaciones y accesibilidad</td><td style="color:var(--verde)">UX</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Despliegue</td><td style="color:var(--morado)">GitHub Pages / Netlify</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran el gestor de tareas que han venido construyendo. Hagan una lista rápida de <strong>3 cosas que le faltan</strong> para sentirse "completo". ¿Filtros? ¿Buscador? ¿Mensajes? Compartan sus respuestas.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Filtros →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🔍 Filtros: todas, pendientes y completadas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Ver solo lo que importa" — cómo filtrar una lista de tareas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando tu lista de tareas crece, ver <strong>todo a la vez</strong> se vuelve un caos. Los <strong>filtros</strong> te dejan ver solo un subconjunto: todas, las pendientes o las completadas. Es una de las funciones que más hace sentir a tu app "de verdad".</p>
+    <p>En JavaScript, filtrar es usar el método <code>filter()</code> sobre un array: <code>tareas.filter(t =&gt; !t.completada)</code> devuelve solo las pendientes.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sin filtros</h4>
+      <p>Una lista larga donde se mezclan tareas hechas y por hacer. Cuesta encontrar lo que sigue.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Con filtros</h4>
+      <p>Botones "Todas", "Pendientes" y "Completadas" que muestran solo lo que pides.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El gestor de tareas con filtros</h3>
+  <p>Agrega tareas, márcalas como completadas y usa los filtros para ver solo lo que quieras. Todo se guarda en tu navegador.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📋 Gestor de tareas — filtros en acción</div>
+    <div id="gestor-tareas"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El filtro no borra tareas: solo <strong>oculta</strong> las que no coinciden. La lista completa sigue guardada en <code>localStorage</code>. Por eso puedes cambiar de filtro sin perder nada.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué método de JavaScript se usa para filtrar un array?</p>
+      <button class="opcion" data-op="a">map()</button>
+      <button class="opcion" data-op="b">filter()</button>
+      <button class="opcion" data-op="c">sort()</button>
+      <button class="opcion" data-op="d">push()</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué hace el filtro "pendientes"?</p>
+      <button class="opcion" data-op="a">Borra las tareas completadas</button>
+      <button class="opcion" data-op="b">Muestra todas las tareas</button>
+      <button class="opcion" data-op="c">Muestra solo las tareas sin completar</button>
+      <button class="opcion" data-op="d">Ordena las tareas por fecha</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Buscador por texto →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🔎 Buscador por texto</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Encuentra lo que buscas" — filtrar por lo que escribes</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El <strong>buscador</strong> es un filtro que reacciona a lo que escribes: a medida que tecleas, la lista se reduce a las tareas que <strong>contienen</strong> ese texto. Se combina con <code>includes()</code> y se actualiza en cada tecla (evento <code>input</code>).</p>
+  </div>
+
+  <h3>🎮 Simulador: Buscador en vivo</h3>
+  <p>Escribe en la caja y observa cómo la lista se filtra al instante. Prueba con "comprar", "estudiar" o "tarea".</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔎 Buscador de tareas — filtra mientras escribes</div>
+    <div id="buscador-tareas"></div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: distinguir mayúsculas</h4>
+    <p>Si buscas "comprar" y la tarea dice "Comprar", <code>includes()</code> no la encuentra porque distingue mayúsculas. La solución es convertir ambos a minúsculas: <code>texto.toLowerCase().includes(busqueda.toLowerCase())</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué método comprueba si un texto contiene otro?</p>
+      <button class="opcion" data-op="a">includes()</button>
+      <button class="opcion" data-op="b">split()</button>
+      <button class="opcion" data-op="c">join()</button>
+      <button class="opcion" data-op="d">trim()</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Por qué se usa toLowerCase() en un buscador?</p>
+      <button class="opcion" data-op="a">Para ordenar las tareas</button>
+      <button class="opcion" data-op="b">Para borrar espacios</button>
+      <button class="opcion" data-op="c">Para que la búsqueda no distinga mayúsculas</button>
+      <button class="opcion" data-op="d">Para contar caracteres</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Contador y mensajes →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔢 Contador y mensajes de estado</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La app te habla" — cuántas tareas hay y qué acaba de pasar</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una buena app <strong>te informa</strong>: cuántas tareas tienes, cuántas quedan pendientes, y qué acaba de ocurrir ("Tarea agregada", "Tarea eliminada"). El <strong>contador</strong> y los <strong>mensajes de estado</strong> son la diferencia entre un script y una aplicación.</p>
+  </div>
+
+  <h3>🎮 Simulador: Contador y mensajes</h3>
+  <p>Agrega y elimina tareas. Observa cómo cambia el contador y qué mensaje aparece cada vez.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔢 Contador y mensajes de estado</div>
+    <div id="contador-tareas"></div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>El mensaje "No hay tareas" es clave: cuando la lista está vacía, el usuario necesita saber que <strong>no hay nada que mostrar</strong>, no que la app se rompió. Es un detalle de UX que marca la diferencia.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Para qué sirve el contador de tareas?</p>
+      <button class="opcion" data-op="a">Para borrar tareas automáticamente</button>
+      <button class="opcion" data-op="b">Para mostrar cuántas tareas hay</button>
+      <button class="opcion" data-op="c">Para ordenar la lista</button>
+      <button class="opcion" data-op="d">Para guardar en localStorage</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué mensaje debería mostrarse cuando la lista está vacía?</p>
+      <button class="opcion" data-op="a">"No hay tareas"</button>
+      <button class="opcion" data-op="b">"Error 404"</button>
+      <button class="opcion" data-op="c">Nada, dejar la pantalla en blanco</button>
+      <button class="opcion" data-op="d">"Recargue la página"</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una función que le agregarías a tu app.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "MVP" en desarrollo de software?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Producto Mínimo Viable</button>
+      <button class="trivia-opt" data-top="b">Máquina Virtual Personal</button>
+      <button class="trivia-opt" data-top="c">Módulo Visual Principal</button>
+      <button class="trivia-opt" data-top="d">Método Variable de Programación</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Validaciones y accesibilidad →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>✅ Validaciones y accesibilidad</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Que no se rompa y que todos puedan usarla" — UX y buenas prácticas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Las <strong>validaciones</strong> evitan que el usuario meta datos inválidos: no dejar agregar una tarea vacía, recortar espacios con <code>trim()</code>, avisar con un mensaje claro. La <strong>accesibilidad</strong> hace que tu app la pueda usar cualquier persona: etiquetas <code>label</code>, atributos <code>aria</code>, contraste de colores y navegación por teclado.</p>
+  </div>
+
+  <h3>✅ Las 5 validaciones básicas</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Validación</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td>1. No vacío</td><td>No agregar una tarea sin texto.</td></tr>
+        <tr><td>2. trim()</td><td>Quitar espacios al inicio y al final.</td></tr>
+        <tr><td>3. Longitud mínima</td><td>Evitar tareas de 1 sola letra.</td></tr>
+        <tr><td>4. Mensaje claro</td><td>Decirle al usuario qué salió mal.</td></tr>
+        <tr><td>5. Foco</td><td>Devolver el cursor al campo con error.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>♿ Accesibilidad básica</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sin accesibilidad</h4>
+      <p>Botones sin texto, inputs sin <code>label</code>, colores sin contraste. Difícil para lectores de pantalla y teclado.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Con accesibilidad</h4>
+      <p>Cada campo tiene su <code>label</code>, los botones describen su acción y todo se puede usar con teclado.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: input sin label</h4>
+    <p>Un <code>&lt;input&gt;</code> sin <code>&lt;label&gt;</code> es invisible para un lector de pantalla: la persona no sabe qué debe escribir. Siempre asocia cada campo con su etiqueta usando el atributo <code>for</code>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué hace trim()?</p>
+      <button class="opcion" data-op="a">Convierte a mayúsculas</button>
+      <button class="opcion" data-op="b">Cuenta los caracteres</button>
+      <button class="opcion" data-op="c">Quita espacios al inicio y al final</button>
+      <button class="opcion" data-op="d">Ordena el texto</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Para qué sirve la etiqueta &lt;label&gt;?</p>
+      <button class="opcion" data-op="a">Asociar un texto descriptivo a un campo de formulario</button>
+      <button class="opcion" data-op="b">Poner color a un botón</button>
+      <button class="opcion" data-op="c">Guardar datos en localStorage</button>
+      <button class="opcion" data-op="d">Crear una lista</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Despliegue →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🌍 Despliegue: publica tu app</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Del navegador al mundo" — GitHub Pages y Netlify</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Tu app vive en tu computadora. Para que <strong>cualquiera</strong> la use desde su teléfono o PC, necesitas <strong>publicarla</strong> en internet. Como es un sitio estático (HTML + CSS + JS), hay servicios gratuitos que lo hacen en minutos.</p>
+  </div>
+
+  <h3>🌍 Dos opciones gratuitas</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🐙 GitHub Pages</h4>
+      <p>Subes tu código a un repositorio de GitHub y activas Pages. URL tipo <code>tunombre.github.io/mi-app</code>. Ideal si ya usas Git.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>⚡ Netlify</h4>
+      <p>Arrastras tu carpeta a netlify.com y listo. URL tipo <code>mi-app.netlify.app</code>. El más rápido para empezar.</p>
+    </div>
+  </div>
+
+  <h3>📦 Pasos para publicar en Netlify</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Paso</th><th>Qué hacer</th></tr></thead>
+      <tbody>
+        <tr><td>1. Prepara</td><td>Asegúrate de que tu <code>index.html</code> esté en la raíz de la carpeta.</td></tr>
+        <tr><td>2. Entra</td><td>Ve a netlify.com y crea una cuenta gratis.</td></tr>
+        <tr><td>3. Arrastra</td><td>Arrastra tu carpeta del proyecto a la zona de "Deploy".</td></tr>
+        <tr><td>4. Comparte</td><td>Netlify te da una URL. ¡Compártela con quien quieras!</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Antes de publicar, prueba tu app en <code>file://</code> y luego con <code>python3 -m http.server</code>. Si funciona en ambos, está lista para internet. Recuerda: <code>localStorage</code> es por navegador, así que cada visitante tendrá sus propias tareas.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es "desplegar" una app?</p>
+      <button class="opcion" data-op="a">Borrar el código</button>
+      <button class="opcion" data-op="b">Publicarla en internet para que otros la usen</button>
+      <button class="opcion" data-op="c">Comprimir los archivos</button>
+      <button class="opcion" data-op="d">Cambiarle los colores</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cuál es la forma más rápida de publicar un sitio estático?</p>
+      <button class="opcion" data-op="a">Arrastrar la carpeta a Netlify</button>
+      <button class="opcion" data-op="b">Enviarlo por correo</button>
+      <button class="opcion" data-op="c">Imprimirlo en papel</button>
+      <button class="opcion" data-op="d">Guardarlo en un USB</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: filtros, buscador, contador, validaciones y despliegue. Al superarlos, recibirás tu insignia de <strong>Desarrollador Full-Stack</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🔍 Empareja cada función con lo que hace</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Filtro "pendientes"</button>
+        <button class="ws-chip" data-mid="1b">Buscador</button>
+        <button class="ws-chip" data-mid="1c">Contador</button>
+        <button class="ws-chip" data-mid="1d">Validación</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Muestra solo tareas sin completar</button>
+        <button class="ws-chip" data-mid="1B">Encuentra tareas por texto</button>
+        <button class="ws-chip" data-mid="1C">Cuenta las tareas visibles</button>
+        <button class="ws-chip" data-mid="1D">Revisa que el texto no esté vacío</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena el flujo de crear una tarea</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2escribir" draggable="true"><span class="ord-num">?</span> Escribir el texto de la tarea</div>
+        <div class="ws-order-item" data-oid="2validar" draggable="true"><span class="ord-num">?</span> Validar que no esté vacío</div>
+        <div class="ws-order-item" data-oid="2guardar" draggable="true"><span class="ord-num">?</span> Guardar en localStorage</div>
+        <div class="ws-order-item" data-oid="2mostrar" draggable="true"><span class="ord-num">?</span> Mostrar la tarea en la lista</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📋 Completa el código del filtro</span></div>
+    <p>Completa el método que devuelve solo las tareas pendientes:</p>
+    <div class="ws-block">
+      <div class="code-live">
+const pendientes = tareas.<input class="ws-input" data-ans="filter" data-ws="3" placeholder="?">(t =&gt; !t.completada);
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código para agregar una tarea. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+function agregarTarea(texto) {
+  tareas.push({ texto: texto, completada: false });
+  guardar();
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">No valida que el texto esté vacío ni usa trim()</button>
+        <button class="ws-chip" data-mid="4B">El código está perfecto</button>
+        <button class="ws-chip" data-mid="4C">Falta un console.log</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Desarrollador Full-Stack!</h2>
+    <p class="lead">Tu gestor de tareas ya es una aplicación completa: CRUD, persistencia, filtros, buscador, contador, validaciones y accesibilidad. Y sabes publicarla en internet. El proyecto se siente como una pequeña aplicación funcional. ¡Felicidades!</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🚀 Herramientas de Programación I · Clase 21 · Plataforma interactiva</div>
+  <div>Proyecto final · Filtros · Validaciones · UX · Despliegue · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

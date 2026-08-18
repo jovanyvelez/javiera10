@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌐 Herramientas de Programación I · Clase 2 · HTML semántico</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🏗️</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 2</h1>
+      <p class="subtitulo">HTML semántico · Estructura de página · Listas · Enlaces</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🧱 ¿Qué es semántico?</button>
+  <button class="btn-modulo" data-modulo="2">📐 Etiquetas estructurales</button>
+  <button class="btn-modulo" data-modulo="3">📋 Listas y enlaces</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🏠 Landing page</button>
+  <button class="btn-modulo" data-modulo="6">🧭 Buenas prácticas</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🏗️ ¡Bienvenido/a a HTML semántico!</h2>
+    <p class="lead">En la clase 1 viste que HTML es la <strong>estructura</strong> de la página. Hoy vas a aprender a estructurarla <strong>bien</strong>: con etiquetas que le dicen al navegador (y a los buscadores, y a las personas con discapacidad) <em>qué es cada cosa</em>. Eso se llama <strong>HTML semántico</strong>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "&lt;div&gt; no es lo mismo que &lt;header&gt;"</span></div>
+        <div class="out">"&lt;div&gt; no es lo mismo que &lt;header&gt;"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Las etiquetas con significado hacen la web más clara para todos."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Estructurar una página con etiquetas semánticas: header, nav, main, section, article, aside y footer.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber qué es HTML y sus etiquetas básicas (h1, p, a). Aquí aprenderás a <em>organizar</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es HTML semántico?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Etiquetas estructurales</td><td style="color:var(--morado-claro)">header/nav/main</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Listas y enlaces</td><td style="color:var(--ambar)">ul/ol/a</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Landing page</td><td style="color:var(--verde)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Buenas prácticas</td><td style="color:var(--morado)">Consejos</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web (el portal del colegio, por ejemplo) y hagan clic derecho → <strong>Inspeccionar</strong>. Busquen las etiquetas <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code> y <code>&lt;footer&gt;</code>. ¿Las encuentran? ¿Cuántas hay de cada una?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es HTML semántico? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🧱 ¿Qué es HTML semántico?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Las etiquetas con significado" — por qué importa cómo nombras las cosas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina un libro sin títulos, sin capítulos, sin índice: solo párrafos uno tras otro. Podrías leerlo, pero sería un caos. El <strong>HTML semántico</strong> es ponerle títulos, capítulos y secciones a tu página: usar etiquetas que <strong>describen qué es cada parte</strong>, no solo cómo se ve.</p>
+    <p>Antes, la gente usaba <code>&lt;div&gt;</code> para todo: <code>&lt;div id="menu"&gt;</code>, <code>&lt;div id="pie"&gt;</code>. Funcionaba, pero el navegador no sabía qué era cada cosa. Hoy usamos etiquetas con nombre propio: <code>&lt;nav&gt;</code> para el menú, <code>&lt;footer&gt;</code> para el pie.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ HTML no semántico</h4>
+      <p>Todo son <code>&lt;div&gt;</code> y <code>&lt;span&gt;</code>. El navegador no distingue un menú de un pie de página. Difícil de leer y de mantener.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ HTML semántico</h4>
+      <p>Cada parte tiene su etiqueta: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>. Claro para humanos y máquinas.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El lector de pantalla</h3>
+  <p>Un <strong>lector de pantalla</strong> es un programa que lee la página en voz alta para personas ciegas. Con HTML semántico, puede "saltar" al menú o al contenido principal. Toca los botones para ver la diferencia.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔊 Lector de pantalla — ¿qué "ve" cada etiqueta?</div>
+    <div class="state-panel">
+      <div class="state-title">Etiqueta seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Etiqueta</div><span class="sval" id="sem-tag">—</span></div>
+        <div class="state-cell"><div class="label">Significado</div><span class="sval" id="sem-meaning">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-sem="header">🏠 header</button>
+      <button class="btn primary" data-sem="nav">🧭 nav</button>
+      <button class="btn primary" data-sem="main">📄 main</button>
+      <button class="btn primary" data-sem="section">📦 section</button>
+      <button class="btn primary" data-sem="article">📰 article</button>
+      <button class="btn primary" data-sem="aside">💬 aside</button>
+      <button class="btn primary" data-sem="footer">🦶 footer</button>
+    </div>
+    <div class="caja-tip" id="sem-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="sem-feedback-txt">Toca una etiqueta para ver qué significa para el navegador y el lector de pantalla.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>El HTML semántico ayuda a <strong>tres grupos</strong>: (1) los <strong>buscadores</strong> como Google, que entienden mejor tu página y la posicionan mejor; (2) las <strong>personas con discapacidad</strong>, que usan lectores de pantalla; y (3) <strong>tú mismo</strong>, cuando vuelvas a tu código en 6 meses y lo entiendas de un vistazo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es HTML semántico?</p>
+      <button class="opcion" data-op="a">Usar solo div y span para todo</button>
+      <button class="opcion" data-op="b">Usar etiquetas que describen el significado de cada parte</button>
+      <button class="opcion" data-op="c">Poner muchos colores a la página</button>
+      <button class="opcion" data-op="d">Escribir el código en inglés</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿A quién beneficia el HTML semántico?</p>
+      <button class="opcion" data-op="a">Solo a los diseñadores</button>
+      <button class="opcion" data-op="b">Solo a los programadores</button>
+      <button class="opcion" data-op="c">A buscadores, personas con discapacidad y a ti mismo</button>
+      <button class="opcion" data-op="d">A nadie, es solo estética</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Etiquetas estructurales →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📐 Etiquetas estructurales</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El esqueleto de la página" — header, nav, main, section, article, aside, footer</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una página web típica tiene un <strong>esqueleto</strong> que se repite en casi todos los sitios: una cabecera arriba, un menú, el contenido principal, quizás una barra lateral, y un pie abajo. HTML tiene una etiqueta para cada hueso de ese esqueleto.</p>
+  </div>
+
+  <h3>🦴 Los 7 huesos del esqueleto</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Etiqueta</th><th>Qué representa</th><th>¿Cuántas por página?</th></tr></thead>
+      <tbody>
+        <tr><td><code>&lt;header&gt;</code></td><td>Cabecera: logo, título, introducción</td><td>1 principal (o varias por sección)</td></tr>
+        <tr><td><code>&lt;nav&gt;</code></td><td>Menú de navegación (enlaces)</td><td>Las necesarias</td></tr>
+        <tr><td><code>&lt;main&gt;</code></td><td>Contenido principal y único</td><td>1 sola</td></tr>
+        <tr><td><code>&lt;section&gt;</code></td><td>Sección temática con su propio título</td><td>Varias</td></tr>
+        <tr><td><code>&lt;article&gt;</code></td><td>Contenido independiente (una noticia, un post)</td><td>Varias</td></tr>
+        <tr><td><code>&lt;aside&gt;</code></td><td>Contenido secundario (barra lateral, publicidad)</td><td>Varias</td></tr>
+        <tr><td><code>&lt;footer&gt;</code></td><td>Pie: créditos, contacto, enlaces legales</td><td>1 principal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Arma el esqueleto</h3>
+  <p>Ordena las etiquetas de arriba hacia abajo como aparecerían en una página real. Arrastra o usa las flechas.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🦴 Esqueleto de una página — orden correcto</div>
+    <div class="ws-block" data-ws-order="esqueleto">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="header" draggable="true"><span class="ord-num">?</span> &lt;header&gt; — cabecera</div>
+        <div class="ws-order-item" data-oid="nav" draggable="true"><span class="ord-num">?</span> &lt;nav&gt; — menú</div>
+        <div class="ws-order-item" data-oid="main" draggable="true"><span class="ord-num">?</span> &lt;main&gt; — contenido</div>
+        <div class="ws-order-item" data-oid="aside" draggable="true"><span class="ord-num">?</span> &lt;aside&gt; — barra lateral</div>
+        <div class="ws-order-item" data-oid="footer" draggable="true"><span class="ord-num">?</span> &lt;footer&gt; — pie</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="esqueleto">✓ Validar orden</button>
+      <div class="resultado-ws" id="ws-fb-esqueleto"></div>
+    </div>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="esqueleto">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Mi Blog&lt;/h1&gt;
+  &lt;/header&gt;
+
+  &lt;nav&gt;
+    &lt;a href="#inicio"&gt;Inicio&lt;/a&gt;
+    &lt;a href="#articulos"&gt;Artículos&lt;/a&gt;
+  &lt;/nav&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Últimas noticias&lt;/h2&gt;
+      &lt;article&gt;
+        &lt;h3&gt;Noticia 1&lt;/h3&gt;
+        &lt;p&gt;Contenido de la noticia...&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;aside&gt;
+    &lt;h3&gt;Publicidad&lt;/h3&gt;
+  &lt;/aside&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2026 Mi Blog&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: &lt;main&gt; repetido</h4>
+    <p>La etiqueta <code>&lt;main&gt;</code> debe aparecer <strong>una sola vez</strong> por página: es el contenido principal y único. Si pones dos <code>&lt;main&gt;</code>, el navegador y los lectores de pantalla se confunden. Todo lo demás puede repetirse.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué etiqueta representa el contenido principal y único de la página?</p>
+      <button class="opcion" data-op="a">&lt;main&gt;</button>
+      <button class="opcion" data-op="b">&lt;div&gt;</button>
+      <button class="opcion" data-op="c">&lt;aside&gt;</button>
+      <button class="opcion" data-op="d">&lt;span&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve &lt;aside&gt;?</p>
+      <button class="opcion" data-op="a">Para el menú principal</button>
+      <button class="opcion" data-op="b">Para el título de la página</button>
+      <button class="opcion" data-op="c">Para contenido secundario como una barra lateral</button>
+      <button class="opcion" data-op="d">Para el pie de página</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Listas y enlaces →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>📋 Listas y enlaces</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "ul, ol, li y a" — organizar información y conectar páginas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Dos herramientas que usas en casi toda página: las <strong>listas</strong> (para agrupar elementos) y los <strong>enlaces</strong> (para conectar páginas). Son simples, pero dominarlas bien es la base de cualquier menú, índice o pie de página.</p>
+  </div>
+
+  <h3>📋 Los dos tipos de lista</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔘 &lt;ul&gt; — lista desordenada</h4>
+      <p>Elementos con viñetas (puntos). Para cuando el orden <strong>no importa</strong>: ingredientes, características, menú.</p>
+      <div class="code-live" style="margin-top:.5rem">
+&lt;ul&gt;
+  &lt;li&gt;Manzana&lt;/li&gt;
+  &lt;li&gt;Pera&lt;/li&gt;
+  &lt;li&gt;Uva&lt;/li&gt;
+&lt;/ul&gt;
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🔢 &lt;ol&gt; — lista ordenada</h4>
+      <p>Elementos numerados. Para cuando el orden <strong>sí importa</strong>: pasos de una receta, ranking, instrucciones.</p>
+      <div class="code-live" style="margin-top:.5rem">
+&lt;ol&gt;
+  &lt;li&gt;Lavar&lt;/li&gt;
+  &lt;li&gt;Pelar&lt;/li&gt;
+  &lt;li&gt;Cortar&lt;/li&gt;
+&lt;/ol&gt;
+      </div>
+    </div>
+  </div>
+
+  <h3>🔗 Enlaces internos y externos</h3>
+  <p>Un enlace se crea con <code>&lt;a href="..."&gt;</code>. El <code>href</code> puede apuntar a otra página (externo) o a una sección de la misma página (interno, con <code>#</code>).</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>enlaces.html</div>
+      <button class="copy-btn" data-copy="enlaces">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;!-- Enlace externo (a otra página web) --&gt;
+&lt;a href="https://www.google.com"&gt;Ir a Google&lt;/a&gt;
+
+&lt;!-- Enlace interno (a una sección de esta misma página) --&gt;
+&lt;a href="#contacto"&gt;Ir a la sección de contacto&lt;/a&gt;
+
+&lt;!-- La sección destino necesita un id --&gt;
+&lt;section id="contacto"&gt;
+  &lt;h2&gt;Contacto&lt;/h2&gt;
+&lt;/section&gt;</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Clasifica lista o enlace</h3>
+  <p>Para cada caso, decide si usarías una lista desordenada, una lista ordenada o un enlace.</p>
+  <div class="simulador">
+    <div class="sim-head">🧩 ¿Qué usarías?</div>
+    <div class="ws-block" data-ws-match="listas">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="a">Los pasos de una receta</button>
+        <button class="ws-chip" data-mid="b">Los ingredientes de la receta</button>
+        <button class="ws-chip" data-mid="c">Un botón "Ver más" que lleva a otra página</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="A">&lt;ol&gt; lista ordenada</button>
+        <button class="ws-chip" data-mid="B">&lt;ul&gt; lista desordenada</button>
+        <button class="ws-chip" data-mid="C">&lt;a&gt; enlace</button>
+      </div>
+      <button class="btn primary" data-check-ws="listas">✓ Validar</button>
+      <div class="resultado-ws" id="ws-fb-listas"></div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Los menús de navegación casi siempre son una <code>&lt;ul&gt;</code> con enlaces <code>&lt;a&gt;</code> dentro de cada <code>&lt;li&gt;</code>. Es el patrón más usado de la web: una lista de enlaces.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué etiqueta usas para una lista donde el orden NO importa?</p>
+      <button class="opcion" data-op="a">&lt;ol&gt;</button>
+      <button class="opcion" data-op="b">&lt;ul&gt;</button>
+      <button class="opcion" data-op="c">&lt;li&gt;</button>
+      <button class="opcion" data-op="d">&lt;a&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué atributo de &lt;a&gt; indica a dónde lleva el enlace?</p>
+      <button class="opcion" data-op="a">href</button>
+      <button class="opcion" data-op="b">src</button>
+      <button class="opcion" data-op="c">alt</button>
+      <button class="opcion" data-op="d">id</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a una etiqueta semántica que aprendiste.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa la "M" de HTML?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Markup (marcado)</button>
+      <button class="trivia-opt" data-top="b">Machine (máquina)</button>
+      <button class="trivia-opt" data-top="c">Media (medios)</button>
+      <button class="trivia-opt" data-top="d">Mobile (móvil)</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Landing page →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🏠 Construye una landing page</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Manos a la obra" — estructura completa de una página de inicio</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Una <strong>landing page</strong> es la página de inicio de un producto o servicio: lo primero que ve un visitante. Tiene una estructura clásica: encabezado, menú, sección principal (hero), sección de servicios/tarjetas y pie de página. Vas a armarla con HTML semántico.</p>
+  </div>
+
+  <h3>🎮 Simulador: El constructor de landing pages</h3>
+  <p>Selecciona las secciones que quieres incluir y observa cómo se arma la estructura HTML en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🏠 Constructor de landing page</div>
+    <div class="btn-row">
+      <button class="btn primary" data-land="header">➕ header</button>
+      <button class="btn primary" data-land="nav">➕ nav</button>
+      <button class="btn primary" data-land="hero">➕ section (hero)</button>
+      <button class="btn primary" data-land="servicios">➕ section (servicios)</button>
+      <button class="btn primary" data-land="footer">➕ footer</button>
+      <button class="btn ghost" id="land-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="code-live" id="land-code" style="margin-top:1rem;">
+<span class="cm">&lt;!-- Toca los botones para construir la página --&gt;</span>
+    </div>
+  </div>
+
+  <h3>💻 La landing page completa</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>landing.html</div>
+      <button class="copy-btn" data-copy="landing">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Mi Producto&lt;/h1&gt;
+    &lt;p&gt;El mejor producto del mundo&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#inicio"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#servicios"&gt;Servicios&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#contacto"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+
+  &lt;main&gt;
+    &lt;section id="inicio"&gt;
+      &lt;h2&gt;Bienvenido&lt;/h2&gt;
+      &lt;p&gt;Descubre lo que hacemos.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="servicios"&gt;
+      &lt;h2&gt;Nuestros servicios&lt;/h2&gt;
+      &lt;article&gt;&lt;h3&gt;Servicio 1&lt;/h3&gt;&lt;/article&gt;
+      &lt;article&gt;&lt;h3&gt;Servicio 2&lt;/h3&gt;&lt;/article&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;© 2026 Mi Producto&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Con tu compañero/a, definan el contenido de su proyecto final: <strong>título</strong>, <strong>descripción</strong> y <strong>categorías posibles</strong>. Escríbanlo en un papel o en un archivo. Lo usarán en las próximas clases.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es una landing page?</p>
+      <button class="opcion" data-op="a">Una página de error 404</button>
+      <button class="opcion" data-op="b">La página de inicio de un producto o servicio</button>
+      <button class="opcion" data-op="c">Un archivo de estilos CSS</button>
+      <button class="opcion" data-op="d">Un lenguaje de programación</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Dónde va el menú de navegación?</p>
+      <button class="opcion" data-op="a">Dentro de &lt;nav&gt;</button>
+      <button class="opcion" data-op="b">Dentro de &lt;footer&gt;</button>
+      <button class="opcion" data-op="c">Dentro de &lt;aside&gt;</button>
+      <button class="opcion" data-op="d">No lleva etiqueta</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Buenas prácticas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🧭 Buenas prácticas de estructura</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Los hábitos de un buen desarrollador" — jerarquía, indentación y orden</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Escribir HTML que funcione es fácil. Escribir HTML que <strong>se entienda</strong> es un arte. Las buenas prácticas son hábitos que hacen tu código legible, mantenible y profesional.</p>
+  </div>
+
+  <h3>✅ Las 5 reglas de oro</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Regla</th><th>Qué significa</th></tr></thead>
+      <tbody>
+        <tr><td>1. Jerarquía de títulos</td><td>Un solo <code>&lt;h1&gt;</code> por página; luego <code>&lt;h2&gt;</code>, <code>&lt;h3&gt;</code> en orden, sin saltos.</td></tr>
+        <tr><td>2. Indentación</td><td>Sangrar el código anidado para ver la estructura de un vistazo.</td></tr>
+        <tr><td>3. Etiquetas que cierran</td><td>Cerrar siempre <code>&lt;/div&gt;</code>, <code>&lt;/section&gt;</code>, etc.</td></tr>
+        <tr><td>4. Nombres con sentido</td><td>Usar <code>id</code> y <code>class</code> descriptivos: <code>id="menu-principal"</code>, no <code>id="x1"</code>.</td></tr>
+        <tr><td>5. Un solo &lt;main&gt;</td><td>El contenido principal va en una única etiqueta <code>&lt;main&gt;</code>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Detecta el error</h3>
+  <p>Mira cada fragmento de código y decide si está bien o tiene un error de buenas prácticas.</p>
+  <div class="simulador">
+    <div class="sim-head">🔍 Revisor de código</div>
+    <div class="code-live" id="revisor-code">
+&lt;h1&gt;Título&lt;/h1&gt;
+&lt;h3&gt;Subtítulo&lt;/h3&gt;
+    </div>
+    <p style="margin-top:.8rem;">¿Este código sigue las buenas prácticas?</p>
+    <div class="btn-row">
+      <button class="btn primary" id="revisor-bien">✅ Está bien</button>
+      <button class="btn primary" id="revisor-mal">❌ Tiene un error</button>
+    </div>
+    <div class="caja-tip" id="revisor-feedback" style="display:none;margin-top:1rem;">
+      <h4>👁️ Resultado</h4>
+      <p id="revisor-feedback-txt"></p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El salto de títulos</h4>
+    <p>No saltes de <code>&lt;h1&gt;</code> a <code>&lt;h3&gt;</code> sin pasar por <code>&lt;h2&gt;</code>. Los títulos deben ir en orden jerárquico, como los capítulos de un libro: 1, 2, 3... no 1, 3, 5. Esto ayuda a los lectores de pantalla a entender la estructura.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuántos &lt;h1&gt; debería tener una página?</p>
+      <button class="opcion" data-op="a">Tantos como quieras</button>
+      <button class="opcion" data-op="b">Ninguno</button>
+      <button class="opcion" data-op="c">Uno solo</button>
+      <button class="opcion" data-op="d">Exactamente tres</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué es la indentación?</p>
+      <button class="opcion" data-op="a">Sangrar el código anidado para que se lea mejor</button>
+      <button class="opcion" data-op="b">Poner colores al código</button>
+      <button class="opcion" data-op="c">Comprimir el código en una línea</button>
+      <button class="opcion" data-op="d">Borrar los comentarios</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: semántica, etiquetas estructurales, listas/enlaces y buenas prácticas. Al superarlos, recibirás tu insignia de <strong>Arquitecto HTML</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🧱 Empareja cada etiqueta con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">&lt;header&gt;</button>
+        <button class="ws-chip" data-mid="1b">&lt;nav&gt;</button>
+        <button class="ws-chip" data-mid="1c">&lt;footer&gt;</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Cabecera con logo y título</button>
+        <button class="ws-chip" data-mid="1B">Menú de navegación</button>
+        <button class="ws-chip" data-mid="1C">Pie con créditos y contacto</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena el esqueleto de la página</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2header" draggable="true"><span class="ord-num">?</span> &lt;header&gt;</div>
+        <div class="ws-order-item" data-oid="2nav" draggable="true"><span class="ord-num">?</span> &lt;nav&gt;</div>
+        <div class="ws-order-item" data-oid="2main" draggable="true"><span class="ord-num">?</span> &lt;main&gt;</div>
+        <div class="ws-order-item" data-oid="2footer" draggable="true"><span class="ord-num">?</span> &lt;footer&gt;</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📋 Completa el código de la lista</span></div>
+    <p>Completa las etiquetas que faltan para crear una lista ordenada de 3 pasos:</p>
+    <div class="ws-block">
+      <div class="code-live">
+&lt;<input class="ws-input" data-ans="ol" data-ws="3" placeholder="?">&gt;
+  &lt;li&gt;Paso 1&lt;/li&gt;
+  &lt;li&gt;Paso 2&lt;/li&gt;
+  &lt;li&gt;Paso 3&lt;/li&gt;
+&lt;/<input class="ws-input" data-ans="ol" data-ws="3" placeholder="?">&gt;
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código. ¿Qué error de buenas prácticas tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+&lt;main&gt;
+  &lt;h1&gt;Mi página&lt;/h1&gt;
+&lt;/main&gt;
+&lt;main&gt;
+  &lt;h1&gt;Otra sección&lt;/h1&gt;
+&lt;/main&gt;
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Hay dos &lt;main&gt; y dos &lt;h1&gt; (debería haber uno solo de cada uno)</button>
+        <button class="ws-chip" data-mid="4B">Falta la etiqueta &lt;footer&gt;</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Arquitecto HTML!</h2>
+    <p class="lead">Ya sabes estructurar una página con etiquetas semánticas, usar listas y enlaces, y seguir buenas prácticas. Tu página ya tiene un esqueleto profesional. En la próxima clase le pondremos imágenes, tablas y multimedia.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 2 · Plataforma interactiva</div>
+  <div>HTML semántico · Estructura · Listas · Enlaces · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

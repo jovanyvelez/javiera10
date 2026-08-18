@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚙️ Herramientas de Programación I · Clase 13 · Funciones y arrays</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">⚙️</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 13</h1>
+      <p class="subtitulo">Funciones y arrays · Parámetros · Retorno · Métodos de array</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🔧 Funciones</button>
+  <button class="btn-modulo" data-modulo="2">📥 Parámetros y retorno</button>
+  <button class="btn-modulo" data-modulo="3">📦 Arrays</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🧰 Métodos de array</button>
+  <button class="btn-modulo" data-modulo="6">🔁 Recorrer arrays</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>⚙️ ¡Bienvenido/a a Funciones y arrays!</h2>
+    <p class="lead">Hasta ahora escribías código que se ejecuta de arriba hacia abajo, una sola vez. Hoy vas a aprender a <strong>reutilizar</strong> tu código con <strong>funciones</strong> y a guardar <strong>colecciones de datos</strong> con <strong>arrays</strong>. Son las dos herramientas que usarás en casi todo programa.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">node -e "console.log(saludar('Javi'))"</span></div>
+        <div class="out">"¡Hola, Javi!"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">node -e "console.log(['estudiar','dormir'].length)"</span></div>
+        <div class="out">2</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Las funciones reutilizan; los arrays organizan."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Crear funciones (clásicas y flecha), usar parámetros y retorno, y manipular arrays con push, pop, includes e indexOf.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber variables y tipos de datos. Aquí aprenderás a <em>organizar y reutilizar</em> tu código.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Funciones</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Parámetros y retorno</td><td style="color:var(--morado-claro)">argumentos/return</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Arrays</td><td style="color:var(--ambar)">índices/length</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Métodos de array</td><td style="color:var(--verde)">push/pop/includes/indexOf</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Recorrer arrays</td><td style="color:var(--morado)">for/for...of</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, piensen en una tarea que repiten todos los días (lavarse los dientes, hacer la tarea, revisar el celular). ¿Qué <strong>pasos</strong> tiene? ¿Qué <strong>datos</strong> necesita? Eso es una función: pasos reutilizables que reciben datos y devuelven un resultado.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Funciones →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🔧 Funciones</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Reutilizar en vez de repetir" — declaración clásica y funciones flecha</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>función</strong> es un bloque de código con un nombre, que puedes <strong>llamar</strong> (ejecutar) todas las veces que quieras. En vez de copiar y pegar el mismo código 10 veces, lo escribes una vez dentro de una función y lo invocas cuando lo necesites.</p>
+    <p>Hay dos formas principales de declararlas: la <strong>declaración clásica</strong> (con la palabra <code>function</code>) y la <strong>función flecha</strong> (con <code>=&gt;</code>), más corta y moderna.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📜 Declaración clásica</h4>
+      <p>Usa la palabra <code>function</code>, un nombre y llaves <code>{ }</code>. Es la forma más tradicional y legible.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">function</span> <span class="fn">saludar</span>() {
+  console.log(<span class="str">"¡Hola!"</span>);
+}
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>⚡ Función flecha</h4>
+      <p>Se guarda en una variable con <code>const</code> y usa la flecha <code>=&gt;</code>. Más corta, ideal para funciones simples.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">const</span> <span class="fn">saludar</span> = () =&gt; {
+  console.log(<span class="str">"¡Hola!"</span>);
+};
+      </div>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: La máquina de funciones</h3>
+  <p>Toca cada botón para ver cómo se escribe y qué hace cada tipo de función. Observa la sintaxis en el panel.</p>
+
+  <div class="simulador">
+    <div class="sim-head">⚙️ Máquina de funciones — ¿cómo se declara cada una?</div>
+    <div class="state-panel">
+      <div class="state-title">Función seleccionada</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Tipo</div><span class="sval" id="fn-tipo">—</span></div>
+        <div class="state-cell"><div class="label">Sintaxis</div><span class="sval" id="fn-sintaxis">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-fn="clasica">📜 Clásica</button>
+      <button class="btn primary" data-fn="flecha">⚡ Flecha</button>
+      <button class="btn primary" data-fn="anonima">🎭 Anónima</button>
+    </div>
+    <div class="caja-tip" id="fn-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="fn-feedback-txt">Toca un tipo de función para ver su sintaxis y para qué sirve.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Las funciones son la base de la <strong>reutilización</strong>. Un programa real tiene decenas de funciones: una para validar, otra para guardar, otra para mostrar. Sin funciones, tendrías que repetir el mismo código una y otra vez, y corregir un error significaría cambiarlo en 20 lugares.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es una función?</p>
+      <button class="opcion" data-op="a">Un tipo de variable numérica</button>
+      <button class="opcion" data-op="b">Un bloque de código con nombre que se puede reutilizar</button>
+      <button class="opcion" data-op="c">Un archivo de estilos CSS</button>
+      <button class="opcion" data-op="d">Un error del navegador</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué palabra clave usa la declaración clásica de una función?</p>
+      <button class="opcion" data-op="a">const</button>
+      <button class="opcion" data-op="b">let</button>
+      <button class="opcion" data-op="c">function</button>
+      <button class="opcion" data-op="d">array</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Parámetros y retorno →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📥 Parámetros y retorno</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Entran datos, sale un resultado" — argumentos, parámetros y return</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una función puede <strong>recibir datos</strong> (llamados <strong>parámetros</strong>) y <strong>devolver un resultado</strong> (con la palabra <code>return</code>). Los parámetros van entre los paréntesis; el <code>return</code> es lo que la función "entrega" a quien la llamó.</p>
+  </div>
+
+  <h3>📥 Parámetros vs. retorno</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Concepto</th><th>Qué es</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>parámetro</code></td><td>Dato que la función recibe entre paréntesis</td><td><code>function sumar(a, b)</code></td></tr>
+        <tr><td><code>argumento</code></td><td>Valor real que le pasas al llamar</td><td><code>sumar(3, 5)</code></td></tr>
+        <tr><td><code>return</code></td><td>Valor que la función devuelve</td><td><code>return a + b;</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: La calculadora de funciones</h3>
+  <p>Escribe dos números y elige una operación. Verás cómo la función recibe los parámetros y devuelve el resultado.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧮 Calculadora — parámetros y retorno en acción</div>
+    <div class="state-panel">
+      <div class="state-title">Resultado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Llamada</div><span class="sval" id="calc-llamada">—</span></div>
+        <div class="state-cell"><div class="label">Retorno</div><span class="sval" id="calc-retorno">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <input class="ws-input" id="calc-a" placeholder="a" style="min-width:60px;">
+      <input class="ws-input" id="calc-b" placeholder="b" style="min-width:60px;">
+      <button class="btn primary" data-op="suma">➕ sumar</button>
+      <button class="btn primary" data-op="resta">➖ restar</button>
+      <button class="btn primary" data-op="multi">✖️ multiplicar</button>
+    </div>
+    <div class="caja-tip" id="calc-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="calc-feedback-txt">Escribe dos números y toca una operación para ver el retorno.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar el return</h4>
+    <p>Si una función no tiene <code>return</code>, devuelve <code>undefined</code> (nada). Muchas veces escribes la función, la llamas... y no pasa nada. Revisa siempre: ¿mi función <strong>devuelve</strong> algo con <code>return</code>?</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Dónde van los parámetros de una función?</p>
+      <button class="opcion" data-op="a">Entre los paréntesis</button>
+      <button class="opcion" data-op="b">Entre las llaves</button>
+      <button class="opcion" data-op="c">Después del return</button>
+      <button class="opcion" data-op="d">No llevan parámetros</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué palabra clave devuelve un resultado desde la función?</p>
+      <button class="opcion" data-op="a">console.log</button>
+      <button class="opcion" data-op="b">function</button>
+      <button class="opcion" data-op="c">return</button>
+      <button class="opcion" data-op="d">push</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Arrays →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>📦 Arrays</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Una caja con muchos compartimentos" — creación, índices y length</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>array</strong> (o arreglo) es una lista ordenada de valores guardados en una sola variable. Se crea con corchetes <code>[ ]</code> y cada elemento tiene una <strong>posición</strong> llamada <strong>índice</strong>, que empieza en <code>0</code>.</p>
+  </div>
+
+  <h3>📦 Anatomía de un array</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>arrays.js</div>
+      <button class="copy-btn" data-copy="arrays">📋 Copiar</button>
+    </div>
+    <pre><code>// Crear un array de tareas
+const tareas = ["estudiar", "dormir", "comer"];
+
+// Acceder por índice (empieza en 0)
+console.log(tareas[0]);   // "estudiar"
+console.log(tareas[1]);   // "dormir"
+
+// Saber cuántos elementos tiene
+console.log(tareas.length);  // 3</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Explora el array</h3>
+  <p>Toca cada índice para ver qué elemento guarda. Observa que el primer elemento está en el índice <code>0</code>.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Array de frutas — índices y length</div>
+    <div class="state-panel">
+      <div class="state-title">Elemento seleccionado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Índice</div><span class="sval" id="arr-indice">—</span></div>
+        <div class="state-cell"><div class="label">Valor</div><span class="sval" id="arr-valor">—</span></div>
+        <div class="state-cell"><div class="label">length</div><span class="sval" id="arr-length">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-idx="0">[0]</button>
+      <button class="btn primary" data-idx="1">[1]</button>
+      <button class="btn primary" data-idx="2">[2]</button>
+      <button class="btn primary" data-idx="3">[3]</button>
+    </div>
+    <div class="caja-tip" id="arr-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="arr-feedback-txt">Toca un índice para ver qué elemento guarda el array.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: el índice 0</h4>
+    <p>Los arrays empiezan a contar en <code>0</code>, no en <code>1</code>. El primer elemento es <code>array[0]</code>, el segundo es <code>array[1]</code>, y el último es <code>array[array.length - 1]</code>. Olvidar esto es el error más frecuente al trabajar con arrays.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Con qué símbolos se crea un array?</p>
+      <button class="opcion" data-op="a">Con llaves { }</button>
+      <button class="opcion" data-op="b">Con corchetes [ ]</button>
+      <button class="opcion" data-op="c">Con paréntesis ( )</button>
+      <button class="opcion" data-op="d">Con comillas " "</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿En qué índice está el primer elemento de un array?</p>
+      <button class="opcion" data-op="a">0</button>
+      <button class="opcion" data-op="b">1</button>
+      <button class="opcion" data-op="c">-1</button>
+      <button class="opcion" data-op="d">length</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué es un array y para qué sirve.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿En qué índice empieza a contar un array en JavaScript?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">0</button>
+      <button class="trivia-opt" data-top="b">1</button>
+      <button class="trivia-opt" data-top="c">-1</button>
+      <button class="trivia-opt" data-top="d">Depende del array</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Métodos de array →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🧰 Métodos de array: push, pop, includes, indexOf</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Agregar, quitar y buscar" — las herramientas del CRUD</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Los arrays tienen <strong>métodos</strong> (funciones propias) para manipularlos. Los cuatro más usados son: <code>push</code> (agregar al final), <code>pop</code> (quitar el último), <code>includes</code> (¿existe este elemento?) e <code>indexOf</code> (¿en qué índice está?).</p>
+  </div>
+
+  <h3>🧰 Los 4 métodos esenciales</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Método</th><th>Qué hace</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td><code>push(x)</code></td><td>Agrega <code>x</code> al final del array</td><td><code>tareas.push("leer")</code></td></tr>
+        <tr><td><code>pop()</code></td><td>Quita y devuelve el último elemento</td><td><code>tareas.pop()</code></td></tr>
+        <tr><td><code>includes(x)</code></td><td>Devuelve <code>true</code> si <code>x</code> está en el array</td><td><code>tareas.includes("leer")</code></td></tr>
+        <tr><td><code>indexOf(x)</code></td><td>Devuelve el índice de <code>x</code> (o <code>-1</code> si no está)</td><td><code>tareas.indexOf("leer")</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: Gestor de lista de tareas</h3>
+  <p>Este es un mini-CRUD en consola. Agrega y quita tareas del array, y observa cómo cambia en tiempo real. ¡Es exactamente lo que harás en tu proyecto final!</p>
+
+  <div class="simulador">
+    <div class="sim-head">📝 Gestor de tareas — push, pop, includes, indexOf</div>
+    <div class="state-panel">
+      <div class="state-title">Array actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">tareas</div><span class="sval" id="tareas-array">[]</span></div>
+        <div class="state-cell"><div class="label">length</div><span class="sval" id="tareas-length">0</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <input class="ws-input" id="tarea-input" placeholder="nueva tarea" style="min-width:140px;">
+      <button class="btn primary" id="tarea-push">➕ push</button>
+      <button class="btn primary" id="tarea-pop">➖ pop</button>
+      <button class="btn primary" id="tarea-includes">🔍 includes</button>
+      <button class="btn primary" id="tarea-indexof">🔎 indexOf</button>
+    </div>
+    <div class="code-live" id="tareas-log" style="margin-top:1rem;min-height:80px;">
+<span class="cm">// El array de tareas aparecerá aquí</span>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Estos cuatro métodos son la base del <strong>CRUD</strong> (Crear, Leer, Actualizar, Borrar). Con <code>push</code> creas, con <code>includes</code>/<code>indexOf</code> lees/buscas, y con <code>pop</code> borras. Los usarás en el proyecto final para manejar tu lista de datos.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué método agrega un elemento al final del array?</p>
+      <button class="opcion" data-op="a">pop()</button>
+      <button class="opcion" data-op="b">push()</button>
+      <button class="opcion" data-op="c">includes()</button>
+      <button class="opcion" data-op="d">indexOf()</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué devuelve indexOf() si el elemento NO está en el array?</p>
+      <button class="opcion" data-op="a">0</button>
+      <button class="opcion" data-op="b">null</button>
+      <button class="opcion" data-op="c">-1</button>
+      <button class="opcion" data-op="d">false</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Recorrer arrays →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🔁 Recorrer arrays con for y for...of</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Visitar cada elemento" — bucles para leer todo el array</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Muchas veces necesitas <strong>recorrer</strong> un array: visitar cada elemento uno por uno para mostrarlo, sumarlo o transformarlo. Hay dos formas principales: el bucle <code>for</code> clásico (con índice) y el bucle <code>for...of</code> (más simple, recorre los valores directamente).</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔢 for clásico</h4>
+      <p>Usa un índice <code>i</code> que va de <code>0</code> a <code>length - 1</code>. Te da control total sobre la posición.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt; tareas.length; i++) {
+  console.log(tareas[i]);
+}
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>⚡ for...of</h4>
+      <p>Recorre los <strong>valores</strong> directamente, sin índice. Más corto y legible cuando no necesitas la posición.</p>
+      <div class="code-live" style="margin-top:.5rem">
+<span class="kw">for</span> (<span class="kw">const</span> tarea <span class="kw">of</span> tareas) {
+  console.log(tarea);
+}
+      </div>
+    </div>
+  </div>
+
+  <h3>💻 Código de ejemplo: mostrar tareas en consola</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>mostrarTareas.js</div>
+      <button class="copy-btn" data-copy="recorrer">📋 Copiar</button>
+    </div>
+    <pre><code>const tareas = ["estudiar", "dormir", "comer"];
+
+// Función que muestra todas las tareas en consola
+function mostrarTareas(lista) {
+  for (const tarea of lista) {
+    console.log("📌 " + tarea);
+  }
+}
+
+mostrarTareas(tareas);
+// 📌 estudiar
+// 📌 dormir
+// 📌 comer</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Cuál usar?</h4>
+    <p>Si solo necesitas <strong>leer</strong> los valores, usa <code>for...of</code>: es más limpio. Si necesitas <strong>saber el índice</strong> (por ejemplo, para modificar un elemento en su posición), usa el <code>for</code> clásico.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué bucle recorre los valores directamente, sin índice?</p>
+      <button class="opcion" data-op="a">for...of</button>
+      <button class="opcion" data-op="b">while</button>
+      <button class="opcion" data-op="c">if...else</button>
+      <button class="opcion" data-op="d">switch</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> En el for clásico, ¿hasta dónde llega el índice i?</p>
+      <button class="opcion" data-op="a">Hasta length</button>
+      <button class="opcion" data-op="b">Hasta length + 1</button>
+      <button class="opcion" data-op="c">Hasta length - 1</button>
+      <button class="opcion" data-op="d">Hasta 0</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: funciones, parámetros, retorno, arrays y sus métodos. Al superarlos, recibirás tu insignia de <strong>Maestro de Funciones</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🧰 Empareja cada método con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">push()</button>
+        <button class="ws-chip" data-mid="1b">pop()</button>
+        <button class="ws-chip" data-mid="1c">includes()</button>
+        <button class="ws-chip" data-mid="1d">indexOf()</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Agrega un elemento al final</button>
+        <button class="ws-chip" data-mid="1B">Quita el último elemento</button>
+        <button class="ws-chip" data-mid="1C">¿Existe este elemento?</button>
+        <button class="ws-chip" data-mid="1D">¿En qué índice está?</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena los pasos para crear una función</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> Escribir la palabra function</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Poner el nombre de la función</div>
+        <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> Escribir los parámetros entre paréntesis</div>
+        <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> Escribir el cuerpo entre llaves { }</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📥 Completa la función que suma</span></div>
+    <p>Completa las palabras que faltan para crear una función que sume dos números y devuelva el resultado:</p>
+    <div class="ws-block">
+      <div class="code-live">
+<span class="kw">function</span> <span class="fn">sumar</span>(a, b) {
+  <input class="ws-input" data-ans="return" data-ws="3" placeholder="?"> a + b;
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este código para mostrar tareas. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+<span class="kw">const</span> tareas = [<span class="str">"estudiar"</span>, <span class="str">"dormir"</span>];
+<span class="kw">for</span> (<span class="kw">let</span> i = 0; i &lt;= tareas.length; i++) {
+  console.log(tareas[i]);
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">El bucle usa &lt;= y se sale del array (debería ser &lt;)</button>
+        <button class="ws-chip" data-mid="4B">Falta la palabra function</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro de Funciones!</h2>
+    <p class="lead">Ya sabes crear funciones (clásicas y flecha), usar parámetros y retorno, y manipular arrays con push, pop, includes e indexOf. Los arrays serán fundamentales para el CRUD de tu proyecto final. En la próxima clase los pondremos a trabajar de verdad.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">⚙️ Herramientas de Programación I · Clase 13 · Plataforma interactiva</div>
+  <div>Funciones · Parámetros · Retorno · Arrays · Métodos · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

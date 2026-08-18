@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📝 Herramientas de Programación I · Clase 17 · Formularios con JavaScript</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">📝</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 17</h1>
+      <p class="subtitulo">Formularios con JavaScript · FormData · Validación · Checkpoint de JS</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📥 Capturar datos</button>
+  <button class="btn-modulo" data-modulo="2">📦 FormData</button>
+  <button class="btn-modulo" data-modulo="3">✅ Validación básica</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🗂️ Agregar a un array</button>
+  <button class="btn-modulo" data-modulo="6">🖼️ Renderizar la lista</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>📝 ¡Bienvenido/a a Formularios con JavaScript!</h2>
+    <p class="lead">Hasta ahora tus páginas eran de "solo lectura": mostraban información. Hoy vas a hacer que <strong>hablen contigo</strong>. Un formulario es la forma en que el usuario le <em>entrega datos</em> a tu programa, y JavaScript es quien los <strong>captura, valida y guarda</strong>. Esta clase es tu <strong>checkpoint de JavaScript</strong>: aquí se juntan variables, funciones, objetos y arrays.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "un formulario sin JS es un buzón sin cartero"</span></div>
+        <div class="out">"un formulario sin JS es un buzón sin cartero"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Capturar, validar, guardar y mostrar: el ciclo de vida de un dato."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Capturar datos de un formulario, validarlos, guardarlos en un array y renderizarlos en el HTML.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber variables, funciones, objetos y arrays. Aquí los pondrás a <em>trabajar juntos</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Capturar datos de formularios</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · FormData</td><td style="color:var(--morado-claro)">API del navegador</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Validación básica</td><td style="color:var(--ambar)">Errores y reglas</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Agregar objetos a un array</td><td style="color:var(--verde)">push()</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Renderizar la lista</td><td style="color:var(--morado)">innerHTML</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Checkpoint</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página con un formulario (el buscador de Google, el login del colegio). Hagan clic derecho → <strong>Inspeccionar</strong> y busquen las etiquetas <code>&lt;form&gt;</code>, <code>&lt;input&gt;</code> y <code>&lt;button&gt;</code>. ¿Cuántos campos tiene? ¿Qué pasa si dejan un campo vacío y envían?</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Capturar datos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📥 Capturar datos de formularios</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El buzón del cartero" — cómo leer lo que el usuario escribe</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un formulario HTML (<code>&lt;form&gt;</code>) tiene campos (<code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>) donde el usuario escribe. Pero el HTML <strong>solo dibuja los campos</strong>: no hace nada con lo que escriben. Para "leer" lo que el usuario puso, JavaScript usa la propiedad <code>.value</code>.</p>
+    <p>La regla es simple: <strong>cada campo tiene un <code>id</code></strong>, y con <code>document.getElementById("id").value</code> obtienes el texto que el usuario escribió.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ HTML solo</h4>
+      <p>El formulario se ve bonito, pero al enviar no pasa nada. Los datos se pierden: nadie los lee.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ HTML + JavaScript</h4>
+      <p>Con <code>.value</code> lees cada campo y puedes guardarlo, mostrarlo o procesarlo.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Captura en vivo</h3>
+  <p>Escribe en el campo y observa cómo JavaScript lee tu texto <strong>en tiempo real</strong> con <code>.value</code>.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📥 Captura con .value — escribe y mira</div>
+    <div class="state-panel">
+      <div class="state-title">Estado de la captura</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Lo que escribiste</div><span class="sval" id="cap-output">—</span></div>
+        <div class="state-cell"><div class="label">Cantidad de caracteres</div><span class="sval" id="cap-count">0</span></div>
+      </div>
+    </div>
+    <input type="text" id="cap-input" placeholder="Escribe algo aquí..." style="width:100%;padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;font-size:1rem;">
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p>El código que hace esto es: <code>document.getElementById("cap-input").value</code>. Cada tecla dispara un evento <code>input</code> que vuelve a leer el valor.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Capturar datos es el <strong>primer paso de todo</strong>: sin leer lo que el usuario escribe, no puedes validar, guardar ni mostrar nada. Es la "C" de CRUD (Create): el dato <strong>entra</strong> a tu programa.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad de JavaScript lee el texto que el usuario escribió en un input?</p>
+      <button class="opcion" data-op="a">.texto</button>
+      <button class="opcion" data-op="b">.value</button>
+      <button class="opcion" data-op="c">.contenido</button>
+      <button class="opcion" data-op="d">.dato</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué método usas para obtener un campo por su id?</p>
+      <button class="opcion" data-op="a">document.find("id")</button>
+      <button class="opcion" data-op="b">document.query("id")</button>
+      <button class="opcion" data-op="c">document.getElementById("id")</button>
+      <button class="opcion" data-op="d">document.get("id")</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: FormData →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📦 FormData</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El cartero que recoge todo de una vez" — capturar todos los campos juntos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Leer campo por campo con <code>.value</code> funciona, pero si tu formulario tiene 10 campos, es tedioso. <strong><code>FormData</code></strong> es un objeto del navegador que <strong>recoge todos los campos de un formulario de una sola vez</strong>.</p>
+    <p>Se crea así: <code>new FormData(formulario)</code>. Luego puedes recorrerlo con <code>for...of</code> o leer un campo con <code>.get("nombre")</code>.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>formdata.js</div>
+      <button class="copy-btn" data-copy="formdata">📋 Copiar</button>
+    </div>
+    <pre><code>const form = document.getElementById("miFormulario");
+
+form.addEventListener("submit", (evento) =&gt; {
+  evento.preventDefault(); // evita que la página se recargue
+
+  const datos = new FormData(form);
+
+  // Leer un campo específico
+  const nombre = datos.get("nombre");
+
+  // Recorrer todos los campos
+  for (const [clave, valor] of datos) {
+    console.log(clave, "=", valor);
+  }
+});</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: FormData en acción</h3>
+  <p>Llena los campos y pulsa "Leer con FormData". Verás cómo recoge todo de una vez.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 FormData — recoge todos los campos</div>
+    <form id="fd-form" style="display:grid;gap:0.8rem;">
+      <input type="text" name="nombre" id="fd-nombre" placeholder="Tu nombre" style="padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;">
+      <input type="email" name="email" id="fd-email" placeholder="Tu correo" style="padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;">
+      <div class="btn-row">
+        <button type="submit" class="btn primary" id="fd-btn">📦 Leer con FormData</button>
+      </div>
+    </form>
+    <div class="state-panel" style="margin-top:1rem;">
+      <div class="state-title">Campos capturados</div>
+      <div class="state-grid" id="fd-output">
+        <div class="state-cell"><div class="label">nombre</div><span class="sval">—</span></div>
+        <div class="state-cell"><div class="label">email</div><span class="sval">—</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ No olvides preventDefault()</h4>
+    <p>Por defecto, al enviar un formulario la página <strong>se recarga</strong> y pierdes todo. Para que JavaScript tome el control, debes llamar a <code>evento.preventDefault()</code> dentro del evento <code>submit</code>. Es el error más común al empezar.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace FormData?</p>
+      <button class="opcion" data-op="a">Recoge todos los campos de un formulario de una vez</button>
+      <button class="opcion" data-op="b">Borra el formulario</button>
+      <button class="opcion" data-op="c">Valida los datos automáticamente</button>
+      <button class="opcion" data-op="d">Envía el formulario a un servidor</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué método evita que la página se recargue al enviar?</p>
+      <button class="opcion" data-op="a">evento.stop()</button>
+      <button class="opcion" data-op="b">evento.cancel()</button>
+      <button class="opcion" data-op="c">evento.preventDefault()</button>
+      <button class="opcion" data-op="d">evento.halt()</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Validación básica →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>✅ Validación básica</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El filtro de calidad" — campos vacíos, longitud mínima y tipo de dato</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>No puedes confiar en que el usuario llene todo bien. La <strong>validación</strong> es revisar los datos <strong>antes</strong> de usarlos. Las tres reglas básicas son:</p>
+    <ul>
+      <li><strong>Campos vacíos</strong>: ¿el usuario dejó algo en blanco?</li>
+      <li><strong>Longitud mínima</strong>: ¿el texto es demasiado corto?</li>
+      <li><strong>Tipo de dato</strong>: ¿es un correo válido? ¿es un número?</li>
+    </ul>
+    <p>Si algo falla, muestras un <strong>mensaje de error</strong> y no dejas pasar el dato.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>validar.js</div>
+      <button class="copy-btn" data-copy="validar">📋 Copiar</button>
+    </div>
+    <pre><code>function validar(titulo, email) {
+  // 1. Campo vacío
+  if (titulo === "") {
+    return "El título no puede estar vacío.";
+  }
+  // 2. Longitud mínima
+  if (titulo.length &lt; 3) {
+    return "El título debe tener al menos 3 caracteres.";
+  }
+  // 3. Tipo de dato (correo)
+  if (!email.includes("@")) {
+    return "El correo no es válido.";
+  }
+  return null; // null = sin errores
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Valida una tarea</h3>
+  <p>Intenta agregar una tarea con errores y mira cómo el validador los detecta.</p>
+
+  <div class="simulador">
+    <div class="sim-head">✅ Validador de tareas — encuentra los errores</div>
+    <form id="val-form" style="display:grid;gap:0.8rem;">
+      <input type="text" id="val-titulo" placeholder="Título de la tarea (mín. 3 caracteres)" style="padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;">
+      <input type="text" id="val-email" placeholder="Correo (debe tener @)" style="padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;">
+      <div class="btn-row">
+        <button type="submit" class="btn primary" id="val-btn">✅ Validar</button>
+      </div>
+    </form>
+    <div class="caja-tip" id="val-feedback" style="margin-top:1rem;display:none;">
+      <h4>👁️ Resultado</h4>
+      <p id="val-feedback-txt"></p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Valida <strong>siempre en el lado de JavaScript</strong>, no solo con el atributo <code>required</code> de HTML. El usuario puede desactivar la validación del navegador, pero no puede desactivar tu código.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál de estas NO es una regla de validación básica?</p>
+      <button class="opcion" data-op="a">Revisar campos vacíos</button>
+      <button class="opcion" data-op="b">Cambiar el color del botón</button>
+      <button class="opcion" data-op="c">Revisar longitud mínima</button>
+      <button class="opcion" data-op="d">Revisar el tipo de dato</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad te dice cuántos caracteres tiene un texto?</p>
+      <button class="opcion" data-op="a">.length</button>
+      <button class="opcion" data-op="b">.size</button>
+      <button class="opcion" data-op="c">.count</button>
+      <button class="opcion" data-op="d">.total</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué es FormData y para qué sirve.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué método agrega un elemento al final de un array?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="b" data-top="a">add()</button>
+      <button class="trivia-opt" data-top="b">push()</button>
+      <button class="trivia-opt" data-top="c">insert()</button>
+      <button class="trivia-opt" data-top="d">append()</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Agregar a un array →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🗂️ Agregar objetos a un array</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La caja de tareas" — crear un objeto y guardarlo con push()</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Ya sabes capturar y validar. Ahora toca <strong>guardar</strong>. Cada tarea es un <strong>objeto</strong> con propiedades (título, descripción, categoría), y todas las tareas viven en un <strong>array</strong>.</p>
+    <p>El flujo es: capturar → validar → <strong>crear el objeto</strong> → <strong>agregarlo al array con <code>push()</code></strong>.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tareas.js</div>
+      <button class="copy-btn" data-copy="tareas">📋 Copiar</button>
+    </div>
+    <pre><code>const tareas = []; // el array que guarda todo
+
+function agregarTarea(titulo, descripcion, categoria) {
+  // Crear el objeto tarea
+  const tarea = {
+    titulo: titulo,
+    descripcion: descripcion,
+    categoria: categoria
+  };
+
+  // Agregarlo al array
+  tareas.push(tarea);
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Tu lista de tareas</h3>
+  <p>Llena el formulario y agrega tareas. Cada una se convierte en un objeto dentro del array. Mira cómo crece.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🗂️ Agregar tareas al array</div>
+    <form id="tarea-form" style="display:grid;gap:0.8rem;">
+      <input type="text" id="tarea-titulo" placeholder="Título de la tarea" style="padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;">
+      <input type="text" id="tarea-desc" placeholder="Descripción" style="padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;">
+      <select id="tarea-cat" style="padding:0.7rem 1rem;background:var(--fondo-claro);border:1.5px solid var(--tarjeta-borde);border-radius:8px;color:var(--texto);font-family:inherit;">
+        <option value="Estudio">📚 Estudio</option>
+        <option value="Casa">🏠 Casa</option>
+        <option value="Deporte">⚽ Deporte</option>
+      </select>
+      <div class="btn-row">
+        <button type="submit" class="btn primary" id="tarea-btn">➕ Agregar tarea</button>
+      </div>
+    </form>
+    <div class="state-panel" style="margin-top:1rem;">
+      <div class="state-title">El array en memoria</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Cantidad de tareas</div><span class="sval" id="tarea-count">0</span></div>
+        <div class="state-cell"><div class="label">Última tarea</div><span class="sval" id="tarea-ultima">—</span></div>
+      </div>
+    </div>
+    <div class="code-live" id="tarea-json" style="margin-top:1rem;font-size:0.78rem;">[]</div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p><code>push()</code> agrega al <strong>final</strong> del array. Si quieres agregar al inicio, usa <code>unshift()</code>. Para quitar el último, <code>pop()</code>. Son las herramientas básicas de una lista.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué método agrega un elemento al final de un array?</p>
+      <button class="opcion" data-op="a">add()</button>
+      <button class="opcion" data-op="b">insert()</button>
+      <button class="opcion" data-op="c">push()</button>
+      <button class="opcion" data-op="d">append()</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué es una tarea en este contexto?</p>
+      <button class="opcion" data-op="a">Un objeto con propiedades como título y descripción</button>
+      <button class="opcion" data-op="b">Un número</button>
+      <button class="opcion" data-op="c">Una función</button>
+      <button class="opcion" data-op="d">Un string suelto</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Renderizar la lista →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🖼️ Renderizar la lista</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Mostrar lo guardado" — pintar el array en el HTML con innerHTML</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Guardar datos en un array no sirve de nada si el usuario no los <strong>ve</strong>. <strong>Renderizar</strong> es convertir el array en HTML visible. Se hace recorriendo el array y construyendo una cadena de HTML que luego se inyecta con <code>innerHTML</code>.</p>
+    <p>Este es el "R" de CRUD (Read): el dato <strong>sale</strong> de tu programa y se muestra.</p>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>render.js</div>
+      <button class="copy-btn" data-copy="render">📋 Copiar</button>
+    </div>
+    <pre><code>function renderizar() {
+  const lista = document.getElementById("lista");
+  let html = "";
+
+  for (const tarea of tareas) {
+    html += `&lt;li&gt;${tarea.titulo} — ${tarea.categoria}&lt;/li&gt;`;
+  }
+
+  lista.innerHTML = html;
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Renderiza en vivo</h3>
+  <p>Agrega tareas y observa cómo se pintan en la lista. Es el mismo array del módulo anterior, ahora visible.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🖼️ Renderizado dinámico de la lista</div>
+    <div class="btn-row">
+      <button class="btn primary" id="render-btn">🖼️ Renderizar lista</button>
+      <button class="btn ghost" id="render-limpiar">🧹 Limpiar todo</button>
+    </div>
+    <div id="tarea-lista" style="margin-top:1rem;display:grid;gap:0.5rem;"></div>
+    <div class="caja-tip" id="render-vacio" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p>La lista está vacía. Agrega tareas en el módulo anterior (o aquí abajo) y pulsa "Renderizar lista".</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ innerHTML reemplaza todo</h4>
+    <p>Cuando asignas <code>lista.innerHTML = html</code>, <strong>borras</strong> lo que había y pones lo nuevo. Por eso siempre construyes el HTML completo del array, no solo el elemento nuevo. Si solo agregas, duplicarías la lista.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad inyecta HTML en un elemento?</p>
+      <button class="opcion" data-op="a">.texto</button>
+      <button class="opcion" data-op="b">.innerHTML</button>
+      <button class="opcion" data-op="c">.html</button>
+      <button class="opcion" data-op="d">.contenido</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué significa "renderizar" en este contexto?</p>
+      <button class="opcion" data-op="a">Convertir los datos del array en HTML visible</button>
+      <button class="opcion" data-op="b">Borrar el array</button>
+      <button class="opcion" data-op="c">Validar los datos</button>
+      <button class="opcion" data-op="d">Guardar en localStorage</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Checkpoint JavaScript" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: capturar, FormData, validar, agregar al array y renderizar. Al superarlos, recibirás tu insignia de <strong>Maestro de Formularios</strong> y habrás completado el checkpoint de JavaScript.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📥 Empareja cada herramienta con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">.value</button>
+        <button class="ws-chip" data-mid="1b">FormData</button>
+        <button class="ws-chip" data-mid="1c">push()</button>
+        <button class="ws-chip" data-mid="1d">innerHTML</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Leer el texto de un campo</button>
+        <button class="ws-chip" data-mid="1B">Recoger todos los campos de una vez</button>
+        <button class="ws-chip" data-mid="1C">Agregar un objeto al array</button>
+        <button class="ws-chip" data-mid="1D">Pintar HTML en la página</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🗂️ Ordena el ciclo de vida de un dato</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2capturar" draggable="true"><span class="ord-num">?</span> Capturar los datos del formulario</div>
+        <div class="ws-order-item" data-oid="2validar" draggable="true"><span class="ord-num">?</span> Validar que no estén vacíos</div>
+        <div class="ws-order-item" data-oid="2objeto" draggable="true"><span class="ord-num">?</span> Crear el objeto tarea</div>
+        <div class="ws-order-item" data-oid="2push" draggable="true"><span class="ord-num">?</span> Agregarlo al array con push()</div>
+        <div class="ws-order-item" data-oid="2render" draggable="true"><span class="ord-num">?</span> Renderizar la lista en el HTML</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📝 Completa el código</span></div>
+    <p>Completa el método que agrega la tarea al array:</p>
+    <div class="ws-block">
+      <div class="code-live">
+const tarea = { titulo: "Estudiar" };
+tareas.<input class="ws-input" data-ans="push" data-ws="3" placeholder="?">(tarea);
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: encuentra el error</span></div>
+    <p>Un compañero escribió este código para validar. ¿Qué error tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+function validar(titulo) {
+  if (titulo = "") {
+    return "El título está vacío";
+  }
+  return null;
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Usa = (asignación) en vez de === (comparación)</button>
+        <button class="ws-chip" data-mid="4B">Falta el return null</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Checkpoint superado, Maestro de Formularios!</h2>
+    <p class="lead">Ya sabes capturar datos, validarlos, guardarlos en un array y renderizarlos. Tienes la base del <strong>Create</strong> y el <strong>Read</strong> del CRUD. En las próximas clases agregarás el Update (editar) y el Delete (borrar) para completar el ciclo.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">📝 Herramientas de Programación I · Clase 17 · Plataforma interactiva</div>
+  <div>Formularios con JavaScript · FormData · Validación · Checkpoint · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📱 Herramientas de Programación I · Clase 9 · Responsive Design</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">📱</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 9</h1>
+      <p class="subtitulo">Responsive Design · Mobile First · Media Queries · Variables CSS</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📱 ¿Qué es responsive?</button>
+  <button class="btn-modulo" data-modulo="2">📲 Mobile First y viewport</button>
+  <button class="btn-modulo" data-modulo="3">📐 Media queries</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">📏 Unidades relativas</button>
+  <button class="btn-modulo" data-modulo="6">🎨 Variables CSS</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>📱 ¡Bienvenido/a a Responsive Design!</h2>
+    <p class="lead">Hoy tu página va a aprender a <strong>adaptarse</strong>: a un celular, a una tablet, a un monitor gigante. Vas a descubrir cómo hacer que un mismo sitio se vea bien en <em>cualquier pantalla</em>. Eso se llama <strong>Responsive Design</strong>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "una página, todas las pantallas"</span></div>
+        <div class="out">"una página, todas las pantallas"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Diseñar primero para móvil ayuda a priorizar contenido."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Crear una página que se adapte a móvil, tablet y escritorio usando media queries, unidades relativas y variables CSS.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML y CSS básico. Aquí aprenderás a hacer que tu diseño <em>responda</em> al tamaño de la pantalla.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es responsive design?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Mobile First y viewport</td><td style="color:var(--morado-claro)">Estrategia</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Media queries y breakpoints</td><td style="color:var(--ambar)">@media</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Unidades relativas</td><td style="color:var(--verde)">% em rem vw vh</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Variables CSS</td><td style="color:var(--morado)">:root y --var</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran una página web en el celular y en el computador. ¿Se ve igual? ¿Qué cambia? ¿El menú se convierte en un botón de hamburguesa? ¿Las columnas se apilan? Anoten <strong>3 diferencias</strong> que encuentren.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es responsive design? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📱 ¿Qué es responsive design?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Una página, todas las pantallas" — por qué tu diseño debe adaptarse</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina que tu página web es un <strong>líquido</strong>: si la viertes en un vaso angosto (celular) o en una bandeja ancha (monitor), se acomoda sola. El <strong>responsive design</strong> es exactamente eso: hacer que tu página <strong>detecte el tamaño de la pantalla</strong> y reorganice su contenido para verse bien en todas.</p>
+    <p>Antes, se hacían dos sitios: uno para computador y otro "móvil" (como <code>m.misitio.com</code>). Hoy, con responsive design, haces <strong>un solo sitio</strong> que se adapta solo.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sitio fijo (no responsive)</h4>
+      <p>Ancho fijo de 1200px. En el celular se ve gigante, hay que hacer zoom y desplazarse de lado a lado. Frustrante.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Sitio responsive</h4>
+      <p>Se adapta al ancho de la pantalla: las columnas se apilan, el menú se compacta, las imágenes se encogen. Cómodo en todo.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El probador de pantallas</h3>
+  <p>Cambia el dispositivo y observa qué pasa con una página de ancho fijo (1200px) frente a una responsive. La barra gris representa el ancho de la pantalla.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📱 Probador de pantallas — ¿cabe o se desborda?</div>
+    <div class="state-panel">
+      <div class="state-title">Dispositivo seleccionado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Dispositivo</div><span class="sval" id="resp-device">—</span></div>
+        <div class="state-cell"><div class="label">Ancho</div><span class="sval" id="resp-width">—</span></div>
+        <div class="state-cell"><div class="label">¿Cabe el sitio fijo?</div><span class="sval" id="resp-fits">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-device="movil">📱 Móvil (375px)</button>
+      <button class="btn primary" data-device="tablet">📲 Tablet (768px)</button>
+      <button class="btn primary" data-device="escritorio">🖥️ Escritorio (1440px)</button>
+    </div>
+    <div class="caja-tip" id="resp-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="resp-feedback-txt">Toca un dispositivo para ver si una página de ancho fijo cabe en su pantalla.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Más de la <strong>mitad del tráfico web</strong> viene de celulares. Si tu página no se ve bien en móvil, pierdes visitantes, clientes y posicionamiento en Google (que <strong>prioriza sitios responsive</strong>). Un diseño responsive no es un lujo: es una necesidad.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es responsive design?</p>
+      <button class="opcion" data-op="a">Hacer dos sitios web separados</button>
+      <button class="opcion" data-op="b">Un solo sitio que se adapta al tamaño de la pantalla</button>
+      <button class="opcion" data-op="c">Poner muchas imágenes a la página</button>
+      <button class="opcion" data-op="d">Un sitio que solo funciona en celulares</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Por qué es importante el responsive design hoy?</p>
+      <button class="opcion" data-op="a">Porque los monitores son más baratos</button>
+      <button class="opcion" data-op="b">Porque es más fácil de programar</button>
+      <button class="opcion" data-op="c">Porque la mayoría del tráfico web viene de celulares</button>
+      <button class="opcion" data-op="d">Porque no importa, es opcional</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Mobile First y viewport →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📲 Mobile First y viewport</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Empieza por lo pequeño" — la estrategia y la etiqueta que lo hacen posible</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p><strong>Mobile First</strong> es una estrategia: diseñas primero para la pantalla más pequeña (el celular) y luego, con media queries, vas <strong>agregando</strong> estilos para pantallas más grandes. Es más fácil <em>agrandar</em> un diseño simple que <em>encoger</em> uno complejo.</p>
+    <p>Y para que el navegador sepa el ancho real de la pantalla, necesitas la etiqueta <strong>viewport</strong> en el <code>&lt;head&gt;</code>.</p>
+  </div>
+
+  <h3>📲 La etiqueta viewport</h3>
+  <p>Sin esta línea, el celular "finge" tener una pantalla de 980px de ancho y encoge todo. Con ella, el navegador usa el ancho real del dispositivo.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="viewport">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;/head&gt;</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar el viewport</h4>
+    <p>Si olvidas la etiqueta <code>&lt;meta name="viewport"&gt;</code>, tu página responsive <strong>no funcionará</strong> en celulares: se verá como una versión en miniatura de la de escritorio. Es la primera línea que debes revisar cuando algo no se adapta.</p>
+  </div>
+
+  <h3>📲 La escalera de Mobile First</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Paso</th><th>Qué haces</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>1. Base móvil</td><td>Estilos para celular (una columna)</td><td><code>.tarjeta { width: 100%; }</code></td></tr>
+        <tr><td>2. Tablet</td><td>Con @media, dos columnas</td><td><code>@media (min-width: 768px)</code></td></tr>
+        <tr><td>3. Escritorio</td><td>Con @media, tres o más columnas</td><td><code>@media (min-width: 1024px)</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>En Mobile First usas <code>min-width</code> en las media queries: "a partir de este ancho, aplica esto". Empiezas simple y vas sumando. Es lo contrario de <code>max-width</code>, que dice "hasta este ancho, aplica esto" (el enfoque antiguo de escritorio primero).</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué significa Mobile First?</p>
+      <button class="opcion" data-op="a">Diseñar primero para celular y luego agrandar para pantallas mayores</button>
+      <button class="opcion" data-op="b">Diseñar primero para escritorio y luego encoger</button>
+      <button class="opcion" data-op="c">Hacer solo una versión móvil</button>
+      <button class="opcion" data-op="d">Usar solo imágenes en el celular</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve la etiqueta viewport?</p>
+      <button class="opcion" data-op="a">Para poner colores a la página</button>
+      <button class="opcion" data-op="b">Para cargar más rápido</button>
+      <button class="opcion" data-op="c">Para que el navegador use el ancho real del dispositivo</button>
+      <button class="opcion" data-op="d">Para agregar animaciones</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Media queries y breakpoints →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>📐 Media queries y breakpoints</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "@media" — la herramienta que cambia el diseño según el ancho</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>media query</strong> es una condición en CSS: "si la pantalla mide al menos 768px, aplica estos estilos". El ancho donde cambias el diseño se llama <strong>breakpoint</strong> (punto de quiebre). Es como un interruptor que enciende reglas nuevas cuando la pantalla cruza cierto tamaño.</p>
+  </div>
+
+  <h3>📐 La sintaxis</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="media">📋 Copiar</button>
+    </div>
+    <pre><code>/* Estilos base (móvil) */
+.tarjeta { width: 100%; }
+
+/* Tablet: a partir de 768px */
+@media (min-width: 768px) {
+  .tarjeta { width: 50%; }
+}
+
+/* Escritorio: a partir de 1024px */
+@media (min-width: 1024px) {
+  .tarjeta { width: 33.33%; }
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: El laboratorio de breakpoints</h3>
+  <p>Arrastra el ancho de la "pantalla" y observa cómo cambia el layout: cuántas columnas se muestran y qué media query está activa.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📐 Laboratorio de breakpoints — cambia el ancho</div>
+    <div class="state-panel">
+      <div class="state-title">Estado actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Ancho</div><span class="sval" id="bp-width">—</span></div>
+        <div class="state-cell"><div class="label">Columnas</div><span class="sval" id="bp-cols">—</span></div>
+        <div class="state-cell"><div class="label">Media query activa</div><span class="sval" id="bp-query">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" data-bp="movil">📱 Móvil</button>
+      <button class="btn primary" data-bp="tablet">📲 Tablet</button>
+      <button class="btn primary" data-bp="escritorio">🖥️ Escritorio</button>
+    </div>
+    <div id="bp-preview" style="margin-top:1rem;background:#04121c;border:1px solid var(--tarjeta-borde);border-radius:10px;padding:1rem;overflow:hidden;">
+      <div id="bp-grid" style="display:grid;gap:0.5rem;transition:all 0.4s ease;"></div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Breakpoints comunes</h4>
+    <p>No hay breakpoints "oficiales", pero estos son los más usados: <strong>480px</strong> (celulares pequeños), <strong>768px</strong> (tablets), <strong>1024px</strong> (laptops) y <strong>1200px</strong> (escritorios grandes). Elige los que tu contenido necesite, no los que diga una lista.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es una media query?</p>
+      <button class="opcion" data-op="a">Una etiqueta HTML para imágenes</button>
+      <button class="opcion" data-op="b">Una condición en CSS que aplica estilos según el ancho de pantalla</button>
+      <button class="opcion" data-op="c">Un tipo de fuente</button>
+      <button class="opcion" data-op="d">Un programa para editar fotos</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué es un breakpoint?</p>
+      <button class="opcion" data-op="a">El ancho de pantalla donde cambia el diseño</button>
+      <button class="opcion" data-op="b">Un error en el código</button>
+      <button class="opcion" data-op="c">El final de la página</button>
+      <button class="opcion" data-op="d">Un botón de reinicio</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué es un breakpoint.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "viewport" en español?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Ventana de visualización</button>
+      <button class="trivia-opt" data-top="b">Puerto de datos</button>
+      <button class="trivia-opt" data-top="c">Punto de vista</button>
+      <button class="trivia-opt" data-top="d">Vista previa</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Unidades relativas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>📏 Unidades relativas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "% em rem vw vh" — medir en relación, no en píxeles fijos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Los píxeles (<code>px</code>) son <strong>fijos</strong>: 100px son 100px en cualquier pantalla. Las <strong>unidades relativas</strong> miden en relación a algo: al contenedor, a la fuente, o a la pantalla. Por eso son la base del responsive design: crecen y se encogen con el contexto.</p>
+  </div>
+
+  <h3>📏 Las 5 unidades que debes conocer</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Unidad</th><th>Relativa a...</th><th>Uso típico</th></tr></thead>
+      <tbody>
+        <tr><td><code>%</code></td><td>El contenedor padre</td><td>Anchos de columnas, imágenes</td></tr>
+        <tr><td><code>em</code></td><td>El tamaño de fuente del elemento</td><td>Márgenes y padding que escalan con el texto</td></tr>
+        <tr><td><code>rem</code></td><td>El tamaño de fuente de la raíz (html)</td><td>Tipografía consistente en todo el sitio</td></tr>
+        <tr><td><code>vw</code></td><td>1% del ancho de la ventana</td><td>Tamaños que responden al ancho de pantalla</td></tr>
+        <tr><td><code>vh</code></td><td>1% del alto de la ventana</td><td>Secciones a pantalla completa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🔒 Píxeles (fijos)</h4>
+      <p><code>width: 300px;</code> — siempre 300px, sin importar la pantalla. En un celular de 375px casi no deja espacio.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🔓 Relativas (flexibles)</h4>
+      <p><code>width: 80%;</code> — ocupa el 80% del contenedor, sea cual sea su tamaño. Se adapta sola.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip: em vs rem</h4>
+    <p><code>em</code> se acumula: si un elemento está dentro de otro con fuente más grande, su <code>em</code> también crece. <code>rem</code> siempre mira la raíz (<code>html</code>), así que es más predecible. Regla práctica: usa <code>rem</code> para tamaños de fuente y <code>em</code> para padding/margen de componentes.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿A qué es relativa la unidad rem?</p>
+      <button class="opcion" data-op="a">Al ancho de la pantalla</button>
+      <button class="opcion" data-op="b">Al tamaño de fuente de la raíz (html)</button>
+      <button class="opcion" data-op="c">Al contenedor padre</button>
+      <button class="opcion" data-op="d">Al alto de la ventana</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué significa vw?</p>
+      <button class="opcion" data-op="a">1% del alto de la ventana</button>
+      <button class="opcion" data-op="b">Un píxel virtual</button>
+      <button class="opcion" data-op="c">1% del ancho de la ventana</button>
+      <button class="opcion" data-op="d">El tamaño de la fuente</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Variables CSS →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🎨 Variables CSS</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · ":root y --var" — guarda valores para reutilizarlos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>variable CSS</strong> es un valor con nombre que defines una vez y usas muchas veces. Se declaran en <code>:root</code> (la raíz del documento) con doble guion, y se usan con <code>var()</code>. Si cambias el valor en un solo lugar, cambia en toda la página.</p>
+  </div>
+
+  <h3>🎨 La sintaxis</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="variables">📋 Copiar</button>
+    </div>
+    <pre><code>:root {
+  --color-primario: #22d3ee;
+  --fuente-principal: 'Segoe UI', sans-serif;
+  --espaciado: 1rem;
+}
+
+body {
+  font-family: var(--fuente-principal);
+  color: var(--color-primario);
+  padding: var(--espaciado);
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: El pintor de variables</h3>
+  <p>Cambia el valor de la variable <code>--color-primario</code> y observa cómo se repinta la tarjeta de ejemplo al instante.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🎨 Pintor de variables — cambia --color-primario</div>
+    <div class="btn-row">
+      <button class="btn primary" data-var="#22d3ee">💧 Cian</button>
+      <button class="btn primary" data-var="#a855f7">💜 Morado</button>
+      <button class="btn primary" data-var="#00ff9d">💚 Verde</button>
+      <button class="btn primary" data-var="#facc15">💛 Ámbar</button>
+      <button class="btn primary" data-var="#f43f5e">❤️ Rosa</button>
+    </div>
+    <div id="var-preview" style="margin-top:1rem;padding:1.5rem;border-radius:12px;border:2px solid;transition:all 0.4s ease;">
+      <h4 id="var-title" style="margin:0 0 0.5rem;transition:all 0.4s ease;">Mi tarjeta de ejemplo</h4>
+      <p id="var-text" style="margin:0;transition:all 0.4s ease;">Este texto y este borde usan <code>var(--color-primario)</code>. Cambia la variable y todo se repinta.</p>
+    </div>
+    <div class="state-panel" style="margin-top:1rem;">
+      <div class="state-title">Valor actual</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">--color-primario</div><span class="sval" id="var-value">#22d3ee</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué usar variables?</h4>
+    <p>Imagina que tu sitio usa el color morado en 50 lugares. Sin variables, tendrías que buscar y cambiar los 50. Con una variable, cambias <strong>una línea</strong> en <code>:root</code> y listo. Además, puedes redefinir variables dentro de una media query para cambiar el tema en pantallas pequeñas.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Dónde se declaran normalmente las variables CSS globales?</p>
+      <button class="opcion" data-op="a">En :root</button>
+      <button class="opcion" data-op="b">En &lt;body&gt;</button>
+      <button class="opcion" data-op="c">En JavaScript</button>
+      <button class="opcion" data-op="d">En el &lt;footer&gt;</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cómo se usa una variable CSS?</p>
+      <button class="opcion" data-op="a">Con $nombre</button>
+      <button class="opcion" data-op="b">Con @nombre</button>
+      <button class="opcion" data-op="c">Con var(--nombre)</button>
+      <button class="opcion" data-op="d">Con #nombre</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: responsive design, media queries, unidades relativas y variables CSS. Al superarlos, recibirás tu insignia de <strong>Diseñador Responsive</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📱 Empareja cada concepto con su definición</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Media query</button>
+        <button class="ws-chip" data-mid="1b">Breakpoint</button>
+        <button class="ws-chip" data-mid="1c">Viewport</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Condición CSS que aplica estilos según el ancho</button>
+        <button class="ws-chip" data-mid="1B">Ancho donde cambia el diseño</button>
+        <button class="ws-chip" data-mid="1C">Etiqueta que define el ancho real del dispositivo</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena la escalera de Mobile First</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2base" draggable="true"><span class="ord-num">?</span> Estilos base para móvil (una columna)</div>
+        <div class="ws-order-item" data-oid="2tablet" draggable="true"><span class="ord-num">?</span> @media (min-width: 768px) — tablet</div>
+        <div class="ws-order-item" data-oid="2desk" draggable="true"><span class="ord-num">?</span> @media (min-width: 1024px) — escritorio</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">📏 Completa la media query</span></div>
+    <p>Completa la palabra que falta para crear una media query de tablet:</p>
+    <div class="ws-block">
+      <div class="code-live">
+@<input class="ws-input" data-ans="media" data-ws="3" placeholder="?"> (min-width: 768px) {
+  .tarjeta { width: 50%; }
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este CSS. ¿Qué error de responsive design tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+.tarjeta {
+  width: 1200px;
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Usa un ancho fijo en píxeles; debería usar % o unidades relativas</button>
+        <button class="ws-chip" data-mid="4B">Falta la etiqueta &lt;footer&gt;</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Diseñador Responsive!</h2>
+    <p class="lead">Ya sabes hacer que una página se adapte a cualquier pantalla: media queries, unidades relativas y variables CSS. Recuerda la moraleja: <strong>diseñar primero para móvil ayuda a priorizar contenido</strong>. En la próxima clase pondremos todo junto en un proyecto completo.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">📱 Herramientas de Programación I · Clase 9 · Plataforma interactiva</div>
+  <div>Responsive Design · Mobile First · Media Queries · Variables CSS · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

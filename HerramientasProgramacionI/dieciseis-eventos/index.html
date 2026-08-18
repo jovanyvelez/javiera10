@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⚡ Herramientas de Programación I · Clase 16 · Eventos</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">⚡</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 16</h1>
+      <p class="subtitulo">Eventos · addEventListener · click · input · submit</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">⚡ ¿Qué es un evento?</button>
+  <button class="btn-modulo" data-modulo="2">🖱️ addEventListener y click</button>
+  <button class="btn-modulo" data-modulo="3">⌨️ input y change</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">📨 submit y preventDefault</button>
+  <button class="btn-modulo" data-modulo="6">🌐 Delegación de eventos</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>⚡ ¡Bienvenido/a a los Eventos!</h2>
+    <p class="lead">Hasta ahora tus páginas eran <strong>estáticas</strong>: mostraban contenido, pero no reaccionaban a nada. Hoy vas a darles <strong>vida</strong>. Un <strong>evento</strong> es cualquier cosa que pasa en la página —un clic, una tecla, un envío— y con JavaScript puedes <em>escucharlo</em> y responder.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "un clic no es solo un clic"</span></div>
+        <div class="out">"un clic no es solo un clic"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Los eventos conectan la interfaz con la lógica."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Hacer páginas interactivas con addEventListener, manejar click, input, submit y delegar eventos.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber HTML básico y algo de JavaScript (variables, funciones, DOM). Aquí aprenderás a <em>reaccionar</em>.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · ¿Qué es un evento?</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · addEventListener y click</td><td style="color:var(--morado-claro)">click</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · input y change</td><td style="color:var(--ambar)">input/change</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · submit y preventDefault</td><td style="color:var(--verde)">submit</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Delegación de eventos</td><td style="color:var(--morado)">Delegación</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran cualquier página web y hagan clic en botones, escriban en cajas de texto, pasen el mouse por encima de imágenes. ¿Qué <strong>reacciones</strong> notan? Anoten tres ejemplos de "algo que pasa cuando haces algo".</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: ¿Qué es un evento? →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>⚡ ¿Qué es un evento?</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Algo pasa en la página" — la base de toda interactividad</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un <strong>evento</strong> es una señal que el navegador emite cuando ocurre algo: el usuario hace clic, mueve el mouse, escribe una tecla, envía un formulario, o la página termina de cargar. JavaScript puede <strong>escuchar</strong> esos eventos y ejecutar código en respuesta.</p>
+    <p>Piensa en un timbre de casa: el <strong>evento</strong> es "alguien toca el timbre", y la <strong>respuesta</strong> es "vas a abrir la puerta". Sin el timbre (evento), nadie sabría que llegó alguien.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Página sin eventos</h4>
+      <p>Muestra contenido, pero no reacciona. Haces clic y no pasa nada. Es como un cartel pegado en la pared.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Página con eventos</h4>
+      <p>Escucha lo que haces y responde: un clic cambia un color, una tecla muestra texto, un envío valida datos.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: El detector de eventos</h3>
+  <p>Interactúa con los elementos de abajo y observa cómo el "detector" registra cada evento que disparas.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📡 Detector de eventos — ¿qué disparas?</div>
+    <div class="state-panel">
+      <div class="state-title">Último evento detectado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Evento</div><span class="sval" id="ev-tipo">—</span></div>
+        <div class="state-cell"><div class="label">Elemento</div><span class="sval" id="ev-elemento">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="ev-boton">🖱️ Haz clic aquí</button>
+      <input class="ws-input" id="ev-input" placeholder="Escribe algo..." style="min-width:180px;">
+    </div>
+    <div class="caja-tip" id="ev-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="ev-feedback-txt">Interactúa con el botón o el campo de texto para ver qué evento se dispara.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué importa?</h4>
+    <p>Los eventos son el <strong>puente</strong> entre lo que el usuario hace y lo que tu programa responde. Sin eventos, JavaScript no tendría forma de saber cuándo actuar. Toda app interactiva —juegos, formularios, chats— está construida sobre eventos.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es un evento en una página web?</p>
+      <button class="opcion" data-op="a">Un archivo de estilos CSS</button>
+      <button class="opcion" data-op="b">Una señal que emite el navegador cuando ocurre algo (clic, tecla, envío)</button>
+      <button class="opcion" data-op="c">Un tipo de etiqueta HTML</button>
+      <button class="opcion" data-op="d">Un error de JavaScript</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cuál de estos es un ejemplo de evento?</p>
+      <button class="opcion" data-op="a">Una variable declarada</button>
+      <button class="opcion" data-op="b">Un comentario en el código</button>
+      <button class="opcion" data-op="c">El usuario hace clic en un botón</button>
+      <button class="opcion" data-op="d">Un color definido en CSS</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: addEventListener y click →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🖱️ addEventListener y click</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Escuchar y responder" — la función que conecta todo</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Para reaccionar a un evento usas <code>addEventListener()</code>. Le dices dos cosas: <strong>qué evento</strong> escuchar (por ejemplo <code>"click"</code>) y <strong>qué función</strong> ejecutar cuando ocurra. Esa función se llama <strong>callback</strong>.</p>
+  </div>
+
+  <h3>💻 La sintaxis</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="sintaxis">📋 Copiar</button>
+    </div>
+    <pre><code>// 1. Seleccionas el elemento
+const boton = document.querySelector('#miBoton');
+
+// 2. Le agregas un "escuchador" de eventos
+boton.addEventListener('click', function() {
+  // 3. Este código se ejecuta cuando haces clic
+  console.log('¡Hiciste clic!');
+});</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: El contador de clics</h3>
+  <p>Este botón tiene un <code>addEventListener('click', ...)</code>. Cada clic suma 1 al contador. ¡Pruébalo!</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔢 Contador de clics — evento click</div>
+    <div class="state-panel">
+      <div class="state-title">Estado del contador</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Clics</div><span class="sval" id="cont-num">0</span></div>
+        <div class="state-cell"><div class="label">Último evento</div><span class="sval" id="cont-evento">—</span></div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn primary" id="cont-boton">👆 ¡Haz clic!</button>
+      <button class="btn ghost" id="cont-reset">🔄 Reiniciar</button>
+    </div>
+    <div class="caja-tip" id="cont-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="cont-feedback-txt">Cada clic dispara el evento "click" y la función callback suma 1.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar las comillas</h4>
+    <p>El nombre del evento va <strong>entre comillas</strong>: <code>addEventListener('click', ...)</code>. Si escribes <code>addEventListener(click, ...)</code> sin comillas, JavaScript buscará una variable llamada <code>click</code> y fallará.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace addEventListener()?</p>
+      <button class="opcion" data-op="a">Registra una función para que se ejecute cuando ocurre un evento</button>
+      <button class="opcion" data-op="b">Borra un elemento del DOM</button>
+      <button class="opcion" data-op="c">Cambia el color de un elemento</button>
+      <button class="opcion" data-op="d">Crea una nueva etiqueta HTML</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Cómo se escribe correctamente el evento de clic?</p>
+      <button class="opcion" data-op="a">addEventListener(click, ...)</button>
+      <button class="opcion" data-op="b">addEventListener("Click", ...)</button>
+      <button class="opcion" data-op="c">addEventListener("click", ...)</button>
+      <button class="opcion" data-op="d">addEventListener("clic", ...)</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: input y change →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>⌨️ input y change</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Escuchar lo que escribe el usuario" — eventos de formularios</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Los campos de texto disparan dos eventos muy útiles: <code>input</code> (se dispara <strong>en cada tecla</strong>, en vivo) y <code>change</code> (se dispara cuando el usuario <strong>termina</strong> de escribir y sale del campo). Con ellos puedes reaccionar a lo que el usuario escribe al instante.</p>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>⌨️ input</h4>
+      <p>Se dispara <strong>cada vez</strong> que el valor cambia, letra por letra. Ideal para búsquedas en vivo o contadores de caracteres.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ change</h4>
+      <p>Se dispara <strong>una sola vez</strong>, cuando el usuario termina y el campo pierde el foco. Ideal para validar al final.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: Escribe y mira en vivo</h3>
+  <p>Escribe en el campo y observa cómo el texto se refleja <strong>al instante</strong> gracias al evento <code>input</code>.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🪞 Espejo de texto — evento input</div>
+    <div class="state-panel">
+      <div class="state-title">Lo que escribes</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Caracteres</div><span class="sval" id="inp-caracteres">0</span></div>
+        <div class="state-cell"><div class="label">Último evento</div><span class="sval" id="inp-evento">—</span></div>
+      </div>
+    </div>
+    <input class="ws-input" id="inp-campo" placeholder="Escribe aquí..." style="width:100%;min-width:0;text-align:left;padding:0.6rem 0.8rem;">
+    <div class="code-live" id="inp-espejo" style="margin-top:1rem;">Tu texto aparecerá aquí en vivo...</div>
+  </div>
+
+  <h3>💻 Código de ejemplo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="input">📋 Copiar</button>
+    </div>
+    <pre><code>const campo = document.querySelector('#miInput');
+const salida = document.querySelector('#salida');
+
+campo.addEventListener('input', function() {
+  // Se ejecuta en cada tecla
+  salida.textContent = campo.value;
+});</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>Para leer lo que el usuario escribió, usa <code>campo.value</code>. Esa propiedad contiene el texto actual del campo. Con el evento <code>input</code> puedes leerlo en cada tecla y mostrarlo, contarlo o filtrarlo en vivo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuándo se dispara el evento "input"?</p>
+      <button class="opcion" data-op="a">Solo cuando se envía el formulario</button>
+      <button class="opcion" data-op="b">Cada vez que el valor del campo cambia (en cada tecla)</button>
+      <button class="opcion" data-op="c">Solo cuando se carga la página</button>
+      <button class="opcion" data-op="d">Nunca</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué propiedad lee el texto actual de un campo?</p>
+      <button class="opcion" data-op="a">campo.value</button>
+      <button class="opcion" data-op="b">campo.text</button>
+      <button class="opcion" data-op="c">campo.html</button>
+      <button class="opcion" data-op="d">campo.content</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a un evento que aprendiste hoy.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Qué significa "DOM" en JavaScript?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Document Object Model (Modelo de Objetos del Documento)</button>
+      <button class="trivia-opt" data-top="b">Digital Online Machine</button>
+      <button class="trivia-opt" data-top="c">Data Object Method</button>
+      <button class="trivia-opt" data-top="d">Document Order Manager</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: submit y preventDefault →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>📨 submit y preventDefault</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Detener la recarga" — controlar el envío de formularios</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Cuando envías un formulario, el navegador <strong>recarga la página</strong> por defecto. Eso es un problema si quieres validar los datos o mostrar un mensaje sin perder lo escrito. El evento <code>submit</code> se dispara al enviar, y <code>preventDefault()</code> <strong>cancela</strong> ese comportamiento por defecto.</p>
+  </div>
+
+  <h3>💻 La sintaxis</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="submit">📋 Copiar</button>
+    </div>
+    <pre><code>const formulario = document.querySelector('#miForm');
+
+formulario.addEventListener('submit', function(evento) {
+  // Cancela la recarga de la página
+  evento.preventDefault();
+
+  // Ahora puedes validar o mostrar un mensaje
+  console.log('Formulario enviado sin recargar');
+});</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Formulario que no recarga</h3>
+  <p>Escribe tu nombre y envía. Gracias a <code>preventDefault()</code>, la página <strong>no se recargará</strong> y verás un mensaje.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📨 Formulario controlado — evento submit</div>
+    <form id="form-demo" style="display:flex;flex-direction:column;gap:0.8rem;">
+      <input class="ws-input" id="form-nombre" placeholder="Escribe tu nombre..." style="width:100%;min-width:0;text-align:left;padding:0.6rem 0.8rem;">
+      <button class="btn primary" type="submit" style="align-self:flex-start;">📨 Enviar</button>
+    </form>
+    <div class="state-panel" style="margin-top:1rem;">
+      <div class="state-title">Resultado</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">Estado</div><span class="sval" id="form-estado">—</span></div>
+        <div class="state-cell"><div class="label">Recargas evitadas</div><span class="sval" id="form-recargas">0</span></div>
+      </div>
+    </div>
+    <div class="caja-tip" id="form-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="form-feedback-txt">Envía el formulario y nota que la página NO se recarga.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: olvidar preventDefault()</h4>
+    <p>Si escuchas <code>submit</code> pero no llamas a <code>evento.preventDefault()</code>, la página se recargará y perderás todo lo que el usuario escribió. Es el paso más olvidado al trabajar con formularios.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué hace preventDefault()?</p>
+      <button class="opcion" data-op="a">Recarga la página</button>
+      <button class="opcion" data-op="b">Cancela el comportamiento por defecto del evento (como la recarga)</button>
+      <button class="opcion" data-op="c">Borra el formulario</button>
+      <button class="opcion" data-op="d">Envía los datos al servidor</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué evento se dispara al enviar un formulario?</p>
+      <button class="opcion" data-op="a">click</button>
+      <button class="opcion" data-op="b">input</button>
+      <button class="opcion" data-op="c">submit</button>
+      <button class="opcion" data-op="d">change</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Delegación de eventos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🌐 Delegación de eventos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Un solo escuchador para muchos" — eficiencia con elementos dinámicos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Imagina una lista con 100 botones. ¿Pones 100 <code>addEventListener</code>? No. La <strong>delegación de eventos</strong> consiste en poner <strong>un solo escuchador</strong> en el contenedor padre, y detectar <em>cuál</em> elemento hijo fue el que disparó el evento usando <code>evento.target</code>.</p>
+    <p>Es especialmente útil con <strong>botones dinámicos</strong>: elementos que se crean después de cargar la página. Un escuchador en el padre los captura a todos, incluso a los nuevos.</p>
+  </div>
+
+  <h3>💻 La sintaxis</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>app.js</div>
+      <button class="copy-btn" data-copy="delegacion">📋 Copiar</button>
+    </div>
+    <pre><code>const lista = document.querySelector('#lista');
+
+// Un solo escuchador en el padre
+lista.addEventListener('click', function(evento) {
+  // evento.target es el elemento que realmente se clicó
+  if (evento.target.tagName === 'BUTTON') {
+    console.log('Clic en:', evento.target.textContent);
+  }
+});</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: Botones dinámicos</h3>
+  <p>Haz clic en "Agregar botón" para crear botones nuevos. Luego haz clic en ellos: un <strong>solo escuchador</strong> en el contenedor los captura a todos, incluso a los recién creados.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🌐 Delegación — botones dinámicos</div>
+    <div class="btn-row">
+      <button class="btn primary" id="del-agregar">➕ Agregar botón</button>
+      <button class="btn ghost" id="del-reset">🔄 Reiniciar</button>
+    </div>
+    <div id="del-contenedor" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:1rem;min-height:50px;"></div>
+    <div class="caja-tip" id="del-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="del-feedback-txt">Cada botón nuevo es capturado por el mismo escuchador del contenedor.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>La clave es <code>evento.target</code>: te dice <strong>exactamente</strong> qué elemento disparó el evento. Con eso, un solo escuchador en el padre puede manejar cientos de hijos, presentes y futuros.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué es la delegación de eventos?</p>
+      <button class="opcion" data-op="a">Poner un escuchador en el padre y detectar qué hijo disparó el evento</button>
+      <button class="opcion" data-op="b">Poner un escuchador en cada elemento hijo</button>
+      <button class="opcion" data-op="c">Borrar todos los eventos de la página</button>
+      <button class="opcion" data-op="d">Recargar la página automáticamente</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué propiedad te dice qué elemento disparó el evento?</p>
+      <button class="opcion" data-op="a">evento.value</button>
+      <button class="opcion" data-op="b">evento.name</button>
+      <button class="opcion" data-op="c">evento.target</button>
+      <button class="opcion" data-op="d">evento.id</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: eventos, addEventListener, input, submit y delegación. Al superarlos, recibirás tu insignia de <strong>Maestro de Eventos</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">⚡ Empareja cada evento con su descripción</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">click</button>
+        <button class="ws-chip" data-mid="1b">input</button>
+        <button class="ws-chip" data-mid="1c">submit</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Se dispara al enviar un formulario</button>
+        <button class="ws-chip" data-mid="1B">Se dispara al hacer clic en un elemento</button>
+        <button class="ws-chip" data-mid="1C">Se dispara en cada tecla al escribir</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🖱️ Ordena los pasos para escuchar un clic</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> Seleccionar el elemento con querySelector</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Llamar a addEventListener</div>
+        <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> Pasar el evento "click"</div>
+        <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> Definir la función callback</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">⌨️ Completa el código del evento</span></div>
+    <p>Completa el nombre del evento que se dispara en cada tecla al escribir:</p>
+    <div class="ws-block">
+      <div class="code-live">
+campo.addEventListener('<input class="ws-input" data-ans="input" data-ws="3" placeholder="?">', function() {
+  salida.textContent = campo.value;
+});
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: el formulario que recarga</span></div>
+    <p>Un compañero escribió este código para evitar que el formulario recargue la página. ¿Qué le falta?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+formulario.addEventListener('submit', function(evento) {
+  console.log('Enviado');
+});
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Falta evento.preventDefault() para cancelar la recarga</button>
+        <button class="ws-chip" data-mid="4B">Falta cambiar "submit" por "click"</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro de Eventos!</h2>
+    <p class="lead">Ya sabes escuchar clics, capturar lo que escribe el usuario, evitar que un formulario recargue la página y delegar eventos. <strong>Los eventos conectan la interfaz con la lógica.</strong> En la próxima clase seguiremos construyendo sobre esta base.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">⚡ Herramientas de Programación I · Clase 16 · Plataforma interactiva</div>
+  <div>Eventos · addEventListener · click · input · submit · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
