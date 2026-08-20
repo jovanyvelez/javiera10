@@ -34,7 +34,7 @@
   <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
   <button class="btn-modulo" data-modulo="5">🏷️ Etiquetas básicas</button>
   <button class="btn-modulo" data-modulo="6">👤 Tu página "Sobre mí"</button>
-  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller · GitHub</button>
 </nav>
 
 <main>
@@ -58,8 +58,8 @@
 
   <div class="cuadricula">
     <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
-    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Entender qué es Internet, el navegador, el servidor y el cliente, y crear tu primer archivo HTML.</p></div>
-    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Ganas de crear. No hace falta saber programar: empezamos desde cero, con analogías y simuladores.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Entender qué es Internet, el navegador, el servidor y el cliente, crear tu primer archivo HTML y <strong>publicarlo en Internet</strong> con GitHub Pages.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Ganas de crear, un navegador y un correo para abrir tu <strong>cuenta de GitHub</strong> (la creas en el taller). No instalas nada ni necesitas saber programar.</p></div>
   </div>
 
   <h3>🗺️ Tu ruta de misiones</h3>
@@ -73,7 +73,7 @@
         <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
         <tr><td>04 · Etiquetas básicas</td><td style="color:var(--verde)">h1-h6, p, a, br, hr</td><td>35 min</td><td>100 XP</td></tr>
         <tr><td>05 · Tu página "Sobre mí"</td><td style="color:var(--morado)">Práctica</td><td>35 min</td><td>100 XP</td></tr>
-        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+        <tr><td>06 · Taller: publica tu página</td><td style="color:var(--rosa)">GitHub · Codespaces · Pages</td><td>35 min</td><td>140 XP</td></tr>
       </tbody>
     </table>
   </div>
@@ -520,7 +520,7 @@
 
   <div class="caja-pareja">
     <h4>🔄 Actividad en pareja — 10 minutos</h4>
-    <p>Con tu compañero/a, creen una carpeta de proyecto y un archivo <code>index.html</code> en VS Code. Escriban su propia página "Sobre mí" con: título, encabezado principal, al menos dos párrafos y un enlace. Ábranla con Live Server y compárenla con la del otro equipo.</p>
+    <p>Con tu compañero/a, escriban en un borrador el contenido de su página "Sobre mí": título, encabezado principal, al menos dos párrafos y un enlace. Compárenlos y sugiéranse mejoras. 🚀 <strong>En el taller final la escribirás de verdad en GitHub Codespaces y la publicarás en Internet</strong>, así que llega con tu texto listo.</p>
   </div>
 
   <div class="quiz" data-quiz="6">
@@ -548,88 +548,418 @@
   </div>
 </section>
 
-<!-- MÓDULO 7 — TALLER -->
+<!-- MÓDULO 7 — TALLER: TU REPOSITORIO EN GITHUB -->
 <section class="modulo" data-modulo="7">
-  <h2>🛠️ Taller final</h2>
-  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+  <h2>🛠️ Taller: publica tu página en Internet</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · Trabajo individual · GitHub + Codespaces + GitHub Pages</p>
 
   <div class="caja-concepto">
     <h3>🎯 Tu misión</h3>
-    <p>Cuatro retos integran todo lo visto: Internet, las 3 tecnologías, la estructura HTML y las etiquetas básicas. Al superarlos, recibirás tu insignia de <strong>Web Builder</strong>.</p>
+    <p>Tu página "Sobre mí" va a dejar de vivir escondida en un computador: hoy la vas a poner <strong>en Internet</strong>, con una dirección real que puedes abrir desde tu celular y mandarle a quien quieras.</p>
+    <p>Para eso vas a crear <strong>un repositorio en GitHub que usarás todo el año</strong>. Cada clase no empieza de cero: agrega una carpeta nueva al mismo repositorio. Al terminar el año, ese repositorio será tu <strong>portafolio</strong>.</p>
+    <p>⚠️ Es un taller <strong>individual</strong>: cada estudiante crea su cuenta, su repositorio y entrega su propio enlace.</p>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🌍 Empareja cada concepto con su definición</span></div>
-    <div class="ws-block" data-ws-match="1">
-      <div class="ws-options" data-role="left">
-        <button class="ws-chip" data-mid="1a">Internet</button>
-        <button class="ws-chip" data-mid="1b">Navegador</button>
-        <button class="ws-chip" data-mid="1c">Servidor</button>
-      </div>
-      <div class="ws-options" data-role="right">
-        <button class="ws-chip" data-mid="1A">La red de computadores conectados</button>
-        <button class="ws-chip" data-mid="1B">El programa que usas para ver la web</button>
-        <button class="ws-chip" data-mid="1C">El computador que responde a las peticiones</button>
-      </div>
-      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
-      <div class="resultado-ws" id="ws-fb-1"></div>
+  <h3>🧰 Las tres herramientas de hoy</h3>
+  <div class="cuadricula">
+    <div class="tarjeta">
+      <span class="emoji">🐙</span>
+      <h3>GitHub</h3>
+      <p>La nube donde vive tu código. Como Drive, pero para programadores: además de guardar, recuerda <strong>todo el historial</strong> de cambios.</p>
+    </div>
+    <div class="tarjeta tarjeta-verde">
+      <span class="emoji">💻</span>
+      <h3>Codespaces</h3>
+      <p>Un <strong>VS Code completo dentro del navegador</strong>. No instalas nada: programas desde cualquier computador del colegio o de tu casa.</p>
+    </div>
+    <div class="tarjeta tarjeta-magenta">
+      <span class="emoji">🚀</span>
+      <h3>GitHub Pages</h3>
+      <p>Servicio <strong>gratuito</strong> que toma los archivos de tu repositorio y los publica como un sitio web con URL propia.</p>
     </div>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📄 Ordena el esqueleto HTML</span></div>
-    <div class="ws-block" data-ws-order="2">
-      <div class="ws-order">
-        <div class="ws-order-item" data-oid="2doctype" draggable="true"><span class="ord-num">?</span> &lt;!DOCTYPE html&gt;</div>
-        <div class="ws-order-item" data-oid="2html" draggable="true"><span class="ord-num">?</span> &lt;html&gt;</div>
-        <div class="ws-order-item" data-oid="2head" draggable="true"><span class="ord-num">?</span> &lt;head&gt;</div>
-        <div class="ws-order-item" data-oid="2body" draggable="true"><span class="ord-num">?</span> &lt;body&gt;</div>
+  <h3>🔄 Cómo se conectan</h3>
+  <div class="flujo">
+    <div class="flujo-item"><span class="flujo-emoji">💻</span><strong>Codespaces</strong><span>escribes tu código</span></div>
+    <div class="flujo-flecha">→</div>
+    <div class="flujo-item"><span class="flujo-emoji">📤</span><strong>commit + push</strong><span>subes los cambios</span></div>
+    <div class="flujo-flecha">→</div>
+    <div class="flujo-item"><span class="flujo-emoji">🐙</span><strong>GitHub</strong><span>guarda tu repositorio</span></div>
+    <div class="flujo-flecha">→</div>
+    <div class="flujo-item"><span class="flujo-emoji">🚀</span><strong>Pages</strong><span>lo publica</span></div>
+    <div class="flujo-flecha">→</div>
+    <div class="flujo-item destino"><span class="flujo-emoji">🌐</span><strong>tu URL</strong><span>el mundo lo ve</span></div>
+  </div>
+
+  <h3>🗂️ Cómo se verá tu repositorio</h3>
+  <p>Esta es la estructura que vas a construir hoy y que irás llenando clase por clase. Míralo bien: la carpeta <code>clase01</code> es la de hoy.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>herramientas-programacion (tu repositorio)</div>
+      <button class="copy-btn" data-copy="arbol">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html        ← portada: lista de todos tus ejercicios
+├── README.md         ← descripción del repositorio
+├── clase01/
+│   └── index.html    ← tu página "Sobre mí"  (HOY)
+├── clase02/          ← (próxima clase: HTML semántico)
+└── clase03/          ← (y así todo el año...)</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Dos reglas que te salvarán después</h4>
+    <p><strong>1.</strong> Los nombres de carpetas y archivos van en <strong>minúsculas, sin espacios y sin tildes</strong>: <code>clase01</code> ✅ &nbsp;·&nbsp; <code>Clase 01</code> ❌ &nbsp;·&nbsp; <code>clase uno</code> ❌</p>
+    <p><strong>2.</strong> El archivo principal de cada carpeta <strong>siempre</strong> se llama <code>index.html</code>: es el que el navegador busca solo cuando entras a la carpeta.</p>
+  </div>
+
+  <h3>🚦 El proceso, paso por paso</h3>
+  <p>Marca <strong>✓ Listo</strong> en cada paso a medida que lo completas. Tu avance se guarda solo, así que si cierras la página no pierdes el punto donde ibas.</p>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>🛠️ Pasos completados</span>
+      <strong><span id="pasos-hechos">0</span> / 8</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Crea tu cuenta de GitHub</span>
+        <span class="paso-tiempo">⏱️ 5 min · solo la primera vez</span>
       </div>
-      <div class="btn-row">
-        <button class="btn" data-ws-up>⬆ Subir</button>
-        <button class="btn" data-ws-down>⬇ Bajar</button>
-      </div>
-      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
-      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a <code>github.com</code> y pulsa <span class="ruta">Sign up</span>. Necesitas un correo al que puedas entrar ahora mismo, porque te enviarán un código de verificación.</p>
+      <p><strong>Piensa bien tu nombre de usuario:</strong> va a quedar dentro de la dirección de tu página web y será tu identidad como desarrollador/a.</p>
+      <ul class="lista-check">
+        <li>✅ Buenos: <code>ana-lopez-dev</code>, <code>jdmartinez10</code>, <code>sofi-codes</code></li>
+        <li>❌ Evita: apodos que no querrás mostrar, tu documento, tu dirección, tu teléfono.</li>
+      </ul>
+      <p>Si <strong>ya tienes cuenta</strong>, solo inicia sesión y sigue al paso 2.</p>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, tengo mi cuenta</button>
     </div>
   </div>
 
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea el repositorio del año</span>
+        <span class="paso-tiempo">⏱️ 3 min · solo la primera vez</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Un <strong>repositorio</strong> (o "repo") es la carpeta de tu proyecto guardada en GitHub, junto con el historial de todo lo que has cambiado.</p>
+      <p>Arriba a la derecha pulsa <span class="ruta">+ → New repository</span> y llena así el formulario:</p>
+      <div class="contenedor-tabla">
+        <table class="tabla-compara">
+          <thead><tr><th>Campo</th><th>Qué poner</th><th>Por qué</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Repository name</strong></td><td><code>herramientas-programacion</code></td><td>Es el nombre que aparecerá en tu URL</td></tr>
+            <tr><td><strong>Description</strong></td><td>Ejercicios de Herramientas de Programación I · 10°</td><td>Para que se entienda qué es</td></tr>
+            <tr><td><strong>Visibility</strong></td><td style="color:var(--verde)"><strong>Public</strong></td><td>GitHub Pages gratis <strong>solo publica repos públicos</strong></td></tr>
+            <tr><td><strong>Add a README file</strong></td><td>✔️ marcado</td><td>Crea el repo con un archivo inicial</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Pulsa <span class="ruta">Create repository</span>. ¡Ya tienes tu espacio de trabajo del año!</p>
+      <div class="caja-importante">
+        <h4>⚠️ Un solo repositorio para todo el año</h4>
+        <p>No crees un repositorio nuevo en cada clase. Todos los ejercicios de la asignatura viven aquí, en carpetas distintas.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, repositorio creado</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">Abre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Dentro de tu repositorio, pulsa el botón verde <span class="ruta">Code → pestaña Codespaces → Create codespace on main</span>.</p>
+      <p>Espera entre uno y dos minutos: se abrirá <strong>VS Code dentro del navegador</strong>, con tu repositorio ya cargado. A la izquierda verás el <strong>Explorador</strong> (la lista de archivos); ahí crearás carpetas y archivos.</p>
+      <div class="caja-tip">
+        <h4>💡 En las próximas clases NO crees otro Codespace</h4>
+        <p>Tu Codespace se apaga solo cuando dejas de usarlo, pero <strong>no se borra</strong>. La próxima clase entras por <span class="ruta">Code → Codespaces</span> y pulsas el que ya existe para reabrirlo con todo tu trabajo.</p>
+        <p>Al final de la clase, ciérralo desde <span class="ruta">Codespaces → ⋯ → Stop codespace</span> para no gastar tus horas gratuitas (la cuenta gratis trae unas 60 horas al mes: de sobra).</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Crea la carpeta de la clase y tu página</span>
+        <span class="paso-tiempo">⏱️ 10 min · el corazón del taller</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>En el Explorador, con el ratón sobre el nombre del repositorio, aparecen unos iconos pequeños:</p>
+      <ol class="lista-num">
+        <li>Pulsa <span class="ruta">New Folder…</span> (carpeta nueva) y escribe <code>clase01</code> → Enter.</li>
+        <li>Con la carpeta <code>clase01</code> seleccionada, pulsa <span class="ruta">New File…</span> y escribe <code>index.html</code> → Enter.</li>
+        <li>Se abre el editor vacío: pega el código de abajo y <strong>personalízalo</strong> con tus datos reales.</li>
+        <li>Guarda con <code>Ctrl + S</code> (en Mac <code>Cmd + S</code>).</li>
+      </ol>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase01/index.html</div>
+          <button class="copy-btn" data-copy="clase01">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Sobre mí · Clase 1&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hola, soy [tu nombre]&lt;/h1&gt;
+
+  &lt;p&gt;Tengo [tu edad] años y estudio grado décimo en [tu colegio].&lt;/p&gt;
+  &lt;p&gt;Me gusta [tus gustos] y quiero aprender a [tu meta].&lt;/p&gt;
+
+  &lt;hr&gt;
+
+  &lt;h2&gt;Mi sitio favorito&lt;/h2&gt;
+  &lt;p&gt;&lt;a href="https://es.wikipedia.org"&gt;Wikipedia en español&lt;/a&gt;&lt;/p&gt;
+
+  &lt;hr&gt;
+
+  &lt;p&gt;&lt;a href="../index.html"&gt;← Volver a mi portada&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p><strong>Requisitos mínimos del entregable:</strong> un <code>&lt;title&gt;</code>, un <code>&lt;h1&gt;</code>, al menos <strong>dos párrafos</strong>, un <code>&lt;hr&gt;</code> y al menos <strong>un enlace</strong> con <code>&lt;a href="..."&gt;</code>. Cambia todos los <code>[corchetes]</code> por información tuya.</p>
+      <div class="caja-tip">
+        <h4>👀 ¿Quieres verla antes de publicarla?</h4>
+        <p>En el panel <span class="ruta">Extensions</span> (icono de bloques) busca <strong>Live Preview</strong> de Microsoft e instálala. Luego haz clic derecho sobre <code>index.html</code> → <span class="ruta">Show Preview</span> y verás tu página al lado del código, actualizándose mientras escribes.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, mi página está escrita</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Crea la portada del repositorio</span>
+        <span class="paso-tiempo">⏱️ 5 min · te servirá todo el año</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Ahora crea otro <code>index.html</code>, pero <strong>en la raíz</strong> del repositorio (fuera de <code>clase01</code>). Ojo: si tienes seleccionada la carpeta <code>clase01</code>, el archivo se creará dentro de ella; haz clic primero en una zona vacía del Explorador.</p>
+      <p>Esta portada es la puerta de entrada a tu trabajo: hoy tiene un solo enlace y en cada clase le agregarás uno más.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (en la raíz)</div>
+          <button class="copy-btn" data-copy="portada">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Ejercicios · Herramientas de Programación I&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Ejercicios de [tu nombre]&lt;/h1&gt;
+  &lt;p&gt;Herramientas de Programación I · Grado 10°&lt;/p&gt;
+
+  &lt;hr&gt;
+
+  &lt;h2&gt;Mis clases&lt;/h2&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="clase01/index.html"&gt;Clase 1 — Sobre mí (primera página HTML)&lt;/a&gt;&lt;/li&gt;
+    &lt;!-- En la próxima clase agrego aquí una línea nueva --&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p>Si quieres, aprovecha y edita también el <code>README.md</code> que GitHub creó: escribe tu nombre y para qué es el repositorio.</p>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, portada creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 6 -->
+  <div class="paso" data-paso="6">
+    <div class="paso-head">
+      <span class="paso-num">6</span>
+      <div>
+        <span class="paso-titulo">Sube tus cambios (commit + push)</span>
+        <span class="paso-tiempo">⏱️ 4 min · el paso que más se olvida</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Mientras escribes, Codespaces trabaja sobre una copia. Para que GitHub —y el mundo— vea tu trabajo, hay que <strong>enviarlo</strong>:</p>
+      <ol class="lista-num">
+        <li>En la barra de la izquierda pulsa el icono <span class="ruta">Source Control</span> (las ramitas, con un número azul que indica cuántos archivos cambiaron).</li>
+        <li>En la caja de texto de arriba escribe el mensaje: <code>Clase 1: página Sobre mí</code></li>
+        <li>Pulsa <span class="ruta">Commit</span>. Si pregunta si quieres preparar todos los cambios, responde <span class="ruta">Yes</span> (o <em>Always</em>).</li>
+        <li>Pulsa <span class="ruta">Sync Changes</span> (o <em>Push</em>) para enviarlos a GitHub.</li>
+        <li>Vuelve a la pestaña de tu repositorio, recarga y comprueba que aparecen <code>clase01/</code> y tu <code>index.html</code>.</li>
+      </ol>
+      <div class="caja-importante">
+        <h4>⚠️ Regla de oro</h4>
+        <p>Si no hiciste <strong>commit + push</strong>, tu trabajo no existe para nadie más: no lo ve tu profesor/a, no lo ve GitHub Pages y no lo ve tu URL. Repite este paso cada vez que avances algo importante.</p>
+      </div>
+      <p>El <strong>mensaje de commit</strong> describe qué hiciste. Úsalo bien desde hoy: <code>Clase 1: página Sobre mí</code> ✅ &nbsp;·&nbsp; <code>asdf</code> ❌</p>
+      <button class="btn primary paso-check" data-paso-check="6">✓ Listo, mis cambios están en GitHub</button>
+    </div>
+  </div>
+
+  <!-- PASO 7 -->
+  <div class="paso" data-paso="7">
+    <div class="paso-head">
+      <span class="paso-num">7</span>
+      <div>
+        <span class="paso-titulo">Activa GitHub Pages</span>
+        <span class="paso-tiempo">⏱️ 3 min · solo la primera vez</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Este paso se hace en <strong>github.com</strong> (no en Codespaces) y <strong>solo se hace una vez</strong>: desde hoy, cada push se publica automáticamente.</p>
+      <ol class="lista-num">
+        <li>En tu repositorio, arriba, pulsa <span class="ruta">⚙ Settings</span>.</li>
+        <li>En el menú de la izquierda, busca y pulsa <span class="ruta">Pages</span>.</li>
+        <li>En <strong>Source</strong> elige <span class="ruta">Deploy from a branch</span>.</li>
+        <li>En <strong>Branch</strong> elige <span class="ruta">main</span> y la carpeta <span class="ruta">/ (root)</span>. Pulsa <span class="ruta">Save</span>.</li>
+        <li>Espera de 1 a 3 minutos y recarga esa misma página: aparecerá el mensaje <em>"Your site is live at…"</em> con tu dirección.</li>
+      </ol>
+      <p>Ese mensaje es tu certificado de que ya estás en Internet. Cópialo.</p>
+      <button class="btn primary paso-check" data-paso-check="7">✓ Listo, Pages está activo</button>
+    </div>
+  </div>
+
+  <!-- PASO 8 -->
+  <div class="paso" data-paso="8">
+    <div class="paso-head">
+      <span class="paso-num">8</span>
+      <div>
+        <span class="paso-titulo">Verifica y entrega tu enlace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre tus direcciones en una pestaña nueva. Pruébalas también en el celular: ya no es un archivo en un computador, <strong>está en Internet de verdad</strong>.</p>
+      <p>Escribe tu usuario de GitHub aquí y te armo tus enlaces exactos:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <p><strong>Qué entregas:</strong> el enlace de tu <strong>portada publicada</strong> (el que termina en <code>.github.io/herramientas-programacion/</code>) y el enlace de tu <strong>repositorio</strong> (el de <code>github.com</code>). Los dos, por el medio que indique tu profesor/a.</p>
+      <button class="btn primary paso-check" data-paso-check="8">✓ Listo, mi página se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN FINAL -->
   <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🏷️ Completa la etiqueta de párrafo</span></div>
-    <p>Completa la etiqueta que crea un párrafo:</p>
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación final</span>
+      <span class="challenge-title">🏁 ¿Tu página está realmente publicada?</span>
+    </div>
+    <p>Pega abajo la dirección de tu página publicada (la que abre tu portada o tu clase 1) y la reviso contigo:</p>
     <div class="ws-block">
-      <div class="code-live">
-&lt;<input class="ws-input" data-ans="p" data-ws="3" placeholder="?">&gt;Hola, mundo&lt;/<input class="ws-input" data-ans="p" data-ws="3" placeholder="?">&gt;
-      </div>
-      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
-      <div class="resultado-ws" id="ws-fb-3"></div>
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación: marca lo que ya cumpliste</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi repositorio se llama <code>herramientas-programacion</code> y es <strong>público</strong>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Tengo la carpeta <code>clase01</code> con un archivo <code>index.html</code> dentro.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi página tiene título, un <code>&lt;h1&gt;</code>, dos o más párrafos y un enlace, <strong>con mis datos</strong> (sin corchetes).</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Hice <strong>commit + push</strong> y veo mis archivos en github.com.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Mi URL de GitHub Pages abre bien desde otro dispositivo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Desde la portada puedo llegar a mi clase 1 haciendo clic en el enlace.</span></label>
     </div>
   </div>
 
-  <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
-    <p>Un compañero escribió este código. ¿Qué error tiene?</p>
-    <div class="ws-block" data-ws-match="4">
-      <div class="code-live">
-&lt;html&gt;
-  &lt;head&gt;
-    &lt;h1&gt;Mi título&lt;/h1&gt;
-  &lt;/head&gt;
-&lt;/html&gt;
-      </div>
-      <div class="ws-options" data-role="right">
-        <button class="ws-chip" data-mid="4A">El contenido visible va en &lt;body&gt;, no en &lt;head&gt;</button>
-        <button class="ws-chip" data-mid="4B">Falta la etiqueta &lt;!DOCTYPE&gt;</button>
-        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
-      </div>
-      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
-      <div class="resultado-ws" id="ws-fb-4"></div>
-    </div>
+  <h3>🔁 Y en las próximas clases, ¿qué hago?</h3>
+  <div class="caja-tip">
+    <h4>💡 Tu rutina fija de aquí en adelante (5 pasos, siempre iguales)</h4>
+    <ol class="lista-num">
+      <li>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y <strong>reabre el Codespace que ya tienes</strong>.</li>
+      <li>Crea la carpeta de la clase de hoy: <code>clase02</code>, <code>clase03</code>, <code>clase04</code>… y dentro su <code>index.html</code>.</li>
+      <li>Agrega una línea al <code>index.html</code> de la portada:<br><code>&lt;li&gt;&lt;a href="clase02/index.html"&gt;Clase 2 — HTML semántico&lt;/a&gt;&lt;/li&gt;</code></li>
+      <li>Commit con el mensaje de la clase (<code>Clase 2: HTML semántico</code>) → <span class="ruta">Sync Changes</span>.</li>
+      <li>Espera 1-2 minutos, recarga tu URL y verifica que el ejercicio nuevo ya se ve.</li>
+    </ol>
+    <p><strong>GitHub Pages ya quedó activo:</strong> no vuelves a tocar Settings nunca más. Y <strong>nunca borres las carpetas anteriores</strong>: son la memoria de tu progreso.</p>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Clase</th><th>Carpeta que crearás</th><th>Tu URL de ese ejercicio</th></tr></thead>
+      <tbody>
+        <tr><td>Clase 1 (hoy)</td><td><code>clase01/</code></td><td><code>…/herramientas-programacion/clase01/</code></td></tr>
+        <tr><td>Clase 2</td><td><code>clase02/</code></td><td><code>…/herramientas-programacion/clase02/</code></td></tr>
+        <tr><td>Clase 3</td><td><code>clase03/</code></td><td><code>…/herramientas-programacion/clase03/</code></td></tr>
+        <tr><td>…</td><td>…</td><td>…</td></tr>
+        <tr><td>Clase 22</td><td><code>clase22/</code></td><td><code>…/herramientas-programacion/clase22/</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🚨 Errores frecuentes (y cómo salir de ellos)</h3>
+  <div class="caja-importante">
+    <h4>⚠️ Si algo no se ve, casi siempre es una de estas</h4>
+    <ul class="lista-check">
+      <li><strong>Página 404 y el repo es privado:</strong> Pages gratuito solo publica repos públicos. Ve a <span class="ruta">Settings → General → Change visibility → Public</span>.</li>
+      <li><strong>Escribiste <code>Index.html</code> o <code>index.HTML</code>:</strong> el servidor distingue mayúsculas. Renombra a <code>index.html</code>, todo en minúsculas.</li>
+      <li><strong>La carpeta tiene espacios o tildes</strong> (<code>Clase 01</code>, <code>clase única</code>): rompe la URL. Renómbrala a <code>clase01</code>.</li>
+      <li><strong>Editaste pero no hiciste push:</strong> revisa <span class="ruta">Source Control</span>; si hay archivos pendientes, haz commit y <em>Sync Changes</em>.</li>
+      <li><strong>Entregaste la URL de <code>github.com</code>:</strong> esa muestra el <em>código</em>. La de tu página termina en <code>.github.io</code>.</li>
+      <li><strong>Acabas de activar Pages y da 404:</strong> paciencia, el primer despliegue puede tardar hasta 5 minutos. Recarga con <code>Ctrl + F5</code>.</li>
+      <li><strong>El archivo quedó en la carpeta equivocada:</strong> en el Explorador puedes arrastrarlo a su sitio y volver a hacer commit.</li>
+    </ul>
+  </div>
+
+  <h3>📊 Cómo se evalúa este taller</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Repositorio</td><td>Existe, es público y se llama <code>herramientas-programacion</code></td><td>1.0</td></tr>
+        <tr><td>Organización</td><td>Carpeta <code>clase01/</code> con <code>index.html</code> y portada en la raíz que enlaza a ella</td><td>1.0</td></tr>
+        <tr><td>Contenido HTML</td><td>Título, <code>&lt;h1&gt;</code>, dos o más párrafos, <code>&lt;hr&gt;</code> y un enlace que funciona</td><td>1.5</td></tr>
+        <tr><td>Personalización</td><td>La información es propia y real (ningún <code>[corchete]</code> sin reemplazar)</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>La URL de GitHub Pages abre la página sin errores</td><td>1.0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en parejas — 5 minutos (al terminar)</h4>
+    <p>Intercambia tu URL publicada con un compañero/a y revisen la del otro con la rúbrica de arriba: ¿abre bien?, ¿tiene todos los elementos?, ¿el enlace de la portada lleva a la clase 1?, ¿queda claro quién es? Cada uno anota <strong>una mejora concreta</strong> para aplicarla antes de la próxima clase.</p>
   </div>
 
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Web Builder!</h2>
-    <p class="lead">Ya sabes qué es Internet, la diferencia entre HTML/CSS/JS, la estructura de una página y las etiquetas básicas. Y creaste tu primera página "Sobre mí". <strong>HTML es el esqueleto de la página.</strong> En la próxima clase aprenderás a estructurarla con etiquetas semánticas.</p>
+    <p class="lead">Hoy no solo aprendiste qué es Internet, la diferencia entre HTML, CSS y JavaScript y cómo se estructura una página: <strong>publicaste tu primera página en Internet</strong> y dejaste montado el repositorio, el Codespace y el sitio que usarás durante todo el año.</p>
+    <p class="lead">Recuerda: <strong>HTML es el esqueleto de la página</strong>. En la próxima clase lo harás mucho más ordenado con etiquetas semánticas… y lo publicarás en <code>clase02/</code> con la misma rutina de 5 pasos.</p>
     <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
   </div>
 

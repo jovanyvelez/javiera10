@@ -7,7 +7,7 @@ const STORAGE_KEY = 'curso-introduccion-web-html';
 const TOTAL_MODULOS = 8;
 const XP_TOTAL = 640;
 
-const LABELS_MODULOS = ['Inicio', 'Internet y la web', 'HTML, CSS y JS', 'Estructura de una página', 'Descanso', 'Etiquetas básicas', 'Tu página "Sobre mí"', 'Taller'];
+const LABELS_MODULOS = ['Inicio', 'Internet y la web', 'HTML, CSS y JS', 'Estructura de una página', 'Descanso', 'Etiquetas básicas', 'Tu página "Sobre mí"', 'Taller · GitHub'];
 const BADGES_MODULO = {
   0: '🚀 Iniciado',
   1: '🌍 Explorador Web',
@@ -25,7 +25,12 @@ const estado = {
   quizzes: {},
   talleres: {},
   badges: new Set(),
-  xp: 0
+  xp: 0,
+  // Taller de GitHub (módulo 7)
+  pasos: new Set(),
+  autoeval: new Set(),
+  usuarioGithub: '',
+  publicado: false
 };
 
 const XP_POR_MODULO = 30;
@@ -38,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   configurarCopiarCodigo();
   configurarQuizzes();
   configurarTaller();
+  configurarTallerGithub();
   configurarTrivia();
   configurarTeclado();
   inicializarSimuladores();
@@ -52,7 +58,11 @@ function guardarProgreso() {
       quizzes: estado.quizzes,
       talleres: estado.talleres,
       badges: [...estado.badges],
-      xp: estado.xp
+      xp: estado.xp,
+      pasos: [...estado.pasos],
+      autoeval: [...estado.autoeval],
+      usuarioGithub: estado.usuarioGithub,
+      publicado: estado.publicado
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(datos));
   } catch (e) {}
@@ -68,6 +78,10 @@ function cargarProgreso() {
     estado.talleres = datos.talleres || {};
     estado.badges = new Set(datos.badges || []);
     estado.xp = datos.xp || 0;
+    estado.pasos = new Set(datos.pasos || []);
+    estado.autoeval = new Set(datos.autoeval || []);
+    estado.usuarioGithub = datos.usuarioGithub || '';
+    estado.publicado = datos.publicado || false;
   } catch (e) {}
 }
 
@@ -253,31 +267,19 @@ function configurarTrivia() {
   });
 }
 
-/* ---------- TALLER ---------- */
-const TALLER_RESP = {
-  1: { '1a': '1A', '1b': '1B', '1c': '1C' },
-  4: { '4A': '4A' }
-};
+/* ---------- RETOS INTERACTIVOS (módulo 3) ---------- */
+const TALLER_RESP = {};
 const TALLER_ORDER = {
-  esqueleto: ['doctype', 'html', 'head', 'body'],
-  2: ['2doctype', '2html', '2head', '2body']
+  esqueleto: ['doctype', 'html', 'head', 'body']
 };
-const TALLER_INPUT = { 3: 'p' };
+const TALLER_INPUT = {};
 const TALLER_MSGS = {
-  1: '¡Perfecto! Internet=red, navegador=programa, servidor=computador que responde.',
-  esqueleto: '¡Excelente! DOCTYPE → html → head → body.',
-  2: '¡Correcto! El esqueleto va: DOCTYPE, html, head, body.',
-  3: '¡Bien! La etiqueta de párrafo es &lt;p&gt;.',
-  4: '🏆 ¡JEFE FINAL VENCIDO! El contenido visible va en &lt;body&gt;, no en &lt;head&gt;.'
+  esqueleto: '¡Excelente! DOCTYPE → html → head → body.'
 };
 const TALLER_HINTS = {
-  1: 'Pista: Internet=red, navegador=programa, servidor=computador.',
-  esqueleto: 'Pista: DOCTYPE arriba, body abajo.',
-  2: 'Pista: DOCTYPE, html, head, body.',
-  3: 'Pista: la etiqueta es "p" (párrafo).',
-  4: 'Pista: el &lt;h1&gt; visible va en &lt;body&gt;.'
+  esqueleto: 'Pista: DOCTYPE arriba, body abajo.'
 };
-const TALLER_XP = { 1: 25, esqueleto: 30, 2: 30, 3: 30, 4: 55 };
+const TALLER_XP = { esqueleto: 30 };
 
 const seleccionMatch = {};
 const parejasMatch = {};
@@ -391,8 +393,8 @@ function validarReto(id) {
       estado.talleres[id] = true;
       addXP(xpPorReto);
     }
-    if (Object.keys(estado.talleres).length === Object.keys(TALLER_MSGS).length) {
-      otorgarBadge('🛠️ Web Builder Completado');
+    if (Object.keys(TALLER_MSGS).every(k => estado.talleres[k])) {
+      otorgarBadge('🧩 Esqueleto Ordenado');
     }
   } else {
     fb.className = 'resultado-ws visible no';
@@ -467,6 +469,255 @@ function renumerarOrden(id) {
   cont.querySelectorAll('.ws-order-item').forEach((it, i) => {
     it.querySelector('.ord-num').textContent = i + 1;
   });
+}
+
+/* ============================================================
+   TALLER DEL MÓDULO 7 — REPOSITORIO EN GITHUB + CODESPACES + PAGES
+   ============================================================ */
+const TOTAL_PASOS = 8;
+const XP_POR_PASO = 12;
+const XP_PUBLICACION = 44;
+const TOTAL_AUTOEVAL = 6;
+const REPO_NOMBRE = 'herramientas-programacion';
+
+// Nombre de usuario válido en GitHub: alfanumérico y guiones (no al inicio/final)
+const RE_USUARIO = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+// URL de un sitio publicado con GitHub Pages
+const RE_PAGES = /^https?:\/\/([a-z\d-]+)\.github\.io(?:\/([^/\s?#]+))?\/?([^\s?#]*)$/i;
+
+function configurarTallerGithub() {
+  const pasosBtns = document.querySelectorAll('[data-paso-check]');
+  if (!pasosBtns.length) return;
+
+  pasosBtns.forEach(btn => {
+    btn.addEventListener('click', () => alternarPaso(btn.dataset.pasoCheck));
+  });
+
+  const inputUsuario = document.getElementById('gh-usuario');
+  const btnGenerar = document.getElementById('gh-generar');
+  if (btnGenerar && inputUsuario) {
+    btnGenerar.addEventListener('click', () => generarEnlaces());
+    inputUsuario.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); generarEnlaces(); }
+    });
+  }
+
+  const btnVerificar = document.getElementById('gh-verificar');
+  const inputFinal = document.getElementById('gh-url-final');
+  if (btnVerificar && inputFinal) {
+    btnVerificar.addEventListener('click', () => verificarPublicacion());
+    inputFinal.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); verificarPublicacion(); }
+    });
+  }
+
+  document.querySelectorAll('[data-autoeval]').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const id = chk.dataset.autoeval;
+      if (chk.checked) estado.autoeval.add(id);
+      else estado.autoeval.delete(id);
+      if (estado.autoeval.size === TOTAL_AUTOEVAL) otorgarBadge('📋 Autoevaluado');
+      guardarProgreso();
+    });
+  });
+
+  restaurarTallerGithub();
+}
+
+function restaurarTallerGithub() {
+  estado.pasos.forEach(id => pintarPaso(id, true));
+  estado.autoeval.forEach(id => {
+    const chk = document.querySelector(`[data-autoeval="${id}"]`);
+    if (chk) chk.checked = true;
+  });
+  const inputUsuario = document.getElementById('gh-usuario');
+  if (inputUsuario && estado.usuarioGithub) {
+    inputUsuario.value = estado.usuarioGithub;
+    generarEnlaces(true);
+  }
+  if (estado.publicado) {
+    const fb = document.getElementById('ws-fb-github');
+    if (fb) {
+      fb.className = 'resultado-ws visible ok';
+      fb.innerHTML = '✅ Ya validaste tu entrega en esta clase. Puedes volver a comprobarla cuando quieras.';
+    }
+  }
+  actualizarProgresoPasos();
+}
+
+function alternarPaso(id) {
+  if (estado.pasos.has(id)) {
+    estado.pasos.delete(id);
+    pintarPaso(id, false);
+  } else {
+    estado.pasos.add(id);
+    pintarPaso(id, true);
+    if (!estado.talleres['paso-' + id]) {
+      estado.talleres['paso-' + id] = true;
+      addXP(XP_POR_PASO);
+      mostrarToast(`✅ Paso ${id} completado · +${XP_POR_PASO} XP`);
+    }
+    if (estado.pasos.size === TOTAL_PASOS) {
+      otorgarBadge('🐙 Repositorio en Marcha');
+      mostrarToast('🎉 ¡Los 8 pasos listos! Ahora verifica tu enlace.');
+    }
+  }
+  actualizarProgresoPasos();
+  guardarProgreso();
+}
+
+function pintarPaso(id, hecho) {
+  const bloque = document.querySelector(`.paso[data-paso="${id}"]`);
+  const btn = document.querySelector(`[data-paso-check="${id}"]`);
+  if (bloque) bloque.classList.toggle('hecho', hecho);
+  if (btn) {
+    btn.classList.toggle('ok', hecho);
+    if (hecho) {
+      if (!btn.dataset.textoOriginal) btn.dataset.textoOriginal = btn.textContent;
+      btn.textContent = '✔ Paso completado (clic para desmarcar)';
+    } else if (btn.dataset.textoOriginal) {
+      btn.textContent = btn.dataset.textoOriginal;
+    }
+  }
+}
+
+function actualizarProgresoPasos() {
+  const cuenta = document.getElementById('pasos-hechos');
+  const barra = document.getElementById('barra-pasos');
+  const hechos = estado.pasos.size;
+  if (cuenta) cuenta.textContent = hechos;
+  if (barra) barra.style.width = Math.round((hechos / TOTAL_PASOS) * 100) + '%';
+}
+
+function limpiarUsuario(valor) {
+  return valor
+    .trim()
+    .toLowerCase()
+    .replace(/^@/, '')
+    .replace(/^https?:\/\//, '')
+    .replace(/\.github\.io.*$/, '')
+    .replace(/^github\.com\//, '')
+    .replace(/\/.*$/, '')
+    .replace(/\s+/g, '');
+}
+
+function generarEnlaces(silencioso) {
+  const input = document.getElementById('gh-usuario');
+  const salida = document.getElementById('gh-urls');
+  if (!input || !salida) return;
+
+  const usuario = limpiarUsuario(input.value);
+  if (!usuario) {
+    salida.innerHTML = '<p class="url-aviso">✏️ Escribe tu nombre de usuario de GitHub para armar tus enlaces.</p>';
+    salida.classList.add('visible');
+    return;
+  }
+  if (!RE_USUARIO.test(usuario)) {
+    salida.innerHTML = '<p class="url-aviso error">⚠️ Ese usuario no parece válido. En GitHub solo se usan letras, números y guiones (por ejemplo <code>ana-lopez-dev</code>).</p>';
+    salida.classList.add('visible');
+    return;
+  }
+
+  input.value = usuario;
+  const base = `https://${usuario}.github.io/${REPO_NOMBRE}/`;
+  const repo = `https://github.com/${usuario}/${REPO_NOMBRE}`;
+
+  salida.innerHTML = `
+    <div class="url-fila">
+      <span class="url-etiqueta">🌐 Tu portada publicada <em>(esto entregas)</em></span>
+      <a class="url-valor" href="${base}" target="_blank" rel="noopener">${base}</a>
+    </div>
+    <div class="url-fila">
+      <span class="url-etiqueta">📄 Tu ejercicio de la clase 1</span>
+      <a class="url-valor" href="${base}clase01/" target="_blank" rel="noopener">${base}clase01/</a>
+    </div>
+    <div class="url-fila">
+      <span class="url-etiqueta">🐙 Tu repositorio, donde vive el código</span>
+      <a class="url-valor" href="${repo}" target="_blank" rel="noopener">${repo}</a>
+    </div>
+    <div class="url-fila">
+      <span class="url-etiqueta">💻 Tus Codespaces (para reabrirlo cada clase)</span>
+      <a class="url-valor" href="https://github.com/codespaces" target="_blank" rel="noopener">https://github.com/codespaces</a>
+    </div>
+    <p class="url-aviso">📌 Guarda estos enlaces: los vas a usar en todas las clases del año.</p>
+  `;
+  salida.classList.add('visible');
+
+  const final = document.getElementById('gh-url-final');
+  if (final) {
+    final.placeholder = base;
+    if (!final.value) final.value = base;
+  }
+
+  if (estado.usuarioGithub !== usuario) {
+    estado.usuarioGithub = usuario;
+    guardarProgreso();
+  }
+  if (!silencioso) mostrarToast('🔗 Enlaces generados. ¡Ábrelos para comprobar!');
+}
+
+function verificarPublicacion() {
+  const input = document.getElementById('gh-url-final');
+  const fb = document.getElementById('ws-fb-github');
+  if (!input || !fb) return;
+
+  const valor = input.value.trim();
+  fb.classList.add('visible');
+
+  const fallo = (msg) => {
+    fb.className = 'resultado-ws visible no';
+    fb.innerHTML = msg;
+  };
+
+  if (!valor) {
+    fallo('✏️ Pega primero la dirección de tu página publicada (empieza por <code>https://</code>).');
+    return;
+  }
+
+  if (/github\.com/i.test(valor)) {
+    const m = valor.match(/github\.com\/([^/\s]+)\/([^/\s?#]+)/i);
+    const sugerencia = m ? `<br>La tuya sería: <code>https://${m[1].toLowerCase()}.github.io/${m[2]}/</code>` : '';
+    fallo(`❌ Esa es la dirección de tu <strong>código</strong> en GitHub, no la de tu <strong>página publicada</strong>. La de la página contiene <code>.github.io</code>.${sugerencia}`);
+    return;
+  }
+
+  if (!/^https?:\/\//i.test(valor)) {
+    fallo('❌ Le falta el inicio: la dirección debe empezar por <code>https://</code>. Cópiala tal cual desde la barra del navegador.');
+    return;
+  }
+
+  const m = valor.match(RE_PAGES);
+  if (!m) {
+    fallo('❌ Esa dirección no parece de GitHub Pages. Debe tener la forma <code>https://tu-usuario.github.io/' + REPO_NOMBRE + '/</code>. Revísala en <strong>Settings → Pages</strong>, donde dice <em>"Your site is live at…"</em>.');
+    return;
+  }
+
+  const usuario = m[1].toLowerCase();
+  const repo = (m[2] || '').toLowerCase();
+
+  let extra = '';
+  if (repo && repo !== REPO_NOMBRE) {
+    extra = `<br>💡 Ojo: tu repositorio se llama <code>${repo}</code> y en clase acordamos <code>${REPO_NOMBRE}</code>. Funciona igual, pero avísale a tu profesor/a para que sepa dónde buscar tus ejercicios.`;
+  }
+
+  fb.className = 'resultado-ws visible ok';
+  fb.innerHTML = `✅ ¡Excelente, <strong>${usuario}</strong>! Esa sí es una dirección de GitHub Pages. Ábrela en otra pestaña y confirma que se ve tu página; si da error 404, espera 2 minutos y recarga con <code>Ctrl + F5</code>.${extra}` +
+    (estado.publicado ? '' : ` <strong>+${XP_PUBLICACION} XP</strong>`);
+
+  if (!estado.publicado) {
+    estado.publicado = true;
+    addXP(XP_PUBLICACION);
+    otorgarBadge('🌐 Publicado en Internet');
+  }
+  if (!estado.pasos.has('8')) alternarPaso('8');
+  if (estado.pasos.size === TOTAL_PASOS) otorgarBadge('🛠️ Web Builder Completado');
+
+  const inputUsuario = document.getElementById('gh-usuario');
+  if (inputUsuario && !inputUsuario.value) {
+    inputUsuario.value = usuario;
+    generarEnlaces(true);
+  }
+  guardarProgreso();
 }
 
 function configurarTeclado() {
