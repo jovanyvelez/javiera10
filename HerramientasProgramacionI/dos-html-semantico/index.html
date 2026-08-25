@@ -669,6 +669,298 @@
     </div>
   </div>
 
+
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>dos cosas</strong>: el ejercicio de la clase en <code>clase02/</code> y, sobre todo, <strong>nace tu aplicación</strong> en <code>proyecto/</code>: el <strong>gestor de tareas</strong> que construirás durante todo el año.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol2">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 2 enlaces hoy)
+├── clase01/index.html  ← ya lo tienes
+├── clase02/
+│   └── index.html      ← HOY: landing page semántica
+└── proyecto/
+    └── index.html      ← ⭐ HOY NACE TU APP: gestor de tareas</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase02/index.html</code> — tu landing page semántica</span>
+        <span class="paso-tiempo">⏱️ 12 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase02</code> y dentro un <code>index.html</code>. Es la landing page del módulo 5, ahora con etiquetas semánticas de verdad.</p>
+      <p><strong>Debe llevar:</strong> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <strong>al menos dos</strong> <code>&lt;section&gt;</code> y <code>&lt;footer&gt;</code>. Usa el tema que quieras (tu banda favorita, tu deporte, tu videojuego).</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase02/index.html</div>
+          <button class="copy-btn" data-copy="clase02">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mi landing page semántica · Clase 2&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;[Título de tu página]&lt;/h1&gt;
+    &lt;p&gt;[Una frase que explique de qué se trata]&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#sobre"&gt;Sobre&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#servicios"&gt;Servicios&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="../index.html"&gt;Volver a mi portada&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+
+  &lt;main&gt;
+    &lt;section id="sobre"&gt;
+      &lt;h2&gt;Sobre&lt;/h2&gt;
+      &lt;p&gt;[Describe el tema en dos o tres frases.]&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="servicios"&gt;
+      &lt;h2&gt;Lo que ofrezco&lt;/h2&gt;
+      &lt;article&gt;
+        &lt;h3&gt;[Primera tarjeta]&lt;/h3&gt;
+        &lt;p&gt;[Descripción corta.]&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article&gt;
+        &lt;h3&gt;[Segunda tarjeta]&lt;/h3&gt;
+        &lt;p&gt;[Descripción corta.]&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;Hecho por [tu nombre] · Grado 10°&lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p>💡 Se verá <strong>sin estilos</strong> y eso está bien: hoy trabajamos la <em>estructura</em>. Los colores llegan en el módulo de CSS (clase 5).</p>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi clase02 está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Crea <code>proyecto/index.html</code> — nace tu aplicación</span>
+        <span class="paso-tiempo">⏱️ 15 min · el paso más importante del año</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea ahora la carpeta <code>proyecto</code> (en la raíz, junto a <code>clase01</code>) y dentro su <code>index.html</code>. Aquí vivirá tu <strong>gestor de tareas</strong>: la aplicación que irás completando en cada clase hasta la 21.</p>
+      <p>Hoy solo montas su <strong>esqueleto semántico</strong>: los espacios donde después irán el formulario, la lista de tareas y los contadores.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html</div>
+          <button class="copy-btn" data-copy="proyecto">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mi Gestor de Tareas&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;Mi Gestor de Tareas&lt;/h1&gt;
+    &lt;p&gt;Organiza lo que tienes que hacer&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;nav&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href="#nueva"&gt;Nueva tarea&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#lista"&gt;Mis tareas&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="../index.html"&gt;Mi portada&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+
+  &lt;main&gt;
+
+    &lt;!-- Aquí irá el formulario en la clase 4 --&gt;
+    &lt;section id="nueva"&gt;
+      &lt;h2&gt;Agregar una tarea&lt;/h2&gt;
+      &lt;p&gt;Pronto aquí habrá un formulario para crear tareas.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;!-- Aquí se mostrarán las tareas con JavaScript --&gt;
+    &lt;section id="lista"&gt;
+      &lt;h2&gt;Mis tareas&lt;/h2&gt;
+      &lt;article&gt;
+        &lt;h3&gt;Tarea de ejemplo&lt;/h3&gt;
+        &lt;p&gt;Categoría: estudio · Estado: pendiente&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article&gt;
+        &lt;h3&gt;Otra tarea de ejemplo&lt;/h3&gt;
+        &lt;p&gt;Categoría: casa · Estado: completada&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;aside&gt;
+      &lt;h2&gt;Resumen&lt;/h2&gt;
+      &lt;p&gt;Total de tareas: 2&lt;/p&gt;
+    &lt;/aside&gt;
+
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;Proyecto de [tu nombre] · Herramientas de Programación I&lt;/p&gt;
+  &lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 Puedes personalizar tu app</h4>
+        <p>Si prefieres, en vez de tareas haz un <strong>gestor de productos</strong>, de <strong>contactos</strong> o de <strong>libros</strong>. Elígelo hoy y mantenlo todo el año: cambia el tema, pero no la estructura. Las dos tarjetas de ejemplo son solo para ver cómo quedará; en la clase 15 las generará JavaScript.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi aplicación ya nació</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 2 en la lista de clases. El de <code>proyecto/</code> ya lo dejaste escrito en la clase 1: <strong>hoy por fin funciona</strong>.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada2">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase02/index.html"&gt;Clase 2 — Landing page semántica&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va justo debajo de la línea de la clase 1, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 2: landing semántica y nace el proyecto</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 2) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase02/index.html</code> usa <code>header</code>, <code>nav</code>, <code>main</code>, <strong>dos o más</strong> <code>section</code> y <code>footer</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>No usé <code>&lt;div&gt;</code> donde había una etiqueta semántica mejor.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Tengo un solo <code>&lt;h1&gt;</code> por página y los títulos van en orden (h1 → h2 → h3).</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Ya existe <code>proyecto/index.html</code> con la estructura de mi aplicación.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Reemplacé todos los <code>[corchetes]</code> por contenido propio.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mis dos páginas abren desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase02/index.html</code> con las 5 etiquetas semánticas exigidas</td><td>1.5</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/index.html</code> con la estructura de la app y contenido propio</td><td>1.5</td></tr>
+        <tr><td>Jerarquía</td><td>Un solo <code>h1</code>, títulos en orden, listas y enlaces bien usados</td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlaces a la clase 2 y al proyecto funcionando</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Arquitecto HTML!</h2>
     <p class="lead">Ya sabes estructurar una página con etiquetas semánticas, usar listas y enlaces, y seguir buenas prácticas. Tu página ya tiene un esqueleto profesional. En la próxima clase le pondremos imágenes, tablas y multimedia.</p>

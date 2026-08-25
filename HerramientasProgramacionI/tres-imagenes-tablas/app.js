@@ -25,7 +25,12 @@ const estado = {
   quizzes: {},
   talleres: {},
   badges: new Set(),
-  xp: 0
+  xp: 0,
+  // Entrega en el repositorio (módulo 7)
+  pasos: new Set(),
+  autoeval: new Set(),
+  usuarioGithub: '',
+  publicado: false
 };
 
 const XP_POR_MODULO = 30;
@@ -38,6 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
   configurarCopiarCodigo();
   configurarQuizzes();
   configurarTaller();
+  configurarEntregaRepo();
   configurarTrivia();
   configurarTeclado();
   inicializarSimuladores();
@@ -52,7 +58,11 @@ function guardarProgreso() {
       quizzes: estado.quizzes,
       talleres: estado.talleres,
       badges: [...estado.badges],
-      xp: estado.xp
+      xp: estado.xp,
+      pasos: [...estado.pasos],
+      autoeval: [...estado.autoeval],
+      usuarioGithub: estado.usuarioGithub,
+      publicado: estado.publicado
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(datos));
   } catch (e) {}
@@ -68,6 +78,10 @@ function cargarProgreso() {
     estado.talleres = datos.talleres || {};
     estado.badges = new Set(datos.badges || []);
     estado.xp = datos.xp || 0;
+    estado.pasos = new Set(datos.pasos || []);
+    estado.autoeval = new Set(datos.autoeval || []);
+    estado.usuarioGithub = datos.usuarioGithub || '';
+    estado.publicado = datos.publicado || false;
   } catch (e) {}
 }
 
@@ -388,7 +402,7 @@ function validarReto(id) {
       estado.talleres[id] = true;
       addXP(xpPorReto);
     }
-    if (Object.keys(estado.talleres).length === Object.keys(TALLER_MSGS).length) {
+    if (Object.keys(TALLER_MSGS).every(k => estado.talleres[k])) {
       otorgarBadge('🛠️ Curador de Contenido Completado');
     }
   } else {
@@ -464,6 +478,251 @@ function renumerarOrden(id) {
   cont.querySelectorAll('.ws-order-item').forEach((it, i) => {
     it.querySelector('.ord-num').textContent = i + 1;
   });
+}
+
+/* ============================================================
+   ENTREGA EN EL REPOSITORIO (módulo 7)
+   Mismo repositorio creado en la clase 1: claseNN/ + proyecto/
+   ============================================================ */
+const TOTAL_PASOS = 5;
+const XP_POR_PASO = 10;
+const XP_PUBLICACION = 30;
+const TOTAL_AUTOEVAL = 6;
+const REPO_NOMBRE = 'herramientas-programacion';
+const CARPETA_CLASE = 'clase03';
+
+const RE_USUARIO = /^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i;
+const RE_PAGES = /^https?:\/\/([a-z\d-]+)\.github\.io(?:\/([^/\s?#]+))?\/?([^\s?#]*)$/i;
+
+function configurarEntregaRepo() {
+  const pasosBtns = document.querySelectorAll('[data-paso-check]');
+  if (!pasosBtns.length) return;
+
+  pasosBtns.forEach(btn => {
+    btn.addEventListener('click', () => alternarPaso(btn.dataset.pasoCheck));
+  });
+
+  const inputUsuario = document.getElementById('gh-usuario');
+  const btnGenerar = document.getElementById('gh-generar');
+  if (btnGenerar && inputUsuario) {
+    btnGenerar.addEventListener('click', () => generarEnlaces());
+    inputUsuario.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); generarEnlaces(); }
+    });
+  }
+
+  const btnVerificar = document.getElementById('gh-verificar');
+  const inputFinal = document.getElementById('gh-url-final');
+  if (btnVerificar && inputFinal) {
+    btnVerificar.addEventListener('click', () => verificarPublicacion());
+    inputFinal.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); verificarPublicacion(); }
+    });
+  }
+
+  document.querySelectorAll('[data-autoeval]').forEach(chk => {
+    chk.addEventListener('change', () => {
+      const id = chk.dataset.autoeval;
+      if (chk.checked) estado.autoeval.add(id);
+      else estado.autoeval.delete(id);
+      if (estado.autoeval.size === TOTAL_AUTOEVAL) otorgarBadge('📋 Autoevaluado');
+      guardarProgreso();
+    });
+  });
+
+  restaurarEntregaRepo();
+}
+
+function restaurarEntregaRepo() {
+  estado.pasos.forEach(id => pintarPaso(id, true));
+  estado.autoeval.forEach(id => {
+    const chk = document.querySelector(`[data-autoeval="${id}"]`);
+    if (chk) chk.checked = true;
+  });
+  const inputUsuario = document.getElementById('gh-usuario');
+  if (inputUsuario && estado.usuarioGithub) {
+    inputUsuario.value = estado.usuarioGithub;
+    generarEnlaces(true);
+  }
+  if (estado.publicado) {
+    const fb = document.getElementById('ws-fb-github');
+    if (fb) {
+      fb.className = 'resultado-ws visible ok';
+      fb.innerHTML = '✅ Ya validaste tu entrega de esta clase. Puedes volver a comprobarla cuando quieras.';
+    }
+  }
+  actualizarProgresoPasos();
+}
+
+function alternarPaso(id) {
+  if (estado.pasos.has(id)) {
+    estado.pasos.delete(id);
+    pintarPaso(id, false);
+  } else {
+    estado.pasos.add(id);
+    pintarPaso(id, true);
+    if (!estado.talleres['paso-' + id]) {
+      estado.talleres['paso-' + id] = true;
+      addXP(XP_POR_PASO);
+      mostrarToast(`✅ Paso ${id} completado · +${XP_POR_PASO} XP`);
+    }
+    if (estado.pasos.size === TOTAL_PASOS) {
+      otorgarBadge('📦 Entrega Publicada');
+      mostrarToast('🎉 ¡Entrega completa! Verifica tu enlace.');
+    }
+  }
+  actualizarProgresoPasos();
+  guardarProgreso();
+}
+
+function pintarPaso(id, hecho) {
+  const bloque = document.querySelector(`.paso[data-paso="${id}"]`);
+  const btn = document.querySelector(`[data-paso-check="${id}"]`);
+  if (bloque) bloque.classList.toggle('hecho', hecho);
+  if (btn) {
+    btn.classList.toggle('ok', hecho);
+    if (hecho) {
+      if (!btn.dataset.textoOriginal) btn.dataset.textoOriginal = btn.textContent;
+      btn.textContent = '✔ Paso completado (clic para desmarcar)';
+    } else if (btn.dataset.textoOriginal) {
+      btn.textContent = btn.dataset.textoOriginal;
+    }
+  }
+}
+
+function actualizarProgresoPasos() {
+  const cuenta = document.getElementById('pasos-hechos');
+  const barra = document.getElementById('barra-pasos');
+  const hechos = estado.pasos.size;
+  if (cuenta) cuenta.textContent = hechos;
+  if (barra) barra.style.width = Math.round((hechos / TOTAL_PASOS) * 100) + '%';
+}
+
+function limpiarUsuario(valor) {
+  return valor
+    .trim()
+    .toLowerCase()
+    .replace(/^@/, '')
+    .replace(/^https?:\/\//, '')
+    .replace(/\.github\.io.*$/, '')
+    .replace(/^github\.com\//, '')
+    .replace(/\/.*$/, '')
+    .replace(/\s+/g, '');
+}
+
+function generarEnlaces(silencioso) {
+  const input = document.getElementById('gh-usuario');
+  const salida = document.getElementById('gh-urls');
+  if (!input || !salida) return;
+
+  const usuario = limpiarUsuario(input.value);
+  if (!usuario) {
+    salida.innerHTML = '<p class="url-aviso">✏️ Escribe tu nombre de usuario de GitHub para armar tus enlaces.</p>';
+    salida.classList.add('visible');
+    return;
+  }
+  if (!RE_USUARIO.test(usuario)) {
+    salida.innerHTML = '<p class="url-aviso error">⚠️ Ese usuario no parece válido. En GitHub solo se usan letras, números y guiones.</p>';
+    salida.classList.add('visible');
+    return;
+  }
+
+  input.value = usuario;
+  const base = `https://${usuario}.github.io/${REPO_NOMBRE}/`;
+
+  salida.innerHTML = `
+    <div class="url-fila">
+      <span class="url-etiqueta">⭐ Tu aplicación (el proyecto)</span>
+      <a class="url-valor" href="${base}proyecto/" target="_blank" rel="noopener">${base}proyecto/</a>
+    </div>
+    <div class="url-fila">
+      <span class="url-etiqueta">📄 El ejercicio de hoy</span>
+      <a class="url-valor" href="${base}${CARPETA_CLASE}/" target="_blank" rel="noopener">${base}${CARPETA_CLASE}/</a>
+    </div>
+    <div class="url-fila">
+      <span class="url-etiqueta">🌐 Tu portada <em>(esto entregas)</em></span>
+      <a class="url-valor" href="${base}" target="_blank" rel="noopener">${base}</a>
+    </div>
+    <p class="url-aviso">📌 Si alguna da error 404, espera 2 minutos y recarga con Ctrl + F5.</p>
+  `;
+  salida.classList.add('visible');
+
+  const final = document.getElementById('gh-url-final');
+  if (final) {
+    final.placeholder = base + 'proyecto/';
+    if (!final.value) final.value = base + 'proyecto/';
+  }
+
+  if (estado.usuarioGithub !== usuario) {
+    estado.usuarioGithub = usuario;
+    guardarProgreso();
+  }
+  if (!silencioso) mostrarToast('🔗 Enlaces generados. ¡Ábrelos para comprobar!');
+}
+
+function verificarPublicacion() {
+  const input = document.getElementById('gh-url-final');
+  const fb = document.getElementById('ws-fb-github');
+  if (!input || !fb) return;
+
+  const valor = input.value.trim();
+  fb.classList.add('visible');
+
+  const fallo = (msg) => {
+    fb.className = 'resultado-ws visible no';
+    fb.innerHTML = msg;
+  };
+
+  if (!valor) {
+    fallo('✏️ Pega primero la dirección de tu página publicada (empieza por <code>https://</code>).');
+    return;
+  }
+  if (/github\.com/i.test(valor)) {
+    const m = valor.match(/github\.com\/([^/\s]+)\/([^/\s?#]+)/i);
+    const sugerencia = m ? `<br>La tuya sería: <code>https://${m[1].toLowerCase()}.github.io/${m[2]}/</code>` : '';
+    fallo(`❌ Esa es la dirección de tu <strong>código</strong>, no la de tu <strong>página publicada</strong>. La de la página contiene <code>.github.io</code>.${sugerencia}`);
+    return;
+  }
+  if (!/^https?:\/\//i.test(valor)) {
+    fallo('❌ Le falta el inicio: la dirección debe empezar por <code>https://</code>.');
+    return;
+  }
+
+  const m = valor.match(RE_PAGES);
+  if (!m) {
+    fallo(`❌ Esa dirección no parece de GitHub Pages. Debe tener la forma <code>https://tu-usuario.github.io/${REPO_NOMBRE}/proyecto/</code>.`);
+    return;
+  }
+
+  const usuario = m[1].toLowerCase();
+  const repo = (m[2] || '').toLowerCase();
+  const resto = (m[3] || '').toLowerCase();
+
+  let extra = '';
+  if (repo && repo !== REPO_NOMBRE) {
+    extra += `<br>💡 Tu repositorio se llama <code>${repo}</code> y en clase acordamos <code>${REPO_NOMBRE}</code>. Funciona, pero avísale a tu profesor/a.`;
+  }
+  if (!resto.includes('proyecto') && !resto.includes(CARPETA_CLASE)) {
+    extra += `<br>💡 Esa es tu portada. Comprueba también <code>${CARPETA_CLASE}/</code> y <code>proyecto/</code>, que son la entrega de hoy.`;
+  }
+
+  fb.className = 'resultado-ws visible ok';
+  fb.innerHTML = `✅ ¡Bien, <strong>${usuario}</strong>! Es una dirección válida de GitHub Pages. Ábrela y confirma que se ve tu trabajo de hoy.${extra}` +
+    (estado.publicado ? '' : ` <strong>+${XP_PUBLICACION} XP</strong>`);
+
+  if (!estado.publicado) {
+    estado.publicado = true;
+    addXP(XP_PUBLICACION);
+    otorgarBadge('🌐 Publicado en Internet');
+  }
+  if (!estado.pasos.has('5')) alternarPaso('5');
+
+  const inputUsuario = document.getElementById('gh-usuario');
+  if (inputUsuario && !inputUsuario.value) {
+    inputUsuario.value = usuario;
+    generarEnlaces(true);
+  }
+  guardarProgreso();
 }
 
 function configurarTeclado() {

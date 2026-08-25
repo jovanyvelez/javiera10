@@ -568,6 +568,248 @@
     </div>
   </div>
 
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy es el <strong>CHECKPOINT del módulo HTML</strong>: cierras la estructura y los formularios de tu aplicación antes de pasar al módulo de CSS (clase 5). El ejercicio de la clase va en <code>clase04/</code> y, sobre todo, <strong>tu gestor de tareas avanza</strong> en <code>proyecto/</code>: deja de ser un esqueleto y recibe su formulario real de nueva tarea.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol4">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01/index.html  ← ya lo tienes
+├── clase02/index.html  ← ya lo tienes
+├── clase03/index.html  ← ya lo tienes
+├── clase04/
+│   └── index.html      ← HOY: formulario de contacto accesible
+└── proyecto/
+    └── index.html      ← ⭐ HOY CRECE TU APP: formulario de nueva tarea</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase04/index.html</code> — tu formulario de contacto</span>
+        <span class="paso-tiempo">⏱️ 10 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase04</code> y dentro un <code>index.html</code> con el <strong>formulario de contacto</strong> que armaste en el módulo 5, ahora completo y accesible.</p>
+      <p><strong>Debe llevar:</strong> un <code>&lt;form&gt;</code>, cada campo con su <code>&lt;label&gt;</code> asociado por <code>for</code>/<code>id</code>, un <code>&lt;input type="text"&gt;</code> (nombre), un <code>&lt;input type="email"&gt;</code> (correo), un <code>&lt;textarea&gt;</code> (mensaje), un <code>&lt;select&gt;</code> (motivo), un botón <code>submit</code> y <code>required</code> donde corresponda.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase04/index.html</div>
+          <button class="copy-btn" data-copy="clase04">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;form&gt;
+  &lt;label for="nombre"&gt;Nombre:&lt;/label&gt;
+  &lt;input type="text" id="nombre" name="nombre" required&gt;
+
+  &lt;label for="correo"&gt;Correo:&lt;/label&gt;
+  &lt;input type="email" id="correo" name="correo" required&gt;
+
+  &lt;label for="motivo"&gt;Motivo:&lt;/label&gt;
+  &lt;select id="motivo" name="motivo"&gt;
+    &lt;option value="duda"&gt;Una duda&lt;/option&gt;
+    &lt;option value="sugerencia"&gt;Una sugerencia&lt;/option&gt;
+    &lt;option value="otro"&gt;Otro&lt;/option&gt;
+  &lt;/select&gt;
+
+  &lt;label for="mensaje"&gt;Mensaje:&lt;/label&gt;
+  &lt;textarea id="mensaje" name="mensaje" required&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>♿ Nota de accesibilidad</h4>
+        <p>Cada <code>&lt;input&gt;</code> con su <code>&lt;label&gt;</code>, un <strong>orden de tabulación lógico</strong> (al presionar Tab el foco avanza de arriba hacia abajo) y un <strong>foco visible</strong> que marque en qué campo estás. Así también lo usan los lectores de pantalla.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi clase04 está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Haz avanzar <code>proyecto/index.html</code> — el formulario de tu app</span>
+        <span class="paso-tiempo">⏱️ 15 min · el paso más importante</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre <code>proyecto/index.html</code> y busca la <code>&lt;section id="nueva"&gt;</code> con su texto provisional ("Pronto aquí habrá un formulario..."). <strong>Reemplázalo</strong> por el <strong>formulario real de nueva tarea</strong>: así tu gestor de tareas deja de ser un esqueleto y recibe datos.</p>
+      <p><strong>Debe llevar:</strong> título (<code>type="text"</code> con <code>required</code>), descripción (<code>&lt;textarea&gt;</code>), categoría (<code>&lt;select&gt;</code> con <code>estudio</code>, <code>casa</code>, <code>deporte</code> y <code>otro</code>), estado (radios <code>pendiente</code>/<code>completada</code>), fecha (<code>type="date"</code>) y el botón <strong>"Agregar tarea"</strong>. Todos los campos con su <code>&lt;label&gt;</code> bien asociado.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html — reemplaza la sección "Agregar una tarea"</div>
+          <button class="copy-btn" data-copy="tarea4">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;section id="nueva"&gt;
+  &lt;h2&gt;Agregar una tarea&lt;/h2&gt;
+
+  &lt;form&gt;
+    &lt;label for="titulo"&gt;Título:&lt;/label&gt;
+    &lt;input type="text" id="titulo" name="titulo" required&gt;
+
+    &lt;label for="descripcion"&gt;Descripción:&lt;/label&gt;
+    &lt;textarea id="descripcion" name="descripcion"&gt;&lt;/textarea&gt;
+
+    &lt;label for="categoria"&gt;Categoría:&lt;/label&gt;
+    &lt;select id="categoria" name="categoria"&gt;
+      &lt;option value="estudio"&gt;Estudio&lt;/option&gt;
+      &lt;option value="casa"&gt;Casa&lt;/option&gt;
+      &lt;option value="deporte"&gt;Deporte&lt;/option&gt;
+      &lt;option value="otro"&gt;Otro&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;p&gt;Estado:&lt;/p&gt;
+    &lt;input type="radio" id="pendiente" name="estado" value="pendiente"&gt;
+    &lt;label for="pendiente"&gt;Pendiente&lt;/label&gt;
+    &lt;input type="radio" id="completada" name="estado" value="completada"&gt;
+    &lt;label for="completada"&gt;Completada&lt;/label&gt;
+
+    &lt;label for="fecha"&gt;Fecha:&lt;/label&gt;
+    &lt;input type="date" id="fecha" name="fecha"&gt;
+
+    &lt;button type="submit"&gt;Agregar tarea&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/section&gt;</code></pre>
+      </div>
+      <div class="caja-importante">
+        <h4>⚠️ Tu formulario todavía NO guarda nada</h4>
+        <p>Al pulsar <strong>Agregar tarea</strong>, la página se recargará y lo escrito desaparecerá. ¡Es normal! <strong>HTML no tiene lógica</strong>: solo estructura y muestra. En la clase 17, con JavaScript, tu formulario empezará a guardar y listar tareas de verdad.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi formulario de tareas ya está en la app</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 4 en la lista de clases, justo debajo del de la clase 3.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada4">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase04/index.html"&gt;Clase 4 — Formularios HTML&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va justo debajo de la línea de la clase 3, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 4: formularios y checkpoint HTML</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 4) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase04/index.html</code> tiene el formulario de contacto con cada <code>label</code> asociado a su campo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Usé <code>type="email"</code> para el correo y <code>required</code> en los campos obligatorios.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi formulario respeta el orden de tabulación y muestra el foco visible.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Ya existe <code>proyecto/index.html</code> con el formulario real de nueva tarea (título, descripción, categoría, estado y fecha).</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Reemplacé todos los <code>[corchetes]</code> por contenido propio y definí el contenido mínimo de mi proyecto.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push con el mensaje <code>Clase 4: formularios y checkpoint HTML</code> y todo abre desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase04/index.html</code> con formulario de contacto accesible (labels, email, textarea, select, required)</td><td>1.5</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/index.html</code> con el formulario real de nueva tarea</td><td>1.5</td></tr>
+        <tr><td>Accesibilidad</td><td>Labels asociados, orden de tabulación lógico y foco visible</td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a la clase 4 en la portada raíz funcionando</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Maestro de Formularios!</h2>
     <p class="lead">Ya sabes crear formularios con form, label, input, textarea, select y button, elegir el tipo de input correcto y hacerlos accesibles. Recuerda: <strong>HTML no tiene lógica, solo estructura. La lógica llegará con JavaScript.</strong></p>

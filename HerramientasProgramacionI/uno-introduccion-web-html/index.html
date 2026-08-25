@@ -441,8 +441,8 @@
   </div>
 
   <div class="caja-tip">
-    <h4>💡 Pro-Tip: VS Code y Live Server</h4>
-    <p>Para escribir HTML usa <strong>VS Code</strong> (editor gratuito). Con la extensión <strong>Live Server</strong> puedes ver tu página actualizarse en el navegador cada vez que guardas, sin recargar a mano. Es la forma más cómoda de trabajar.</p>
+    <h4>💡 Pro-Tip: tu editor será Codespaces</h4>
+    <p>En el taller de hoy escribirás este código en <strong>GitHub Codespaces</strong>: es <strong>VS Code funcionando en el navegador</strong>, sin instalar nada. Con la extensión <strong>Live Preview</strong> verás tu página actualizarse cada vez que guardas. Si además quieres instalar VS Code en tu computador, adelante: el código es exactamente el mismo.</p>
   </div>
 
   <div class="quiz" data-quiz="5">
@@ -605,7 +605,9 @@
 ├── clase01/
 │   └── index.html    ← tu página "Sobre mí"  (HOY)
 ├── clase02/          ← (próxima clase: HTML semántico)
-└── clase03/          ← (y así todo el año...)</code></pre>
+├── clase03/          ← (y así todo el año...)
+└── proyecto/         ← ⭐ tu APLICACIÓN: el gestor de tareas
+    └── index.html       (nace en la clase 2 y crece hasta la 21)</code></pre>
   </div>
 
   <div class="caja-tip">
@@ -765,7 +767,7 @@
     </div>
     <div class="paso-body">
       <p>Ahora crea otro <code>index.html</code>, pero <strong>en la raíz</strong> del repositorio (fuera de <code>clase01</code>). Ojo: si tienes seleccionada la carpeta <code>clase01</code>, el archivo se creará dentro de ella; haz clic primero en una zona vacía del Explorador.</p>
-      <p>Esta portada es la puerta de entrada a tu trabajo: hoy tiene un solo enlace y en cada clase le agregarás uno más.</p>
+      <p>Esta portada es la puerta de entrada a tu trabajo: tiene una lista para los ejercicios de cada clase y otra para tu aplicación (el enlace a <code>proyecto/</code> todavía no funcionará, porque esa carpeta nace en la clase 2: es normal).</p>
       <div class="code-wrap">
         <div class="code-header">
           <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (en la raíz)</div>
@@ -788,6 +790,12 @@
   &lt;ul&gt;
     &lt;li&gt;&lt;a href="clase01/index.html"&gt;Clase 1 — Sobre mí (primera página HTML)&lt;/a&gt;&lt;/li&gt;
     &lt;!-- En la próxima clase agrego aquí una línea nueva --&gt;
+  &lt;/ul&gt;
+
+  &lt;h2&gt;Mi proyecto&lt;/h2&gt;
+  &lt;p&gt;Desde la clase 2 aquí vivirá mi aplicación:&lt;/p&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="proyecto/index.html"&gt;Gestor de tareas (en construcción)&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
@@ -902,23 +910,30 @@
     <h4>💡 Tu rutina fija de aquí en adelante (5 pasos, siempre iguales)</h4>
     <ol class="lista-num">
       <li>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y <strong>reabre el Codespace que ya tienes</strong>.</li>
-      <li>Crea la carpeta de la clase de hoy: <code>clase02</code>, <code>clase03</code>, <code>clase04</code>… y dentro su <code>index.html</code>.</li>
+      <li>Crea la carpeta de la clase de hoy: <code>clase02</code>, <code>clase03</code>, <code>clase04</code>… y dentro su <code>index.html</code> (el ejercicio del día).</li>
+      <li>Haz avanzar tu <strong>aplicación</strong> en la carpeta <code>proyecto/</code>: cada clase le agregas lo aprendido.</li>
       <li>Agrega una línea al <code>index.html</code> de la portada:<br><code>&lt;li&gt;&lt;a href="clase02/index.html"&gt;Clase 2 — HTML semántico&lt;/a&gt;&lt;/li&gt;</code></li>
-      <li>Commit con el mensaje de la clase (<code>Clase 2: HTML semántico</code>) → <span class="ruta">Sync Changes</span>.</li>
-      <li>Espera 1-2 minutos, recarga tu URL y verifica que el ejercicio nuevo ya se ve.</li>
+      <li>Commit con el mensaje de la clase (<code>Clase 2: HTML semántico</code>) → <span class="ruta">Sync Changes</span>, espera 1-2 minutos y recarga tu URL.</li>
     </ol>
     <p><strong>GitHub Pages ya quedó activo:</strong> no vuelves a tocar Settings nunca más. Y <strong>nunca borres las carpetas anteriores</strong>: son la memoria de tu progreso.</p>
   </div>
 
+  <div class="caja-concepto">
+    <h4>⭐ Dos cosas distintas que vivirán en tu repositorio</h4>
+    <p><strong>1. Las carpetas <code>claseNN/</code></strong> — el ejercicio suelto de cada clase. Sirven para practicar el tema del día y quedan como registro de tu avance. No se borran ni se modifican después.</p>
+    <p><strong>2. La carpeta <code>proyecto/</code></strong> — tu <strong>aplicación</strong>: un <strong>gestor de tareas</strong> que nace en la clase 2 y va creciendo clase por clase (estructura, estilos, interactividad, guardar datos) hasta convertirse en tu proyecto final de la clase 21.</p>
+    <p>Es decir: en <code>claseNN/</code> practicas, y en <code>proyecto/</code> <strong>construyes</strong>.</p>
+  </div>
+
   <div class="contenedor-tabla">
     <table class="tabla-compara">
-      <thead><tr><th>Clase</th><th>Carpeta que crearás</th><th>Tu URL de ese ejercicio</th></tr></thead>
+      <thead><tr><th>Clase</th><th>Carpeta del ejercicio</th><th>Qué le sumas a <code>proyecto/</code></th></tr></thead>
       <tbody>
-        <tr><td>Clase 1 (hoy)</td><td><code>clase01/</code></td><td><code>…/herramientas-programacion/clase01/</code></td></tr>
-        <tr><td>Clase 2</td><td><code>clase02/</code></td><td><code>…/herramientas-programacion/clase02/</code></td></tr>
-        <tr><td>Clase 3</td><td><code>clase03/</code></td><td><code>…/herramientas-programacion/clase03/</code></td></tr>
-        <tr><td>…</td><td>…</td><td>…</td></tr>
-        <tr><td>Clase 22</td><td><code>clase22/</code></td><td><code>…/herramientas-programacion/clase22/</code></td></tr>
+        <tr><td>Clase 1 (hoy)</td><td><code>clase01/</code></td><td>— (hoy montas el repositorio)</td></tr>
+        <tr><td>Clase 2</td><td><code>clase02/</code></td><td>⭐ Nace la app: estructura semántica</td></tr>
+        <tr><td>Clase 3</td><td><code>clase03/</code></td><td>Imágenes y tablas</td></tr>
+        <tr><td>Clases 4 a 10</td><td><code>clase04/</code> … <code>clase10/</code></td><td>Formulario y todo el diseño con CSS</td></tr>
+        <tr><td>Clases 11 a 21</td><td><code>clase11/</code> … <code>clase21/</code></td><td>JavaScript, guardar datos y CRUD completo</td></tr>
       </tbody>
     </table>
   </div>
@@ -959,7 +974,7 @@
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Web Builder!</h2>
     <p class="lead">Hoy no solo aprendiste qué es Internet, la diferencia entre HTML, CSS y JavaScript y cómo se estructura una página: <strong>publicaste tu primera página en Internet</strong> y dejaste montado el repositorio, el Codespace y el sitio que usarás durante todo el año.</p>
-    <p class="lead">Recuerda: <strong>HTML es el esqueleto de la página</strong>. En la próxima clase lo harás mucho más ordenado con etiquetas semánticas… y lo publicarás en <code>clase02/</code> con la misma rutina de 5 pasos.</p>
+    <p class="lead">Recuerda: <strong>HTML es el esqueleto de la página</strong>. En la próxima clase lo harás mucho más ordenado con etiquetas semánticas, publicarás el ejercicio en <code>clase02/</code> con la misma rutina… y además <strong>nacerá tu aplicación</strong> en la carpeta <code>proyecto/</code>: el gestor de tareas que construirás durante todo el año.</p>
     <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
   </div>
 

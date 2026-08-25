@@ -1,0 +1,102 @@
+
+/* ============================================================
+   ENTREGA EN EL REPOSITORIO (módulo 7) — pasos, enlaces, autoevaluación
+   (usa los tokens del tema azul: --tarjeta, --tarjeta-borde, --morado, --ambar…)
+   ============================================================ */
+
+/* --- barra de progreso de los pasos --- */
+.taller-progreso {
+  background: var(--tarjeta); border: 1px solid var(--tarjeta-borde);
+  border-radius: 12px; padding: 1rem 1.2rem; margin: 1.2rem 0;
+}
+.taller-progreso-info {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 0.6rem; font-size: 0.9rem; color: var(--texto-suave);
+}
+.taller-progreso-info strong { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: var(--ambar); }
+
+/* --- tarjetas de paso --- */
+.paso {
+  background: var(--tarjeta); border: 1px solid var(--tarjeta-borde);
+  border-left: 4px solid var(--morado); border-radius: 12px;
+  margin: 1.2rem 0; overflow: hidden;
+  transition: border-color .3s, box-shadow .3s;
+}
+.paso:hover { box-shadow: 0 6px 26px rgba(0,0,0,.35); }
+.paso.hecho { border-left-color: var(--verde); background: linear-gradient(135deg, rgba(0,255,157,.07), transparent); }
+.paso-head {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 1.2rem; background: rgba(0,0,0,.25);
+  border-bottom: 1px solid var(--tarjeta-borde);
+}
+.paso-num {
+  flex: 0 0 auto; width: 42px; height: 42px;
+  display: grid; place-items: center; border-radius: 50%;
+  background: linear-gradient(135deg, var(--cian), var(--morado)); color: #000;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 1.1rem;
+  box-shadow: var(--sombra-glow-c);
+}
+.paso.hecho .paso-num { background: linear-gradient(135deg, var(--verde), var(--cian)); box-shadow: var(--sombra-glow-g); }
+.paso-titulo { display: block; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--texto); }
+.paso-tiempo { display: block; font-size: 0.78rem; color: var(--texto-suave); }
+.paso-body { padding: 1.2rem; }
+.paso-body > p { margin-bottom: 0.7rem; }
+.paso-body .caja-tip, .paso-body .caja-importante { margin: 0.9rem 0; }
+.paso-check { margin-top: 1rem; }
+.paso-check.ok { background: linear-gradient(135deg, var(--verde), var(--cian)); box-shadow: var(--sombra-glow-g); }
+
+/* --- rutas de la interfaz: Settings → Pages --- */
+.ruta {
+  display: inline-block; font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace; font-size: 0.82rem;
+  background: var(--azul-profundo); border: 1px solid var(--cian); color: var(--cian-claro);
+  padding: 0.1rem 0.5rem; border-radius: 6px; white-space: nowrap;
+}
+
+/* --- listas del taller --- */
+.lista-check, .lista-num { margin: 0.6rem 0 0.8rem; display: flex; flex-direction: column; gap: 0.45rem; }
+.lista-check { list-style: none; }
+.lista-num { padding-left: 1.4rem; }
+.lista-num li::marker { color: var(--ambar); font-weight: 700; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+
+/* --- generador de enlaces --- */
+.url-gen { background: var(--azul-profundo); border: 1px solid var(--tarjeta-borde); border-radius: 12px; padding: 1.1rem; margin: 1rem 0; }
+.url-gen-fila {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 0.3rem;
+  font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace; font-size: 0.85rem; color: var(--texto-suave);
+  margin-bottom: 0.9rem;
+}
+.url-input { min-width: 150px; text-align: left; }
+.url-input-full { display: block; width: 100%; min-width: 0; text-align: left; margin-bottom: 0.9rem; padding: 0.5rem 0.7rem; }
+.url-out { display: none; margin-top: 1rem; flex-direction: column; gap: 0.6rem; }
+.url-out.visible { display: flex; }
+.url-fila { background: var(--tarjeta); border: 1px solid var(--tarjeta-borde); border-radius: 10px; padding: 0.7rem 0.9rem; }
+.url-etiqueta { display: block; font-size: 0.8rem; color: var(--texto-suave); margin-bottom: 0.2rem; }
+.url-valor {
+  display: block; font-family: 'JetBrains Mono', 'Cascadia Code', 'Consolas', monospace; font-size: 0.85rem;
+  color: var(--verde); word-break: break-all; text-decoration: none;
+  border-bottom: 1px dashed transparent;
+}
+.url-valor:hover { color: var(--cian); border-bottom-color: var(--cian); }
+.url-aviso { font-size: 0.83rem; color: var(--texto-suave); }
+.url-aviso.error { color: var(--rosa); }
+
+/* --- autoevaluación --- */
+.autoeval { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.8rem; }
+.autoeval-item {
+  display: flex; align-items: flex-start; gap: 0.7rem;
+  background: var(--azul-profundo); border: 1px solid var(--tarjeta-borde); border-radius: 10px;
+  padding: 0.7rem 0.9rem; cursor: pointer; font-size: 0.9rem; transition: all .2s;
+}
+.autoeval-item:hover { border-color: var(--cian); }
+.autoeval-item input { accent-color: var(--verde); width: 18px; height: 18px; margin-top: 0.2rem; flex: 0 0 auto; cursor: pointer; }
+.autoeval-item:has(input:checked) { border-color: var(--verde); background: linear-gradient(135deg, rgba(0,255,157,.1), transparent); }
+
+@media (max-width: 768px) {
+  .paso-head { padding: 0.8rem; gap: 0.7rem; }
+  .paso-body { padding: 0.9rem; }
+  .url-gen-fila { font-size: 0.78rem; }
+  .url-input { width: 100%; }
+  .url-input-full { font-size: 0.75rem; }
+  .lista-num { padding-left: 1.1rem; }
+  .ruta { white-space: normal; }
+}

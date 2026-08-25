@@ -574,6 +574,275 @@
     </div>
   </div>
 
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>dos cosas</strong>: el ejercicio de la clase en <code>clase03/</code> (galería de imágenes + tabla) y, en <code>proyecto/</code>, le das <strong>contenido a tu aplicación</strong>: el gestor de tareas que nació en la clase 2 y crecerá todo el año.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol3">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas el enlace de la clase 3 hoy)
+├── clase01/index.html  ← ya lo tienes
+├── clase02/index.html  ← ya lo tienes
+├── clase03/
+│   └── index.html      ← HOY: galería de 3 imágenes + tabla con thead/tbody
+└── proyecto/
+    └── index.html      ← TU APP (gestor de tareas): hoy le sumas icono + tabla</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo, incluida tu app de la clase 2.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase03/index.html</code> — tu galería con tabla</span>
+        <span class="paso-tiempo">⏱️ 12 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase03</code> (junto a <code>clase01</code> y <code>clase02</code>) y dentro un <code>index.html</code>. Es el entregable de hoy.</p>
+      <p><strong>Debe llevar:</strong> una <strong>galería con al menos 3 imágenes</strong>, cada una dentro de <code>&lt;figure&gt;</code> con su <code>&lt;figcaption&gt;</code> y su <code>alt</code> descriptivo, y una <strong>tabla simple</strong> con <code>&lt;thead&gt;</code> y <code>&lt;tbody&gt;</code> (por ejemplo: tus materias con horario, tus videojuegos favoritos, productos con precio).</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase03/index.html</div>
+          <button class="copy-btn" data-copy="clase03">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mi galería · Clase 3&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;Mi galería de imágenes&lt;/h1&gt;
+
+  &lt;figure&gt;
+    &lt;img src="https://picsum.photos/seed/montana/400/250" alt="Una montaña nevada al amanecer"&gt;
+    &lt;figcaption&gt;La montaña al amanecer.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+  &lt;figure&gt;
+    &lt;img src="https://picsum.photos/seed/rio/400/250" alt="Un río cristalino entre árboles"&gt;
+    &lt;figcaption&gt;El río en primavera.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+  &lt;figure&gt;
+    &lt;img src="https://picsum.photos/seed/ciudad/400/250" alt="Una ciudad iluminada de noche"&gt;
+    &lt;figcaption&gt;La ciudad de noche.&lt;/figcaption&gt;
+  &lt;/figure&gt;
+
+  &lt;h2&gt;Mis materias&lt;/h2&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;Materia&lt;/th&gt;
+        &lt;th&gt;Horario&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Matemáticas&lt;/td&gt;
+        &lt;td&gt;Lunes 7:00 a.m.&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;Tecnología&lt;/td&gt;
+        &lt;td&gt;Miércoles 9:00 a.m.&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 ¿De dónde saco las imágenes?</h4>
+        <p>La forma más fácil: usa imágenes libres por URL, como las de <code>https://picsum.photos/seed/tu-palabra/400/250</code> (cambia <code>tu-palabra</code> por lo que quieras y siempre tendrás una foto distinta). También puedes <strong>arrastrar imágenes</strong> desde tu computador hacia el explorador de archivos del Codespace y referenciarlas por su nombre, por ejemplo <code>src="mi-foto.jpg"</code>.</p>
+      </div>
+      <p>💡 Se verá <strong>sin estilos</strong> y eso está bien: hoy trabajamos la <em>estructura y la accesibilidad</em> del contenido. Los colores llegan en la clase 5.</p>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi clase03 está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Haz avanzar tu app: <code>proyecto/index.html</code></span>
+        <span class="paso-tiempo">⏱️ 15 min · tu gestor de tareas crece</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> que creaste en <code>proyecto/</code> durante la clase 2. Hoy le sumas <strong>dos cosas</strong>: un <strong>icono/imagen en el header</strong> (con su <code>alt</code>) y una <strong>tabla de tareas</strong> dentro de la <code>&lt;section id="lista"&gt;</code>.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html — lo que agregas</div>
+          <button class="copy-btn" data-copy="proyecto-tabla3">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!-- 1. En el &lt;header&gt;, junto al título: tu icono con alt --&gt;
+&lt;img src="https://picsum.photos/seed/icono-tareas/80/80" alt="Icono de mi gestor de tareas"&gt;
+
+&lt;!-- 2. Dentro de &lt;section id="lista"&gt;, debajo del h2: tu tabla --&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Tarea&lt;/th&gt;
+      &lt;th&gt;Categoría&lt;/th&gt;
+      &lt;th&gt;Estado&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Terminar la tarea de matemáticas&lt;/td&gt;
+      &lt;td&gt;Estudio&lt;/td&gt;
+      &lt;td&gt;Pendiente&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Lavar los platos&lt;/td&gt;
+      &lt;td&gt;Casa&lt;/td&gt;
+      &lt;td&gt;Completada&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Leer el capítulo del libro&lt;/td&gt;
+      &lt;td&gt;Lectura&lt;/td&gt;
+      &lt;td&gt;En progreso&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 ¿Y los artículos de ejemplo de la clase 2?</h4>
+        <p>Puedes dejarlos debajo de la tabla o reemplazarlos: hoy la tabla es la protagonista de la lista. En la clase 15 será JavaScript quien genere estas filas automáticamente; hoy las escribes a mano como ejemplo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi app avanzó</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 3 en la lista de clases, justo debajo del de la clase 2.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada3">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase03/index.html"&gt;Clase 3 — Imágenes, tablas y multimedia&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 3: imágenes y tablas</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 3) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase03/index.html</code> tiene <strong>al menos 3 imágenes</strong> dentro de <code>figure</code>/<code>figcaption</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Cada imagen tiene un <code>alt</code> descriptivo que no repite "imagen de...".</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi <code>clase03/index.html</code> tiene una <strong>tabla simple</strong> con <code>thead</code> y <code>tbody</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Mi app tiene un icono/imagen en el header con <code>alt</code> y una tabla de tareas (Tarea, Categoría, Estado) en la lista.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Agregué el enlace de la clase 3 a la portada de la raíz.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi clase y mi app abren desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase03/index.html</code> con al menos 3 imágenes en <code>figure</code>/<code>figcaption</code> con <code>alt</code> correcto</td><td>1.5</td></tr>
+        <tr><td>Tabla</td><td>Tabla simple con <code>thead</code>/<code>tbody</code> en el ejercicio de la clase</td><td>1.0</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/index.html</code> con icono/imagen en el header (con <code>alt</code>) y tabla de tareas</td><td>1.5</td></tr>
+        <tr><td>Portada</td><td>Enlace a la clase 3 funcionando desde la portada</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Curador de Contenido!</h2>
     <p class="lead">Ya sabes insertar imágenes con alt, crear tablas con thead/tbody, y usar figure/figcaption. Tu página ya tiene contenido accesible. En el proyecto final los datos se mostrarán como tarjetas o listas, no necesariamente tablas, pero entender tablas te ayuda a estructurar información.</p>
