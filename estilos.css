@@ -267,6 +267,7 @@ main {
 /* -------- CURSO BLOQUE -------- */
 .curso-bloque { margin-bottom: 3rem; }
 
+/* Acordeón: encabezado clicable */
 .curso-encabezado {
   display: flex;
   justify-content: space-between;
@@ -279,6 +280,44 @@ main {
   border-right: 1px solid rgba(0, 240, 255, 0.2);
   flex-wrap: wrap;
   gap: 1rem;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease;
+}
+
+.curso-encabezado:hover { background: var(--tarjeta-hub-alt); }
+
+.curso-chev {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 1.1rem;
+  color: var(--texto-suave);
+  transition: transform 0.3s ease, color 0.2s ease;
+  margin-left: 0.3rem;
+}
+
+.curso-bloque:not(.expandido) .curso-encabezado { border-radius: var(--radio); }
+.curso-bloque.expandido .curso-encabezado { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.curso-bloque.expandido .curso-chev { transform: rotate(180deg); color: var(--cyan); }
+
+/* Cuerpo plegable: max-height transiciona. El valor inicial se ajusta por JS
+   según el contenido, pero damos un tope alto para que la transición funcione. */
+.curso-cuerpo {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  background: rgba(22, 26, 53, 0.5);
+  border-left: 1px solid rgba(0, 240, 255, 0.2);
+  border-right: 1px solid rgba(0, 240, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+.curso-bloque.expandido .curso-cuerpo {
+  max-height: 6000px;
+  border-radius: 0 0 var(--radio) var(--radio);
 }
 
 .curso-encabezado.ha { border-top-color: var(--ha-a); }
@@ -341,11 +380,6 @@ main {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.2rem;
   padding: 1.5rem;
-  background: rgba(22, 26, 53, 0.5);
-  border-left: 1px solid rgba(0, 240, 255, 0.2);
-  border-right: 1px solid rgba(0, 240, 255, 0.2);
-  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-  border-radius: 0 0 var(--radio) var(--radio);
 }
 
 .clase-card {

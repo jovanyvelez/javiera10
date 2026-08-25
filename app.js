@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   mostrarFecha();
   cargarProgresoPorClase();
   animarStats();
+  configurarAcordeon();
 });
 
 /* ---------- FECHA EN HEADER ---------- */
@@ -284,4 +285,40 @@ function mostrarToast(mensaje) {
     toast.style.transform = 'translateY(20px)';
     setTimeout(() => toast.remove(), 400);
   }, 4000);
+}
+
+/* ---------- ACORDEÓN DE CURSOS ---------- */
+function configurarAcordeon() {
+  const CLAVE_ABIERTOS = 'hub-cursos-abiertos';
+  let abiertos;
+  try { abiertos = JSON.parse(localStorage.getItem(CLAVE_ABIERTOS)) || []; }
+  catch (e) { abiertos = []; }
+
+  document.querySelectorAll('.curso-bloque').forEach(bloque => {
+    const id = bloque.dataset.curso;
+    const encabezado = bloque.querySelector('.curso-encabezado');
+
+    // Restaurar estado guardado (por defecto, colapsado)
+    if (abiertos.includes(id)) bloque.classList.add('expandido');
+
+    encabezado.addEventListener('click', (e) => {
+      // No colapsar si el clic fue en un enlace dentro del encabezado
+      if (e.target.closest('a')) return;
+      const estaba = bloque.classList.toggle('expandido');
+      guardarCursosAbiertos();
+      if (estaba) {
+        // Scroll suave para que el encabezado quede visible al expandir
+        setTimeout(() => {
+          encabezado.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 80);
+      }
+    });
+  });
+
+  function guardarCursosAbiertos() {
+    const abiertosAhora = Array.from(document.querySelectorAll('.curso-bloque.expandido'))
+      .map(b => b.dataset.curso);
+    try { localStorage.setItem(CLAVE_ABIERTOS, JSON.stringify(abiertosAhora)); }
+    catch (e) {}
+  }
 }
