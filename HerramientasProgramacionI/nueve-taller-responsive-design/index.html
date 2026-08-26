@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📱 Herramientas de Programación I · Taller guiado · Responsive Design y Mobile First</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">📱</span>
+    <div>
+      <h1>Herramientas de Programación I · Taller guiado</h1>
+      <p class="subtitulo">Responsive Design · Mobile First · Tabla → cards · Menú adaptable</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 500 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">🧩 El sitio base</button>
+  <button class="btn-modulo" data-modulo="2">📲 Mobile First y viewport</button>
+  <button class="btn-modulo" data-modulo="3">🃏 Tabla → cards</button>
+  <button class="btn-modulo" data-modulo="4">📏 Menú adaptable</button>
+  <button class="btn-modulo" data-modulo="5">🛠️ Taller final</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>📱 ¡Bienvenido/a al taller guiado!</h2>
+    <p class="lead">Hoy no hay teoría nueva: hay <strong>un sitio que no se ve bien en el celular</strong> y tu misión es arreglarlo. Vas a convertir una página de escritorio en una página <strong>responsive</strong>, aplicando todo lo que viste en la clase 9: <em>viewport, media queries, unidades relativas y Mobile First</em>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "una página, todas las pantallas"</span></div>
+        <div class="out">"una página, todas las pantallas"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Diseñar primero para móvil ayuda a priorizar contenido."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>3 horas en 5 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Convertir un sitio de escritorio en responsive: que la tabla de autores se vuelva cards y el menú se adapte al móvil.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Lo de la clase 9: media queries, unidades relativas y variables CSS. Aquí lo pones en práctica.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · El sitio base</td><td style="color:var(--cian)">Diagnóstico</td><td>30 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Mobile First y viewport</td><td style="color:var(--morado-claro)">Estrategia</td><td>30 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Tabla → cards</td><td style="color:var(--ambar)">@media</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>04 · Menú adaptable</td><td style="color:var(--verde)">Unidades relativas</td><td>30 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Taller final + entrega</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>100 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 2 minutos</h4>
+    <p>Con tu compañero/a, abran una página web en el celular y en el computador. Busquen una <strong>tabla</strong> y un <strong>menú</strong>. ¿Cómo se ven en cada pantalla? Anoten <strong>2 diferencias</strong> que encuentren.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: El sitio base →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>🧩 El sitio base</h2>
+  <p class="meta-modulo">⏱️ 30 minutos · "Conoce al paciente" — un sitio que solo se ve bien en escritorio</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Te entrego un sitio web <strong>ya hecho</strong>: un menú con tres opciones y una tabla de autores. Está pensado para <strong>escritorio</strong>: en el celular la tabla se desborda y el menú queda apretado. Tu trabajo es <strong>diagnosticar</strong> qué está mal y luego arreglarlo con CSS.</p>
+  </div>
+
+  <h3>🖥️ El sitio que vas a arreglar</h3>
+  <p>Un menú con tres items y una tabla de autores de libros. Toca los botones para ver cómo se comporta en cada pantalla.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📱 Probador de ancho — el sitio base en acción</div>
+    <div class="btn-row">
+      <button class="btn primary" data-demo="movil">📱 Móvil (320px)</button>
+      <button class="btn primary" data-demo="tablet">📲 Tablet (600px)</button>
+      <button class="btn primary" data-demo="escritorio">🖥️ Escritorio (900px)</button>
+    </div>
+    <div class="demo-marco">
+      <div class="demo-sitio escritorio" id="demo-sitio">
+        <div class="ds-header">
+          <h1 class="ds-titulo">📚 Mi Biblioteca</h1>
+        </div>
+        <nav class="ds-nav">
+          <ul class="ds-menu">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#autores">Autores</a></li>
+            <li><a href="#acerca">Acerca de…</a></li>
+          </ul>
+        </nav>
+        <div class="ds-main">
+          <h2 class="ds-h2">Autores de libros</h2>
+          <table class="ds-tabla">
+            <thead>
+              <tr><th>Id</th><th>Nombre</th><th>País</th><th>Año de nacimiento</th></tr>
+            </thead>
+            <tbody>
+              <tr><td data-label="Id">1</td><td data-label="Nombre">Gabriel García Márquez</td><td data-label="País">Colombia</td><td data-label="Año">1927</td></tr>
+              <tr><td data-label="Id">2</td><td data-label="Nombre">Isabel Allende</td><td data-label="País">Chile</td><td data-label="Año">1942</td></tr>
+              <tr><td data-label="Id">3</td><td data-label="Nombre">Jorge Luis Borges</td><td data-label="País">Argentina</td><td data-label="Año">1899</td></tr>
+              <tr><td data-label="Id">4</td><td data-label="Nombre">Mario Vargas Llosa</td><td data-label="País">Perú</td><td data-label="Año">1936</td></tr>
+              <tr><td data-label="Id">5</td><td data-label="Nombre">Octavio Paz</td><td data-label="País">México</td><td data-label="Año">1914</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="demo-feedback">En escritorio todo cabe. Cambia a móvil y mira qué pasa con la tabla y el menú.</p>
+    </div>
+  </div>
+
+  <h3>🔍 El diagnóstico: ¿qué está mal?</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Problema</th><th>Por qué pasa</th><th>Qué haremos</th></tr></thead>
+      <tbody>
+        <tr><td>La tabla se desborda</td><td>4 columnas no caben en 320px</td><td>Convertirla en cards apiladas</td></tr>
+        <tr><td>El menú queda apretado</td><td>Espaciado y letra pensados para escritorio</td><td>Reducir tamaños con unidades relativas</td></tr>
+        <tr><td>No hay viewport</td><td>El navegador "finge" 980px de ancho</td><td>Agregar la etiqueta viewport</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El CSS mínimo</h4>
+    <p>El sitio base trae <strong>solo el CSS necesario</strong> para verse en escritorio: colores neutros, la tabla con bordes y el menú en fila. Nada de media queries, nada de unidades relativas. Eso es a propósito: así el ejercicio se concentra en <strong>lo responsive</strong>, sin distracciones de diseño.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Cuál es el problema principal de la tabla en el móvil?</p>
+      <button class="opcion" data-op="a">Tiene demasiados colores</button>
+      <button class="opcion" data-op="b">Sus 4 columnas no caben en una pantalla angosta</button>
+      <button class="opcion" data-op="c">Le faltan imágenes</button>
+      <button class="opcion" data-op="d">No tiene título</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Por qué el sitio base trae CSS mínimo?</p>
+      <button class="opcion" data-op="a">Porque el autor es perezoso</button>
+      <button class="opcion" data-op="b">Porque no se puede usar CSS</button>
+      <button class="opcion" data-op="c">Para concentrarse en lo responsive sin distracciones</button>
+      <button class="opcion" data-op="d">Porque el CSS no importa</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Mobile First y viewport →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📲 Mobile First y viewport</h2>
+  <p class="meta-modulo">⏱️ 30 minutos · "Empieza por lo pequeño" — la base de todo responsive</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Antes de tocar la tabla o el menú, hay que poner <strong>dos cimientos</strong>: la etiqueta <code>&lt;meta name="viewport"&gt;</code> (para que el navegador use el ancho real del celular) y la estrategia <strong>Mobile First</strong> (diseñar primero para móvil y luego agrandar con <code>min-width</code>).</p>
+  </div>
+
+  <h3>📲 Paso 1: la etiqueta viewport</h3>
+  <p>Sin esta línea, el celular "finge" tener 980px y encoge todo. Es la primera línea que debes revisar.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="viewport">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;/head&gt;</code></pre>
+  </div>
+
+  <h3>📲 Paso 2: la escalera de Mobile First</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Paso</th><th>Qué haces</th><th>Ejemplo</th></tr></thead>
+      <tbody>
+        <tr><td>1. Base móvil</td><td>Estilos para celular (una columna)</td><td><code>.tarjeta { width: 100%; }</code></td></tr>
+        <tr><td>2. Tablet</td><td>Con @media, dos columnas</td><td><code>@media (min-width: 768px)</code></td></tr>
+        <tr><td>3. Escritorio</td><td>Con @media, tres o más columnas</td><td><code>@media (min-width: 1024px)</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip</h4>
+    <p>En Mobile First usas <code>min-width</code>: "a partir de este ancho, aplica esto". Empiezas simple y vas sumando. Es lo contrario de <code>max-width</code>, que dice "hasta este ancho, aplica esto" (el enfoque antiguo de escritorio primero).</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué significa Mobile First?</p>
+      <button class="opcion" data-op="a">Diseñar primero para celular y luego agrandar para pantallas mayores</button>
+      <button class="opcion" data-op="b">Diseñar primero para escritorio y luego encoger</button>
+      <button class="opcion" data-op="c">Hacer solo una versión móvil</button>
+      <button class="opcion" data-op="d">Usar solo imágenes en el celular</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve la etiqueta viewport?</p>
+      <button class="opcion" data-op="a">Para poner colores a la página</button>
+      <button class="opcion" data-op="b">Para cargar más rápido</button>
+      <button class="opcion" data-op="c">Para que el navegador use el ancho real del dispositivo</button>
+      <button class="opcion" data-op="d">Para agregar animaciones</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Tabla → cards →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🃏 Tabla → cards</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El reto fuerte" — convertir la tabla de autores en cards apiladas</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una tabla de 4 columnas no cabe en un celular. La solución clásica es <strong>convertir cada fila en una card</strong>: en pantallas angostas, cada autor se muestra como una tarjeta apilada con su información en vertical. Esto se logra con una <strong>media query</strong> y la propiedad <code>display</code>.</p>
+  </div>
+
+  <h3>🃏 La técnica: de fila a card</h3>
+  <p>Con <code>@media (max-width: 600px)</code> cambiamos el <code>display</code> de la tabla: cada <code>&lt;tr&gt;</code> se vuelve un bloque y cada <code>&lt;td&gt;</code> se apila. El truco del <code>data-label</code> pone la etiqueta delante de cada valor.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="tabla-cards">📋 Copiar</button>
+    </div>
+    <pre><code>/* En pantallas angostas, la tabla se vuelve cards */
+@media (max-width: 600px) {
+  .tabla thead { display: none; }          /* ocultamos la fila de títulos */
+
+  .tabla, .tabla tbody, .tabla tr, .tabla td {
+    display: block;                        /* todo se apila en vertical */
+    width: 100%;
+  }
+
+  .tabla tr {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    margin-bottom: 0.6rem;
+    padding: 0.4rem;
+  }
+
+  .tabla td {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  /* la etiqueta sale del atributo data-label */
+  .tabla td::before {
+    content: attr(data-label);
+    font-weight: 700;
+  }
+}</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El atributo data-label</h4>
+    <p>Para que cada card muestre "Nombre", "País", etc., cada <code>&lt;td&gt;</code> lleva un atributo <code>data-label</code> con el nombre de su columna. El CSS lo lee con <code>content: attr(data-label)</code>. Sin ese atributo, la card solo mostraría los valores sin saber qué es cada uno.</p>
+  </div>
+
+  <h3>🎮 Simulador: mira la transformación</h3>
+  <p>Cambia el ancho y observa cómo la tabla se convierte en cards. Es exactamente lo que harás en tu código.</p>
+  <div class="simulador">
+    <div class="sim-head">🃏 Tabla ↔ cards — cambia el ancho</div>
+    <div class="btn-row">
+      <button class="btn primary" data-demo="movil">📱 Móvil (cards)</button>
+      <button class="btn primary" data-demo="tablet">📲 Tablet (tabla)</button>
+      <button class="btn primary" data-demo="escritorio">🖥️ Escritorio (tabla)</button>
+    </div>
+    <div class="demo-marco">
+      <div class="demo-sitio escritorio" id="demo-sitio-2">
+        <div class="ds-header"><h1 class="ds-titulo">📚 Mi Biblioteca</h1></div>
+        <nav class="ds-nav"><ul class="ds-menu">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#autores">Autores</a></li>
+          <li><a href="#acerca">Acerca de…</a></li>
+        </ul></nav>
+        <div class="ds-main">
+          <h2 class="ds-h2">Autores de libros</h2>
+          <table class="ds-tabla">
+            <thead><tr><th>Id</th><th>Nombre</th><th>País</th><th>Año de nacimiento</th></tr></thead>
+            <tbody>
+              <tr><td data-label="Id">1</td><td data-label="Nombre">Gabriel García Márquez</td><td data-label="País">Colombia</td><td data-label="Año">1927</td></tr>
+              <tr><td data-label="Id">2</td><td data-label="Nombre">Isabel Allende</td><td data-label="País">Chile</td><td data-label="Año">1942</td></tr>
+              <tr><td data-label="Id">3</td><td data-label="Nombre">Jorge Luis Borges</td><td data-label="País">Argentina</td><td data-label="Año">1899</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué propiedad convierte una fila de tabla en un bloque apilado?</p>
+      <button class="opcion" data-op="a">color</button>
+      <button class="opcion" data-op="b">display: block</button>
+      <button class="opcion" data-op="c">font-size</button>
+      <button class="opcion" data-op="d">margin</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Para qué sirve el atributo data-label en cada td?</p>
+      <button class="opcion" data-op="a">Para mostrar el nombre de la columna en la card</button>
+      <button class="opcion" data-op="b">Para poner color a la celda</button>
+      <button class="opcion" data-op="c">Para ocultar la celda</button>
+      <button class="opcion" data-op="d">Para enlazar a otra página</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: Menú adaptable →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 -->
+<section class="modulo" data-modulo="4">
+  <h2>📏 Menú adaptable</h2>
+  <p class="meta-modulo">⏱️ 30 minutos · "El reto suave" — el menú se encoge, no se esconde</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Con solo <strong>tres items</strong>, el menú no necesita convertirse en hamburguesa: basta con <strong>reducir los tamaños proporcionalmente</strong> usando unidades relativas (<code>rem</code>, <code>%</code>) y una media query. Es la forma más simple y limpia de hacerlo responsive, y refuerza la idea de Mobile First.</p>
+  </div>
+
+  <h3>📏 La técnica: encoger, no esconder</h3>
+  <p>En la base móvil el menú es compacto; en escritorio crece con más aire. Todo con <code>rem</code> y <code>gap</code>.</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="menu-adaptable">📋 Copiar</button>
+    </div>
+    <pre><code>/* base móvil: menú compacto, en fila */
+.menu-lista {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+.menu-lista a { padding: 0.4rem 0.7rem; }
+
+/* escritorio: crece con más aire */
+@media (min-width: 768px) {
+  .menu-lista { gap: 1.5rem; font-size: 1.1rem; }
+  .menu-lista a { padding: 0.6rem 1.2rem; }
+}</code></pre>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Menú hamburguesa</h4>
+      <p>Esconde los items detrás de un botón ☰. Útil con muchos items, pero requiere JavaScript o trucos de CSS avanzados que aún no vemos.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Menú adaptable</h4>
+      <p>Con 3 items, basta encogerlos con unidades relativas. Sin JavaScript, sin trucos: solo CSS y una media query.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Pro-Tip: rem vs px</h4>
+    <p>Si usas <code>px</code> fijos, el menú no se adapta. Con <code>rem</code> (relativo a la fuente raíz) y <code>%</code>, los tamaños escalan con el contexto. Por eso las unidades relativas son la base del responsive design.</p>
+  </div>
+
+  <div class="quiz" data-quiz="4">
+    <h3>🎯 Mini-Quiz del Módulo 4</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Por qué un menú de 3 items no necesita hamburguesa?</p>
+      <button class="opcion" data-op="a">Porque los celulares no tienen menú</button>
+      <button class="opcion" data-op="b">Porque caben en una fila si se reducen los tamaños</button>
+      <button class="opcion" data-op="c">Porque el menú no importa</button>
+      <button class="opcion" data-op="d">Porque siempre se usa hamburguesa</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué unidad es relativa a la fuente raíz?</p>
+      <button class="opcion" data-op="a">px</button>
+      <button class="opcion" data-op="b">vw</button>
+      <button class="opcion" data-op="c">rem</button>
+      <button class="opcion" data-op="d">vh</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 — TALLER -->
+<section class="modulo" data-modulo="5">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + entrega en tu repositorio</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: viewport, Mobile First, tabla→cards y menú adaptable. Al superarlos, recibirás tu insignia de <strong>Diseñador Responsive</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📱 Empareja cada concepto con su definición</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">Viewport</button>
+        <button class="ws-chip" data-mid="1b">Media query</button>
+        <button class="ws-chip" data-mid="1c">Mobile First</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Etiqueta que define el ancho real del dispositivo</button>
+        <button class="ws-chip" data-mid="1B">Condición CSS que aplica estilos según el ancho</button>
+        <button class="ws-chip" data-mid="1C">Diseñar primero para móvil y luego agrandar</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena la escalera de Mobile First</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2base" draggable="true"><span class="ord-num">?</span> Estilos base para móvil (una columna)</div>
+        <div class="ws-order-item" data-oid="2tablet" draggable="true"><span class="ord-num">?</span> @media (min-width: 768px) — tablet</div>
+        <div class="ws-order-item" data-oid="2desk" draggable="true"><span class="ord-num">?</span> @media (min-width: 1024px) — escritorio</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🃏 Completa la media query de la tabla→cards</span></div>
+    <p>Completa la palabra que falta para ocultar la fila de títulos de la tabla:</p>
+    <div class="ws-block">
+      <div class="code-live">
+@media (max-width: 600px) {
+  .tabla thead { display: <input class="ws-input" data-ans="none" data-ws="3" placeholder="?">; }
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero escribió este CSS para el menú. ¿Qué error de responsive tiene?</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+.menu-lista a {
+  font-size: 16px;
+  padding: 10px 20px;
+}
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Usa píxeles fijos; debería usar unidades relativas (rem/%)</button>
+        <button class="ws-chip" data-mid="4B">Falta la etiqueta &lt;footer&gt;</button>
+        <button class="ws-chip" data-mid="4C">El código está perfecto</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>una cosa</strong>: el sitio responsive de la clase en <code>clase09-taller/</code>, con la tabla convertida en cards y el menú adaptable.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01/index.html  ← ya lo tienes
+├── clase02/index.html  ← ya lo tienes
+└── clase09-taller/
+    ├── index.html      ← HOY: el sitio base
+    └── estilos.css     ← HOY: lo haces responsive</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase09-taller/</code> con el sitio base</span>
+        <span class="paso-tiempo">⏱️ 10 min · el sitio base</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase09-taller</code> y dentro un <code>index.html</code> con el sitio base: menú de 3 items (Inicio, Autores, Acerca de…) y la tabla de autores.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase09-taller/index.html</div>
+          <button class="copy-btn" data-copy="sitio-base">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mi Biblioteca&lt;/title&gt;
+  &lt;link rel="stylesheet" href="estilos.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;📚 Mi Biblioteca&lt;/h1&gt;
+  &lt;/header&gt;
+
+  &lt;nav&gt;
+    &lt;ul class="menu-lista"&gt;
+      &lt;li&gt;&lt;a href="#inicio"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#autores"&gt;Autores&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#acerca"&gt;Acerca de…&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+
+  &lt;main&gt;
+    &lt;section id="inicio"&gt;
+      &lt;h2&gt;Bienvenido&lt;/h2&gt;
+      &lt;p&gt;Una biblioteca de autores de libros.&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section id="autores"&gt;
+      &lt;h2&gt;Autores de libros&lt;/h2&gt;
+      &lt;table class="tabla"&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;&lt;th&gt;Id&lt;/th&gt;&lt;th&gt;Nombre&lt;/th&gt;&lt;th&gt;País&lt;/th&gt;&lt;th&gt;Año de nacimiento&lt;/th&gt;&lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td data-label="Id"&gt;1&lt;/td&gt;
+            &lt;td data-label="Nombre"&gt;Gabriel García Márquez&lt;/td&gt;
+            &lt;td data-label="País"&gt;Colombia&lt;/td&gt;
+            &lt;td data-label="Año"&gt;1927&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td data-label="Id"&gt;2&lt;/td&gt;
+            &lt;td data-label="Nombre"&gt;Isabel Allende&lt;/td&gt;
+            &lt;td data-label="País"&gt;Chile&lt;/td&gt;
+            &lt;td data-label="Año"&gt;1942&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;
+    &lt;/section&gt;
+
+    &lt;section id="acerca"&gt;
+      &lt;h2&gt;Acerca de…&lt;/h2&gt;
+      &lt;p&gt;Hecho por [tu nombre] · Grado 10°&lt;/p&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi sitio base está creado</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Crea <code>estilos.css</code> y hazlo responsive</span>
+        <span class="paso-tiempo">⏱️ 15 min · el paso más importante</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea <code>estilos.css</code> con el CSS mínimo de escritorio y luego agrega las <strong>dos media queries</strong>: la de tabla→cards y la del menú adaptable.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase09-taller/estilos.css</div>
+          <button class="copy-btn" data-copy="css-responsive">📋 Copiar</button>
+        </div>
+        <pre><code>/* --- CSS mínimo de escritorio --- */
+body { font-family: 'Segoe UI', sans-serif; margin: 0; color: #1a1a1a; }
+header { background: #1e3a5f; color: #fff; padding: 1rem; }
+.menu-lista { display: flex; gap: 1.5rem; list-style: none; padding: 0.6rem 1rem; }
+.menu-lista a { text-decoration: none; color: #1e3a5f; font-weight: 600; }
+main { padding: 1rem; }
+.tabla { width: 100%; border-collapse: collapse; }
+.tabla th, .tabla td { border: 1px solid #cbd5e1; padding: 0.5rem; text-align: left; }
+.tabla th { background: #e2e8f0; }
+
+/* --- MÓVIL: menú compacto --- */
+.menu-lista { gap: 0.5rem; font-size: 0.9rem; }
+.menu-lista a { padding: 0.4rem 0.7rem; }
+
+/* --- MÓVIL: tabla → cards --- */
+@media (max-width: 600px) {
+  .tabla thead { display: none; }
+  .tabla, .tabla tbody, .tabla tr, .tabla td { display: block; width: 100%; }
+  .tabla tr { border: 1px solid #cbd5e1; border-radius: 8px; margin-bottom: 0.6rem; padding: 0.4rem; }
+  .tabla td { border: none; display: flex; justify-content: space-between; }
+  .tabla td::before { content: attr(data-label); font-weight: 700; }
+}
+
+/* --- ESCRITORIO: menú con más aire --- */
+@media (min-width: 768px) {
+  .menu-lista { gap: 1.5rem; font-size: 1.1rem; }
+  .menu-lista a { padding: 0.6rem 1.2rem; }
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 Pruébalo en el navegador</h4>
+        <p>Abre tu página y arrastra el borde de la ventana para hacerla angosta. Deberías ver la tabla convertirse en cards y el menú encogerse. Si no pasa, revisa que la etiqueta <code>viewport</code> esté en el <code>&lt;head&gt;</code>.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi sitio ya es responsive</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace del taller en la lista de clases.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase09-taller/index.html"&gt;Taller — Responsive Design&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va justo debajo de la línea de la clase 2, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Taller: sitio responsive</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>taller</strong> y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/clase09-taller/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>index.html</code> tiene la etiqueta <code>viewport</code> en el <code>&lt;head&gt;</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Mi tabla de autores se convierte en cards en pantallas angostas (media query + <code>data-label</code>).</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi menú se adapta con unidades relativas (<code>rem</code>/<code>%</code>) y una media query.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Probé el sitio en móvil, tablet y escritorio y se ve bien en los tres.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Reemplacé todos los <code>[corchetes]</code> por contenido propio.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi taller abre desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Viewport</td><td>Etiqueta <code>viewport</code> presente en el <code>&lt;head&gt;</code></td><td>1.0</td></tr>
+        <tr><td>Tabla→cards</td><td>Media query que convierte la tabla en cards con <code>data-label</code></td><td>2.0</td></tr>
+        <tr><td>Menú adaptable</td><td>Unidades relativas + media query para el menú</td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace al taller funcionando</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Diseñador Responsive!</h2>
+    <p class="lead">Ya convertiste un sitio de escritorio en uno responsive: la tabla se volvió cards y el menú se adapta al móvil. Recuerda la moraleja: <strong>diseñar primero para móvil ayuda a priorizar contenido</strong>. En la próxima clase pondremos todo junto en un proyecto completo.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">📱 Herramientas de Programación I · Taller guiado · Plataforma interactiva</div>
+  <div>Responsive Design · Mobile First · Tabla → cards · Menú adaptable · 3 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
