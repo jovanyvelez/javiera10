@@ -180,8 +180,30 @@
     <p>La etiqueta <code>&lt;input&gt;</code> es una sola, pero cambia de forma según su atributo <code>type</code>. Un <code>type="text"</code> es una caja de texto, un <code>type="password"</code> oculta lo que escribes, y un <code>type="checkbox"</code> es una casilla. Elegir el tipo correcto hace el formulario más fácil de usar.</p>
   </div>
 
+  <h3>🧪 Los 4 atributos que adornan a los inputs</h3>
+  <p>Además de <code>type</code>, hay cuatro atributos que verás en todos los formularios. Apréndelos aquí, porque el taller los examina:</p>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Atributo</th><th>Ejemplo</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td><code>placeholder</code></td><td><code>placeholder="Escribe tu nombre"</code></td><td>Texto de ejemplo <strong>dentro</strong> del campo; desaparece al escribir. No es un dato.</td></tr>
+        <tr><td><code>value</code></td><td><code>value="Ana"</code></td><td>El <strong>valor inicial</strong> del campo: ya viene escrito y sí cuenta como dato.</td></tr>
+        <tr><td><code>required</code></td><td><code>&lt;input ... required&gt;</code></td><td>El campo es <strong>obligatorio</strong>: el navegador no deja enviar el formulario vacío.</td></tr>
+        <tr><td><code>name</code></td><td><code>name="correo"</code></td><td>El <strong>nombre</strong> con que se envía el dato ("correo: ana@..."). En los radio, además, agrupa.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="fp-demo">
+    <div class="fp-demo-head">👀 Míralo en un input real</div>
+    <div class="fp-demo-body">
+      <input type="text" class="fp-input" placeholder="Escribe tu nombre aquí..." aria-label="Campo de demostración con placeholder">
+      <p class="fp-nota">Este campo tiene solo <code>placeholder</code>. Empieza a escribir y verás el ejemplo desaparecer. Bórralo todo: vuelve. El <strong>placeholder nunca es un dato</strong>, es solo una pista.</p>
+    </div>
+  </div>
+
   <h3>🎮 Simulador: El probador de inputs</h3>
-  <p>Toca cada tipo para ver cómo se ve y para qué sirve. Observa la vista previa.</p>
+  <p>Toca cada tipo y <strong>úsame de verdad</strong>: escribe en los campos, marca las casillas, elige una fecha. Observa la vista previa.</p>
 
   <div class="simulador">
     <div class="sim-head">⌨️ Probador de tipos de input</div>
@@ -190,7 +212,11 @@
       <div class="state-grid">
         <div class="state-cell"><div class="label">Tipo</div><span class="sval" id="tipo-tag">—</span></div>
         <div class="state-cell"><div class="label">Para qué sirve</div><span class="sval" id="tipo-meaning">—</span></div>
-        <div class="state-cell"><div class="label">Vista previa</div><span class="sval" id="tipo-preview">—</span></div>
+        <div class="state-cell"><div class="label">Código</div><span class="sval" id="tipo-preview">—</span></div>
+      </div>
+      <div class="state-title" style="margin-top:0.8rem;">🧪 Campo en vivo — tócalo</div>
+      <div class="fp-vivo" id="tipo-vivo">
+        <span class="fp-vacio">Toca un tipo de input para verlo aquí, de verdad.</span>
       </div>
     </div>
     <div class="btn-row">
@@ -276,6 +302,23 @@
 
   <h3>🎮 Simulador: Empareja label con su campo</h3>
   <p>Relaciona cada texto con el tipo de campo que le corresponde. Toca uno de la izquierda y luego uno de la derecha.</p>
+
+  <h3>🧪 Siente la diferencia en vivo</h3>
+  <p>La teoría dice que un <code>label</code> relacionado con su campo ayuda. Compruébalo tú: <strong>haz clic en el TEXTO</strong> de cada campo y observa qué pasa.</p>
+  <div class="fp-demo">
+    <div class="fp-demo-head">🧪 Toca el texto, no el campo</div>
+    <div class="fp-demo-body fp-par">
+      <div class="fp-campo ok">
+        <label for="demo-nombre" class="fp-label">✅ Nombre (con label):</label>
+        <input type="text" id="demo-nombre" class="fp-input" placeholder="Haz clic en el texto de arriba">
+      </div>
+      <div class="fp-campo">
+        <span class="fp-label">❌ Nombre (sin label):</span>
+        <input type="text" class="fp-input" placeholder="El texto de arriba no me enfoca" aria-label="Campo sin label asociado">
+      </div>
+    </div>
+    <p class="fp-nota" style="padding:0 1.2rem 1rem;">¿Notaste? Al hacer clic en el texto <strong>con</strong> <code>label for</code>, el campo se enfoca (bordes iluminados) sin tocarlo. Con un texto suelto, nada. Así de importante es <code>for</code>/<code>id</code>: para un lector de pantalla es la diferencia entre "Nombre, campo de texto" y "campo de texto" a secas.</p>
+  </div>
   <div class="simulador">
     <div class="sim-head">🧩 ¿Qué campo va con cada texto?</div>
     <div class="ws-block" data-ws-match="labels">
@@ -338,12 +381,12 @@
   </div>
   <div class="trivia-box">
     <h3>🎲 Trivia de regreso</h3>
-    <p>¿Qué atributo hace que un campo sea obligatorio de llenar?</p>
+    <p>¿Qué hace el atributo <code>type="password"</code> en un campo?</p>
     <div class="trivia-opts" id="triviaOpts">
-      <button class="trivia-opt" data-tcorrecta="a" data-top="a">required</button>
-      <button class="trivia-opt" data-top="b">placeholder</button>
-      <button class="trivia-opt" data-top="c">value</button>
-      <button class="trivia-opt" data-top="d">name</button>
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">Oculta los caracteres con puntos</button>
+      <button class="trivia-opt" data-top="b">Guarda la contraseña en el navegador</button>
+      <button class="trivia-opt" data-top="c">Hace el campo obligatorio</button>
+      <button class="trivia-opt" data-top="d">Cifra el mensaje antes de enviarlo</button>
     </div>
     <div class="trivia-result" id="triviaResult"></div>
   </div>
@@ -386,6 +429,23 @@
   <div class="caja-tip">
     <h4>💡 El atributo required</h4>
     <p>El atributo <code>required</code> le dice al navegador: "este campo no puede ir vacío". Si el usuario intenta enviar sin llenarlo, el navegador muestra un aviso y no envía. Es validación <strong>sin escribir una sola línea de JavaScript</strong>.</p>
+  </div>
+
+  <h3>🧪 Pruébalo aquí mismo</h3>
+  <p>Este es el formulario de contacto <strong>de verdad</strong>, en vivo. Primero pulsa <strong>Enviar</strong> con los campos vacíos y mira lo que hace el navegador. Luego llénalo, envía… y observa qué pasa con los datos.</p>
+  <div class="fp-demo">
+    <div class="fp-demo-head">📬 Formulario de contacto — en vivo</div>
+    <form class="fp-demo-body" id="fp-contacto" action="">
+      <label for="fp-nombre" class="fp-label">Nombre:</label>
+      <input type="text" id="fp-nombre" name="nombre" class="fp-input" required>
+      <label for="fp-correo" class="fp-label">Correo:</label>
+      <input type="email" id="fp-correo" name="correo" class="fp-input" required>
+      <label for="fp-mensaje" class="fp-label">Mensaje:</label>
+      <textarea id="fp-mensaje" name="mensaje" class="fp-input" rows="3" required></textarea>
+      <button type="submit" class="btn primary">Enviar</button>
+    </form>
+    <div class="resultado-ws" id="fp-resultado"></div>
+    <p class="fp-nota" style="padding:0 1.2rem 1rem;">Si enviaste con todo llenado, la página se recargó y el mensaje <strong>desapareció</strong>. ¡Es normal! HTML solo estructura: <strong>la lógica llegará con JavaScript</strong>. El aviso de "campo vacío" que viste, en cambio, es validación nativa del navegador, gratis.</p>
   </div>
 
   <div class="caja-pareja">
@@ -522,10 +582,10 @@
     <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📐 Ordena las partes del formulario</span></div>
     <div class="ws-block" data-ws-order="2">
       <div class="ws-order">
-        <div class="ws-order-item" data-oid="2form" draggable="true"><span class="ord-num">?</span> &lt;form&gt;</div>
         <div class="ws-order-item" data-oid="2label" draggable="true"><span class="ord-num">?</span> &lt;label&gt;</div>
-        <div class="ws-order-item" data-oid="2input" draggable="true"><span class="ord-num">?</span> &lt;input&gt;</div>
         <div class="ws-order-item" data-oid="2button" draggable="true"><span class="ord-num">?</span> &lt;button&gt;</div>
+        <div class="ws-order-item" data-oid="2form" draggable="true"><span class="ord-num">?</span> &lt;form&gt;</div>
+        <div class="ws-order-item" data-oid="2input" draggable="true"><span class="ord-num">?</span> &lt;input&gt;</div>
       </div>
       <div class="btn-row">
         <button class="btn" data-ws-up>⬆ Subir</button>

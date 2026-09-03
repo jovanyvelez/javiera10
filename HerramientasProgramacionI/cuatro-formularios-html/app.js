@@ -222,9 +222,9 @@ function verificarQuizCompleto(quiz, idQuiz) {
   let aciertos = 0;
   preguntas.forEach(p => { if (p.dataset.acierto === 'true') aciertos++; });
   const total = preguntas.length;
+  const yaRegistrado = estado.quizzes[idQuiz] && estado.quizzes[idQuiz].total === total;
   estado.quizzes[idQuiz] = { aciertos, total };
-  if (aciertos === total && !quiz.dataset.recompensado) {
-    quiz.dataset.recompensado = 'true';
+  if (!yaRegistrado && aciertos === total) {
     addXP(XP_POR_QUIZ_PERFECTO);
   }
   const res = quiz.querySelector('.resultado-quiz');
@@ -232,7 +232,8 @@ function verificarQuizCompleto(quiz, idQuiz) {
     res.classList.add('visible');
     if (aciertos === total) {
       res.classList.add('exito');
-      res.innerHTML = `🎉 ¡Perfecto! ${aciertos}/${total}. (+${XP_POR_QUIZ_PERFECTO} XP)`;
+      res.innerHTML = `🎉 ¡Perfecto! ${aciertos}/${total}.` +
+        (yaRegistrado ? ' (ya lo tenías registrado)' : ` (+${XP_POR_QUIZ_PERFECTO} XP)`);
     } else if (aciertos >= total / 2) {
       res.classList.add('parcial');
       res.textContent = `👍 ${aciertos}/${total} correctas. ¡Buen intento!`;
@@ -255,13 +256,13 @@ function configurarTrivia() {
       opts.forEach(o => { o.disabled = true; if (o.dataset.top === correcta) o.classList.add('correcta'); });
       if (elegida === correcta) {
         result.className = 'trivia-result visible ok';
-        result.textContent = '✅ ¡Correcto! El atributo required hace que un campo sea obligatorio. ¡Volvamos!';
+        result.textContent = '✅ ¡Correcto! type="password" oculta los caracteres con puntos mientras escribes. ¡Volvamos!';
       } else {
         op.classList.add('incorrecta');
         result.className = 'trivia-result visible';
         result.style.background = 'rgba(244, 63, 94, 0.12)';
         result.style.color = 'var(--rosa)';
-        result.textContent = '❌ Casi. Es "required", el que hace obligatorio el campo. ¡A seguir!';
+        result.textContent = '❌ Casi. Oculta los caracteres con puntos. ¡A seguir!';
       }
     });
   });
@@ -804,19 +805,35 @@ const TIPO_MEANINGS = {
 };
 
 const TIPO_PREVIEW = {
-  text: '[___________]',
-  email: '[usuario@correo.com]',
-  password: '[••••••••]',
-  number: '[ 123 ]',
-  date: '[ dd/mm/aaaa ]',
-  checkbox: '[ ☐ ]',
-  radio: '[ ( ) ]'
+  text: '<input type="text">',
+  email: '<input type="email">',
+  password: '<input type="password">',
+  number: '<input type="number">',
+  date: '<input type="date">',
+  checkbox: '<input type="checkbox">',
+  radio: '<input type="radio">'
+};
+
+/* Controles REALES que se inyectan en el probador (módulo 2) */
+const TIPO_CONTROLES = {
+  text: '<input type="text" class="fp-input" placeholder="Escribe algo..." aria-label="Campo de texto">',
+  email: '<input type="email" class="fp-input" placeholder="tu@correo.com" aria-label="Campo de correo">',
+  password: '<input type="password" class="fp-input" placeholder="Escribe tu clave" aria-label="Campo de contraseña">',
+  number: '<input type="number" class="fp-input" placeholder="Escribe un número" aria-label="Campo numérico">',
+  date: '<input type="date" class="fp-input" aria-label="Campo de fecha">',
+  checkbox: '<label class="fp-check"><input type="checkbox"> Deporte</label>' +
+            '<label class="fp-check"><input type="checkbox"> Música</label>' +
+            '<label class="fp-check"><input type="checkbox"> Videojuegos</label>',
+  radio: '<label class="fp-check"><input type="radio" name="fp-equipo"> Python</label>' +
+         '<label class="fp-check"><input type="radio" name="fp-equipo"> JavaScript</label>' +
+         '<label class="fp-check"><input type="radio" name="fp-equipo"> HTML</label>'
 };
 
 function inicializarTipos() {
   const tagEl = document.getElementById('tipo-tag');
   const meaningEl = document.getElementById('tipo-meaning');
   const previewEl = document.getElementById('tipo-preview');
+  const vivoEl = document.getElementById('tipo-vivo');
   const fbTxt = document.getElementById('tipo-feedback-txt');
   if (!tagEl) return;
   document.querySelectorAll('[data-tipo]').forEach(btn => {
@@ -825,6 +842,10 @@ function inicializarTipos() {
       tagEl.textContent = 'type="' + tipo + '"';
       meaningEl.textContent = TIPO_MEANINGS[tipo];
       previewEl.textContent = TIPO_PREVIEW[tipo];
+      if (vivoEl) {
+        vivoEl.innerHTML = TIPO_CONTROLES[tipo] +
+          '<p class="fp-nota fp-nota-mini">' + TIPO_MEANINGS[tipo] + '</p>';
+      }
       fbTxt.textContent = TIPO_MEANINGS[tipo];
       addXP(1);
     });

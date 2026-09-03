@@ -1732,3 +1732,100 @@ pre::-webkit-scrollbar-thumb { background: var(--tarjeta-borde); border-radius: 
   .lista-num { padding-left: 1.1rem; }
   .ruta { white-space: normal; }
 }
+
+/* ============================================================
+   DEMOS DE FORMULARIOS EN VIVO (módulos 2, 3 y 5)
+   ============================================================ */
+.fp-demo {
+  background: var(--tarjeta);
+  border: 1px solid var(--tarjeta-borde);
+  border-radius: 12px;
+  margin: 1.2rem 0;
+  overflow: hidden;
+}
+.fp-demo-head {
+  padding: 0.55rem 1rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--texto-suave);
+  background: rgba(0, 0, 0, 0.25);
+  border-bottom: 1px solid var(--tarjeta-borde);
+}
+.fp-demo-body {
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.fp-demo-body.fp-par { flex-direction: row; gap: 1.2rem; flex-wrap: wrap; align-items: flex-start; }
+.fp-demo-body.fp-par .fp-campo { flex: 1 1 220px; }
+.fp-input {
+  background: var(--azul-profundo);
+  border: 1.5px solid var(--tarjeta-borde);
+  color: var(--texto);
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.fp-input:focus {
+  border-color: var(--cian);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.18);
+}
+.fp-label {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--texto);
+  margin-bottom: 0.2rem;
+}
+.fp-campo.ok .fp-label { color: var(--cian-claro); cursor: pointer; }
+.fp-campo .fp-label { color: var(--texto-suave); }
+.fp-nota {
+  font-size: 0.85rem;
+  color: var(--texto-suave);
+  line-height: 1.6;
+}
+.fp-nota-mini { margin: 0.5rem 0 0; font-size: 0.8rem; }
+
+/* contenedor del control en vivo del probador (módulo 2) */
+.fp-vivo {
+  background: var(--azul-profundo);
+  border: 1px dashed var(--tarjeta-borde);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.fp-vacio { color: var(--texto-suave); font-size: 0.9rem; }
+.fp-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 0.25rem 0;
+}
+.fp-check input { accent-color: var(--cian); width: 18px; height: 18px; cursor: pointer; }
+
+/* resultado del formulario de contacto en vivo (módulo 5) */
+#fp-resultado { margin: 0 1.2rem 1rem; }
+#fp-resultado.visible.ok {
+  display: block;
+  background: rgba(0, 255, 157, 0.08);
+  border: 1px solid var(--verde);
+  color: var(--verde);
+  border-radius: 10px;
+  padding: 0.7rem 1rem;
+  font-size: 0.88rem;
+}
+
+@media (max-width: 768px) {
+  .fp-demo-body { padding: 0.9rem; }
+  .fp-demo-body.fp-par { flex-direction: column; }
+}
