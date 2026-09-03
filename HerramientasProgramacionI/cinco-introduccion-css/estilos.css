@@ -1807,11 +1807,33 @@ pre::-webkit-scrollbar-thumb { background: var(--tarjeta-borde); border-radius: 
   flex: 1;
   overflow: auto;
   max-height: 480px;
+  /* base de la "app": el CSS del estudiante (body→#lab-preview, .tarea, #app-titulo)
+     la pisa en cascada; esto es solo el estado natural */
+  background: #0a1220;
+  color: #e6f1ff;
+  padding: 16px;
+  border-radius: 10px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.4;
 }
-.lab-preview .lp-header { padding: 6px 0 12px; }
-.lab-preview .lp-seccion { margin-top: 6px; }
-.lab-preview .lp-seccion input { font-size: 0.9rem; }
-.lab-preview .lp-seccion button { font-size: 0.9rem; font-weight: 700; }
+.lab-preview .lp-header { padding: 0 0 12px; }
+.lab-preview .lp-header h1 { font-size: 1.25rem; margin: 0; }
+.lab-preview .lp-header p { margin: 2px 0 0; opacity: 0.8; font-size: 0.9rem; }
+.lab-preview .lp-seccion { margin-top: 10px; }
+.lab-preview .lp-seccion h2 { font-size: 1rem; margin: 12px 0 8px; }
+.lab-preview .lp-seccion p { margin: 0 0 6px; font-size: 0.88rem; opacity: 0.85; }
+.lab-preview .lp-seccion h3 { font-size: 0.95rem; margin: 0 0 2px; }
+.lab-preview .lp-seccion input {
+  display: block; width: 100%; box-sizing: border-box;
+  padding: 8px 10px; margin-bottom: 8px;
+  border-radius: 8px; border: 1px solid #1c3252;
+  background: #0c1626; color: #e6f1ff; font-size: 0.9rem;
+}
+.lab-preview .lp-seccion button {
+  padding: 8px 14px; border: none; border-radius: 8px;
+  cursor: pointer; font-size: 0.9rem; font-weight: 700;
+  background: #1c3252; color: #e6f1ff;
+}
 #lab-feedback.lab-ok { border-color: var(--verde); }
 #lab-feedback.lab-ok h4 { color: var(--verde); }
 

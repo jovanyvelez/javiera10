@@ -402,7 +402,7 @@ function validarReto(id) {
       estado.talleres[id] = true;
       addXP(xpPorReto);
     }
-    if (Object.keys(estado.talleres).length === Object.keys(TALLER_MSGS).length) {
+    if (Object.keys(TALLER_MSGS).every(k => estado.talleres[k])) {
       otorgarBadge('🛠️ Estilista CSS Completado');
     }
   } else {
@@ -947,17 +947,6 @@ function inicializarTipografia() {
 }
 
 /* ---------- MINI-LABORATORIO DE MARCADO (módulo 2) ---------- */
-const MARCA_ESTADOS = {
-  clase: {
-    sin: '&lt;article&gt;Tarjeta 1 — sin marca&lt;/article&gt;',
-    con: '&lt;article class="tarea"&gt;Tarjeta 1 — con class&lt;/article&gt;'
-  },
-  id: {
-    sin: '&lt;h4&gt;Encabezado sin marca&lt;/h4&gt;',
-    con: '&lt;h4 id="titulo"&gt;Encabezado con id&lt;/h4&gt;'
-  }
-};
-
 function inicializarMarcado() {
   const htmlEl = document.getElementById('marca-html');
   const previewEl = document.getElementById('marca-preview');
@@ -966,20 +955,43 @@ function inicializarMarcado() {
 
   const h = previewEl.querySelector('#marca-h');
   const tarjetas = previewEl.querySelectorAll('.marca-card');
-  const conClase = estado.talleres['marca-clase'];
-  const conId = estado.talleres['marca-id'];
-  if (conClase) pintarMarcado(previewEl, tarjetas, h, 'clase', htmlEl, fbTxt);
-  if (conId) pintarMarcado(previewEl, tarjetas, h, 'id', htmlEl, fbTxt);
-  if (!conClase && !conId) {
-    htmlEl.innerHTML = '&lt;h4&gt;Encabezado sin marca&lt;/h4&gt;\n&lt;article&gt;Tarjeta 1 — sin marca&lt;/article&gt;\n&lt;article&gt;Tarjeta 2 — sin marca&lt;/article&gt;';
-  }
+
+  const pintar = (conClase, conId) => {
+    previewEl.classList.toggle('mp-clase', conClase);
+    previewEl.classList.toggle('mp-id', conId);
+    tarjetas.forEach((t, i) => {
+      t.textContent = 'Tarjeta ' + (i + 1) + (conClase ? ' — con class' : ' — sin marca');
+    });
+    if (h) h.textContent = conId ? 'Encabezado con id' : 'Encabezado sin marca';
+
+    let src = '&lt;h4' + (conId ? ' id="titulo"' : '') + '&gt;Encabezado ' + (conId ? 'con id' : 'sin marca') + '&lt;/h4&gt;';
+    tarjetas.forEach((t, i) => {
+      src += '\n&lt;article' + (conClase ? ' class="tarea"' : '') + '&gt;Tarjeta ' + (i + 1) + (conClase ? ' — con class' : ' — sin marca') + '&lt;/article&gt;';
+    });
+    htmlEl.innerHTML = src;
+
+    if (fbTxt) {
+      if (conClase && conId) {
+        fbTxt.textContent = 'Con las dos marcas a la vez: .tarea pinta las 3 tarjetas y #titulo elige solo al encabezado. Fíjate: el id y las clases conviven en el mismo HTML.';
+      } else if (conClase) {
+        fbTxt.textContent = 'Con class="tarea", el selector .tarea encontró a las 3 tarjetas a la vez.';
+      } else if (conId) {
+        fbTxt.textContent = 'Con id="titulo", el selector #titulo encontró solo al encabezado: es único.';
+      } else {
+        fbTxt.textContent = 'Sin marcas, el CSS de .tarea y #titulo no encuentra a nadie.';
+      }
+    }
+  };
+
+  pintar(!!estado.talleres['marca-clase'], !!estado.talleres['marca-id']);
 
   document.querySelectorAll('[data-marca]').forEach(btn => {
     btn.addEventListener('click', () => {
       const tipo = btn.dataset.marca;
-      const ya = estado.talleres['marca-' + tipo];
-      pintarMarcado(previewEl, tarjetas, h, tipo, htmlEl, fbTxt);
-      if (!ya) {
+      const conClase = tipo === 'clase' || !!estado.talleres['marca-clase'];
+      const conId = tipo === 'id' || !!estado.talleres['marca-id'];
+      pintar(conClase, conId);
+      if (!estado.talleres['marca-' + tipo]) {
         estado.talleres['marca-' + tipo] = true;
         addXP(5);
         mostrarToast(tipo === 'clase' ? '🔖 Clase asignada: .tarea se pinta' : '🆔 Id asignado: #titulo se pinta');
@@ -991,29 +1003,11 @@ function inicializarMarcado() {
   const reset = document.getElementById('marca-reset');
   if (reset) {
     reset.addEventListener('click', () => {
-      previewEl.classList.remove('mp-clase', 'mp-id');
-      tarjetas.forEach(t => { t.textContent = t.textContent.replace(' — con class', ' — sin marca'); });
-      if (h) h.textContent = 'Encabezado sin marca';
-      htmlEl.innerHTML = '&lt;h4&gt;Encabezado sin marca&lt;/h4&gt;\n&lt;article&gt;Tarjeta 1 — sin marca&lt;/article&gt;\n&lt;article&gt;Tarjeta 2 — sin marca&lt;/article&gt;';
-      if (fbTxt) fbTxt.textContent = 'Sin marcas, el CSS de .tarea y #titulo no encuentra a nadie.';
+      pintar(false, false);
       delete estado.talleres['marca-clase'];
       delete estado.talleres['marca-id'];
       guardarProgreso();
     });
-  }
-}
-
-function pintarMarcado(previewEl, tarjetas, h, tipo, htmlEl, fbTxt) {
-  if (tipo === 'clase') {
-    previewEl.classList.add('mp-clase');
-    tarjetas.forEach((t, i) => { t.textContent = 'Tarjeta ' + (i + 1) + ' — con class'; });
-    htmlEl.innerHTML = MARCA_ESTADOS.clase.con + '\n&lt;article class="tarea"&gt;Tarjeta 2 — con class&lt;/article&gt;\n&lt;article class="tarea"&gt;Tarjeta 3 — con class&lt;/article&gt;';
-    if (fbTxt) fbTxt.textContent = 'Con class="tarea", el selector .tarea encontró a las 3 tarjetas a la vez.';
-  } else if (tipo === 'id') {
-    previewEl.classList.add('mp-id');
-    if (h) h.textContent = 'Encabezado con id';
-    htmlEl.innerHTML = MARCA_ESTADOS.id.con + '\n&lt;article class="tarea"&gt;Tarjeta 1 — con class&lt;/article&gt;';
-    if (fbTxt) fbTxt.textContent = 'Con id="titulo", el selector #titulo encontró solo al encabezado: es único.';
   }
 }
 
@@ -1048,7 +1042,7 @@ const LAB_MISIONES = {
   },
   fuente: {
     texto: 'Cambia la fuente de la app',
-    test: (editor, preview) => getComputedStyle(preview.querySelector('body')).fontFamily.toLowerCase().includes('georgia') || /verdana|courier|tahoma|impact/i.test(getComputedStyle(preview.querySelector('body')).fontFamily),
+    test: (editor, preview) => /georgia|verdana|courier|tahoma|impact/i.test(getComputedStyle(preview).fontFamily),
     ok: '¡Misión 2 cumplida! La propiedad font-family de body cambió toda la app de golpe: una regla, toda la página.',
     pendiente: 'En la regla body, cambia font-family por Georgia, Verdana o Tahoma (¡recuerda el módulo 5!).'
   },
@@ -1059,6 +1053,52 @@ const LAB_MISIONES = {
     pendiente: 'Añade a la regla .tarea una propiedad font-size (por ejemplo 20px), o crea la regla .tarea h3 con font-size.'
   }
 };
+
+/* Convierte el CSS del estudiante en CSS "alcancado": cada regla queda
+   dentro de #lab-preview para que no pise los estilos de la página de la clase.
+   'body' se mapea al propio contenedor; @media se procesa recursivo;
+   @keyframes y demás @reglas pasan tal cual. */
+function alcanzarCSS(css, prefijo) {
+  const mapaSelector = (sel) => {
+    const sinComentarios = sel.replace(/\/\*[\s\S]*?\*\//g, '');
+    return sinComentarios.split(',').map(s => {
+      const limpio = s.trim();
+      if (!limpio) return null;
+      if (limpio === 'body') return prefijo;
+      return prefijo + ' ' + limpio;
+    }).filter(Boolean).join(', ');
+  };
+
+  const procesar = (texto) => {
+    let resultado = '';
+    let i = 0;
+    while (i < texto.length) {
+      const abre = texto.indexOf('{', i);
+      if (abre === -1) { resultado += texto.slice(i); break; }
+      const preludio = texto.slice(i, abre);
+      let cierra = abre;
+      let prof = 1;
+      while (prof > 0 && cierra < texto.length - 1) {
+        cierra++;
+        if (texto[cierra] === '{') prof++;
+        else if (texto[cierra] === '}') prof--;
+      }
+      const cuerpo = texto.slice(abre + 1, cierra);
+
+      if (preludio.trim().startsWith('@media')) {
+        resultado += preludio + '{' + procesar(cuerpo) + '}';
+      } else if (preludio.trim().startsWith('@')) {
+        resultado += preludio + '{' + cuerpo + '}';
+      } else {
+        resultado += mapaSelector(preludio) + ' { ' + cuerpo.trim() + ' }';
+      }
+      i = cierra + 1;
+    }
+    return resultado;
+  };
+
+  return procesar(css);
+}
 
 function inicializarLabEstilos() {
   const editor = document.getElementById('lab-editor');
@@ -1076,8 +1116,7 @@ function inicializarLabEstilos() {
 
   let timer = null;
   const aplicar = () => {
-    estilo.textContent = '#lab-preview { all: initial; } ' + editor.value;
-    aplicarPreviewBase(preview);
+    estilo.textContent = alcanzarCSS(editor.value, '#lab-preview');
     if (fbTxt) fbTxt.textContent = 'CSS aplicado en vivo. Cambia un valor y mira: si algo no responde, revisa el punto y coma y las llaves { }.';
     estado.talleres['lab-css'] = editor.value;
   };
@@ -1127,37 +1166,6 @@ function inicializarLabEstilos() {
   });
 
   restaurarLabEstilos(editor, aplicar);
-}
-
-function aplicarPreviewBase(preview) {
-  preview.style.background = '#0a1220';
-  preview.style.color = '#e6f1ff';
-  preview.style.padding = '16px';
-  preview.style.borderRadius = '10px';
-  preview.style.minHeight = '100%';
-  const parrafos = preview.querySelectorAll('p, h2');
-  parrafos.forEach(el => {
-    if (el.tagName === 'P') { el.style.margin = '0 0 6px'; el.style.opacity = '0.85'; }
-    if (el.tagName === 'H2') { el.style.margin = '14px 0 8px'; }
-  });
-  const input = preview.querySelector('input');
-  if (input) {
-    input.style.display = 'block';
-    input.style.width = '100%';
-    input.style.padding = '8px 10px';
-    input.style.borderRadius = '8px';
-    input.style.border = '1px solid #1c3252';
-    input.style.background = '#0c1626';
-    input.style.color = '#e6f1ff';
-    input.style.marginBottom = '8px';
-  }
-  const boton = preview.querySelector('button');
-  if (boton) {
-    boton.style.padding = '8px 14px';
-    boton.style.borderRadius = '8px';
-    boton.style.border = 'none';
-    boton.style.cursor = 'pointer';
-  }
 }
 
 function restaurarLabEstilos(editor, aplicar) {
