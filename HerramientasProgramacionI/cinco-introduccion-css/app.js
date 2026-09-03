@@ -899,29 +899,51 @@ const TIPO_INFO = {
   }
 };
 
+const TIPO_BASE = 'font-size:1.2rem;padding:1rem;';
+
+const TIPO_ESTILOS = {
+  familia: { prop: 'fontFamily', valor: 'Georgia, serif' },
+  tamano: { prop: 'fontSize', valor: '1.6rem' },
+  grosor: { prop: 'fontWeight', valor: '900' },
+  linea: { prop: 'lineHeight', valor: '2.2' }
+};
+
 function inicializarTipografia() {
   const previewEl = document.getElementById('tipo-preview');
   const codigoEl = document.getElementById('tipo-codigo');
   const fbTxt = document.getElementById('tipo-feedback-txt');
   if (!previewEl) return;
+
+  const reiniciarPreview = () => {
+    previewEl.removeAttribute('style');
+    previewEl.setAttribute('style', TIPO_BASE);
+    document.querySelectorAll('[data-tipo]').forEach(b => b.classList.remove('aplicado'));
+  };
+
   document.querySelectorAll('[data-tipo]').forEach(btn => {
     btn.addEventListener('click', () => {
       const key = btn.dataset.tipo;
       const info = TIPO_INFO[key];
+      const regla = TIPO_ESTILOS[key];
+      if (!info || !regla) return;
+      reiniciarPreview();
+      previewEl.style[regla.prop] = regla.valor;
+      btn.classList.add('aplicado');
       codigoEl.innerHTML = info.codigo;
-      fbTxt.textContent = info.desc;
-      if (key === 'familia') {
-        previewEl.style.fontFamily = 'Georgia, serif';
-      } else if (key === 'tamano') {
-        previewEl.style.fontSize = '1.6rem';
-      } else if (key === 'grosor') {
-        previewEl.style.fontWeight = '900';
-      } else if (key === 'linea') {
-        previewEl.style.lineHeight = '2.2';
-      }
+      fbTxt.textContent = info.desc + ' El resto vuelve a su valor natural para que compares.';
       addXP(1);
     });
   });
+
+  const btnReset = document.getElementById('tipo-reset');
+  if (btnReset) {
+    btnReset.addEventListener('click', () => {
+      reiniciarPreview();
+      codigoEl.innerHTML = '<span class="cm">&lt;!-- Toca una propiedad para ver su código --&gt;</span>';
+      fbTxt.textContent = 'Toca una propiedad para ver qué controla.';
+      mostrarToast('🔄 Vista previa reiniciada');
+    });
+  }
 }
 
 /* ---------- MINI-LABORATORIO DE MARCADO (módulo 2) ---------- */

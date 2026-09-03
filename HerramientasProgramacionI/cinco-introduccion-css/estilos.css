@@ -1819,3 +1819,14 @@ pre::-webkit-scrollbar-thumb { background: var(--tarjeta-borde); border-radius: 
   .lab-dual { grid-template-columns: 1fr; }
   .lab-editor { min-height: 240px; }
 }
+
+/* --- estado activo del sastre de letras (módulo 5) --- */
+.btn.primary.aplicado {
+  background: linear-gradient(135deg, var(--verde), var(--cian));
+  box-shadow: var(--sombra-glow-g);
+  position: relative;
+}
+.btn.primary.aplicado::after {
+  content: ' ✓';
+  font-weight: 900;
+}
