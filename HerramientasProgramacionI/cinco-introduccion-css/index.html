@@ -142,6 +142,88 @@
     <p>La forma <strong>externa</strong> (con <code>&lt;link&gt;</code>) es la mejor práctica: un solo archivo <code>styles.css</code> puede dar estilo a <strong>todas</strong> las páginas de tu sitio. Si mañana quieres cambiar el color de los títulos, lo cambias en un solo lugar.</p>
   </div>
 
+  <h3>💻 Tu primer CSS completo</h3>
+  <p>Así se ven las <strong>dos piezas</strong> trabajando juntas. La izquierda es HTML (igual que en las clases 2 a 4) y la derecha es CSS. Fíjate en la línea del <code>&lt;link&gt;</code>: es el puente que conecta una con la otra. Puedes copiar las dos en tu Codespace y abrirlas en el navegador.</p>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📄 index.html</h4>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+          <button class="copy-btn">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Mi Gestor de Tareas&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;Mi Gestor de Tareas&lt;/h1&gt;
+    &lt;p&gt;Organiza lo que tienes que hacer&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Mis tareas&lt;/h2&gt;
+      &lt;article class="tarea"&gt;
+        &lt;h3&gt;Terminar la tarea de matemáticas&lt;/h3&gt;
+        &lt;p&gt;Categoría: estudio · Estado: pendiente&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="tarea"&gt;
+        &lt;h3&gt;Lavar los platos&lt;/h3&gt;
+        &lt;p&gt;Categoría: casa · Estado: completada&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🎨 styles.css</h4>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>styles.css</div>
+          <button class="copy-btn">📋 Copiar</button>
+        </div>
+        <pre><code>/* Tu primera hoja de estilos */
+body {
+  background: #06101a;
+  color: #e6f1ff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  color: #22d3ee;
+}
+
+h2 {
+  color: #a855f7;
+}
+
+.tarea {
+  background: #0c1626;
+  border: 1px solid #1c3252;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}</code></pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>🧪 Experimenta</h4>
+    <p>Copia las dos piezas (en la misma carpeta) y abre el <code>index.html</code>. Luego cambia <code>#22d3ee</code> por <code>#facc15</code> y recarga. Después prueba a borrar el <code>&lt;link&gt;</code> del <code>&lt;head&gt;</code>: la página queda "desnuda". Así de claro es el papel de CSS.</p>
+  </div>
+
   <div class="quiz" data-quiz="1">
     <h3>🎯 Mini-Quiz del Módulo 1</h3>
     <div class="pregunta" data-correcta="b">
@@ -177,21 +259,46 @@
     <p>Un <strong>selector</strong> le dice a CSS <strong>a qué elementos</strong> aplicar un estilo. Es como elegir a quién le pones la ropa: ¿a todos los párrafos? ¿a los que tienen una clase? ¿a uno solo con un id? Hay cuatro selectores básicos que debes dominar.</p>
   </div>
 
-  <h3>🎯 Los 4 selectores básicos</h3>
+  <h3>🏷️ Primero marcas, luego seleccionas</h3>
+  <p>Hay un detalle importante antes de escribir selectores: CSS no puede "adivinar" qué elementos quieres estilizar, <strong>tú se lo dices marcándolos</strong> en el HTML. Ya conoces los atributos de las clases anteriores (<code>href</code> en los enlaces, <code>src</code> y <code>alt</code> en las imágenes). Hoy conoces los dos que trabajan en pareja con CSS: <code>class</code> e <code>id</code>. Se escriben <strong>en el HTML</strong>, y el CSS los usa para encontrar a los elementos.</p>
+
   <div class="contenedor-tabla">
     <table class="tabla-compara">
-      <thead><tr><th>Selector</th><th>Sintaxis</th><th>Qué selecciona</th></tr></thead>
+      <thead><tr><th>Atributo</th><th>Cómo se escribe en el HTML</th><th>¿Cuántas veces?</th><th>Para qué sirve</th></tr></thead>
+      <tbody>
+        <tr><td><code>class</code></td><td><code>&lt;article class="tarea"&gt;</code></td><td>Se puede <strong>repetir</strong> en muchos elementos</td><td>Agrupar elementos parecidos (todas las tarjetas de tarea)</td></tr>
+        <tr><td><code>id</code></td><td><code>&lt;h1 id="titulo"&gt;</code></td><td><strong>Único</strong>: solo un elemento por página</td><td>Identificar UN elemento concreto (el título de la app)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🏷️ Piensa en class como... el uniforme</h4>
+      <p>Varios estudiantes pueden llevar el <strong>mismo uniforme</strong>: es una forma de decir "estos pertenecen al mismo grupo". Un elemento puede llevar varias clases: <code>class="tarea urgente"</code> (separadas por espacio).</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🆔 Piensa en id como... tu número de documento</h4>
+      <p>Nadie más puede tener tu número: identifica a <strong>uno solo</strong>. Si marcas dos elementos con el mismo <code>id</code>, el navegador no da error... pero tu CSS y tu JavaScript se comportan de forma rara. No lo hagas.</p>
+    </div>
+  </div>
+
+  <h3>🎯 Los 4 selectores básicos</h3>
+  <p>Cada selector "apunta" a la marca que pusiste en el HTML. Fíjate que ahora cada ejemplo viene en dos partes: <strong>el HTML donde marcas</strong> y <strong>el CSS que selecciona</strong>.</p>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Selector</th><th>Sintaxis CSS</th><th>Qué selecciona</th></tr></thead>
       <tbody>
         <tr><td>Etiqueta</td><td><code>p { }</code></td><td>Todos los elementos de esa etiqueta</td></tr>
-        <tr><td>Clase</td><td><code>.destacado { }</code></td><td>Todos los elementos con esa clase</td></tr>
-        <tr><td>Id</td><td><code>#titulo { }</code></td><td>Un único elemento con ese id</td></tr>
+        <tr><td>Clase</td><td><code>.destacado { }</code></td><td>Todos los elementos con <code>class="destacado"</code></td></tr>
+        <tr><td>Id</td><td><code>#titulo { }</code></td><td>El único elemento con <code>id="titulo"</code></td></tr>
         <tr><td>Universal</td><td><code>* { }</code></td><td>Todos los elementos de la página</td></tr>
       </tbody>
     </table>
   </div>
 
   <h3>🎮 Simulador: El probador de selectores</h3>
-  <p>Toca cada selector para ver a qué elementos apunta y un ejemplo de código.</p>
+  <p>Toca cada selector para ver cómo se <strong>marca</strong> en el HTML y cómo lo <strong>selecciona</strong> el CSS.</p>
 
   <div class="simulador">
     <div class="sim-head">🎯 ¿Qué selecciona cada selector?</div>
@@ -208,8 +315,19 @@
       <button class="btn primary" data-sel="id">🆔 Id</button>
       <button class="btn primary" data-sel="universal">⭐ Universal</button>
     </div>
-    <div class="code-live" id="sel-ejemplo" style="margin-top:1rem;">
-<span class="cm">&lt;!-- Toca un selector para ver su código --&gt;</span>
+    <div class="lab-dual" style="margin-top:1rem;">
+      <div class="lab-panel">
+        <div class="lab-panel-head html">📄 HTML — donde marcas</div>
+        <div class="code-live" id="sel-html">
+<span class="cm">&lt;!-- Toca un selector --&gt;</span>
+        </div>
+      </div>
+      <div class="lab-panel">
+        <div class="lab-panel-head css">🎨 CSS — donde seleccionas</div>
+        <div class="code-live" id="sel-ejemplo">
+<span class="cm">&lt;!-- Toca un selector --&gt;</span>
+        </div>
+      </div>
     </div>
     <div class="caja-tip" id="sel-feedback" style="margin-top:1rem;">
       <h4>👁️ Observa</h4>
@@ -217,9 +335,45 @@
     </div>
   </div>
 
+  <h3>🧪 Mini-laboratorio: marca y ve el resultado</h3>
+  <p>Estos tres elementos son tarjetas de tu gestor de tareas, pero están <strong>sin marcar</strong>: el CSS de abajo no sabe a quién le toca el estilo. Toca los botones para ponerles <code>class</code> e <code>id</code> y observa cómo se pintan en vivo.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧪 Asigna las marcas en el HTML</div>
+    <div class="btn-row">
+      <button class="btn primary" data-marca="clase">🔖 Dar clase "tarea" a las 3 tarjetas</button>
+      <button class="btn primary" data-marca="id">🆔 Dar id "titulo" al encabezado</button>
+      <button class="btn ghost" id="marca-reset">🔄 Limpiar marcas</button>
+    </div>
+    <div class="lab-dual">
+      <div class="lab-panel">
+        <div class="lab-panel-head html">📄 HTML (el atributo se escribe aquí)</div>
+        <div class="code-live" id="marca-html"></div>
+      </div>
+      <div class="lab-panel">
+        <div class="lab-panel-head css">🎨 Resultado en vivo</div>
+        <div class="marca-preview" id="marca-preview">
+          <h4 id="marca-h">Encabezado sin marca</h4>
+          <div class="marca-card">Tarjeta 1 — sin marca</div>
+          <div class="marca-card">Tarjeta 2 — sin marca</div>
+          <div class="marca-card">Tarjeta 3 — sin marca</div>
+        </div>
+      </div>
+    </div>
+    <div class="caja-tip" id="marca-feedback" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="marca-feedback-txt">Sin marcas, el CSS de <code>.tarea</code> y <code>#titulo</code> no encuentra a nadie.</p>
+    </div>
+  </div>
+
   <div class="caja-importante">
     <h4>⚠️ Error común: id repetido</h4>
     <p>El <code>id</code> debe ser <strong>único</strong> en toda la página: solo un elemento puede tener <code>id="titulo"</code>. Si necesitas estilizar varios elementos, usa una <strong>clase</strong> (<code>class="..."</code>), que sí puede repetirse.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>🔗 ¿Y esto para qué me sirve en mi proyecto?</h4>
+    <p>Tu <code>proyecto/index.html</code> ya tiene etiquetas semánticas (<code>header</code>, <code>section</code>), pero <strong>ni una sola marca</strong> <code>class</code> ni <code>id</code>. En el taller de hoy le pondrás las primeras: <code>id="app-titulo"</code> al título y <code>class="tarea"</code> a las tarjetas. Sin esas marcas, tu <code>styles.css</code> no tendría a quién estilizar.</p>
   </div>
 
   <div class="quiz" data-quiz="2">
@@ -237,6 +391,13 @@
       <button class="opcion" data-op="b">menu { }</button>
       <button class="opcion" data-op="c">#menu { }</button>
       <button class="opcion" data-op="d">*menu { }</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>3.</strong> Quieres estilizar todas las tarjetas de tarea de tu app. ¿Qué haces?</p>
+      <button class="opcion" data-op="a">Les pongo a cada una un id distinto y un selector por cada id</button>
+      <button class="opcion" data-op="b">Les pongo a todas class="tarea" y uso el selector .tarea</button>
+      <button class="opcion" data-op="c">Les pongo el mismo id="tarea" a las tres</button>
+      <button class="opcion" data-op="d">No se puede estilizar más de un elemento</button>
     </div>
     <div class="resultado-quiz"></div>
   </div>
@@ -406,6 +567,11 @@
     <p>Usa <strong>fuentes seguras</strong> (que existen en casi todos los dispositivos) como <code>Arial</code>, <code>Verdana</code> o <code>Georgia</code>. Y un <code>line-height</code> de <code>1.5</code> hace que los párrafos se lean mucho mejor.</p>
   </div>
 
+  <div class="caja-tip">
+    <h4>⏭️ Guarda estas 4 propiedades</h4>
+    <p>En el <strong>laboratorio del módulo 6</strong> vas a escribir CSS real sobre tu gestor de tareas, y <code>font-family</code>, <code>font-size</code>, <code>font-weight</code> y <code>line-height</code> son justo las que usarás para darle identidad a tu app.</p>
+  </div>
+
   <div class="quiz" data-quiz="5">
     <h3>🎯 Mini-Quiz del Módulo 5</h3>
     <div class="pregunta" data-correcta="b">
@@ -471,6 +637,58 @@
     <p>Existe <code>!important</code>, que fuerza una regla por encima de todas. Pero es un <strong>mal hábito</strong>: hace el código difícil de mantener. Úsalo solo como último recurso, nunca como solución habitual.</p>
   </div>
 
+  <h3>⚡ Laboratorio de estilos: tu app, en vivo</h3>
+  <p>Este es el CSS que mañana vivirá en tu <code>proyecto/styles.css</code>. A la izquierda <strong>escribes CSS de verdad</strong>; a la derecha se ve al instante sobre la página real de tu gestor de tareas (con <code>id="app-titulo"</code> y <code>class="tarea"</code> ya marcadas, como quedarán tras el taller). El CSS inicial ya trae el color del título y el estilo de las tarjetas: <strong>cámbialos, bórralos, rompe cosas</strong> y observa qué pasa.</p>
+
+  <div class="simulador">
+    <div class="sim-head">⚡ Editor de CSS en vivo</div>
+    <div class="btn-row" id="lab-misiones">
+      <button class="btn primary" data-mision="titulo">🎯 Misión 1: pinta el título de ámbar</button>
+      <button class="btn primary" data-mision="fuente">🎯 Misión 2: cambia la fuente de la app</button>
+      <button class="btn primary" data-mision="tareas">🎯 Misión 3: agranda el texto de las tareas</button>
+      <button class="btn ghost" id="lab-reset">🔄 Restaurar CSS inicial</button>
+    </div>
+    <div class="lab-dual">
+      <div class="lab-panel">
+        <div class="lab-panel-head css">🎨 styles.css (editable)</div>
+        <textarea class="lab-editor" id="lab-editor" spellcheck="false"></textarea>
+        <div class="caja-tip" id="lab-feedback" style="margin-top:0.9rem;">
+          <h4>👁️ Observa</h4>
+          <p id="lab-feedback-txt">Escribe o borra una propiedad y mira el cambio a la derecha. Si algo "no funciona", revisa el punto y coma y las llaves { }.</p>
+        </div>
+      </div>
+      <div class="lab-panel">
+        <div class="lab-panel-head html">📱 Tu gestor de tareas</div>
+        <div class="lab-preview" id="lab-preview">
+          <header class="lp-header">
+            <h1 id="app-titulo">Mi Gestor de Tareas</h1>
+            <p>Organiza lo que tienes que hacer</p>
+          </header>
+          <section class="lp-seccion">
+            <h2>Nueva tarea</h2>
+            <input type="text" placeholder="¿Qué tienes que hacer?" readonly>
+            <button type="button">Agregar</button>
+          </section>
+          <section class="lp-seccion">
+            <h2>Mis tareas</h2>
+            <article class="tarea">
+              <h3>Terminar la tarea de matemáticas</h3>
+              <p>Categoría: estudio · Estado: pendiente</p>
+            </article>
+            <article class="tarea hecha">
+              <h3>Lavar los platos</h3>
+              <p>Categoría: casa · Estado: completada</p>
+            </article>
+            <article class="tarea">
+              <h3>Leer el capítulo del libro</h3>
+              <p>Categoría: lectura · Estado: en progreso</p>
+            </article>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="quiz" data-quiz="6">
     <h3>🎯 Mini-Quiz del Módulo 6</h3>
     <div class="pregunta" data-correcta="c">
@@ -503,23 +721,22 @@
 
   <div class="caja-concepto">
     <h3>🎯 Tu misión</h3>
-    <p>Cuatro retos integran todo lo visto: selectores, colores, tipografía y especificidad. Al superarlos, recibirás tu insignia de <strong>Estilista CSS</strong>.</p>
+    <p>Cuatro retos integran todo lo visto, usando el <strong>código de tu propio proyecto</strong>: las marcas <code>id="app-titulo"</code> y <code>class="tarea"</code> que le pondrás hoy a tu gestor de tareas, y su <code>styles.css</code>. Al superarlos, recibirás tu insignia de <strong>Estilista CSS</strong>.</p>
   </div>
 
   <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🎯 Empareja cada selector con su sintaxis</span></div>
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🎯 Empareja cada elemento de tu app con su selector</span></div>
+    <p>Estas son las marcas reales que le pondrás hoy a <code>proyecto/index.html</code> (paso 2 del taller). Empareja cada elemento con el selector CSS que lo encuentra:</p>
     <div class="ws-block" data-ws-match="1">
       <div class="ws-options" data-role="left">
-        <button class="ws-chip" data-mid="1a">Etiqueta</button>
-        <button class="ws-chip" data-mid="1b">Clase</button>
-        <button class="ws-chip" data-mid="1c">Id</button>
-        <button class="ws-chip" data-mid="1d">Universal</button>
+        <button class="ws-chip" data-mid="1a">El título con id="app-titulo"</button>
+        <button class="ws-chip" data-mid="1b">Las tarjetas con class="tarea"</button>
+        <button class="ws-chip" data-mid="1c">Todos los h2 de la app</button>
       </div>
       <div class="ws-options" data-role="right">
-        <button class="ws-chip" data-mid="1A">p { }</button>
-        <button class="ws-chip" data-mid="1B">.destacado { }</button>
-        <button class="ws-chip" data-mid="1C">#titulo { }</button>
-        <button class="ws-chip" data-mid="1D">* { }</button>
+        <button class="ws-chip" data-mid="1A">#app-titulo { }</button>
+        <button class="ws-chip" data-mid="1B">.tarea { }</button>
+        <button class="ws-chip" data-mid="1C">h2 { }</button>
       </div>
       <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
       <div class="resultado-ws" id="ws-fb-1"></div>
@@ -527,13 +744,13 @@
   </div>
 
   <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">⚖️ Ordena de menor a mayor especificidad</span></div>
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">⚖️ Ordena de menor a mayor especificidad (reglas de tu styles.css)</span></div>
+    <p>Tu <code>styles.css</code> tiene estas tres reglas que apuntan al título de una tarea. Ordénalas de <strong>menor a mayor especificidad</strong>:</p>
     <div class="ws-block" data-ws-order="2">
       <div class="ws-order">
-        <div class="ws-order-item" data-oid="2etiqueta" draggable="true"><span class="ord-num">?</span> Etiqueta (p)</div>
-        <div class="ws-order-item" data-oid="2clase" draggable="true"><span class="ord-num">?</span> Clase (.aviso)</div>
-        <div class="ws-order-item" data-oid="2id" draggable="true"><span class="ord-num">?</span> Id (#titulo)</div>
-        <div class="ws-order-item" data-oid="2inline" draggable="true"><span class="ord-num">?</span> En línea (style="")</div>
+        <div class="ws-order-item" data-oid="2etiqueta" draggable="true"><span class="ord-num">?</span> h3 (etiqueta)</div>
+        <div class="ws-order-item" data-oid="2clase" draggable="true"><span class="ord-num">?</span> .tarea h3 (clase)</div>
+        <div class="ws-order-item" data-oid="2id" draggable="true"><span class="ord-num">?</span> #lista .tarea h3 (id + clase)</div>
       </div>
       <div class="btn-row">
         <button class="btn" data-ws-up>⬆ Subir</button>
@@ -545,11 +762,11 @@
   </div>
 
   <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🌈 Completa el color</span></div>
-    <p>Completa la regla para pintar el párrafo de rojo:</p>
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🌈 Completa el color del título de tu app</span></div>
+    <p>En tu <code>styles.css</code> falta el color del título. Complétalo para pintarlo de rojo:</p>
     <div class="ws-block">
       <div class="code-live">
-p {
+#app-titulo {
   color: <input class="ws-input" data-ans="red" data-ws="3" placeholder="?">;
 }
       </div>
@@ -559,20 +776,20 @@ p {
   </div>
 
   <div class="challenge">
-    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: ¿qué regla gana?</span></div>
-    <p>Un compañero escribió este código. ¿De qué color se pinta el párrafo?</p>
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: ¿de qué color queda el título de cada tarea?</span></div>
+    <p>Un compañero escribió estas reglas en el <code>styles.css</code> de su gestor de tareas. El HTML es <code>&lt;section id="lista"&gt;… &lt;article class="tarea"&gt;&lt;h3&gt;…&lt;/h3&gt;</code>. ¿De qué color se pinta el <strong>h3 de la tarea</strong>?</p>
     <div class="ws-block" data-ws-match="4">
       <div class="code-live">
-p { color: blue; }
-.aviso { color: green; }
-#titulo { color: red; }
+h3 { color: blue; }
+.tarea h3 { color: green; }
+#lista .tarea h3 { color: red; }
       </div>
       <div class="ws-options" data-role="left">
         <button class="ws-chip" data-mid="4a">¿Qué color gana?</button>
       </div>
       <div class="ws-options" data-role="right">
-        <button class="ws-chip" data-mid="4A">Rojo (el #id es más específico)</button>
-        <button class="ws-chip" data-mid="4B">Azul (la etiqueta va primero)</button>
+        <button class="ws-chip" data-mid="4A">Rojo (el selector con #id es el más específico)</button>
+        <button class="ws-chip" data-mid="4B">Azul (h3 es la regla más general)</button>
         <button class="ws-chip" data-mid="4C">Verde (la clase está en el medio)</button>
       </div>
       <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
@@ -580,9 +797,297 @@ p { color: blue; }
     </div>
   </div>
 
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>dos cosas</strong>: el ejercicio de la clase en <code>clase05/</code> (la mini página con su <code>styles.css</code>) y, sobre todo, <strong>tu aplicación recibe su ropa</strong>: le pones las marcas <code>class</code> e <code>id</code> a <code>proyecto/index.html</code> y le das estilo con un <code>styles.css</code> externo — el mismo que experimentaste en el laboratorio.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol5">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01...clase04/  ← ya los tienes
+├── clase05/
+│   ├── index.html      ← HOY: mini página + su styles.css
+│   └── styles.css      ← la hoja externa del ejercicio
+└── proyecto/
+    ├── index.html      ← HOY: recibe id y class
+    └── styles.css      ← ⭐ HOY: tu app se viste por fin</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase05/</code> — tu mini página con hoja externa</span>
+        <span class="paso-tiempo">⏱️ 12 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase05</code> con <strong>dos archivos</strong>: el <code>index.html</code> de abajo y un archivo <strong>vacío</strong> llamado <code>styles.css</code> (clic derecho → New File). Es el ejercicio del módulo 1: dos piezas conectadas por el <code>&lt;link&gt;</code>.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase05/index.html</div>
+          <button class="copy-btn" data-copy="clase05-html">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Mi Gestor de Tareas · Clase 5&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header&gt;
+    &lt;h1&gt;Mi Gestor de Tareas&lt;/h1&gt;
+    &lt;p&gt;Organiza lo que tienes que hacer&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Mis tareas&lt;/h2&gt;
+      &lt;article class="tarea"&gt;
+        &lt;h3&gt;Terminar la tarea de matemáticas&lt;/h3&gt;
+        &lt;p&gt;Categoría: estudio · Estado: pendiente&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article class="tarea"&gt;
+        &lt;h3&gt;Lavar los platos&lt;/h3&gt;
+        &lt;p&gt;Categoría: casa · Estado: completada&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p>El <code>styles.css</code> arranca en blanco: escribe al menos estas 4 reglas y luego cambia colores y fuentes a tu gusto:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase05/styles.css</div>
+          <button class="copy-btn" data-copy="clase05-css">📋 Copiar</button>
+        </div>
+        <pre><code>body {
+  background: #06101a;
+  color: #e6f1ff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  color: #22d3ee;
+}
+
+h2 {
+  color: #a855f7;
+}
+
+.tarea {
+  background: #0c1626;
+  border: 1px solid #1c3252;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>🧪 Comprueba que está conectado</h4>
+        <p>Usa la extensión <strong>Live Server</strong> (o abre el archivo directo). Prueba a cambiar un color y guarda: si la página no cambia, revisa que el archivo se llame exactamente <code>styles.css</code> y que el <code>&lt;link&gt;</code> apunte a <code>href="styles.css"</code>.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi clase05 está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Viste tu app: <code>proyecto/</code> recibe id, class y styles.css</span>
+        <span class="paso-tiempo">⏱️ 15 min · el paso más importante del año</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de tu <code>proyecto/</code>. Hasta hoy era solo estructura: tu gestor de tareas <strong>no tiene ni una marca</strong> <code>class</code> ni <code>id</code>, así que no hay nada que el CSS pueda seleccionar. Le pondrás las primeras y le crearás su propia hoja externa.</p>
+      <p><strong>1. Marca el HTML</strong> (agrega estos atributos a lo que ya tienes, no borres nada):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html — las 3 marcas</div>
+          <button class="copy-btn" data-copy="proyecto-marcas">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!-- 1. En el &lt;head&gt;, junto a &lt;title&gt;: conecta la hoja externa --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+
+&lt;!-- 2. Al &lt;h1&gt; del header: identifícalo con un id --&gt;
+&lt;h1 id="app-titulo"&gt;Mi Gestor de Tareas&lt;/h1&gt;
+
+&lt;!-- 3. A cada tarjeta del &lt;section id="lista"&gt;: agrúpalas con la misma clase --&gt;
+&lt;article class="tarea"&gt;
+  &lt;h3&gt;Tarea de ejemplo&lt;/h3&gt;
+  &lt;p&gt;Categoría: estudio · Estado: pendiente&lt;/p&gt;
+&lt;/article&gt;</code></pre>
+      </div>
+      <p><strong>2. Crea</strong> <code>proyecto/styles.css</code> (junto al <code>index.html</code>) con este punto de partida — es el mismo del laboratorio del módulo 6, ajustado a tu app:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/styles.css</div>
+          <button class="copy-btn" data-copy="proyecto-css">📋 Copiar</button>
+        </div>
+        <pre><code>/* Hoja de estilos de mi Gestor de Tareas */
+body {
+  background: #06101a;
+  color: #e6f1ff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+#app-titulo {
+  color: #22d3ee;
+}
+
+.tarea {
+  background: #0c1626;
+  border: 1px solid #1c3252;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 HAZLO TUYO</h4>
+        <p>Los colores son de ejemplo. Cambia el color del título por el de TU app, prueba otra <code>font-family</code> (¿recuerdas el módulo 5?) y añade espaciados. El CSS que escribiste en el laboratorio te sirve de guía: si ahí se veía bien, aquí también.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi aplicación ya tiene estilo</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 5 en la lista de clases. El de <code>proyecto/</code> ya funciona desde la clase 2.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada5">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase05/index.html"&gt;Clase 5 — Introducción a CSS&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va debajo de la línea de la clase 4, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 5: CSS, mi app se viste</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 5) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase05/</code> tiene <code>index.html</code> y <code>styles.css</code> conectados con <code>&lt;link&gt;</code>, y la página se ve con estilo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Usé al menos un selector de etiqueta, uno de clase y uno de id en mi CSS.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi <code>proyecto/index.html</code> tiene <code>id="app-titulo"</code> en el h1 y <code>class="tarea"</code> en las tarjetas.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Existe <code>proyecto/styles.css</code> y NO usé estilos en línea (<code>style="..."</code>) para lo que podía ir en la hoja.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Personalicé colores y fuente: no quedó idéntico al ejemplo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi app estilizada se ve desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase05/</code> con HTML + <code>styles.css</code> externo conectado por <code>&lt;link&gt;</code></td><td>1.5</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/</code> con las marcas (id/class), su <code>styles.css</code> y colores propios</td><td>1.5</td></tr>
+        <tr><td>Selectores</td><td>Usa los 3 tipos: etiqueta, clase e id</td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a la clase 5 funcionando desde la portada</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Estilista CSS!</h2>
-    <p class="lead">Ya sabes incluir CSS, usar selectores, aplicar colores y tipografía, y entender la cascada y la especificidad. Tu página ya tiene estilo. Recuerda: <strong>CSS permite separar presentación y estructura.</strong></p>
+    <p class="lead">Ya sabes marcar elementos con <code>class</code> e <code>id</code>, incluir CSS externo, usar selectores, colores y tipografía, y entender la cascada. Tu gestor de tareas dejó de ser un esqueleto: <strong>hoy se vistió</strong>. En la próxima clase le daremos estructura visual: el box model.</p>
     <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
   </div>
 
