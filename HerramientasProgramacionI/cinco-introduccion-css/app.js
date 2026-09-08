@@ -315,9 +315,22 @@ function configurarTaller() {
 
 function seleccionarMatchChip(id, chip, lado) {
   if (chip.classList.contains('correct')) return;
-  seleccionMatch[id][lado] = chip.dataset.mid;
   const block = chip.closest('.ws-block');
+  const previa = parejasMatch[id].findIndex(p => p[lado] === chip.dataset.mid);
+  if (previa !== -1) {
+    const pareja = parejasMatch[id][previa];
+    parejasMatch[id].splice(previa, 1);
+    const otroMid = pareja[lado === 'left' ? 'right' : 'left'];
+    const otroChip = block.querySelector(`[data-mid="${otroMid}"]`);
+    if (otroChip) {
+      otroChip.classList.remove('paired-temp', 'wrong', 'selected');
+      otroChip.style.opacity = '';
+    }
+  }
+  seleccionMatch[id][lado] = chip.dataset.mid;
   block.querySelectorAll(`[data-role="${lado}"] .ws-chip`).forEach(c => c.classList.remove('selected'));
+  chip.classList.remove('paired-temp', 'wrong');
+  chip.style.opacity = '';
   chip.classList.add('selected');
   if (seleccionMatch[id].left && seleccionMatch[id].right) {
     parejasMatch[id].push({ left: seleccionMatch[id].left, right: seleccionMatch[id].right });

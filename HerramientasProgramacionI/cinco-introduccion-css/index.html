@@ -219,6 +219,20 @@ h2 {
     </div>
   </div>
 
+  <div class="caja-concepto">
+    <h3>🧬 Anatomía de una regla CSS</h3>
+    <p>Todo el CSS que vas a escribir tiene la misma forma. Toma una regla del <code>styles.css</code> de arriba y mírala parte por parte:</p>
+    <div class="code-live" style="margin:0.9rem 0;"><span class="ty">h1</span> { <span class="fn">color</span>: <span class="str">#22d3ee</span>; }</div>
+    <ul>
+      <li><strong>Selector</strong> (<code>h1</code>): a quién le aplicas el estilo. Va siempre primero.</li>
+      <li><strong>Llaves</strong> (<code>{ }</code>): abren y cierran el bloque de estilos del selector.</li>
+      <li><strong>Propiedad</strong> (<code>color</code>): qué aspecto cambias.</li>
+      <li><strong>Valor</strong> (<code>#22d3ee</code>): cómo queda ese aspecto (aquí, azul cian).</li>
+      <li><strong>Punto y coma</strong> (<code>;</code>): cierra cada línea. Si lo olvidas, la siguiente se rompe.</li>
+    </ul>
+    <p>Dentro de las llaves caben <strong>varias líneas</strong>, cada una con su propiedad, su valor y su <code>;</code> — como la regla <code>.tarea</code> del ejemplo, que tiene cinco. Y si te preguntas por <code>padding</code> y <code>margin-bottom</code>: controlan los <strong>espaciados</strong>. Los verás a fondo en la clase 6 (box model); por ahora basta con copiarlos.</p>
+  </div>
+
   <div class="caja-tip">
     <h4>🧪 Experimenta</h4>
     <p>Copia las dos piezas (en la misma carpeta) y abre el <code>index.html</code>. Luego cambia <code>#22d3ee</code> por <code>#facc15</code> y recarga. Después prueba a borrar el <code>&lt;link&gt;</code> del <code>&lt;head&gt;</code>: la página queda "desnuda". Así de claro es el papel de CSS.</p>
@@ -461,6 +475,11 @@ h2 {
     <p>El <strong>hexadecimal</strong> es el más usado en la web: <code>#RRGGBB</code>, donde cada par de letras va de <code>00</code> (nada) a <code>ff</code> (máximo). <code>#ff0000</code> = rojo puro, <code>#00ff00</code> = verde, <code>#0000ff</code> = azul.</p>
   </div>
 
+  <div class="caja-tip">
+    <h4>🌈 ¿Y para qué sirve HSL?</h4>
+    <p>Su superpoder es crear <strong>variaciones del mismo color</strong> sin adivinar códigos: mueves la <strong>L</strong> y obtienes una versión más clara u oscura; mueves la <strong>S</strong> y la haces más viva o apagada. ¿Quieres el mismo verde de tu app pero "más clarito" para el fondo? Con hex tienes que probar valores al azar; con HSL basta bajar la luminosidad. Por eso los diseñadores lo aman.</p>
+  </div>
+
   <div class="quiz" data-quiz="3">
     <h3>🎯 Mini-Quiz del Módulo 3</h3>
     <div class="pregunta" data-correcta="b">
@@ -607,6 +626,20 @@ h2 {
     <h3>🧠 La idea central</h3>
     <p>Cuando dos reglas de CSS apuntan al mismo elemento, ¿cuál gana? La respuesta está en dos conceptos: la <strong>cascada</strong> (el orden y origen de las reglas) y la <strong>especificidad</strong> (qué tan "específico" es un selector). Entender esto evita el clásico "¿por qué no se aplica mi estilo?".</p>
   </div>
+
+  <h3>🔗 Selectores que se encadenan</h3>
+  <p>Antes de comparar "poderes", un truco de lectura que usarás en el taller: los selectores pueden <strong>encadenarse</strong> en una misma regla, separados por espacios. Se leen <strong>de derecha a izquierda</strong>:</p>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Selector encadenado</th><th>Se lee así</th></tr></thead>
+      <tbody>
+        <tr><td><code>.tarea h3</code></td><td>los <code>h3</code> que están <strong>dentro</strong> de un elemento con clase <code>tarea</code></td></tr>
+        <tr><td><code>#lista .tarea h3</code></td><td>los <code>h3</code> dentro de <code>.tarea</code>, que a su vez está dentro de <code>#lista</code></td></tr>
+        <tr><td><code>header p</code></td><td>los <code>p</code> dentro del <code>header</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Cuantas más piezas encadenas, <strong>más específico</strong> es el selector: apunta a un grupo cada vez más pequeño. Y eso nos lleva directo a la pregunta clave de este módulo.</p>
 
   <h3>⚖️ La escala de especificidad</h3>
   <p>De menor a mayor "poder", los selectores se ordenan así:</p>
