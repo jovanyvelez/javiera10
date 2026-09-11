@@ -576,7 +576,7 @@
 
   <div class="challenge">
     <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
-    <p>Un compañero quiere posicionar un menú desplegable dentro de un contenedor, pero el menú se sale y se posiciona respecto a la página entera. ¿Qué le falta al contenedor?</p>
+    <p>Un compañero quiere posicionar un menú desplegable dentro de un contenedor, pero el menú se sale y se posiciona respecto a la página entera. <strong>Empareja la pregunta con la propiedad que falta:</strong></p>
     <div class="ws-block" data-ws-match="4">
       <div class="code-live">
 .contenedor {
@@ -587,6 +587,9 @@
   top: 100%;
 }
       </div>
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="4a">¿Qué le falta al contenedor?</button>
+      </div>
       <div class="ws-options" data-role="right">
         <button class="ws-chip" data-mid="4A">position: relative</button>
         <button class="ws-chip" data-mid="4B">display: none</button>
@@ -595,6 +598,328 @@
       <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
       <div class="resultado-ws" id="ws-fb-4"></div>
     </div>
+  </div>
+
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>dos cosas</strong>: el ejercicio de la clase en <code>clase06/</code> (una mini página de componentes: barra de navegación, card y botón) y, sobre todo, <strong>tu aplicación toma forma</strong>: le ajustas el box model a las tarjetas, estilizas el botón de "Agregar" y le pones barra de navegación a <code>proyecto/</code>.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol6">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01...clase05/  ← ya los tienes
+├── clase06/
+│   ├── index.html      ← HOY: barra + card + botón
+│   └── styles.css      ← el box model del ejercicio
+└── proyecto/
+    ├── index.html      ← HOY: recibe class="barra" y class="boton"
+    └── styles.css      ← ⭐ HOY: box model para tu app</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase06/</code> — barra, card y botón</span>
+        <span class="paso-tiempo">⏱️ 12 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase06</code> con <strong>dos archivos</strong>: el <code>index.html</code> de abajo y su <code>styles.css</code>. Son los tres componentes de hoy: una <strong>barra de navegación</strong>, una <strong>card</strong> y un <strong>botón</strong> — puro box model.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase06/index.html</div>
+          <button class="copy-btn" data-copy="clase06-html">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Componentes · Clase 6&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;nav class="barra"&gt;
+    &lt;span class="logo"&gt;Mi Gestor de Tareas&lt;/span&gt;
+    &lt;a href="#"&gt;Inicio&lt;/a&gt;
+    &lt;a href="#"&gt;Tareas&lt;/a&gt;
+  &lt;/nav&gt;
+
+  &lt;main&gt;
+    &lt;h2&gt;Mis tareas&lt;/h2&gt;
+    &lt;article class="tarea"&gt;
+      &lt;h3&gt;Terminar la tarea de matemáticas&lt;/h3&gt;
+      &lt;p&gt;Categoría: estudio · Estado: pendiente&lt;/p&gt;
+      &lt;button class="boton"&gt;Marcar como hecha&lt;/button&gt;
+    &lt;/article&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p>El <code>styles.css</code> es el corazón del ejercicio: cada regla usa capas del box model. Cópialo y luego <strong>cámbiale colores y medidas</strong> a tu gusto:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase06/styles.css</div>
+          <button class="copy-btn" data-copy="clase06-css">📋 Copiar</button>
+        </div>
+        <pre><code>* {
+  box-sizing: border-box;   /* el truco: width ya incluye padding y border */
+}
+
+body {
+  background: #06101a;
+  color: #e6f1ff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;       /* espacio interno */
+  margin-bottom: 20px;      /* espacio externo */
+  border: 1px solid #1c3252;
+  border-radius: 10px;
+  background: #0c1626;
+}
+
+.barra .logo {
+  font-weight: bold;
+  color: #22d3ee;
+  margin-right: auto;       /* empuja los enlaces a la derecha */
+}
+
+.barra a {
+  color: #a855f7;
+  text-decoration: none;
+  padding: 6px 12px;
+}
+
+.tarea {
+  width: 300px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  border: 1px solid #1c3252;
+  border-radius: 8px;
+  background: #0c1626;
+}
+
+.boton {
+  display: inline-block;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.boton:hover {
+  box-shadow: 0 6px 20px rgba(34, 211, 238, 0.5);
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>🧪 Comprueba el box model</h4>
+        <p>Abre la página con <strong>Live Server</strong> y haz clic derecho → <strong>Inspeccionar</strong> sobre la card: verás su <code>padding</code>, <code>border</code> y <code>margin</code> pintados en el diagrama. Cambia el <code>width</code> de <code>.tarea</code> y observa que la caja no se rompe: eso lo hace <code>box-sizing: border-box</code>.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi clase06 está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Tu app toma forma: <code>proyecto/</code> recibe barra, botón y box-sizing</span>
+        <span class="paso-tiempo">⏱️ 15 min · el paso más importante de hoy</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> y el <code>styles.css</code> de tu <code>proyecto/</code>. La clase 5 le puso colores; hoy le das <strong>forma</strong>: espacios que respiran y un botón de verdad.</p>
+      <p><strong>1. Marca el HTML</strong> (agrega estos atributos a lo que ya tienes, no borres nada):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html — las 2 marcas</div>
+          <button class="copy-btn" data-copy="proyecto-marcas">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!-- 1. Al &lt;header&gt; de la app: conviértelo en barra de navegación --&gt;
+&lt;header class="barra"&gt;
+
+&lt;!-- 2. Al botón "Agregar" del formulario: --&gt;
+&lt;button class="boton"&gt;Agregar&lt;/button&gt;</code></pre>
+      </div>
+      <p><strong>2. Añade a tu</strong> <code>proyecto/styles.css</code> estas reglas (conserva las de la clase 5: <code>#app-titulo</code> y <code>.tarea</code> ya viven ahí):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/styles.css — lo nuevo de hoy</div>
+          <button class="copy-btn" data-copy="proyecto-css">📋 Copiar</button>
+        </div>
+        <pre><code>* {
+  box-sizing: border-box;   /* que ninguna caja se rompa nunca más */
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid #1c3252;
+}
+
+.boton {
+  display: inline-block;
+  padding: 10px 22px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #22d3ee, #a855f7);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.boton:hover {
+  box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+  transform: translateY(-2px);   /* el "saltito" al pasar el mouse */
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 HAZLO TUYO</h4>
+        <p>Los colores son de ejemplo. Ajusta el <code>padding</code> de las tarjetas <code>.tarea</code> para que respiren, prueba otro <code>border-radius</code> en el botón y dale a <code>.barra</code> un fondo propio. Si el botón "se sale" de su sitio, revisa su <code>margin</code>.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi aplicación ya tiene forma</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 6 en la lista de clases. El de <code>proyecto/</code> ya funciona desde la clase 2.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada6">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase06/index.html"&gt;Clase 6 — Box model, display y posicionamiento&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va debajo de la línea de la clase 5, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 6: box model, mi app toma forma</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 6) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase06/</code> tiene barra, card y botón, y se ve con su <code>styles.css</code> conectado.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Usé <code>box-sizing: border-box</code> en mis dos hojas de estilo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi botón tiene <code>padding</code> y <code>border-radius</code> que lo hacen verse como botón de verdad.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Las tarjetas <code>.tarea</code> de mi proyecto tienen espacios pensados: no están pegadas ni apretadas.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Personalicé colores, sombras y medidas: no quedó idéntico al ejemplo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi app con forma se ve desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase06/</code> con barra + card + botón usando padding, border y margin</td><td>1.5</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/</code> con <code>class="barra"</code>, botón estilizado y tarjetas con buen espaciado</td><td>1.5</td></tr>
+        <tr><td>Box model</td><td><code>box-sizing: border-box</code> y espaciados coherentes en las dos hojas</td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a la clase 6 funcionando desde la portada</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="cierre">
