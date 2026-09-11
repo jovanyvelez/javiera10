@@ -602,6 +602,9 @@
   justify-content: space-between;
 }
       </div>
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="4a">¿Cuál es el error del código?</button>
+      </div>
       <div class="ws-options" data-role="right">
         <button class="ws-chip" data-mid="4A">Usa display: block en vez de display: flex, así que justify-content no funciona</button>
         <button class="ws-chip" data-mid="4B">Falta la propiedad gap</button>
@@ -612,9 +615,311 @@
     </div>
   </div>
 
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>dos cosas</strong>: el ejercicio de la clase en <code>clase07/</code> (un menú responsive y una fila de tarjetas con Flexbox) y, sobre todo, <strong>tu aplicación se vuelve flexible</strong>: le das <code>display: flex</code> a la barra y a la lista de tareas de <code>proyecto/</code> para que sus elementos se distribuyan solos.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol7">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01...clase06/  ← ya los tienes
+├── clase07/
+│   ├── index.html      ← HOY: menú + fila de tarjetas
+│   └── styles.css      ← Flexbox del ejercicio
+└── proyecto/
+    ├── index.html      ← HOY: recibe class="barra" y class="lista-tareas"
+    └── styles.css      ← ⭐ HOY: barra y tarjetas en fila con Flexbox</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase07/</code> — menú responsive y fila de tarjetas</span>
+        <span class="paso-tiempo">⏱️ 12 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase07</code> con <strong>dos archivos</strong>: el <code>index.html</code> de abajo y su <code>styles.css</code>. Son los dos patrones de hoy: un <strong>menú de navegación responsive</strong> y una <strong>fila de tarjetas</strong> que se reparten el espacio.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase07/index.html</div>
+          <button class="copy-btn" data-copy="clase07-html">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;Flexbox · Clase 7&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;nav class="menu"&gt;
+    &lt;a href="#" class="logo"&gt;Mi Gestor de Tareas&lt;/a&gt;
+    &lt;ul class="enlaces"&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Tareas&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href="#"&gt;Contacto&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/nav&gt;
+
+  &lt;main&gt;
+    &lt;h2&gt;Mis tareas&lt;/h2&gt;
+    &lt;section class="tarjetas"&gt;
+      &lt;article class="tarjeta"&gt;Terminar la tarea de matemáticas&lt;/article&gt;
+      &lt;article class="tarjeta"&gt;Lavar los platos&lt;/article&gt;
+      &lt;article class="tarjeta"&gt;Estudiar para el examen&lt;/article&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p>El <code>styles.css</code> es el corazón del ejercicio: cada regla usa Flexbox. Cópialo y luego <strong>cámbiale colores y medidas</strong> a tu gusto:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase07/styles.css</div>
+          <button class="copy-btn" data-copy="clase07-css">📋 Copiar</button>
+        </div>
+        <pre><code>body {
+  background: #06101a;
+  color: #e6f1ff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;      /* se adapta al ancho de la pantalla */
+  gap: 1rem;
+  padding: 12px 16px;
+  border: 1px solid #1c3252;
+  border-radius: 10px;
+}
+
+.menu .logo {
+  font-weight: bold;
+  color: #22d3ee;
+}
+
+.enlaces {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.enlaces a {
+  color: #a855f7;
+  text-decoration: none;
+}
+
+.tarjetas {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tarjeta {
+  flex: 1 1 200px;      /* crece, se encoge y parte de 200px */
+  padding: 16px;
+  border: 1px solid #1c3252;
+  border-radius: 10px;
+  background: #0c1626;
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>🧪 Comprueba el centrado</h4>
+        <p>Abre la página con <strong>Live Server</strong>, achica la ventana y observa cómo el menú salta de línea gracias a <code>flex-wrap: wrap</code>. Luego prueba a añadir al <code>body</code> <code>display: flex; justify-content: center; align-items: center; min-height: 100vh;</code>: ese es el centrado perfecto.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi clase07 está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Tu app se vuelve flexible: <code>proyecto/</code> recibe Flexbox</span>
+        <span class="paso-tiempo">⏱️ 15 min · el paso más importante de hoy</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> y el <code>styles.css</code> de tu <code>proyecto/</code>. En la clase 6 la barra ya era una fila; hoy aplicas Flexbox a la <strong>lista de tareas</strong> para que sus tarjetas se distribuyan solas y se adapten a la pantalla.</p>
+      <p><strong>1. Marca el HTML</strong> (agrega esta clase al <code>&lt;section&gt;</code> de la lista, no borres nada):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html — la marca de hoy</div>
+          <button class="copy-btn" data-copy="proyecto-marcas">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!-- Al &lt;section&gt; que contiene las tarjetas de tareas: --&gt;
+&lt;section id="lista" class="lista-tareas"&gt;</code></pre>
+      </div>
+      <p><strong>2. Añade a tu</strong> <code>proyecto/styles.css</code> estas reglas (conserva las de las clases 5 y 6: <code>#app-titulo</code>, <code>.barra</code>, <code>.tarea</code> y <code>.boton</code> ya viven ahí):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/styles.css — lo nuevo de hoy</div>
+          <button class="copy-btn" data-copy="proyecto-css">📋 Copiar</button>
+        </div>
+        <pre><code>.lista-tareas {
+  display: flex;
+  flex-wrap: wrap;      /* las tarjetas saltan de línea si no caben */
+  gap: 1rem;
+}
+
+.lista-tareas .tarea {
+  flex: 1 1 220px;      /* crece, se encoge y parte de 220px */
+  margin-bottom: 0;     /* el espacio ahora lo pone gap */
+}
+
+@media (max-width: 600px) {
+  .barra {
+    flex-wrap: wrap;    /* el menú se adapta en el celular */
+  }
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 HAZLO TUYO</h4>
+        <p>Prueba a cambiar <code>justify-content</code> de <code>.lista-tareas</code> a <code>center</code> y mira qué pasa. Ajusta el valor base de <code>flex</code> (el <code>220px</code>) para que quepan más o menos tarjetas por fila. Recuerda: <strong>justify = eje principal, align = eje cruzado</strong>.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi aplicación ya es flexible</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 7 en la lista de clases. El de <code>proyecto/</code> ya funciona desde la clase 2.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada7">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase07/index.html"&gt;Clase 7 — Flexbox&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va debajo de la línea de la clase 6, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 7: Flexbox, mi app se vuelve flexible</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 7) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase07/</code> tiene un menú responsive y una fila de tarjetas que usan <code>display: flex</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Usé <code>justify-content</code> y <code>align-items</code>, y entiendo cuál trabaja en cada eje.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi menú se adapta al ancho de la pantalla con <code>flex-wrap: wrap</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Mi <code>proyecto/index.html</code> tiene <code>class="lista-tareas"</code> en el section de las tarjetas.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Las tarjetas de mi proyecto usan <code>flex: 1 1 ...</code> y se reparten el espacio sin romperse.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi app flexible se ve desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase07/</code> con menú responsive y fila de tarjetas usando Flexbox</td><td>1.5</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/</code> con <code>class="lista-tareas"</code> y tarjetas en fila con <code>flex</code></td><td>1.5</td></tr>
+        <tr><td>Propiedades</td><td>Uso correcto de <code>justify-content</code>, <code>align-items</code>, <code>gap</code> y <code>flex-wrap</code></td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a la clase 7 funcionando desde la portada</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="cierre">
     <h2>🏆 ¡Misión completada, Maestro Flexbox!</h2>
-    <p class="lead">Ya sabes distribuir elementos en una dimensión con Flexbox: contenedor flexible, alineación, dirección y propiedades de los hijos. Tu layout con navbar y tarjetas ya es profesional. Recuerda: <strong>Flexbox es ideal para distribuciones en una dimensión.</strong></p>
+    <p class="lead">Ya sabes distribuir elementos en una dimensión con Flexbox: contenedor flexible, alineación, dirección y propiedades de los hijos. Tu menú y tu fila de tarjetas ya son profesionales, y tu aplicación dejó de ser rígida: <strong>hoy se volvió flexible</strong>. Recuerda: <strong>Flexbox es ideal para distribuciones en una dimensión.</strong></p>
     <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
   </div>
 
