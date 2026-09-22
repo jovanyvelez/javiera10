@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📐 Herramientas de Programación I · Clase 7B · Viewport, imágenes y textos responsivos</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">📐</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 7B</h1>
+      <p class="subtitulo">Viewport · Imágenes responsivas · Textos fluidos · Unidades relativas</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">📱 El viewport</button>
+  <button class="btn-modulo" data-modulo="2">🖼️ Imágenes responsivas</button>
+  <button class="btn-modulo" data-modulo="3">🔤 Textos fluidos</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">📏 Unidades relativas</button>
+  <button class="btn-modulo" data-modulo="6">🧩 Práctica integrada</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>📐 ¡Bienvenido/a al mundo fluido!</h2>
+    <p class="lead">En la clase de Flexbox hiciste que los elementos <strong>se repartieran el espacio</strong>. Pero hay un enemigo silencioso: las <strong>medidas fijas</strong>. Hoy aprenderás a decirle al navegador el <strong>tamaño real de la pantalla</strong> (viewport), a hacer que <strong>imágenes y textos se adapten solos</strong> y a medir con <strong>unidades relativas</strong>: <code>%</code>, <code>em</code>, <code>vh</code> y <code>vw</code>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">echo "&lt;meta name=viewport&gt;"</span></div>
+        <div class="out">"&lt;meta name=viewport&gt;"</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://web</span></div>
+        <div class="out">"Los píxeles fijos rompen las pantallas chicas."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Fijar el viewport, aplicar imágenes y textos responsivos y dominar las unidades relativas (em, %, vh, vw).</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>Saber CSS básico, box model y Flexbox. Aquí aprenderás a <em>medir en relación</em>, no en píxeles fijos.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · El viewport</td><td style="color:var(--cian)">Concepto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Imágenes responsivas</td><td style="color:var(--morado-claro)">max-width</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Textos fluidos</td><td style="color:var(--ambar)">clamp()</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Unidades relativas</td><td style="color:var(--verde)">% em vh vw</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Práctica integrada</td><td style="color:var(--morado)">Proyecto</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 3 minutos</h4>
+    <p>Abre la misma página web en el <strong>celular</strong> de uno y en el <strong>portátil</strong> del otro (sirve la portada de tu propio proyecto en GitHub Pages). ¿Se ve igual? ¿En cuál se lee mejor el texto? Si encuentran una página que en el celular se ve como una <strong>miniatura diminuta</strong>, esa página olvidó el viewport: es exactamente lo que arreglaremos hoy.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: El viewport →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>📱 El viewport</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La ventana del navegador" — el primer paso de todo diseño responsivo</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El <strong>viewport</strong> es la zona de la pantalla donde se ve tu página: tu <em>ventana al contenido</em>. En un monitor mide más de 1200px; en un celular, unos 380px. El problema: si no le dices nada, el navegador del celular <strong>finge</strong> que tiene 980px de ancho, dibuja la página "de escritorio" y luego la <strong>achica toda</strong> para que quepa. Resultado: texto hormiga. La etiqueta viewport es el interruptor que apaga esa mentira.</p>
+  </div>
+
+  <h3>📱 La etiqueta que lo cambia todo</h3>
+  <p>Esta línea va en el <code>&lt;head&gt;</code> de <strong>todas</strong> tus páginas (la tuya de la clase 1 ya la tiene):</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="viewport">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;/head&gt;</code></pre>
+  </div>
+
+  <h3>🔍 Anatomía de la etiqueta</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Parte</th><th>Qué significa</th><th>Traducción</th></tr></thead>
+      <tbody>
+        <tr><td><code>width=device-width</code></td><td>El ancho de la página = el ancho real del dispositivo</td><td>"Deja de fingir que tengo 980px"</td></tr>
+        <tr><td><code>initial-scale=1.0</code></td><td>La página arranca sin zoom de mentira</td><td>"Muéstrame los píxeles reales"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>❌ Sin viewport</h4>
+      <p>El celular cree que la pantalla mide 980px, dibuja la página de escritorio y la encoge en bloque: <strong>todo se ve en miniatura</strong> y el usuario tiene que hacer zoom con los dedos.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ Con viewport</h4>
+      <p>El celular sabe su ancho real (≈380px) y tus media queries, unidades y <code>flex-wrap</code> pueden reaccionar: <strong>cada píxel cuenta de verdad</strong>.</p>
+    </div>
+  </div>
+
+  <h3>🎮 Simulador: el celular que finge</h3>
+  <p>Este "teléfono" tiene una pantalla de unos 280px. Mira lo que pasa dentro cuando el navegador no conoce el viewport.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📱 viewport en acción</div>
+    <div class="state-panel">
+      <div class="state-title">Estado de la página</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">meta viewport</div><span class="sval" id="vp-estado">❌ ausente</span></div>
+        <div class="state-cell"><div class="label">Ancho que "cree" el navegador</div><span class="sval" id="vp-ancho">980px</span></div>
+      </div>
+    </div>
+    <div class="vp-phone">
+      <div class="vp-screen" id="vp-demo">
+        <div class="vp-content" id="vp-content">
+          <div class="vp-card"><strong>Mi Gestor de Tareas</strong></div>
+          <div class="vp-card">📝 Estudiar para el examen</div>
+          <div class="vp-card">🧹 Lavar los platos</div>
+          <div class="vp-card">💻 Practicar CSS</div>
+          <div class="vp-card">📚 Leer 20 páginas</div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-vp="sin">❌ Sin meta viewport</button>
+      <button class="btn primary" data-vp="con">✅ Con meta viewport</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="vp-feedback-txt">Sin la etiqueta, el navegador dibuja la página como si la pantalla midiera 980px… y la achica entera. Activa el viewport para que use el ancho real.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común n.º 1 de todo principiante</h4>
+    <p>Escribir media queries perfectas y olvidar el <code>&lt;meta name="viewport"&gt;</code>. Sin esa línea, en el celular <strong>ninguna</strong> de tus media queries se activa donde esperas: la página se ve diminuta aunque tu CSS sea impecable. Es lo primero que se revisa cuando "algo no se adapta".</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 No bloquees el zoom</h4>
+    <p>Verás por ahí <code>user-scalable=no</code>: prohíbe el zoom con los dedos. <strong>No lo uses</strong>: hay personas que necesitan agrandar el texto para leer. Una web accesible siempre deja zoom libre.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es el viewport?</p>
+      <button class="opcion" data-op="a">La memoria RAM del navegador</button>
+      <button class="opcion" data-op="b">La zona visible de la página en la pantalla</button>
+      <button class="opcion" data-op="c">Una propiedad de CSS Grid</button>
+      <button class="opcion" data-op="d">Un tipo de imagen moderna</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué hace <code>width=device-width</code>?</p>
+      <button class="opcion" data-op="a">Obliga a todas las pantallas a medir 980px</button>
+      <button class="opcion" data-op="b">Activa el modo oscuro automático</button>
+      <button class="opcion" data-op="c">Dice al navegador que use el ancho real del dispositivo</button>
+      <button class="opcion" data-op="d">Convierte los px a rem</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Imágenes responsivas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>🖼️ Imágenes responsivas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La regla de oro" — que la foto nunca rompa el diseño</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una foto de celular moderno mide <strong>1200px o más</strong> de ancho. Si la metes en una tarjeta de 300px y en la pantalla de un celular, la imagen <strong>se sale por la derecha</strong> y aparece el scroll horizontal: el peor defecto de una página. La solución son <strong>dos líneas de CSS</strong> que hacen que la imagen sea fluida: nunca más grande que su contenedor, nunca deformada.</p>
+  </div>
+
+  <h3>🖼️ La regla de oro</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="regla-oro">📋 Copiar</button>
+    </div>
+    <pre><code>img {
+  max-width: 100%;   /* nunca más ancha que su contenedor */
+  height: auto;     /* el alto se calcula: la foto nunca se deforma */
+}</code></pre>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Por qué max-width y no width?</h4>
+    <p><code>width: 100%</code> fuerza a la imagen a ocupar <em>todo</em> el contenedor: una foto de 150px se vería pixelada al estirarla. <code>max-width: 100%</code> solo pone un <strong>tope</strong>: las imágenes chicas se quedan en su tamaño natural y las grandes se encogen. Es un "encoge solo si no cabes".</p>
+  </div>
+
+  <h3>🎮 Simulador: la foto que se escapa</h3>
+  <p>Esta "pantalla" es un contenedor de unos 420px. La foto mide 1200px de ancho. Cambia de modo y observa qué CSS la salva.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🖼️ imágenes en un contenedor de ~420px</div>
+    <div class="state-panel">
+      <div class="state-title">CSS aplicado a la imagen</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">regla</div><span class="sval" id="img-mode">sin regla</span></div>
+        <div class="state-cell"><div class="label">resultado</div><span class="sval" id="img-estado">se sale 💥</span></div>
+      </div>
+    </div>
+    <div class="img-demo-wrap">
+      <img class="img-demo" id="img-demo" alt="Imagen de ejemplo de 1200 por 400 píxeles con texto 'Foto 1200px'">
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-img="sin">❌ Sin CSS (ancho fijo)</button>
+      <button class="btn primary" data-img="fluida">✅ max-width: 100%</button>
+      <button class="btn primary" data-img="cover">🖼️ object-fit: cover</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="img-feedback-txt">Sin CSS, la foto de 1200px se sale del contenedor. Aplica la regla de oro para hacerla fluida.</p>
+    </div>
+  </div>
+
+  <h3>🧰 El kit completo de la imagen responsiva</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Herramienta</th><th>Qué hace</th><th>Dónde va</th></tr></thead>
+      <tbody>
+        <tr><td><code>alt</code></td><td>Describe la imagen (accesibilidad y si falla la carga)</td><td>HTML — lo viste en la clase 3</td></tr>
+        <tr><td><code>max-width: 100%</code></td><td>La imagen nunca rompe su contenedor</td><td>CSS</td></tr>
+        <tr><td><code>height: auto</code></td><td>El alto se ajusta solo, sin deformar</td><td>CSS</td></tr>
+        <tr><td><code>width</code> y <code>height</code> del HTML</td><td>Reservan el espacio mientras carga: la página no "salta"</td><td>HTML (atributos)</td></tr>
+        <tr><td><code>object-fit: cover</code></td><td>Recorta para llenar una caja fija sin deformar (portadas, avatares)</td><td>CSS</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🖼️ Portada de tarjeta</h4>
+      <p>Quieres que TODAS las tarjetas tengan su foto de la misma altura: caja de altura fija + <code>object-fit: cover</code>. La foto se recorta, pero el diseño queda perfecto.</p>
+      <div class="code-live" style="margin-top:.5rem">
+.tarjeta img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>📷 Foto de artículo</h4>
+      <p>Quieres ver la foto <strong>completa</strong>, sin recortes: la regla de oro. Se encoge hasta caber en el ancho disponible y conserva sus proporciones.</p>
+      <div class="code-live" style="margin-top:.5rem">
+.articulo img {
+  max-width: 100%;
+  height: auto;
+}
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: altura fija + ancho fluido</h4>
+    <p>Si pones <code>max-width: 100%</code> junto con <code>height: 300px</code> (sin <code>auto</code>), la imagen se encoge en ancho pero no en alto: sale <strong>deformada</strong>, achatada o estirada. El alto siempre debe ser <code>auto</code>… o usa <code>object-fit</code> cuando sí necesites una caja fija.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Para los curiosos: srcset</h4>
+    <p>Cuando domines esto, investiga <code>srcset</code>: sirve para <strong>enviar</strong> al celular una versión pequeña de la foto (más rápida) y al portátil la grande. Es optimización; la regla de oro sigue siendo la base.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué hace <code>max-width: 100%</code> en una imagen?</p>
+      <button class="opcion" data-op="a">Le pone como tope el ancho de su contenedor</button>
+      <button class="opcion" data-op="b">La convierte en un SVG</button>
+      <button class="opcion" data-op="c">La agranda siempre al máximo</button>
+      <button class="opcion" data-op="d">Cambia su resolución</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>2.</strong> ¿Para qué sirve <code>object-fit: cover</code>?</p>
+      <button class="opcion" data-op="a">Para estirar la imagen y llenar la caja</button>
+      <button class="opcion" data-op="b">Para recortar la imagen y llenar una caja sin deformarla</button>
+      <button class="opcion" data-op="c">Para hacer la imagen responsiva automáticamente</button>
+      <button class="opcion" data-op="d">Para ponerle un marco redondeado</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Textos fluidos →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔤 Textos fluidos</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Ni gigante ni hormiga" — títulos que crecen y encogen solos</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un título de <code>48px</code> luce imponente en el portátil… y se come media pantalla del celular. Al revés, un texto pensado para móvil se pierde en un monitor. La solución moderna es <strong>clamp()</strong>: le das al navegador un <strong>mínimo</strong>, un <strong>tamaño ideal</strong> que depende del ancho de pantalla, y un <strong>máximo</strong>. El texto escala solo, sin una sola media query.</p>
+  </div>
+
+  <h3>🔤 clamp(): mínimo, ideal, máximo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="clamp">📋 Copiar</button>
+    </div>
+    <pre><code>h1 {
+  /*        mínimo     ideal     máximo   */
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+}</code></pre>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Parte</th><th>Valor</th><th>Cuándo se usa</th></tr></thead>
+      <tbody>
+        <tr><td>Mínimo</td><td><code>1.8rem</code></td><td>Nunca baja de esto: legible en el celular</td></tr>
+        <tr><td>Ideal</td><td><code>5vw</code></td><td>El 5% del ancho de la ventana: crece con la pantalla</td></tr>
+        <tr><td>Máximo</td><td><code>3.5rem</code></td><td>Nunca sube de esto: no aplasta en monitores gigantes</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: el título elástico</h3>
+  <p>Cambia la estrategia del título y luego <strong>achica y agranda la ventana del navegador</strong> para ver quién reacciona y quién no.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔤 píxeles fijos vs unidades relativas</div>
+    <div class="state-panel">
+      <div class="state-title">font-size actual del título</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">estrategia</div><span class="sval" id="ft-mode">48px fijos</span></div>
+      </div>
+    </div>
+    <div class="ft-demo" id="ft-demo">
+      <h1 id="ft-titulo" style="font-size:48px;">Aprender CSS es poder</h1>
+      <p id="ft-parrafo" style="font-size:16px;">Este párrafo usa la misma estrategia. ¿Se sigue leyendo bien al cambiar el tamaño de la ventana? Prueba con el modo fluido y redimensiona la ventana del navegador.</p>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-txt="px">📏 px fijos</button>
+      <button class="btn primary" data-txt="rem">✅ rem</button>
+      <button class="btn primary" data-txt="clamp">🌊 clamp() fluido</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="ft-feedback-txt">Con <code>48px</code> fijos, el título mide lo mismo en un celular y en un monitor. Cambia a <code>clamp()</code> y redimensiona la ventana: el título respira con la pantalla.</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>📏 px</h4>
+      <p>Tamaño exacto e igual en todas partes. Bien para <strong>detalles finos</strong> (bordes, sombras), rígido para texto: ignora al usuario y a su pantalla.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>✅ rem</h4>
+      <p>Relativo al texto base del navegador: si el usuario agranda la letra base, tu texto lo acompaña. La unidad amiga de la accesibilidad.</p>
+    </div>
+    <div class="compare-card c">
+      <h4>🌊 clamp()</h4>
+      <p>rem + <code>vw</code> con seguro de mínimo y máximo. El título escala <strong>solo</strong> con el ancho de la pantalla, sin media queries.</p>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: vw suelto en párrafos</h4>
+    <p>Un párrafo con <code>font-size: 5vw</code> se vuelve <strong>gigante</strong> en monitores anchos e <strong>ilegible</strong> en celulares. <code>vw</code> sin <code>clamp()</code> es una montaña rusa. Para párrafos, <code>rem</code>; para títulos, <code>clamp(mínimo, vw, máximo)</code>.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Receta rápida que puedes reusar</h4>
+    <p>Héroe: <code>clamp(2rem, 6vw, 4rem)</code> · Títulos de sección: <code>clamp(1.4rem, 4vw, 2.2rem)</code> · Texto normal: <code>1rem</code> o <code>1.1rem</code> · Notas: <code>0.85rem</code>. Cámbialas a tu gusto: lo importante es que haya mínimo y máximo.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué hace <code>clamp(1.5rem, 5vw, 3rem)</code>?</p>
+      <button class="opcion" data-op="a">Promedia los tres valores</button>
+      <button class="opcion" data-op="b">Usa siempre 5vw, los otros dos son decoración</button>
+      <button class="opcion" data-op="c">Usa 5vw pero nunca baja de 1.5rem ni sube de 3rem</button>
+      <button class="opcion" data-op="d">Elige uno de los tres al azar</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Por qué usar <code>rem</code> en vez de <code>16px</code> para un párrafo?</p>
+      <button class="opcion" data-op="a">Porque respeta el tamaño base de letra que el usuario eligió en su navegador</button>
+      <button class="opcion" data-op="b">Porque rem se ve más bonito</button>
+      <button class="opcion" data-op="c">Porque px ya no funciona en CSS moderno</button>
+      <button class="opcion" data-op="d">Porque rem solo funciona en móviles</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Cuéntale a alguien</h3><p>Explícale a tu compañero/a la diferencia entre max-width y width sin mirar la pantalla.</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>¿Cuánto mide <code>1vw</code> en una ventana de 1000px de ancho?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="a" data-top="a">10px</button>
+      <button class="trivia-opt" data-top="b">100px</button>
+      <button class="trivia-opt" data-top="c">1000px</button>
+      <button class="trivia-opt" data-top="d">1px</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Unidades relativas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>📏 Unidades relativas: %, em, vh y vw</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Medir en relación" — cada unidad pregunta "¿respecto a qué?"</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un píxel es un píxel siempre. Una unidad relativa, en cambio, responde a <strong>otra cosa</strong>: el contenedor, el texto del padre, el texto base o la ventana. La pregunta mágica de cada unidad es <em>"¿respecto a qué?"</em>. Aprender esa pregunta es aprender diseño responsivo.</p>
+  </div>
+
+  <h3>📏 Las cuatro unidades de hoy (y su prima rem)</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Unidad</th><th>¿Respecto a qué?</th><th>Ejemplo</th><th>Para qué brilla</th></tr></thead>
+      <tbody>
+        <tr><td><code>%</code></td><td>El tamaño del <strong>contenedor</strong> (padre)</td><td><code>width: 50%</code></td><td>Columnas, tarjetas, anchos</td></tr>
+        <tr><td><code>em</code></td><td>El <code>font-size</code> del elemento o de su <strong>padre</strong></td><td><code>padding: 0.8em</code></td><td>Espaciado que crece con el texto</td></tr>
+        <tr><td><code>rem</code></td><td>El <code>font-size</code> del <code>html</code> (16px por defecto)</td><td><code>font-size: 1.2rem</code></td><td>Fuentes consistentes en toda la página</td></tr>
+        <tr><td><code>vw</code></td><td>El <strong>ancho</strong> de la ventana (1vw = 1% del ancho)</td><td><code>width: 50vw</code></td><td>Tamaños que responden al ancho</td></tr>
+        <tr><td><code>vh</code></td><td>El <strong>alto</strong> de la ventana (1vh = 1% del alto)</td><td><code>min-height: 100vh</code></td><td>Secciones de pantalla completa</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎮 Simulador: la regla viva</h3>
+  <p>Cada caja está medida con una unidad. Toca los botones para resaltar una caja y leer qué la controla. Las cajas <code>vw</code> y <code>vh</code> se actualizan <strong>en vivo</strong>: achica la ventana del navegador y míralas encoger.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📏 % em rem vw vh en una sola fila</div>
+    <div class="unidad-ruler" id="unidad-ruler">
+      <div class="unidad-box u-pct" data-unidad-box="%"><span class="u-name">50%</span><span class="u-sub">del contenedor</span></div>
+      <div class="unidad-box u-em" data-unidad-box="em"><span class="u-name">1.2em</span><span class="u-sub">del texto padre</span></div>
+      <div class="unidad-box u-rem" data-unidad-box="rem"><span class="u-name">10rem</span><span class="u-sub">del html</span></div>
+      <div class="unidad-box u-vw" data-unidad-box="vw" id="u-vw"><span class="u-name">8vw</span><span class="u-sub">de la ventana ↔</span></div>
+      <div class="unidad-box u-vh" data-unidad-box="vh" id="u-vh"><span class="u-name">8vh</span><span class="u-sub">de la ventana ↕</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-unit="%">% padre</button>
+      <button class="btn" data-unit="em">em</button>
+      <button class="btn" data-unit="rem">rem</button>
+      <button class="btn" data-unit="vw">vw</button>
+      <button class="btn" data-unit="vh">vh</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="unit-feedback-txt">Toca un botón para ver qué controla cada caja. Y prueba achicar la ventana: las cajas vw y vh responden al tamaño de la ventana del navegador.</p>
+    </div>
+  </div>
+
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>🧩 % — el ancho compartido</h4>
+      <p>En la clase de Flexbox, <code>flex: 1 1 220px</code> repartía el espacio. El <code>%</code> hace lo mismo a mano: <code>width: 50%</code> = "la mitad de mi padre". Perfecto para imágenes y columnas.</p>
+      <div class="code-live" style="margin-top:.5rem">
+.col { width: 48%; }
+      </div>
+    </div>
+    <div class="compare-card b">
+      <h4>🧱 em — el espaciado que acompaña</h4>
+      <p>Un botón con <code>padding: 0.8em</code> tiene aire proporcional a SU letra: si el texto crece, el botón crece con él. Ideal para componentes (botones, chips, badges).</p>
+      <div class="code-live" style="margin-top:.5rem">
+.boton {
+  font-size: 1.2rem;
+  padding: 0.6em 1.2em;
+}
+      </div>
+    </div>
+    <div class="compare-card c">
+      <h4>📐 vh/vw — la pantalla como regla</h4>
+      <p><code>min-height: 100vh</code> = "mide al menos una pantalla completa", en el celular y en el cine. Los héroes de portales modernos se hacen así.</p>
+      <div class="code-live" style="margin-top:.5rem">
+.hero { min-height: 100vh; }
+      </div>
+    </div>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos: el cartel 50vw</h4>
+    <p>Un cartel debe medir <strong>la mitad del ancho de la ventana</strong> y tener <strong>una décima parte del alto</strong> de la ventana. Escriban juntos su CSS: ¿qué unidad usan para el ancho y cuál para el alto? Luego comprueben su respuesta con el simulador de este módulo. Pista: son dos siglas distintas.</p>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Error común: el % que no hace nada</h4>
+    <p>Pones <code>height: 50%</code> a una caja y… no pasa nada. El <code>%</code> de <strong>alto</strong> solo funciona si el padre tiene un alto definido. Con el ancho casi nunca hay problema; con el alto, cuidado. Para secciones "de media pantalla" es más seguro <code>height: 50vh</code>, que no depende del padre.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> En <code>width: 50%</code>, ¿50% de qué?</p>
+      <button class="opcion" data-op="a">De la pantalla completa</button>
+      <button class="opcion" data-op="b">Del ancho del elemento padre (contenedor)</button>
+      <button class="opcion" data-op="c">Del texto que hay dentro</button>
+      <button class="opcion" data-op="d">Son 50 píxeles</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Cuál es la diferencia clave entre <code>em</code> y <code>rem</code>?</p>
+      <button class="opcion" data-op="a">em depende del texto del padre; rem depende del texto base del html</button>
+      <button class="opcion" data-op="b">Son exactamente iguales</button>
+      <button class="opcion" data-op="c">em solo sirve para márgenes y rem solo para fuentes</button>
+      <button class="opcion" data-op="d">rem funciona únicamente en Flexbox</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Práctica integrada →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>🧩 Práctica integrada</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Todo junto" — un héroe fluido de verdad</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 La misión</h3>
+    <p>Vas a construir el patrón de portada más usado de la web: un <strong>héroe</strong> que ocupa media pantalla en cualquier dispositivo, con <strong>foto fluida</strong> y <strong>título elástico</strong>. Combina las tres piezas de hoy (viewport, imágenes fluidas, unidades) con el Flexbox que ya dominas.</p>
+  </div>
+
+  <h3>🧩 El héroe fluido completo</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>estilos.css</div>
+      <button class="copy-btn" data-copy="hero">📋 Copiar</button>
+    </div>
+    <pre><code>.hero-fluido {
+  min-height: 60vh;            /* al menos un poco más de media pantalla */
+  display: flex;               /* lo aprendiste en la clase 7 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem;              /* rem: aire proporcional */
+}
+
+.hero-fluido h1 {
+  font-size: clamp(1.8rem, 6vw, 3.5rem);  /* título elástico */
+  text-align: center;
+}
+
+.hero-fluido img {
+  max-width: 100%;             /* regla de oro */
+  height: auto;
+}</code></pre>
+  </div>
+
+  <h3>🎮 Simulador: héroe fluido vs héroe rígido</h3>
+  <p>Este es el mismo héroe con dos filosofías. Actívalos y compara. Y recuerda: achica la ventana del navegador para ver la diferencia de verdad.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🧩 dos filosofías de héroe</div>
+    <div class="state-panel">
+      <div class="state-title">Estilo del héroe</div>
+      <div class="state-grid">
+        <div class="state-cell"><div class="label">modo</div><span class="sval" id="hero-mode">rígido (px fijos)</span></div>
+      </div>
+    </div>
+    <div class="hero-practica" id="hero-practica">
+      <h1 class="hp-titulo" id="hp-titulo">Mi Gestor de Tareas</h1>
+      <p class="hp-sub" id="hp-sub">Organiza tu día desde cualquier pantalla</p>
+      <img class="hp-foto" id="hp-foto" alt="Captura de la aplicación de tareas hecha en SVG">
+      <span class="hp-btn" id="hp-btn">Empezar</span>
+    </div>
+    <div class="btn-row">
+      <button class="btn" data-hero="rigido">📏 Héroe rígido</button>
+      <button class="btn primary" data-hero="fluid">🌊 Héroe fluido</button>
+    </div>
+    <div class="caja-tip" style="margin-top:1rem;">
+      <h4>👁️ Observa</h4>
+      <p id="hero-feedback-txt">El héroe rígido usa alturas y píxeles fijos: en pantallas chicas se sale o sobra. Activa el fluido: <code>vh</code>, <code>clamp()</code>, <code>max-width</code> y Flexbox trabajando juntos.</p>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Conexión con lo que ya sabes</h4>
+    <p>Fíjate qué pieza aporta cada clase: <strong>Flexbox</strong> centra el contenido (clase 7), el <strong>viewport</strong> da el ancho real (hoy), las <strong>unidades</strong> miden con la pantalla (hoy), y <strong>Grid</strong> repartirá tarjetas en columnas que se crean solas… justo en la <strong>próxima clase</strong>. El responsive no es una técnica: es un equipo de técnicas.</p>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 5 minutos</h4>
+    <p>Abre el <code>styles.css</code> de tu <code>proyecto/</code> y busquen juntos TODAS las medidas en <code>px</code> que tienen. Clasifíquenlas en dos columnas: <em>"debe seguir en px"</em> (bordes, sombras) e <em>"debería ser relativa"</em> (padding, fuentes, anchos). Esa lista es exactamente tu trabajo del módulo de entrega.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué logra <code>min-height: 100vh</code> en un héroe?</p>
+      <button class="opcion" data-op="a">Hace que la página no tenga scroll</button>
+      <button class="opcion" data-op="b">Que ocupe al menos una pantalla completa en cualquier dispositivo</button>
+      <button class="opcion" data-op="c">Que el texto crezca al doble</button>
+      <button class="opcion" data-op="d">Que la imagen se recorte</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué combina un diseño responsivo completo?</p>
+      <button class="opcion" data-op="a">Solo píxeles y mucha suerte</button>
+      <button class="opcion" data-op="b">Solo unidades vw</button>
+      <button class="opcion" data-op="c">Viewport + unidades relativas + flex/grid + media queries</button>
+      <button class="opcion" data-op="d">Una sola media query gigante</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación + entrega</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos integran todo lo visto: viewport, imágenes responsivas, textos fluidos y unidades relativas. Al superarlos, recibirás tu insignia de <strong>Maestro del Viewport</strong>. Debajo está la entrega en tu repositorio, como siempre.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">📐 Empareja cada herramienta con su función</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">&lt;meta name="viewport"&gt;</button>
+        <button class="ws-chip" data-mid="1b">max-width: 100%</button>
+        <button class="ws-chip" data-mid="1c">clamp()</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Le dice al navegador el ancho real de la pantalla</button>
+        <button class="ws-chip" data-mid="1B">Hace que la imagen nunca se salga de su contenedor</button>
+        <button class="ws-chip" data-mid="1C">Da al texto un mínimo, un ideal y un máximo</button>
+      </div>
+      <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">📏 Ordena los pasos para que una página se adapte</span></div>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> Cambiar píxeles fijos por unidades relativas</div>
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> Poner la etiqueta meta viewport en el head</div>
+        <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> Ajustar el layout con Flexbox o Grid</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Hacer fluidas las imágenes con max-width</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" data-ws-up>⬆ Subir</button>
+        <button class="btn" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="btn primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">🖼️ Completa la regla de oro</span></div>
+    <p>Completa el valor que falta para que la imagen sea fluida:</p>
+    <div class="ws-block">
+      <div class="code-live">
+img {
+  max-width: <input class="ws-input" data-ans="100%" data-ws="3" placeholder="?">;
+  height: auto;
+}
+      </div>
+      <button class="btn primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
+    <p>Un compañero dice que su página se ve <strong>diminuta en el celular</strong>, aunque usó media queries y unidades rem. Este es su HTML:</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="code-live">
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Bienvenido&lt;/h1&gt;
+  &lt;!-- styles.css tiene media queries y unidades rem --&gt;
+&lt;/body&gt;
+      </div>
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="4a">¿Por qué se ve diminuta si su CSS está bien?</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">Falta &lt;meta name="viewport"&gt; en el head: el celular finge que tiene 980px</button>
+        <button class="ws-chip" data-mid="4B">Sobran las media queries: hay que borrarlas</button>
+        <button class="ws-chip" data-mid="4C">El h1 debería ser un h2</button>
+      </div>
+      <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>dos cosas</strong>: el ejercicio de la clase en <code>clase07b/</code> (un artículo con imagen fluida, título con <code>clamp()</code> y cabecera a media pantalla) y, sobre todo, <strong>tu aplicación se vuelve fluida</strong>: las imágenes de <code>proyecto/</code> dejan de poder romperse el diseño y sus textos empiezan a respirar con unidades relativas.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol7b">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01...clase07/  ← ya los tienes
+├── clase07b/
+│   ├── index.html      ← HOY: artículo responsivo completo
+│   ├── styles.css      ← HOY: viewport, clamp y regla de oro en acción
+│   └── foto.svg         ← HOY: la imagen del artículo (1200px)
+└── proyecto/
+    ├── index.html      ← HOY: revisas su etiqueta viewport
+    └── styles.css      ← ⭐ HOY: imágenes fluidas y textos elásticos</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase07b/</code> — el artículo responsivo</span>
+        <span class="paso-tiempo">⏱️ 12 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase07b</code> con <strong>tres archivos</strong>: el <code>index.html</code>, su <code>styles.css</code> y una <code>foto.svg</code> gigante para comprobar que la regla de oro funciona de verdad.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase07b/index.html</div>
+          <button class="copy-btn" data-copy="clase07b-html">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Clase 7B · Viewport y unidades&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;header class="cabecera-articulo"&gt;
+    &lt;h1&gt;La pantalla del futuro&lt;/h1&gt;
+    &lt;p class="entrada"&gt;Un artículo que se adapta a cualquier pantalla&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;img class="foto" src="foto.svg" alt="Ilustración de ejemplo de 1200 píxeles de ancho"&gt;
+    &lt;p&gt;Este texto crece y se encoge con el ancho de tu pantalla. Ábrelo en el celular y en un portátil: la cabecera mide media pantalla en ambos, el título se agranda solo y la foto nunca se sale de su caja. Ese es el poder del viewport y las unidades relativas.&lt;/p&gt;
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p>El <code>styles.css</code> reúne las tres piezas de hoy. Cópialo y luego <strong>cámbiale colores y medidas</strong> a tu gusto:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase07b/styles.css</div>
+          <button class="copy-btn" data-copy="clase07b-css">📋 Copiar</button>
+        </div>
+        <pre><code>body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #06101a;
+  color: #e6f1ff;
+}
+
+/* Cabecera: media pantalla en CUALQUIER dispositivo */
+.cabecera-articulo {
+  min-height: 50vh;              /* vh: mitad de la ventana */
+  display: flex;                 /* Flexbox de la clase 7 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem;
+  background: #11203a;
+}
+
+/* Título elástico: mínimo, ideal y máximo */
+.cabecera-articulo h1 {
+  font-size: clamp(1.8rem, 6vw, 4rem);
+  text-align: center;
+  margin: 0;
+}
+
+.cabecera-articulo .entrada {
+  font-size: 1.2rem;             /* rem: respeta al usuario */
+  color: #7e93b5;
+  margin: 0;
+}
+
+/* La regla de oro de las imágenes */
+.foto {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 1.5rem auto 0;
+}
+
+/* Artículo: ancho de lectura cómodo y centrado */
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Ajuste extra para celulares */
+@media (max-width: 600px) {
+  .cabecera-articulo { min-height: 40vh; padding: 1.2rem; }
+  main { font-size: 1rem; padding: 0.8rem; }
+}</code></pre>
+      </div>
+      <p>Y la foto "gigante" — así comprobamos que no se sale:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase07b/foto.svg</div>
+          <button class="copy-btn" data-copy="foto-svg">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;svg xmlns="http://www.w3.org/2000/svg" width="1200" height="400"&gt;
+  &lt;rect width="1200" height="400" fill="#22d3ee"/&gt;
+  &lt;text x="600" y="220" text-anchor="middle" font-size="64" fill="#06101a"&gt;Foto de 1200px&lt;/text&gt;
+&lt;/svg&gt;</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>🧪 Compruébalo como tester</h4>
+        <p>Abre la página con <strong>Live Server</strong> y haz dos pruebas: 1) <strong>achica la ventana</strong> poco a poco: el título encoge y la foto nunca se sale; 2) ábrela en tu <strong>celular</strong> (o con las herramientas de dispositivo del navegador: <kbd>F12</kbd> → icono de celular): la cabecera sigue midiendo media pantalla. Eso es viewport.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi clase07b está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Tu app se vuelve fluida: <code>proyecto/</code> a prueba de pantallas</span>
+        <span class="paso-tiempo">⏱️ 15 min · el paso más importante de hoy</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> y el <code>styles.css</code> de tu <code>proyecto/</code>. Primero, <strong>verifica el head</strong>: la etiqueta <code>&lt;meta name="viewport"&gt;</code> debe estar (la pusiste en la clase 1). Si no está, agrégala justo después del <code>&lt;meta charset&gt;</code>. Luego añade a tu <code>styles.css</code> estas reglas (conserva las de las clases 5, 6 y 7: <code>#app-titulo</code>, <code>.barra</code>, <code>.lista-tareas</code> y <code>.tarea</code> ya viven ahí):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/styles.css — lo nuevo de hoy</div>
+          <button class="copy-btn" data-copy="proyecto-css">📋 Copiar</button>
+        </div>
+        <pre><code>/* Que ninguna imagen rompa el diseño en pantallas chicas */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* El título principal se vuelve elástico */
+#app-titulo {
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+}
+
+/* La barra usa la pantalla, pero con límites */
+.barra {
+  width: 95%;                /* %: casi todo el ancho disponible */
+  max-width: 60rem;          /* pero nunca demasiado ancha en monitores */
+  margin: 1rem auto;         /* y centrada */
+  box-sizing: border-box;    /* recuerdas el box model de la clase 6 */
+}
+
+/* Un respiro para los celulares */
+@media (max-width: 480px) {
+  .tarea {
+    font-size: 0.95rem;      /* un pelín más pequeña en móvil */
+  }
+  .barra {
+    width: 100%;            /* en celular, todo el ancho */
+  }
+}</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>💡 HAZLO TUYO</h4>
+        <p>Busca en tu CSS los <code>px</code> que quedaron en fuentes y paddings y conviértelos: <code>16px</code> → <code>1rem</code>, <code>18px</code> → <code>1.125rem</code>. Cambia el <code>6vw</code> del título y siente el punto dulce. Y prueba tu app con <kbd>F12</kbd> → modo dispositivo: si ya nada se sale ni se hace hormiga, hoy ganaste.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi aplicación ya es fluida</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 7B en la lista de clases. El de <code>proyecto/</code> ya funciona desde la clase 2.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada7b">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase07b/index.html"&gt;Clase 7B — Viewport y unidades&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va debajo de la línea de la clase 7, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 7B: viewport, imágenes y textos responsivos</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 7B) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase07b</code> tiene la etiqueta <code>&lt;meta name="viewport"&gt;</code> en el head.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>La foto de mi artículo usa <code>max-width: 100%</code> y no se sale de la pantalla en ningún ancho.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi título usa <code>clamp()</code>: crece en pantallas grandes y nunca baja del mínimo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Mi <code>proyecto/</code> tiene el viewport en el head y sus imágenes son fluidas.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Usé unidades relativas (%, rem, vh, vw) donde antes había píxeles rígidos.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y vi mi trabajo fluido publicado en mi URL de GitHub Pages.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase07b/</code> con viewport, foto fluida y título con <code>clamp()</code></td><td>1.5</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/</code> con viewport verificado e imágenes fluidas</td><td>1.5</td></tr>
+        <tr><td>Unidades</td><td>Uso correcto de <code>%</code>, <code>em/rem</code>, <code>vh</code> y <code>vw</code></td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a la clase 7B funcionando desde la portada</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Maestro del Viewport!</h2>
+    <p class="lead">Ya sabes fijar el viewport, hacer imágenes que nunca rompen el diseño, escribir títulos que respiran con la pantalla y medir con %, em, vh y vw. Tu aplicación ya no vive en un solo tamaño: <strong>vive en todos</strong>. En la próxima clase llega CSS Grid: la herramienta que reparte filas y columnas… y que junto a todo lo de hoy hará tu diseño verdaderamente libre.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🌐 Herramientas de Programación I · Clase 7B · Plataforma interactiva</div>
+  <div>Viewport · Imágenes responsivas · Textos fluidos · Unidades relativas · 4 horas · Nivel Introductorio</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
