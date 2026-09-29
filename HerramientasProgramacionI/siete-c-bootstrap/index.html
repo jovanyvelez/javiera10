@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧰 Herramientas de Programación I · Clase 7C · Bootstrap</title>
+<!-- Bootstrap SIEMPRE va primero: así tu estilos.css (que va después) gana los empates -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="cabecera">
+  <div class="logo">
+    <span class="emoji-logo">🧰</span>
+    <div>
+      <h1>Herramientas de Programación I · Clase 7C</h1>
+      <p class="subtitulo">Bootstrap · Contenedores · Botones · Cards · Navbar · Formularios · Tablas</p>
+    </div>
+  </div>
+  <div class="progreso-cont">
+    <div class="progreso-info">
+      <span id="modulo-actual">Módulo 0</span>
+      <span><strong id="xp-display">0 / 640 XP</strong> · <span id="porcentaje">0%</span></span>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra"></div></div>
+    <div class="badges" id="badges"></div>
+  </div>
+</header>
+
+<nav class="menu-modulos">
+  <button class="btn-modulo activo" data-modulo="0">🏁 Inicio</button>
+  <button class="btn-modulo" data-modulo="1">⚡ Qué es Bootstrap</button>
+  <button class="btn-modulo" data-modulo="2">📦 Contenedores y columnas</button>
+  <button class="btn-modulo" data-modulo="3">🔘 Botones y utilidades</button>
+  <button class="btn-modulo descanso" data-modulo="4">☕ Descanso</button>
+  <button class="btn-modulo" data-modulo="5">🗂️ Cards y navbar</button>
+  <button class="btn-modulo" data-modulo="6">📋 Formularios y tablas</button>
+  <button class="btn-modulo" data-modulo="7">🛠️ Taller</button>
+</nav>
+
+<main>
+
+<!-- MÓDULO 0 -->
+<section class="modulo activo" data-modulo="0">
+  <div class="hero">
+    <h2>🧰 ¡Bienvenido/a a Bootstrap!</h2>
+    <p class="entradilla">Ya sabes escribir HTML semántico, aplicar selectores y colores, controlar el <strong>box model</strong> y deciding si cada caja es <code>block</code>, <code>inline</code> o <code>none</code>. Todo eso lo hiciste <strong>a mano</strong>, y por eso lo entiendes de verdad. Hoy guardamos el <em>sinestro trabajo repetido</em>: millones de personas escribieron antes que tú los botones, las tarjetas y las tablas que usas todos los días, y lo dejaron escrito en una sola hoja de estilos llamada <strong>Bootstrap</strong>.</p>
+    <div class="hero-terminal">
+      <div class="hero-terminal-head">⌘ terminal — dev@web</div>
+      <div class="hero-terminal-body">
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">cat reglas.txt</span></div>
+        <div class="out">1. sigue escribiendo HTML semántico</div>
+        <div class="out">2. el CSS lo decides tú... o casi</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cmd">curl --moraleja https://getbootstrap.com</span></div>
+        <div class="out">"Bootstrap no reemplaza lo que sabes: lo acelera."</div>
+        <div><span class="prompt">dev@web:~$</span> <span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bs-offline" id="bs-offline">
+    ⚠️ <strong>Bootstrap no se ha podido cargar.</strong> Esta página lo pide a un servidor externo (el CDN de jsDelivr). Revisa tu conexión a internet y recarga; si sigues sin ver los ejemplos, pide la hoja <code>bootstrap.min.css</code> descargada a tu profesor/a.
+  </div>
+
+  <div class="cuadricula">
+    <div class="tarjeta"><span class="emoji">⏱️</span><h3>Duración total</h3><p>4 horas en 7 módulos, con un descanso de 15 minutos a la mitad.</p></div>
+    <div class="tarjeta"><span class="emoji">🎯</span><h3>Objetivo</h3><p>Construir interfaces con componentes ya hechos: contenedor, botones, cards, navbar, formularios y tablas.</p></div>
+    <div class="tarjeta"><span class="emoji">🧰</span><h3>Lo que necesitas</h3><p>HTML de las clases 2 a 4 y CSS de las 5 y 6: <em>cada clase de Bootstrap es CSS que ya conoces</em>, con otro nombre.</p></div>
+  </div>
+
+  <h3>🗺️ Tu ruta de misiones</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Misión</th><th>Tema</th><th>Tiempo</th><th>XP</th></tr></thead>
+      <tbody>
+        <tr><td>01 · Qué es Bootstrap</td><td style="color:var(--cian)">Framework y CDN</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>02 · Contenedores y columnas</td><td style="color:var(--morado-claro)">container row col</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>03 · Botones y utilidades</td><td style="color:var(--ambar)">btn y utilidades</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
+        <tr><td>04 · Cards y navbar</td><td style="color:var(--verde)">Componentes</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Formularios y tablas</td><td style="color:var(--morado)">form y table</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Integración</td><td>35 min</td><td>140 XP</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="caja-pareja">
+    <h4>🔄 Actividad en pareja — 4 minutos</h4>
+    <p>Con tu compañero/a, abran <strong>cualquier</strong> página web: clic derecho → <strong>Inspeccionar</strong>. Miren las clases que aparecen en el <code>&lt;body&gt;</code>. ¿Reconocen alguna? <strong>card</strong>, <strong>container</strong>, <strong>row</strong>, <strong>btn</strong>, <strong>navbar</strong>… Si las reconocen, esa página usa Bootstrap (o algo copie de él). Anoten tres clases que no conocían: son el programa de hoy.</p>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-siguiente" data-ir="1">Empezar Módulo 1: Qué es Bootstrap →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 1 -->
+<section class="modulo" data-modulo="1">
+  <h2>⚡ Qué es Bootstrap</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "CSS escrito por otros" — qué es un framework y cómo se conecta</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>biblioteca</strong> de JavaScript es un archivo con funciones que tú importas. Un <strong>framework CSS</strong> es lo mismo pero con estilos: una hoja de estilos enorme, ya escrita y probada, a la que solo le añades <em>clases</em> en el HTML. Bootstrap es el más famoso: lo usa Twitter, Instagram, Netflix y millones de sitios más.</p>
+    <p>La diferencia clave: en vez de escribir <code>padding: 10px; border-radius: 30px;</code> para cada botón, escribes <code>class="btn btn-primary"</code> y te ahorras esas dos líneas. <strong>Bootstrap no es magia</strong>: es CSS escrito por otras personas, con los mismos <code>padding</code>, <code>display</code> y <code>box-shadow</code> que estudiaste en la clase 6.</p>
+  </div>
+
+  <h3>⚖️ La misma interfaz, de dos maneras</h3>
+  <div class="compare">
+    <div class="compare-card a">
+      <h4>✍️ A mano (clases 5 y 6)</h4>
+      <p>Repites <code>padding</code>, <code>background</code>, <code>border</code> y <code>border-radius</code> en cada botón. Funciona… pero si quieres cambiar el color de todos, tienes que editar many archivos.</p>
+      <p><strong>Ventaja:</strong> entiendes cada línea.<br><strong>Problema:</strong> se repite y pesa.</p>
+    </div>
+    <div class="compare-card b">
+      <h4>🧰 Con Bootstrap</h4>
+      <p>Una sola clase por botón. Cambiar el color de todos es cambiar el archivo de Bootstrap (o una variable), no 40 botones.</p>
+      <p><strong>Ventaja:</strong> rápido y consistente.<br><strong>Cuidado:</strong> si no entiendes el CSS, no sabrás arreglar lo que se rompió.</p>
+    </div>
+  </div>
+
+  <h3>🔌 Cómo se conecta: una línea en el <code>&lt;head&gt;</code></h3>
+  <p>Bootstrap se descarga de un servidor público llamado <strong>CDN</strong> (<em>Content Delivery Network</em>). Solo copias esta línea en el <code>&lt;head&gt;</code> de tu página, <strong>antes</strong> de tu propia hoja de estilos:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html</div>
+      <button class="copy-btn" data-copy="cdn">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+
+  &lt;!-- 1. Bootstrap: siempre PRIMERO --&gt;
+  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+  &lt;!-- 2. Tu CSS: SIEMPRE DESPUÉS, para poder ganarle --&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;</code></pre>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ El orden importa: la cascada sigue mandando</h4>
+    <p>¿Recuerdas la <strong>cascada</strong> de la clase 5? Cuando dos reglas de <strong>igual peso</strong> se contradicen, gana la <strong>última que se escribió</strong>. Bootstrap es CSS, no texto: si pones tu <code>styles.css</code> después del CDN, <strong>tú ganas</strong>. Por eso el orden es parte del método, no un detalle.</p>
+  </div>
+
+  <h3>🎮 Simulador: ¿cargó Bootstrap de verdad?</h3>
+  <p>Un <code>&lt;link&gt;</code> mal escrito no da error: la página simplemente se ve <em>sin estilos</em>. Este comprobador le pregunta al navegador qué medidas tiene realmente un <code>&lt;button class="btn"&gt;</code> invisible.</p>
+
+  <div class="simulador">
+    <div class="sim-head">⚡ Comprobador del CDN</div>
+    <div class="state-grid" style="margin-bottom:1rem;">
+      <div class="state-cell"><div class="label">border-radius</div><span class="sval" id="bs-sonda-radio">—</span></div>
+      <div class="state-cell"><div class="label">padding</div><span class="sval" id="bs-sonda-padding">—</span></div>
+      <div class="state-cell"><div class="label">font-size</div><span class="sval" id="bs-sonda-fuente">—</span></div>
+      <div class="state-cell"><div class="label">Veredicto</div><span class="sval" id="bs-sonda-veredicto">?</span></div>
+    </div>
+    <div class="btn-row">
+      <button class="boton primary" id="bs-comprobar">🔍 Comprobar si Bootstrap cargó</button>
+    </div>
+    <div class="code-live" id="bs-detalle" style="margin-top:1rem;">
+<span class="cm">/* Toca "Comprobar" y el navegador te cuenta qué sabe de .btn */</span>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 ¿Y el JavaScript de Bootstrap?</h4>
+    <p>Bootstrap también trae un archivo de JavaScript (menús desplegables, modales, avisos). Se carga <strong>justo antes de cerrar el <code>&lt;body&gt;</code></strong> y hoy <strong>no lo usaremos</strong>: esta clase es HTML y CSS. Cuando lleguemos a JavaScript (clases 11 en adelante) volveremos por él.</p>
+  </div>
+
+  <div class="quiz" data-quiz="1">
+    <h3>🎯 Mini-Quiz del Módulo 1</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué es Bootstrap, en una frase?</p>
+      <button class="opcion" data-op="a">Un lenguaje de programación nuevo</button>
+      <button class="opcion" data-op="b">Una hoja de estilos enorme con clases ya escritas</button>
+      <button class="opcion" data-op="c">Un navegador alternativo</button>
+      <button class="opcion" data-op="d">Un servidor donde se guardan las páginas</button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Por qué tu <code>styles.css</code> va DESPUÉS del link a Bootstrap?</p>
+      <button class="opcion" data-op="a">Porque así se ve más bonito el archivo</button>
+      <button class="opcion" data-op="b">Porque Bootstrap no admite CSS propio</button>
+      <button class="opcion" data-op="c">Por la cascada: en un empate gana la regla escrita después</button>
+      <button class="opcion" data-op="d">Para que la página cargue más rápido</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>3.</strong> ¿De dónde sale Bootstrap en esta página?</p>
+      <button class="opcion" data-op="a">De un CDN: un servidor que te manda el archivo por internet</button>
+      <button class="opcion" data-op="b">De tu carpeta del proyecto</button>
+      <button class="opcion" data-op="c">Lo genera el navegador al vuelo</button>
+      <button class="opcion" data-op="d">De la tarjeta de memoria del aula</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="0">← Anterior</button>
+    <button class="btn-siguiente" data-ir="2">Siguiente: Contenedores y columnas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 2 -->
+<section class="modulo" data-modulo="2">
+  <h2>📦 Contenedores y columnas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "La retícula de Bootstrap" — container, row y col</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Bootstrap organiza la página con <strong>tres clases</strong> y nada más:</p>
+    <ul class="lista-check">
+      <li><code>.container</code>: una caja que <strong>limita el ancho</strong> y lo centra. Es el <code>width: 1140px; margin: auto;</code> que escribiste en la clase 6, pero mejor: se adapta sola al celular.</li>
+      <li><code>.row</code>: una <strong>fila</strong> que parte el ancho en 12 columnas iguales.</li>
+      <li><code>.col-N</code>: una <strong>columna</strong> que ocupa N de esas 12 partes.</li>
+    </ul>
+    <p>Dentro de cada columna metes lo que quieras: una tarjeta, una imagen, un formulario entero. Por eso las columnas son tan útiles: <strong>el contenido se reparte, el ancho no se negocia</strong>.</p>
+  </div>
+
+  <h3>📐 Las 12 columnas de Bootstrap</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Clase</th><th>Ancho</th><th>Se ve así</th></tr></thead>
+      <tbody>
+        <tr><td><code>col-12</code></td><td>100%</td><td>Una sola columna a lo ancho</td></tr>
+        <tr><td><code>col-6</code></td><td>50%</td><td>Dos columnas iguales</td></tr>
+        <tr><td><code>col-4</code></td><td>33,3%</td><td>Tres columnas iguales</td></tr>
+        <tr><td><code>col-3</code></td><td>25%</td><td>Cuatro columnas iguales</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bs-vista" style="margin:1.5rem 0">
+    <span class="bs-vista-titulo">Así se ve de verdad ·Bootstrap 5</span>
+    <div class="container">
+      <div class="row">
+        <div class="col-4 bs-caja-col">col-4</div>
+        <div class="col-4 bs-caja-col">col-4</div>
+        <div class="col-4 bs-caja-col">col-4</div>
+      </div>
+    </div>
+    <span class="bs-nota">Cada columna ocupa un tercio exacto. Si cambias las tres por <code>col-6</code>, te quedan dos mitades.</span>
+  </div>
+
+  <h3>🎮 Simulador: arma tu fila</h3>
+  <p>Toca las columnas para añadirlas a la fila. Fíjate en cómo el ancho se reparte entre ellas y en el HTML que genera Bootstrap.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📦 Constructor de filas</div>
+    <div class="btn-row">
+      <button class="boton primary" data-col="12">col-12 · 100%</button>
+      <button class="boton primary" data-col="6">col-6 · 50%</button>
+      <button class="boton primary" data-col="4">col-4 · 33%</button>
+      <button class="boton primary" data-col="3">col-3 · 25%</button>
+      <button class="boton ghost" id="bs-fila-reset">🔄 Vaciar la fila</button>
+    </div>
+    <div class="bs-vista" style="margin-top:1rem">
+      <div id="bs-fila-vista"><span class="bs-nota" style="margin:0">La fila está vacía: toca un botón de arriba.</span></div>
+    </div>
+    <div class="code-live" id="bs-fila-codigo" style="margin-top:1rem;">
+<span class="cm">/* Aquí aparecerá el HTML de tu fila */</span>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ La regla de oro: los números de una fila suman 12 (o menos)</h4>
+    <p>En una misma fila, las columnas <strong>suman 12</strong>: <code>col-6 + col-6</code>, <code>col-4 + col-4 + col-4</code>. Si te suman menos (por ejemplo <code>col-6</code> solo), Bootstrap <strong>deja el hueco vacío</strong> a la derecha. Y si te suman más (por ejemplo <code>col-8 + col-8</code>), las que sobran <strong>bajan a la fila siguiente</strong>.</p>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 <code>container</code> vs <code>container-fluid</code></h4>
+    <p><code>.container</code> <strong>limita</strong> el ancho (para que en un monitor enorme las líneas no se hagan interminables). <code>.container-fluid</code> ocupa <strong>todo el ancho</strong> disponible. Los dos tienen las mismas columnas dentro; solo cambia la caja de fuera.</p>
+  </div>
+
+  <div class="quiz" data-quiz="2">
+    <h3>🎯 Mini-Quiz del Módulo 2</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Cuántas columnas tiene por defecto una <code>.row</code> de Bootstrap?</p>
+      <button class="opcion" data-op="a">6</button>
+      <button class="opcion" data-op="b">10</button>
+      <button class="opcion" data-op="c">12</button>
+      <button class="opcion" data-op="d">16</button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> Quieres tres tarjetas de igual ancho en una fila. ¿Qué clases pones en cada una?</p>
+      <button class="opcion" data-op="a"><code>col-4</code></button>
+      <button class="opcion" data-op="b"><code>col-3</code></button>
+      <button class="opcion" data-op="c"><code>col-6</code></button>
+      <button class="opcion" data-op="d"><code>col-12</code></button>
+    </div>
+    <div class="pregunta" data-correcta="d">
+      <p><strong>3.</strong> Escribes <code>col-8</code> + <code>col-8</code> en la misma fila. ¿Qué pasa?</p>
+      <button class="opcion" data-op="a">Se superponen</button>
+      <button class="opcion" data-op="b">La página se rompe</button>
+      <button class="opcion" data-op="c">Bootstrap ignora la segunda</button>
+      <button class="opcion" data-op="d">La segunda columna baja a la fila siguiente</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="1">← Anterior</button>
+    <button class="btn-siguiente" data-ir="3">Siguiente: Botones y utilidades →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 3 -->
+<section class="modulo" data-modulo="3">
+  <h2>🔘 Botones y utilidades</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "El box model con otro nombre" — btn, espaciado, colores y bordes</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Un botón de Bootstrap es <strong>una sola clase</strong>. <code>class="btn btn-primary"</code> significa: "hazte botón" + "píntame de azul". Y junto a eso hay las <strong>utilidades</strong>: clases sueltas que aplican <em>una sola cosa</em>, la más útil del framework.</p>
+  </div>
+
+  <h3>🔘 <code>.btn</code> y sus variantes</h3>
+  <div class="bs-vista">
+    <span class="bs-vista-titulo">Variantes de color · el ejemplo oficial</span>
+    <button type="button" class="btn btn-primary">Primary</button>
+    <button type="button" class="btn btn-secondary">Secondary</button>
+    <button type="button" class="btn btn-success">Success</button>
+    <button type="button" class="btn btn-danger">Danger</button>
+    <button type="button" class="btn btn-warning">Warning</button>
+    <button type="button" class="btn btn-dark">Dark</button>
+    <hr>
+    <span class="bs-vista-titulo">Con borde (outline) · sin relleno</span>
+    <button type="button" class="btn btn-outline-primary">Outline</button>
+    <button type="button" class="btn btn-outline-secondary">Outline</button>
+    <button type="button" class="btn btn-outline-danger">Outline</button>
+    <hr>
+    <span class="bs-vista-titulo">Tamaños · clases extra</span>
+    <button type="button" class="btn btn-primary btn-lg">Grande</button>
+    <button type="button" class="btn btn-primary">Normal</button>
+    <button type="button" class="btn btn-primary btn-sm">Pequeño</button>
+    <span class="bs-nota">Siempre <code>btn</code> primero: <code>btn-primary</code> solo no hace nada, porque <code>.btn</code> es la que pone el relleno, el borde y las esquinas redondeadas.</span>
+  </div>
+
+  <h3>🧰 Las utilidades: una clase, una propiedad</h3>
+  <p>Esta es la tabla más importante del día. Cada utilidad es <strong>una regla de CSS con nombre corto</strong>:</p>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Clase</th><th>CSS real</th><th>Capa del box model</th></tr></thead>
+      <tbody>
+        <tr><td><code>p-3</code></td><td><code>padding: 1rem</code></td><td>Relleno interno</td></tr>
+        <tr><td><code>mt-5</code></td><td><code>margin-top: 3rem</code></td><td>Margen externo</td></tr>
+        <tr><td><code>mb-0</code></td><td><code>margin-bottom: 0</code></td><td>Margen externo</td></tr>
+        <tr><td><code>text-center</code></td><td><code>text-align: center</code></td><td>Tipografía</td></tr>
+        <tr><td><code>fw-bold</code></td><td><code>font-weight: 700</code></td><td>Tipografía</td></tr>
+        <tr><td><code>rounded-3</code></td><td><code>border-radius: 1rem</code></td><td>Borde</td></tr>
+        <tr><td><code>border</code></td><td><code>border: 1px solid #dee2e6</code></td><td>Borde</td></tr>
+        <tr><td><code>shadow</code></td><td><code>box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)</code></td><td>Profundidad</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>La escala de espaciado siempre es la misma: <strong>0</strong> = nada · <strong>1</strong> = 0,25rem · <strong>2</strong> = 0,5rem · <strong>3</strong> = 1rem · <strong>4</strong> = 1,5rem · <strong>5</strong> = 3rem. Las letras son abreviaturas: <code>p</code> = padding, <code>m</code> = margin, <code>t</code> = top, <code>b</code> = bottom, <code>s</code> = start (izquierda), <code>e</code> = end (derecha).</p>
+
+  <h3>🎮 Simulador: traductor de clases</h3>
+  <p>Toca las utilidades y mira <strong>qué CSS esconde cada una</strong>. Si quitas todas, el bloque queda pelado: eso es exactamente lo que hace Bootstrap por ti.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🔘 Traductor de utilidades</div>
+    <div class="btn-row">
+      <button class="boton primary" data-util="p-3">p-3</button>
+      <button class="boton primary" data-util="mt-5">mt-5</button>
+      <button class="boton primary" data-util="text-center">text-center</button>
+      <button class="boton primary" data-util="bg-primary">bg-primary</button>
+      <button class="boton primary" data-util="rounded-3">rounded-3</button>
+      <button class="boton primary" data-util="shadow">shadow</button>
+      <button class="boton primary" data-util="fw-bold">fw-bold</button>
+      <button class="boton primary" data-util="text-white">text-white</button>
+      <button class="boton ghost" id="bs-util-reset">🔄 Quitar todas</button>
+    </div>
+    <div class="bs-vista" style="margin-top:1rem">
+      <div id="bs-util-vista"><div class="bs-caja-medidor">Toca una utilidad</div></div>
+    </div>
+    <div id="bs-util-tabla" style="margin-top:1rem"></div>
+    <div class="code-live" id="bs-util-codigo" style="margin-top:1rem;">
+<span class="cm">/* El HTML y el CSS que estás escribiendo sin saberlo */</span>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 Por qué las utilidades son más útiles de lo que parecen</h4>
+    <p>Escribir <code>.mi-tarjeta { padding: 1rem; margin-top: 3rem; text-align: center; }</code> es algo que <strong>repetirías en 20 sitios</strong>. Con utilidades pones <code>class="card-body p-3 mt-5 text-center"</code> y solo cambias donde debe cambiar. Bootstrap no te quita el box model: <strong>te quita la obligación de escribirlo 20 veces</strong>.</p>
+  </div>
+
+  <div class="quiz" data-quiz="3">
+    <h3>🎯 Mini-Quiz del Módulo 3</h3>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>1.</strong> ¿Qué clase hace que un texto quede centrado?</p>
+      <button class="opcion" data-op="a"><code>mx-auto</code></button>
+      <button class="opcion" data-op="b"><code>d-flex</code></button>
+      <button class="opcion" data-op="c"><code>text-center</code></button>
+      <button class="opcion" data-op="d"><code>fw-bold</code></button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>2.</strong> ¿Qué significa <code>p-3</code>?</p>
+      <button class="opcion" data-op="a"><code>padding: 1rem</code></button>
+      <button class="opcion" data-op="b"><code>padding: 3px</code></button>
+      <button class="opcion" data-op="c"><code>margin: 3rem</code></button>
+      <button class="opcion" data-op="d"><code>color: 3</code></button>
+    </div>
+    <div class="pregunta" data-correcta="d">
+      <p><strong>3.</strong> Escribes <code>class="btn-primary"</code> en un botón y no se ve nada especial. ¿Por qué?</p>
+      <button class="opcion" data-op="a">Porque falta el CDN</button>
+      <button class="opcion" data-op="b">Porque <code>btn-primary</code> no existe</button>
+      <button class="opcion" data-op="c">Porque las clases van en mayúsculas</button>
+      <button class="opcion" data-op="d">Porque falta la clase base <code>btn</code>, que es la que da el relleno y el borde</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="2">← Anterior</button>
+    <button class="btn-siguiente" data-ir="4">Siguiente: ☕ Descanso →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 4 — DESCANSO -->
+<section class="modulo" data-modulo="4">
+  <div class="descanso-hero">
+    <h2>☕ ¡Hora del descanso!</h2>
+    <p class="entradilla">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+  </div>
+  <div class="descanso-grid">
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
+    <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
+    <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué clase de Bootstrap le pondrías a un botón de "Eliminar".</p></div>
+  </div>
+  <div class="trivia-box">
+    <h3>🎲 Trivia de regreso</h3>
+    <p>En Bootstrap, ¿qué parte de la página recibe los estilos?</p>
+    <div class="trivia-opts" id="triviaOpts">
+      <button class="trivia-opt" data-tcorrecta="b" data-top="b">Las clases que escribes en el HTML</button>
+      <button class="trivia-opt" data-top="a">Un archivo .css que tú creas vacío</button>
+      <button class="trivia-opt" data-top="c">Los colores de tu sistema operativo</button>
+      <button class="trivia-opt" data-top="d">El nombre del navegador</button>
+    </div>
+    <div class="trivia-result" id="triviaResult"></div>
+  </div>
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="3">← Anterior</button>
+    <button class="btn-siguiente" data-ir="5">Siguiente: Cards y navbar →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 5 -->
+<section class="modulo" data-modulo="5">
+  <h2>🗂️ Cards y navbar</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cajas con nombre" — la tarjeta y la barra de navegación</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>Una <strong>card</strong> es la caja de la clase 6 con nombre propio: borde redondeado, borde gris, sombra suave y <code>padding</code> interno. Bootstrap solo le pone el nombre para que tú no repitas el CSS. Y el <strong>navbar</strong> es la barra de navegación: logo a la izquierda, enlaces a la derecha.</p>
+  </div>
+
+  <h3>🗂️ Anatomía de una card</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Clase</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td><code>card</code></td><td>La caja principal: borde, esquinas y sombra</td></tr>
+        <tr><td><code>card-header</code></td><td>Banda de arriba (con fondo gris)</td></tr>
+        <tr><td><code>card-body</code></td><td>El contenido, con el <code>padding</code> que da aire</td></tr>
+        <tr><td><code>card-title</code></td><td>El título (un poco más grande y en negrita)</td></tr>
+        <tr><td><code>card-text</code></td><td>El párrafo, con su propio margen</td></tr>
+        <tr><td><code>card-footer</code></td><td>Banda de abajo (línea de arriba y fondo claro)</td></tr>
+        <tr><td><code>badge</code></td><td>La etiqueta de color: "pendiente", "hecha"</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>👀 Dos cards reales, lado a lado</h3>
+  <div class="bs-vista">
+    <span class="bs-vista-titulo">Con imagen, título, texto y botón</span>
+    <div class="row g-3">
+      <div class="col-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <span class="badge text-bg-warning">Estudio</span>
+            <h5 class="card-title mt-2">Repasar Bootstrap</h5>
+            <p class="card-text">Anotar qué clases nuevas conozco y cuáles debo practicar.</p>
+            <button type="button" class="btn btn-primary btn-sm">Marcar como hecha</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card h-100">
+          <div class="card-body">
+            <span class="badge text-bg-success">Hecha</span>
+            <h5 class="card-title mt-2">Terminar la card</h5>
+            <p class="card-text">Ya sé que <code>card-body</code> es el que da el aire interior.</p>
+            <button type="button" class="btn btn-outline-secondary btn-sm">Editar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <span class="bs-nota">Fíjate: el HTML de cada tarjeta es el mismo que escribiste en la clase 6, pero sin una sola regla de CSS.</span>
+  </div>
+
+  <h3>🧭 La navbar</h3>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>navbar.html</div>
+      <button class="copy-btn" data-copy="navbar">📋 Copiar</button>
+    </div>
+    <pre><code>&lt;nav class="navbar navbar-expand bg-body-tertiary"&gt;
+  &lt;div class="container"&gt;
+    &lt;span class="navbar-brand fw-bold"&gt;Mi Gestor&lt;/span&gt;
+    &lt;ul class="navbar-nav"&gt;
+      &lt;li class="nav-item"&gt;&lt;a class="nav-link active" href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+      &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;Tareas&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+  </div>
+  <div class="bs-vista" style="margin-top:1rem">
+    <span class="bs-vista-titulo">Así se ve la navbar</span>
+    <nav class="navbar navbar-expand bg-body-tertiary mb-3">
+      <div class="container">
+        <span class="navbar-brand fw-bold">Mi Gestor</span>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Tareas</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Notas</a></li>
+        </ul>
+      </div>
+    </nav>
+    <span class="bs-nota"><code>navbar</code> + <code>container</code> + <code>nav-link</code>. Tres clases, barra completa.</span>
+  </div>
+
+  <h3>🎮 Simulador: monta tu card</h3>
+  <p>Activa las partes de la tarjeta y mira cómo se arma sola. El HTML que resulta es el que copiarás en tu proyecto.</p>
+
+  <div class="simulador">
+    <div class="sim-head">🗂️ Constructor de card</div>
+    <div class="btn-row">
+      <button class="boton primary" data-parte="header">card-header</button>
+      <button class="boton primary" data-parte="badge">badge</button>
+      <button class="boton primary" data-parte="title">card-title</button>
+      <button class="boton primary" data-parte="texto">card-text</button>
+      <button class="boton primary" data-parte="boton">btn</button>
+      <button class="boton primary" data-parte="footer">card-footer</button>
+      <button class="boton ghost" id="bs-card-reset">🔄 Vaciar</button>
+    </div>
+    <div class="bs-vista" style="margin-top:1rem">
+      <div id="bs-card-vista"><span class="bs-nota" style="margin:0">Elige las partes de la tarjeta arriba.</span></div>
+    </div>
+    <div class="code-live" id="bs-card-codigo" style="margin-top:1rem;">
+<span class="cm">/* El HTML de tu tarjeta aparecerá aquí */</span>
+    </div>
+  </div>
+
+  <div class="caja-tip">
+    <h4>💡 <code>.card</code> dentro de <code>.col-4</code>: el combo del proyecto</h4>
+    <p>Un <code>&lt;article class="tarea"&gt;</code> con CSS propio se convierte en <code>&lt;div class="col-4"&gt;&lt;div class="card h-100"&gt;</code>. <code>h-100</code> es una utilidad de altura: hace que <strong>todas las tarjetas de la fila midan lo mismo</strong>, aunque tengan textos de distinto largo. Sin eso, se ven torcidas.</p>
+  </div>
+
+  <div class="quiz" data-quiz="5">
+    <h3>🎯 Mini-Quiz del Módulo 5</h3>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>1.</strong> ¿Qué clase da el aire interior (padding) de la tarjeta?</p>
+      <button class="opcion" data-op="a"><code>card-body</code></button>
+      <button class="opcion" data-op="b"><code>card</code></button>
+      <button class="opcion" data-op="c"><code>container</code></button>
+      <button class="opcion" data-op="d"><code>navbar-brand</code></button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Para qué sirve <code>h-100</code> en una fila de tarjetas?</p>
+      <button class="opcion" data-op="a">Para hacerlas transparentes</button>
+      <button class="opcion" data-op="b">Para ocultar las que sobran</button>
+      <button class="opcion" data-op="c">Para que todas midan lo mismo de alto</button>
+      <button class="opcion" data-op="d">Para cambiar el color de fondo</button>
+    </div>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>3.</strong> ¿Qué clase pone el logo de una navbar?</p>
+      <button class="opcion" data-op="a"><code>card-title</code></button>
+      <button class="opcion" data-op="b"><code>navbar-brand</code></button>
+      <button class="opcion" data-op="c"><code>list-group</code></button>
+      <button class="opcion" data-op="d"><code>form-label</code></button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="4">← Anterior</button>
+    <button class="btn-siguiente" data-ir="6">Siguiente: Formularios y tablas →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 6 -->
+<section class="modulo" data-modulo="6">
+  <h2>📋 Formularios y tablas</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Lo mismo, pero alineado" — form-control, form-check y table</p>
+
+  <div class="caja-concepto">
+    <h3>🧠 La idea central</h3>
+    <p>El formulario de la clase 4 (etiqueta ligada al campo, tipos correctos, <code>required</code>) <strong>no cambia ni una línea</strong>: Bootstrap solo añade clases que le dan forma. La estructura accesible sigue siendo <strong>tua</strong>.</p>
+  </div>
+
+  <h3>📝 Las clases del formulario</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Clase</th><th>Se pone en…</th><th>Qué hace</th></tr></thead>
+      <tbody>
+        <tr><td><code>form-label</code></td><td><code>&lt;label&gt;</code></td><td>Negrita y un poco de margen debajo</td></tr>
+        <tr><td><code>form-control</code></td><td><code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code></td><td>Relleno, borde y esquinas del campo</td></tr>
+        <tr><td><code>form-select</code></td><td><code>&lt;select&gt;</code></td><td>Lo mismo, pero con la flechita del desplegable</td></tr>
+        <tr><td><code>form-check</code> + <code>form-check-input</code></td><td><code>&lt;label&gt;</code> + <code>&lt;input type="checkbox"&gt;</code></td><td>Casilla alineada con su texto</td></tr>
+        <tr><td><code>mb-3</code></td><td>El grupo del campo</td><td>Separa los campos verticalmente</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bs-vista" style="margin:1.5rem 0">
+    <span class="bs-vista-titulo">Formulario con clases de Bootstrap</span>
+    <form onsubmit="return false">
+      <div class="mb-3">
+        <label class="form-label" for="demo-titulo">Título</label>
+        <input class="form-control" type="text" id="demo-titulo" placeholder="Repasar el box model">
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="demo-categoria">Categoría</label>
+        <select class="form-select" id="demo-categoria">
+          <option>Estudio</option>
+          <option>Proyecto</option>
+          <option>Descanso</option>
+        </select>
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" id="demo-hecha">
+        <label class="form-check-label" for="demo-hecha">Ya está completada</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Agregar tarea</button>
+    </form>
+    <span class="bs-nota">El <code>&lt;form&gt;</code>, el <code>&lt;label for&gt;</code> y el <code>required</code> son de la clase 4: Bootstrap no los reemplaza, los viste igual.</span>
+  </div>
+
+  <h3>📊 Las clases de la tabla</h3>
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Clase</th><th>Efecto</th></tr></thead>
+      <tbody>
+        <tr><td><code>table</code></td><td>La base: bordes entre celdas y padding</td></tr>
+        <tr><td><code>table-striped</code></td><td>Filas alternas de color (como la tabla del formulario)</td></tr>
+        <tr><td><code>table-hover</code></td><td>Resalta la fila al pasar el mouse</td></tr>
+        <tr><td><code>table-bordered</code></td><td>Dibuja el borde de cada celda</td></tr>
+        <tr><td><code>table-dark</code></td><td>Versión oscura</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bs-vista" style="margin:1.5rem 0">
+    <span class="bs-vista-titulo">La tabla de tareas con Bootstrap</span>
+    <table class="table table-striped table-hover align-middle">
+      <thead>
+        <tr><th scope="col">#</th><th scope="col">Tarea</th><th scope="col">Categoría</th><th scope="col">Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">1</th><td>Repasar Bootstrap</td><td>Estudio</td><td><span class="badge text-bg-warning">Pendiente</span></td></tr>
+        <tr><th scope="row">2</th><td>Subir la entrega</td><td>Proyecto</td><td><span class="badge text-bg-success">Hecha</span></td></tr>
+        <tr><th scope="row">3</th><td>Caminar 20 minutos</td><td>Descanso</td><td><span class="badge text-bg-secondary">Pausa</span></td></tr>
+      </tbody>
+    </table>
+    <span class="bs-nota">Fíjate en <code>scope="col"</code> y <code>scope="row"</code>: eso no es Bootstrap, es <strong>accesibilidad</strong> de la clase 4. El framework no te la regala.</span>
+  </div>
+
+  <h3>🎮 Simulador: quita y pon clases</h3>
+  <p>Toca una clase para <strong>quitarla</strong> del formulario. Verás de golpe cuánto trabajo te ahorró Bootstrap.</p>
+
+  <div class="simulador">
+    <div class="sim-head">📋 Desmonta tu formulario</div>
+    <div class="btn-row">
+      <button class="boton primary" data-clase="form-label">form-label</button>
+      <button class="boton primary" data-clase="form-control">form-control</button>
+      <button class="boton primary" data-clase="form-select">form-select</button>
+      <button class="boton primary" data-clase="form-check">form-check</button>
+      <button class="boton primary" data-clase="table">table</button>
+      <button class="boton primary" data-clase="table-striped">table-striped</button>
+      <button class="boton ghost" id="bs-form-reset">🔄 Devolver todas</button>
+    </div>
+    <div class="bs-vista" style="margin-top:1rem">
+      <div id="bs-form-vista"></div>
+    </div>
+    <div class="code-live" id="bs-form-codigo" style="margin-top:1rem;">
+<span class="cm">/* El HTML que estás viendo ahora mismo */</span>
+    </div>
+  </div>
+
+  <div class="caja-importante">
+    <h4>⚠️ Bootstrap no arregla un HTML roto</h4>
+    <p>Si tu <code>&lt;label&gt;</code> no apunta con <code>for</code> a tu <code>&lt;input&gt;</code>, por muy bonito que se vea el campo, <strong>quien usa lector de pantalla se queda sin saber qué campo es cuál</strong>. Las clases dan <em>apariencia</em>; la accesibilidad la escribes tú, igual que en la clase 4.</p>
+  </div>
+
+  <div class="quiz" data-quiz="6">
+    <h3>🎯 Mini-Quiz del Módulo 6</h3>
+    <div class="pregunta" data-correcta="b">
+      <p><strong>1.</strong> ¿Qué clase se pone en el <code>&lt;input type="text"&gt;</code>?</p>
+      <button class="opcion" data-op="a"><code>input-group</code></button>
+      <button class="opcion" data-op="b"><code>form-control</code></button>
+      <button class="opcion" data-op="c"><code>form-select</code></button>
+      <button class="opcion" data-op="d"><code>card-body</code></button>
+    </div>
+    <div class="pregunta" data-correcta="c">
+      <p><strong>2.</strong> ¿Qué clase pones en el <code>&lt;select&gt;</code> de categoría?</p>
+      <button class="opcion" data-op="a"><code>form-text</code></button>
+      <button class="opcion" data-op="b"><code>form-control</code></button>
+      <button class="opcion" data-op="c"><code>form-select</code></button>
+      <button class="opcion" data-op="d"><code>list-group</code></button>
+    </div>
+    <div class="pregunta" data-correcta="a">
+      <p><strong>3.</strong> ¿Cuál de estas cosas NO te da Bootstrap?</p>
+      <button class="opcion" data-op="a">Un formulario accesible con su <code>label</code> bien ligado al campo</button>
+      <button class="opcion" data-op="b">Campos alineados y con el mismo tamaño</button>
+      <button class="opcion" data-op="c">Una tabla con filas alternas de color</button>
+      <button class="opcion" data-op="d">Un botón azul listo para usar</button>
+    </div>
+    <div class="resultado-quiz"></div>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="5">← Anterior</button>
+    <button class="btn-siguiente" data-ir="7">Siguiente: Taller final →</button>
+  </div>
+</section>
+
+<!-- MÓDULO 7 — TALLER -->
+<section class="modulo" data-modulo="7">
+  <h2>🛠️ Taller final</h2>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + entrega en tu repositorio</p>
+
+  <div class="caja-concepto">
+    <h3>🎯 Tu misión</h3>
+    <p>Cuatro retos para demostrar que ya distingues una clase de Bootstrap de una regla de CSS. Al superarlos, recibirás tu insignia de <strong>Constructor de Interfaces</strong>.</p>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 1</span><span class="challenge-title">🔘 Empareja la clase con su efecto</span></div>
+    <div class="ws-block" data-ws-match="1">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="1a">btn btn-primary</button>
+        <button class="ws-chip" data-mid="1b">card-body</button>
+        <button class="ws-chip" data-mid="1c">container</button>
+        <button class="ws-chip" data-mid="1d">text-center</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="1A">Botón azul sólido</button>
+        <button class="ws-chip" data-mid="1B">El aire interior de una tarjeta</button>
+        <button class="ws-chip" data-mid="1C">Caja que limita el ancho y centra el contenido</button>
+        <button class="ws-chip" data-mid="1D">Centra el texto horizontalmente</button>
+      </div>
+      <button class="boton primary" data-check-ws="1">✓ Validar Reto 1</button>
+      <div class="resultado-ws" id="ws-fb-1"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🗂️ Ordena el HTML de una tarjeta</span></div>
+    <p>Del más externo al más interno. Arrastra o usa las flechas:</p>
+    <div class="ws-block" data-ws-order="2">
+      <div class="ws-order">
+        <div class="ws-order-item" data-oid="2card" draggable="true"><span class="ord-num">?</span> &lt;div class="card"&gt;</div>
+        <div class="ws-order-item" data-oid="2body" draggable="true"><span class="ord-num">?</span> &lt;div class="card-body"&gt;</div>
+        <div class="ws-order-item" data-oid="2title" draggable="true"><span class="ord-num">?</span> &lt;h5 class="card-title"&gt;</div>
+        <div class="ws-order-item" data-oid="2row" draggable="true"><span class="ord-num">?</span> &lt;div class="row"&gt;</div>
+        <div class="ws-order-item" data-oid="2col" draggable="true"><span class="ord-num">?</span> &lt;div class="col-6"&gt;</div>
+      </div>
+      <div class="btn-row">
+        <button class="boton" data-ws-up>⬆ Subir</button>
+        <button class="boton" data-ws-down>⬇ Bajar</button>
+      </div>
+      <button class="boton primary" data-check-ws="2">✓ Validar Reto 2</button>
+      <div class="resultado-ws" id="ws-fb-2"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge">Reto 3</span><span class="challenge-title">✍️ Completa el botón</span></div>
+    <p>Completa la variante que falta para que el botón salga azul:</p>
+    <div class="ws-block">
+      <div class="code-live">&lt;button class="btn btn-<input class="ws-input" data-ans="primary" data-ws="3" placeholder="?>"&gt;Agregar&lt;/button&gt;</div>
+      <button class="boton primary" data-check-ws="3">✓ Validar Reto 3</button>
+      <div class="resultado-ws" id="ws-fb-3"></div>
+    </div>
+  </div>
+
+  <div class="challenge">
+    <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: limpia tu proyecto</span></div>
+    <p>Un compañero tiene una app con <strong>180 líneas de CSS</strong> que repiten siempre lo mismo. <strong>Empareja cada problema con la solución de Bootstrap</strong>:</p>
+    <div class="ws-block" data-ws-match="4">
+      <div class="ws-options" data-role="left">
+        <button class="ws-chip" data-mid="4a">Escribió a mano el relleno, el borde y la sombra de sus tarjetas</button>
+        <button class="ws-chip" data-mid="4b">Sus inputs se ven distintos en cada pantalla</button>
+        <button class="ws-chip" data-mid="4c">Copió y pegó el CSS del botón "Agregar" cuatro veces</button>
+      </div>
+      <div class="ws-options" data-role="right">
+        <button class="ws-chip" data-mid="4A">class="card" + card-body</button>
+        <button class="ws-chip" data-mid="4B">class="form-control" + form-label</button>
+        <button class="ws-chip" data-mid="4C">class="btn btn-primary"</button>
+      </div>
+      <button class="boton primary" data-check-ws="4">✓ Validar Jefe Final</button>
+      <div class="resultado-ws" id="ws-fb-4"></div>
+    </div>
+  </div>
+
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy haces <strong>dos cosas</strong>: el ejercicio de la clase en <code>clase07c/</code> (una mini página con navbar, tarjetas, formulario y tabla hechos con Bootstrap) y, sobre todo, <strong>tu aplicación se moderniza</strong>: conectas Bootstrap a <code>proyecto/</code> y reemplazas el CSS repetido por clases. Tu <code>styles.css</code> <strong>no se borra</strong>: sigue ahí para lo tuyo.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol7c">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01...clase07b/ ← ya los tienes
+├── clase07c/
+│   └── index.html      ← HOY: navbar + cards + formulario + tabla
+└── proyecto/
+    ├── index.html      ← HOY: recibe el link del CDN y clases nuevas
+    └── styles.css      ← ⭐ HOY: se queda, pero con menos reglas</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="boton primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase07c/</code> — tu primera página con Bootstrap</span>
+        <span class="paso-tiempo">⏱️ 14 min · ejercicio de la clase</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase07c</code> con <strong>un solo archivo</strong>: <code>clase07c/index.html</code>. Fíjate que <strong>no hay</strong> <code>styles.css</code>: todo el estilo de hoy viene del CDN. Copia el código de abajo tal cual, ábrelo con Live Server y míralo.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase07c/index.html</div>
+          <button class="copy-btn" data-copy="clase07c-html">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Bootstrap · Clase 7C&lt;/title&gt;
+
+  &lt;!-- 1. Bootstrap SIEMPRE primero --&gt;
+  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+&lt;/head&gt;
+&lt;body class="bg-body-tertiary"&gt;
+
+  &lt;!-- 2. La navbar --&gt;
+  &lt;nav class="navbar navbar-expand bg-dark navbar-dark mb-4"&gt;
+    &lt;div class="container"&gt;
+      &lt;span class="navbar-brand fw-bold"&gt;Mi Gestor&lt;/span&gt;
+      &lt;ul class="navbar-nav"&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link active" href="#"&gt;Inicio&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;Tareas&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+  &lt;main class="container"&gt;
+
+    &lt;h1 class="mb-4"&gt;Mis tareas&lt;/h1&gt;
+
+    &lt;!-- 3. Tres tarjetas en una fila de 12 columnas --&gt;
+    &lt;div class="row g-4 mb-5"&gt;
+      &lt;div class="col-4"&gt;
+        &lt;div class="card h-100"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;span class="badge text-bg-warning"&gt;Estudio&lt;/span&gt;
+            &lt;h5 class="card-title mt-2"&gt;Repasar Bootstrap&lt;/h5&gt;
+            &lt;p class="card-text"&gt;Anotar qu&eacute; clases nuevas conozco.&lt;/p&gt;
+            &lt;button class="btn btn-primary btn-sm"&gt;Marcar como hecha&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="col-4"&gt;
+        &lt;div class="card h-100"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;span class="badge text-bg-success"&gt;Proyecto&lt;/span&gt;
+            &lt;h5 class="card-title mt-2"&gt;Subir la entrega&lt;/h5&gt;
+            &lt;p class="card-text"&gt;Commit y push a GitHub Pages.&lt;/p&gt;
+            &lt;button class="btn btn-outline-secondary btn-sm"&gt;Ver estado&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class="col-4"&gt;
+        &lt;div class="card h-100"&gt;
+          &lt;div class="card-body"&gt;
+            &lt;span class="badge text-bg-secondary"&gt;Descanso&lt;/span&gt;
+            &lt;h5 class="card-title mt-2"&gt;Caminar 20 minutos&lt;/h5&gt;
+            &lt;p class="card-text"&gt;La salud tambi&eacute;n es una tarea.&lt;/p&gt;
+            &lt;button class="btn btn-danger btn-sm"&gt;Borrar&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- 4. El formulario: las etiquetas siguen siendo tuyas --&gt;
+    &lt;form class="row g-3 mb-5"&gt;
+      &lt;div class="col-6"&gt;
+        &lt;label class="form-label" for="titulo"&gt;T&iacute;tulo&lt;/label&gt;
+        &lt;input class="form-control" id="titulo" type="text" required&gt;
+      &lt;/div&gt;
+      &lt;div class="col-6"&gt;
+        &lt;label class="form-label" for="categoria"&gt;Categor&iacute;a&lt;/label&gt;
+        &lt;select class="form-select" id="categoria"&gt;
+          &lt;option&gt;Estudio&lt;/option&gt;
+          &lt;option&gt;Proyecto&lt;/option&gt;
+          &lt;option&gt;Descanso&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+      &lt;div class="col-12"&gt;
+        &lt;button class="btn btn-primary"&gt;Agregar&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+
+    &lt;!-- 5. La tabla --&gt;
+    &lt;table class="table table-striped table-hover align-middle"&gt;
+      &lt;thead&gt;
+        &lt;tr&gt;&lt;th scope="col"&gt;Tarea&lt;/th&gt;&lt;th scope="col"&gt;Estado&lt;/th&gt;&lt;/tr&gt;
+      &lt;/thead&gt;
+      &lt;tbody&gt;
+        &lt;tr&gt;&lt;td&gt;Repasar Bootstrap&lt;/td&gt;&lt;td&gt;Pendiente&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;Subir la entrega&lt;/td&gt;&lt;td&gt;Hecha&lt;/td&gt;&lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+  &lt;/main&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <div class="caja-tip">
+        <h4>🧪 Comprueba que Bootstrap entró</h4>
+        <p>Haz clic derecho sobre el título de una tarjeta → <strong>Inspeccionar</strong>. En el panel de estilos verás <code>.card-title</code> con un archivo que se llama <code>bootstrap.min.css</code>. Si no aparece, casi siempre es que el <code>&lt;link&gt;</code> está mal escrito o después de tu CSS.</p>
+      </div>
+      <button class="boton primary paso-check" data-paso-check="2">✓ Listo, mi clase07c funciona</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Tu app se moderniza: <code>proyecto/</code> entra Bootstrap</span>
+        <span class="paso-tiempo">⏱️ 18 min · el paso más importante de hoy</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> y el <code>styles.css</code> de tu <code>proyecto/</code>. Hoy <strong>no</strong> borras nada: conectas Bootstrap y vas <strong>quitando</strong> el CSS que se quedó sin trabajo.</p>
+
+      <p><strong>1. Conecta el CDN</strong> — en el <code>&lt;head&gt;</code> de <code>proyecto/index.html</code>, pon el link de Bootstrap <strong>ARRIBA</strong> de tu <code>&lt;link&gt;</code> de estilos (de la clase 5):</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html — el &lt;head&gt;</div>
+          <button class="copy-btn" data-copy="proyecto-head">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Mi gestor de tareas&lt;/title&gt;
+
+  &lt;!-- Bootstrap: va PRIMERO --&gt;
+  &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+  &lt;!-- tu CSS: va DESPUÉS para poder ganarle --&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;/head&gt;</code></pre>
+      </div>
+
+      <p><strong>2. Añade clases, sin borrar las tuyas</strong> — Bootstrap se <strong>suma</strong> a lo que ya tienes; si una regla se contradicen, gana tu CSS (va después). Por eso puedes ir añadiendo clases poco a poco:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>proyecto/index.html — las marcas Bootstrap</div>
+          <button class="copy-btn" data-copy="proyecto-marcas">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!-- La barra de la clase 6, ahora con navbar --&gt;
+&lt;header class="barra navbar navbar-dark bg-dark"&gt;
+  &lt;span class="logo navbar-brand"&gt;Mi Gestor de Tareas&lt;/span&gt;
+&lt;/header&gt;
+
+&lt;!-- El bot&oacute;n de la clase 6, ahora con btn --&gt;
+&lt;button class="boton btn btn-primary"&gt;Agregar&lt;/button&gt;
+
+&lt;!-- Cada tarea: ahora es una card dentro de una columna --&gt;
+&lt;div class="row g-3"&gt;
+  &lt;article class="tarea card h-100"&gt;
+    &lt;div class="card-body"&gt;
+      &lt;h3 class="card-title"&gt;Terminar matem&aacute;ticas&lt;/h3&gt;
+      &lt;p class="card-text"&gt;Categor&iacute;a: estudio&lt;/p&gt;
+      &lt;button class="boton btn btn-outline-danger btn-sm"&gt;Eliminar&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/article&gt;
+&lt;/div&gt;</code></pre>
+      </div>
+
+      <p><strong>3. Guarda y mira.</strong> Si algo <strong>se ve raro</strong>, no es magia ni un error de Bootstrap: es tu CSS de la clase 6 peleándose con el nuevo. Ordena así:</p>
+      <ol class="lista-num">
+        <li>Abre <strong>Inspeccionar</strong> sobre el elemento que se ve mal.</li>
+        <li>Si la regla que gana es de <code>styles.css</code>, bórrala o cámbiale el valor (ese es tu CSS, tú mandas).</li>
+        <li>Si la regla que gana es de <code>bootstrap.min.css</code>, entonces <strong>falta</strong> una clase: vuelve al punto 2 y añádela.</li>
+      </ol>
+      <div class="caja-tip">
+        <h4>💡 HAZLO TUYO</h4>
+        <p>Las utilidades son tu mejor aliado: añade <code>mb-3</code>, <code>p-2</code>, <code>text-center</code> o <code>shadow</code> donde haga falta y <strong>borra esas mismas reglas de tu <code>styles.css</code></strong>. Cuenta cuántas líneas quitaste: ese es el ahorro real de Bootstrap. Si quieres un reto extra, mete tu proyecto dentro de un <code>&lt;div class="container"&gt;</code> para que en el monitor no se vea estirado.</p>
+      </div>
+      <button class="boton primary paso-check" data-paso-check="3">✓ Listo, mi aplicación ya usa Bootstrap</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de la clase 7C en la lista de clases. El de <code>proyecto/</code> ya funciona desde la clase 2.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada7c">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase07c/index.html"&gt;Clase 7C — Bootstrap&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va debajo de la línea de la clase 7B, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="boton primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 7C: mi app ya usa Bootstrap</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="boton primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="boton primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>proyecto</strong> (o de tu clase 7C) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/proyecto/" autocomplete="off">
+      <button class="boton primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi <code>clase07c/</code> tiene navbar, tres tarjetas, formulario y tabla, y se ve con el CDN conectado.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>El link a Bootstrap está <strong>antes</strong> que el link a mi <code>styles.css</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi <code>proyecto/</code> ya usa <code>navbar</code>, <code>btn</code> y <code>card</code> sin romper nada de lo que tenía.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Borré de mi <code>styles.css</code> al menos una regla que ya hacía Bootstrap.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Sé explicar por qué mi CSS gana cuando los dos escriben lo mismo.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi app con Bootstrap se ve desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Ejercicio</td><td><code>clase07c/</code> con navbar, cards, formulario y tabla usando clases</td><td>1.5</td></tr>
+        <tr><td>Proyecto</td><td><code>proyecto/</code> con <code>navbar</code>, <code>btn</code> y <code>card</code> funcionando</td><td>1.5</td></tr>
+        <tr><td>Orden</td><td>CDN antes que tu CSS, y al menos una regla propia retirada</td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a la clase 7C funcionando desde la portada</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Todo visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="cierre">
+    <h2>🏆 ¡Misión completada, Constructor de Interfaces!</h2>
+    <p class="entradilla">Escribiste HTML semántico, aprendiste a controlar cada caja con el box model, y hoy usaste un framework que ya había hecho ese trabajo por ti. Bootstrap no te quita el oficio: <strong>te devuelve el tiempo que usabas en repetir padding</strong>. Y recuerda: si algún día un componente se ve mal, ya sabes mirar dos veces —<code>Inspeccionar</code> y ver de qué archivo sale cada regla. Eso no lo hace ningún framework por ti.</p>
+    <button class="btn-final" data-reiniciar>🔁 Volver al inicio</button>
+  </div>
+
+  <div class="navegacion-modulo">
+    <button class="btn-anterior" data-ir="6">← Anterior</button>
+  </div>
+</section>
+
+</main>
+
+<footer class="pie">
+  <div class="fb">🧰 Herramientas de Programación I · Clase 7C · Plataforma interactiva</div>
+  <div>Bootstrap 5 · Contenedores · Botones y utilidades · Cards y navbar · Formularios y tablas · 4 horas</div>
+  <div style="margin-top:.5rem;font-size:.78rem;">Hecho con 💜 para adolescentes que quieren entender qué hay detrás de la pantalla.</div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

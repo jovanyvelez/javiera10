@@ -56,6 +56,7 @@ function cargarProgresoPorClase() {
     'curso-box-model': 6,
     'curso-flexbox': 6,
     'curso-responsive-viewport-unidades': 6,
+    'curso-bootstrap': 6,
     'curso-css-grid': 6,
     'curso-responsive-design': 6,
     'curso-taller-responsive-design': 5,
