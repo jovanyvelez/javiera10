@@ -244,7 +244,7 @@ function verificarQuizCompleto(quiz, idQuiz) {
 /* ---------- TALLER ---------- */
 const TALLER_RESP = {
   1: { '1a': '1A', '1b': '1B', '1c': '1C' },
-  4: { '4A': '4A' }
+  4: { '4a': '4A' }
 };
 const TALLER_ORDER = {
   2: ['2base', '2tablet', '2desk']
