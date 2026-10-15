@@ -524,7 +524,7 @@ console.log(guardadas[0].texto); // "Estudiar"</code></pre>
 <!-- MÓDULO 7 — TALLER -->
 <section class="modulo" data-modulo="7">
   <h2>🛠️ Taller final</h2>
-  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos + autoevaluación</p>
+  <p class="meta-modulo">⏱️ 35 minutos · "Cierre de la misión" — 4 retos de repaso + miniproyecto en tu repositorio</p>
 
   <div class="caja-concepto">
     <h3>🎯 Tu misión</h3>
@@ -599,6 +599,292 @@ localStorage.setItem("tarjeta", "1234-5678-9012");
       <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
       <div class="resultado-ws" id="ws-fb-4"></div>
     </div>
+  </div>
+
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>: un <strong>miniproyecto completo en VS Code</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy tu aplicación <strong>recuerda</strong>: las tareas sobreviven a la recarga de la página. Con <code>localStorage</code> guardas el array como texto JSON con <code>JSON.stringify</code>, y lo recuperas con <code>JSON.parse</code> al abrir la página. La prueba de fuego: agregar tareas, pulsar <strong>F5</strong>… y que sigan ahí.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol18">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01/            ← ya la tienes
+├── ...                 ← tus carpetas de clases anteriores
+└── clase18-localstorage/ ← ⭐ HOY: tu miniproyecto
+    ├── index.html      ← la base (paso 2)
+    └── app.js          ← lo escribes TÚ (paso 3)</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si crees otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase18-localstorage/</code> con la base HTML</span>
+        <span class="paso-tiempo">⏱️ 3 min · la base te la doy yo</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase18-localstorage</code> y dentro un <code>index.html</code>. Copia esta base: un formulario para agregar tareas, la lista, un indicador de cuántas hay guardadas y el botón de borrar todo.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase18-localstorage/index.html</div>
+          <button class="copy-btn" data-copy="base18">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Tareas persistentes · Clase 18&lt;/title&gt;
+  &lt;style&gt;
+    input, button { font-size: 1rem; padding: .4rem .8rem; margin: .2rem; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;Tareas que no se borran&lt;/h1&gt;
+
+  &lt;form id="form-tarea"&gt;
+    &lt;input type="text" id="campo-tarea" placeholder="Nueva tarea..."&gt;
+    &lt;button type="submit"&gt;Guardar tarea&lt;/button&gt;
+  &lt;/form&gt;
+
+  &lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+  &lt;p id="estado-guardado"&gt;&lt;/p&gt;
+
+  &lt;button id="btn-borrar"&gt;🗑️ Borrar todas las tareas&lt;/button&gt;
+
+  &lt;p&gt;&lt;a href="../index.html"&gt;Volver a mi portada&lt;/a&gt;&lt;/p&gt;
+
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi base está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Escribe <code>app.js</code> — el corazón del miniproyecto</span>
+        <span class="paso-tiempo">⏱️ 15 min · lo escribes tú, en 4 bloques</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea <code>clase18-localstorage/app.js</code> y arma el archivo <strong>bloque por bloque</strong>: recuperar, pintar, guardar y borrar. Escríbelos con tus manos y guarda con <span class="ruta">Ctrl + S</span>.</p>
+
+      <h4>🧩 Bloque A — Recupera las tareas guardadas al abrir</h4>
+      <p>La línea más importante de hoy: leer <code>localStorage</code> y convertir el texto JSON de vuelta a array. Si no hay nada guardado, <code>|| []</code> arranca con la lista vacía.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase18-localstorage/app.js — bloque A</div>
+          <button class="copy-btn" data-copy="bloqueA">📋 Copiar</button>
+        </div>
+        <pre><code>// A. Al abrir la página: recupera las tareas guardadas (o empieza vacía)
+let tareas = JSON.parse(localStorage.getItem('mis-tareas')) || [];</code></pre>
+      </div>
+
+      <h4>🧩 Bloque B — Pinta la lista y el contador</h4>
+      <p>Una función que recorre el array con <code>for...of</code> y además muestra cuántas tareas hay guardadas en el navegador.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase18-localstorage/app.js — bloque B</div>
+          <button class="copy-btn" data-copy="bloqueB">📋 Copiar</button>
+        </div>
+        <pre><code>// B. Pinta las tareas y el contador de guardadas
+const lista = document.getElementById('lista-tareas');
+const estadoGuardado = document.getElementById('estado-guardado');
+
+function renderizar() {
+  lista.innerHTML = '';
+  for (const tarea of tareas) {
+    const li = document.createElement('li');
+    li.textContent = tarea.texto;
+    lista.append(li);
+  }
+  estadoGuardado.textContent = '💾 Hay ' + tareas.length + ' tarea(s) guardadas en tu navegador.';
+}
+renderizar();</code></pre>
+      </div>
+
+      <h4>🧩 Bloque C — Agrega una tarea y guarda TODO el array</h4>
+      <p>Al enviar el formulario: crear el objeto, <code>push</code>, y la pareja estrella de hoy — <code>JSON.stringify</code> para convertir el array a texto y <code>setItem</code> para guardarlo.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase18-localstorage/app.js — bloque C</div>
+          <button class="copy-btn" data-copy="bloqueC">📋 Copiar</button>
+        </div>
+        <pre><code>// C. Agregar una tarea y guardar el array como texto JSON
+const form = document.getElementById('form-tarea');
+const campoTarea = document.getElementById('campo-tarea');
+
+form.addEventListener('submit', function (evento) {
+  evento.preventDefault();
+  const texto = campoTarea.value.trim();
+  if (texto === '') return;
+
+  tareas.push({ texto: texto });
+  localStorage.setItem('mis-tareas', JSON.stringify(tareas));
+  form.reset();
+  renderizar();
+});</code></pre>
+      </div>
+
+      <h4>🧩 Bloque D — Borrar todo</h4>
+      <p><code>removeItem</code> elimina la clave completa del almacenamiento. Después, vacías el array en memoria y repintas.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase18-localstorage/app.js — bloque D</div>
+          <button class="copy-btn" data-copy="bloqueD">📋 Copiar</button>
+        </div>
+        <pre><code>// D. Borrar todo el almacenamiento de un golpe
+document.getElementById('btn-borrar').addEventListener('click', function () {
+  localStorage.removeItem('mis-tareas');
+  tareas = [];
+  renderizar();
+});</code></pre>
+      </div>
+
+      <div class="caja-tip">
+        <h4>▶️ La prueba de fuego</h4>
+        <p>Ábrelo con Live Preview, agrega 2 o 3 tareas… y pulsa <strong>F5</strong> para recargar. ¡Las tareas siguen ahí! Eso que sientes es <strong>persistencia</strong>: el navegador las guardó en su disco. Prueba también el botón de borrar y recarga de nuevo.</p>
+      </div>
+
+      <div class="caja-importante">
+        <h4>🥇 Reto extra (opcional)</h4>
+        <p>Abre la consola (<span class="ruta">F12 → Console</span>) y escribe <code>localStorage.getItem('mis-tareas')</code>: verás tu array crudo, como texto JSON. También puedes verlo en <span class="ruta">F12 → Application → Local Storage</span>. Eso es exactamente lo que guarda el navegador.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mis tareas sobreviven a la recarga</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de hoy en la lista de clases:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada18">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase18-localstorage/index.html"&gt;Clase 18 — Tareas persistentes&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va justo debajo de la última clase que tengas en la lista, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 18: tareas persistentes</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>miniproyecto</strong> (<code>clase18-localstorage/</code>) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/clase18-localstorage/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Al abrir la página, mis tareas se recuperan con <code>getItem</code> + <code>JSON.parse</code> (y si no hay nada, arranco con <code>|| []</code>).</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Al agregar una tarea la guardo con <code>JSON.stringify</code> + <code>setItem</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>La prueba de fuego: agrego tareas, recargo con F5 y <strong>siguen ahí</strong>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>El botón de borrar elimina el almacenamiento con <code>removeItem</code> y repinta la lista.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Ví mi array como texto JSON en la consola o en <span class="ruta">F12 → Application</span>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi miniproyecto abre desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Recuperación al iniciar</td><td><code>getItem</code> + <code>JSON.parse</code> con respaldo <code>|| []</code></td><td>2.0</td></tr>
+        <tr><td>Guardado en cada cambio</td><td><code>JSON.stringify</code> + <code>setItem</code> al agregar cada tarea</td><td>1.5</td></tr>
+        <tr><td>Borrar todo</td><td><code>removeItem</code> + repintado de la lista vacía</td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a <code>clase18-localstorage/</code> funcionando</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Miniproyecto visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="cierre">
