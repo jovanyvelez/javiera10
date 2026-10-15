@@ -527,7 +527,7 @@ function agregarTarea(titulo, descripcion, categoria) {
 <!-- MÓDULO 7 — TALLER -->
 <section class="modulo" data-modulo="7">
   <h2>🛠️ Taller final</h2>
-  <p class="meta-modulo">⏱️ 35 minutos · "Checkpoint JavaScript" — 4 retos + autoevaluación</p>
+  <p class="meta-modulo">⏱️ 35 minutos · "Checkpoint JavaScript" — 4 retos de repaso + miniproyecto en tu repositorio</p>
 
   <div class="caja-concepto">
     <h3>🎯 Tu misión</h3>
@@ -609,6 +609,300 @@ function validar(titulo) {
       <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
       <div class="resultado-ws" id="ws-fb-4"></div>
     </div>
+  </div>
+
+  <!-- ══════════ ENTREGA EN TU REPOSITORIO ══════════ -->
+  <h3>📦 Entrega en tu repositorio</h3>
+
+  <div class="caja-concepto">
+    <h3>🎯 Lo que vas a publicar hoy</h3>
+    <p>Los retos de arriba fueron el repaso. Ahora viene el <strong>entregable</strong>: un <strong>miniproyecto completo en VS Code</strong>, en el mismo repositorio <code>herramientas-programacion</code> que creaste en la clase 1.</p>
+    <p>Hoy nace el <strong>corazón de tu CRUD</strong>: un formulario que valida, crea tareas como objetos, las agrega a un array y las pinta en la pantalla <strong>sin recargar</strong>. Es el <strong>Create</strong> y el <strong>Read</strong> de tu futura aplicación. Este <em>checkpoint</em> reúne todo lo de JavaScript: funciones, arrays, DOM y eventos.</p>
+  </div>
+
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>tu repositorio al terminar hoy</div>
+      <button class="copy-btn" data-copy="arbol17">📋 Copiar</button>
+    </div>
+    <pre><code>herramientas-programacion/
+├── index.html          ← portada (le agregas 1 enlace hoy)
+├── clase01/            ← ya la tienes
+├── ...                 ← tus carpetas de clases anteriores
+└── clase17-formularios/ ← ⭐ HOY: tu miniproyecto
+    ├── index.html      ← la base (paso 2)
+    └── app.js          ← lo escribes TÚ (paso 3)</code></pre>
+  </div>
+
+  <div class="taller-progreso">
+    <div class="taller-progreso-info">
+      <span>📦 Pasos de la entrega</span>
+      <strong><span id="pasos-hechos">0</span> / 5</strong>
+    </div>
+    <div class="barra-progreso"><div class="barra-progreso-llenado" id="barra-pasos"></div></div>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="paso" data-paso="1">
+    <div class="paso-head">
+      <span class="paso-num">1</span>
+      <div>
+        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-tiempo">⏱️ 2 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <div class="caja-importante">
+        <h4>⚠️ No crees un Codespace nuevo</h4>
+        <p>Si crees otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="paso" data-paso="2">
+    <div class="paso-head">
+      <span class="paso-num">2</span>
+      <div>
+        <span class="paso-titulo">Crea <code>clase17-formularios/</code> con la base HTML</span>
+        <span class="paso-tiempo">⏱️ 4 min · la base te la doy yo</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea la carpeta <code>clase17-formularios</code> y dentro un <code>index.html</code>. Copia esta base: un formulario con campo de texto, categoría y el espacio donde vivirá la lista.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase17-formularios/index.html</div>
+          <button class="copy-btn" data-copy="base17">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="es"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Formulario de tareas · Clase 17&lt;/title&gt;
+  &lt;style&gt;
+    .error { color: crimson; font-weight: bold; }
+    input, select, button { font-size: 1rem; padding: .4rem .6rem; margin: .2rem; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;h1&gt;Mis tareas&lt;/h1&gt;
+
+  &lt;form id="form-tarea"&gt;
+    &lt;input type="text" id="campo-tarea" placeholder="¿Qué hay que hacer?"&gt;
+    &lt;select id="campo-categoria"&gt;
+      &lt;option value="estudio"&gt;Estudio&lt;/option&gt;
+      &lt;option value="casa"&gt;Casa&lt;/option&gt;
+      &lt;option value="otro"&gt;Otro&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;button type="submit"&gt;Agregar&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;p id="error" class="error"&gt;&lt;/p&gt;
+
+  &lt;ul id="lista-tareas"&gt;&lt;/ul&gt;
+
+  &lt;p&gt;&lt;a href="../index.html"&gt;Volver a mi portada&lt;/a&gt;&lt;/p&gt;
+
+  &lt;script src="app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+      </div>
+      <p>💡 El <code>&lt;select&gt;</code> es nuevo: es el menú desplegable de HTML. Su valor también se lee con <code>.value</code>, igual que un input.</p>
+      <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi base está creada</button>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="paso" data-paso="3">
+    <div class="paso-head">
+      <span class="paso-num">3</span>
+      <div>
+        <span class="paso-titulo">⭐ Escribe <code>app.js</code> — el corazón del miniproyecto</span>
+        <span class="paso-tiempo">⏱️ 15 min · lo escribes tú, en 4 bloques</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Crea <code>clase17-formularios/app.js</code> y arma el archivo <strong>bloque por bloque</strong>: el flujo completo de una tarea — capturar, validar, crear y renderizar. Escríbelos con tus manos y guarda con <span class="ruta">Ctrl + S</span>.</p>
+
+      <h4>🧩 Bloque A — Selecciona todo lo que vas a necesitar</h4>
+      <p>Las referencias del DOM y el array donde vivirán las tareas <strong>en memoria</strong>.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase17-formularios/app.js — bloque A</div>
+          <button class="copy-btn" data-copy="bloqueA">📋 Copiar</button>
+        </div>
+        <pre><code>// A. Referencias y datos
+const form = document.getElementById('form-tarea');
+const campoTarea = document.getElementById('campo-tarea');
+const campoCategoria = document.getElementById('campo-categoria');
+const error = document.getElementById('error');
+const lista = document.getElementById('lista-tareas');
+let tareas = [];</code></pre>
+      </div>
+
+      <h4>🧩 Bloque B — Escucha, valida y crea la tarea</h4>
+      <p>Al enviar: <code>preventDefault</code>, leer <code>.value</code>, <strong>validar</strong> que no esté vacío (y avisar), crear el <strong>objeto tarea</strong> y agregarlo con <code>push</code>.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase17-formularios/app.js — bloque B</div>
+          <button class="copy-btn" data-copy="bloqueB">📋 Copiar</button>
+        </div>
+        <pre><code>// B. Escucha el submit, valida y crea el objeto tarea
+form.addEventListener('submit', function (evento) {
+  evento.preventDefault();
+
+  const texto = campoTarea.value.trim();
+  if (texto === '') {
+    error.textContent = '⚠️ Escribe algo: la tarea no puede estar vacía.';
+    return;
+  }
+  error.textContent = '';
+
+  const tarea = { texto: texto, categoria: campoCategoria.value, completada: false };
+  tareas.push(tarea);
+  form.reset();
+  renderizar();
+});</code></pre>
+      </div>
+      <p>Ojo: <code>renderizar()</code> se define en el bloque C, pero como es una <code>function</code>, JavaScript la encuentra aunque se escriba después.</p>
+
+      <h4>🧩 Bloque C — Pinta la lista sin recargar</h4>
+      <p>Todo lo aprendido junto: <code>createElement</code> + <code>textContent</code> + <code>append</code> dentro de un <code>for...of</code> que recorre el array de objetos.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase17-formularios/app.js — bloque C</div>
+          <button class="copy-btn" data-copy="bloqueC">📋 Copiar</button>
+        </div>
+        <pre><code>// C. Pinta las tareas en el HTML sin recargar
+function renderizar() {
+  lista.innerHTML = '';
+  for (const tarea of tareas) {
+    const li = document.createElement('li');
+    li.textContent = tarea.texto + ' (' + tarea.categoria + ')';
+    lista.append(li);
+  }
+}</code></pre>
+      </div>
+
+      <h4>🧩 Bloque D — Arranque: tus primeras tareas</h4>
+      <p>Llena el array con dos tareas <strong>tuyas</strong> y pinta la lista al abrir la página: así compruebas que el render funciona antes de tocar el formulario.</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>clase17-formularios/app.js — bloque D</div>
+          <button class="copy-btn" data-copy="bloqueD">📋 Copiar</button>
+        </div>
+        <pre><code>// D. Dos tareas iniciales (¡cámbialas por las tuyas!)
+tareas = [
+  { texto: 'Estudiar JavaScript 15 minutos', categoria: 'estudio', completada: false },
+  { texto: 'Organizar mi cuarto', categoria: 'casa', completada: false }
+];
+renderizar();</code></pre>
+      </div>
+
+      <div class="caja-tip">
+        <h4>▶️ Pruébalo con Live Preview</h4>
+        <p>Clic derecho sobre tu <code>index.html</code> → <span class="ruta">Show Preview</span>. Al abrir deben verse tus dos tareas iniciales. Agrega una nueva desde el formulario: aparece <strong>al instante</strong>. Intenta enviar el formulario vacío: el mensaje de error te detiene. Todo sin recargar.</p>
+      </div>
+
+      <div class="caja-importante">
+        <h4>🥇 Reto extra (opcional)</h4>
+        <p>Que también salga error si la tarea tiene <strong>menos de 3 letras</strong>. Pista: los strings tienen <code>.length</code>, y se pueden unir condiciones con <code>||</code> (la clase 12 te recuerda cómo).</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="3">✓ Listo, mi formulario crea tareas</button>
+    </div>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="paso" data-paso="4">
+    <div class="paso-head">
+      <span class="paso-num">4</span>
+      <div>
+        <span class="paso-titulo">Actualiza tu portada</span>
+        <span class="paso-tiempo">⏱️ 3 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <p>Abre el <code>index.html</code> de la <strong>raíz</strong> y agrega el enlace de hoy en la lista de clases:</p>
+      <div class="code-wrap">
+        <div class="code-header">
+          <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>index.html (raíz) — la línea que agregas</div>
+          <button class="copy-btn" data-copy="portada17">📋 Copiar</button>
+        </div>
+        <pre><code>&lt;li&gt;&lt;a href="clase17-formularios/index.html"&gt;Clase 17 — Formulario de tareas&lt;/a&gt;&lt;/li&gt;</code></pre>
+      </div>
+      <p>Va justo debajo de la última clase que tengas en la lista, dentro del mismo <code>&lt;ul&gt;</code>.</p>
+      <button class="btn primary paso-check" data-paso-check="4">✓ Listo, portada actualizada</button>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="paso" data-paso="5">
+    <div class="paso-head">
+      <span class="paso-num">5</span>
+      <div>
+        <span class="paso-titulo">Commit, push y verifica en tu URL</span>
+        <span class="paso-tiempo">⏱️ 5 min</span>
+      </div>
+    </div>
+    <div class="paso-body">
+      <ol class="lista-num">
+        <li>Panel <span class="ruta">Source Control</span> → mensaje <code>Clase 17: formulario de tareas</code> → <span class="ruta">Commit</span>.</li>
+        <li><span class="ruta">Sync Changes</span> para subirlo a GitHub.</li>
+        <li>Espera 1-2 minutos y abre tus URLs. Recuerda: <strong>GitHub Pages ya está activo</strong>, no toques Settings.</li>
+      </ol>
+      <p>Escribe tu usuario y te armo los enlaces de hoy:</p>
+      <div class="url-gen">
+        <div class="url-gen-fila">
+          <span class="url-prefijo">https://</span>
+          <input type="text" id="gh-usuario" class="ws-input url-input" placeholder="tu-usuario" autocomplete="off">
+          <span class="url-sufijo">.github.io/herramientas-programacion/</span>
+        </div>
+        <button class="btn primary" id="gh-generar">🔗 Generar mis enlaces</button>
+        <div class="url-out" id="gh-urls"></div>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="5">✓ Listo, ya se ve en Internet</button>
+    </div>
+  </div>
+
+  <!-- VERIFICACIÓN -->
+  <div class="challenge">
+    <div class="challenge-head">
+      <span class="challenge-badge adv">Verificación</span>
+      <span class="challenge-title">🏁 Comprueba tu entrega</span>
+    </div>
+    <p>Pega la dirección publicada de tu <strong>miniproyecto</strong> (<code>clase17-formularios/</code>) y la reviso contigo:</p>
+    <div class="ws-block">
+      <input type="text" id="gh-url-final" class="ws-input url-input-full" placeholder="https://tu-usuario.github.io/herramientas-programacion/clase17-formularios/" autocomplete="off">
+      <button class="btn primary" id="gh-verificar">✓ Verificar mi entrega</button>
+      <div class="resultado-ws" id="ws-fb-github"></div>
+    </div>
+
+    <h4 style="margin-top:1.4rem">📋 Autoevaluación</h4>
+    <div class="autoeval">
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi formulario crea tareas sin recargar la página (<code>submit</code> + <code>preventDefault</code>).</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Leo los campos con <code>.value</code> y limpio el formulario con <code>form.reset()</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Si el campo está vacío, muestro el mensaje de error y <strong>no agrego nada</strong>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Creo objetos <code>{ texto, categoria, completada }</code> y los agrego con <code>push()</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>La lista se pinta sola cada vez que agrego una tarea, con <code>createElement</code> + <code>append</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi miniproyecto abre desde la portada publicada.</span></label>
+    </div>
+  </div>
+
+  <div class="contenedor-tabla">
+    <table class="tabla-compara">
+      <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Formulario y validación</td><td>Captura con <code>.value</code>, error si está vacío, <code>reset()</code> al final</td><td>2.0</td></tr>
+        <tr><td>Create</td><td>Objeto tarea bien formado + <code>push()</code> al array</td><td>1.5</td></tr>
+        <tr><td>Render dinámico</td><td><code>renderizar()</code> con <code>for...of</code> + <code>createElement</code> + <code>append</code></td><td>1.0</td></tr>
+        <tr><td>Portada</td><td>Enlace a <code>clase17-formularios/</code> funcionando</td><td>0.5</td></tr>
+        <tr><td>Publicación</td><td>Miniproyecto visible en la URL de GitHub Pages tras el push</td><td>0.5</td></tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="cierre">
