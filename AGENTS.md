@@ -95,12 +95,13 @@ Hay `node` y `google-chrome-stable` en la máquina; sirven para comprobar una cl
 - Cruzar los `getElementById('...')` del `app.js` contra los `id="..."` del `index.html` caza referencias muertas.
 - Prueba funcional: `python3 -m http.server PUERTO` en la carpeta de la clase, una copia temporal del `index.html` con un `<script>` inyectado que simule clics y escriba el resultado en un `<div id="TEST-OUT">`, y
   `google-chrome-stable --headless=new --disable-gpu --no-sandbox --disable-crash-reporter --user-data-dir=/tmp/perfil --virtual-time-budget=9000 --dump-dom URL`.
-  Chrome **exige** `--user-data-dir` en este equipo (si no, falla con "Failed to create headless user data directory container").
+  Chrome **exige** `--user-data-dir` en este equipo (si no, falla con "Failed to create headless user data directory container"). El `<script>` inyectado corre durante el parseo, **antes** del `app.js` diferido: espera el evento `load` antes de leer `estado` o simular clics.
 - Ojo al medir estilos en headless: **las transiciones CSS quedan congeladas** en tiempo virtual, así que `getComputedStyle` devuelve el color inicial. Valida clases CSS y textos, no colores animados (o fuerza `el.getAnimations().forEach(a => a.finish())`).
 - `/tmp` **no persiste entre llamadas** de shell distintas: si necesitas un archivo intermedio, escríbelo dentro del workspace y bórralo al final.
 
 ## Convenciones del sitio
 
+- El `<script src="app.js">` de cada página va en el `<head>` con `defer` (`<script src="app.js" defer></script>`), **no** al final del `<body>`: todos los `app.js` inicializan dentro de `DOMContentLoaded`, así que `defer` es seguro (el script se ejecuta antes de que ese evento dispare) y la descarga arranca en paralelo con el HTML. Los snippets de la base HTML de los talleres de entrega también enseñan esta forma.
 - Toda la UI está en español; mantener tono y emojis decorativos en títulos (`🎮`, `🖥️`, `🚀`, etc. son parte del estilo).
 - Comentarios en `app.js` del hub están en español.
 - Slugs y nombres lógicos van en camelCase/kebab-case mezclado, no introducir guiones distintos.
