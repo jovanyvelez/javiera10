@@ -257,7 +257,7 @@ function configurarTrivia() {
 const TALLER_RESP = {
   hallazgos: { 'a': 'A', 'b': 'B', 'c': 'C' },
   1: { '1a': '1A', '1b': '1B', '1c': '1C', '1d': '1D' },
-  4: { '4A': '4A' }
+  4: { '4a': '4A' }
 };
 const TALLER_ORDER = {
   guion: ['saludo', 'app', 'funciones', 'codigo', 'dificultades'],

@@ -296,7 +296,7 @@ function configurarTrivia() {
 const TALLER_RESP = {
   1: { '1a': '1A', '1b': '1B', '1c': '1C' },     // Cliente/Servidor/HTTP
   3: { '3a': '3A', '3b': '3B', '3c': '3C', '3d': '3D' }, // VS Code/React/DevTools/Git
-  4: { '4A': '4A' } // el "matching" del jefe final tiene solo respuesta correcta
+  4: { '4a': '4A' } // el "matching" del jefe final tiene solo respuesta correcta
 };
 const TALLER_ORDER = { 2: ['2hw', '2kernel', '2so', '2apps', '2user'] };
 const TALLER_INPUT = { 4: 'encontro' };
