@@ -3,6 +3,13 @@
    Lee progreso de cada clase desde localStorage y lo muestra
 ============================================================ */
 
+/* Clases 16 y 17: módulos que su página marca como completados.
+   El taller (7) se cierra al superar los cuatro retos. */
+const MODULOS_COMPLETABLES = {
+  'curso-eventos': [1, 2, 3, 5, 6, 7],
+  'curso-formularios-js': [1, 2, 3, 5, 6, 7]
+};
+
 document.addEventListener('DOMContentLoaded', () => {
   mostrarFecha();
   cargarProgresoPorClase();
@@ -30,9 +37,9 @@ function mostrarFecha() {
 
 /* ---------- LEER PROGRESO DE CADA CLASE ---------- */
 function cargarProgresoPorClase() {
-  // Total de módulos por clase (lo que se puede marcar como completado)
-  // Para cada clase: 6 módulos totales (0..5), pero el módulo 5 (taller) no se marca
-  // automáticamente, así que se cuentan los 5 primeros
+  // Total de módulos por clase (lo que se puede marcar como completado).
+  // Por defecto se cuentan los módulos 0..N-1; las clases en MODULOS_COMPLETABLES
+  // usan exactamente los módulos que su página marca.
   const TOTALES_MODULOS = {
     'curso-contadores-acum-banderas': 5,
     'curso-ordenacion-sortlab': 5,
@@ -102,8 +109,13 @@ function calcularProgresoCurso(key, totalMods) {
     const datos = JSON.parse(localStorage.getItem(key));
     if (!datos || !datos.completados) return 0;
 
-    // Filtramos los completados que están dentro del rango "completable" (0..totalMods-1)
-    const completados = (datos.completados || []).filter(m => m <= totalMods - 1).length;
+    // Las clases con lista propia cuentan exactamente esos módulos;
+    // el resto mantiene el rango histórico 0..totalMods-1.
+    const guardados = (datos.completados || []).map(Number);
+    const lista = MODULOS_COMPLETABLES[key];
+    const completados = lista
+      ? lista.filter(m => guardados.includes(m)).length
+      : guardados.filter(m => m <= totalMods - 1).length;
     return Math.round((completados / totalMods) * 100);
   } catch (e) {
     return 0;

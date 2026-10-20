@@ -73,7 +73,7 @@
         <tr><td>03 · Validación básica</td><td style="color:var(--ambar)">Errores y reglas</td><td>35 min</td><td>100 XP</td></tr>
         <tr><td>☕ · Descanso activo</td><td style="color:var(--naranja)">Pausa</td><td>15 min</td><td>—</td></tr>
         <tr><td>04 · Agregar objetos a un array</td><td style="color:var(--verde)">push()</td><td>35 min</td><td>100 XP</td></tr>
-        <tr><td>05 · Renderizar la lista</td><td style="color:var(--morado)">innerHTML</td><td>35 min</td><td>100 XP</td></tr>
+        <tr><td>05 · Renderizar la lista</td><td style="color:var(--morado)">innerHTML / createElement</td><td>35 min</td><td>100 XP</td></tr>
         <tr><td>06 · Taller final</td><td style="color:var(--rosa)">Checkpoint</td><td>35 min</td><td>140 XP</td></tr>
       </tbody>
     </table>
@@ -336,10 +336,10 @@ form.addEventListener("submit", (evento) =&gt; {
 <section class="modulo" data-modulo="4">
   <div class="descanso-hero">
     <h2>☕ ¡Hora del descanso!</h2>
-    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorio</strong>: pararse, mirar lejos y estirar.</p>
   </div>
   <div class="descanso-grid">
-    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Cada 20 minutos, mira algo a 6 metros de distancia durante 20 segundos.</p></div>
     <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
     <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
     <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a qué es FormData y para qué sirve.</p></div>
@@ -348,8 +348,8 @@ form.addEventListener("submit", (evento) =&gt; {
     <h3>🎲 Trivia de regreso</h3>
     <p>¿Qué método agrega un elemento al final de un array?</p>
     <div class="trivia-opts" id="triviaOpts">
-      <button class="trivia-opt" data-tcorrecta="b" data-top="a">add()</button>
-      <button class="trivia-opt" data-top="b">push()</button>
+      <button class="trivia-opt" data-top="a">add()</button>
+      <button class="trivia-opt" data-tcorrecta="b" data-top="b">push()</button>
       <button class="trivia-opt" data-top="c">insert()</button>
       <button class="trivia-opt" data-top="d">append()</button>
     </div>
@@ -425,6 +425,11 @@ function agregarTarea(titulo, descripcion, categoria) {
     <p><code>push()</code> agrega al <strong>final</strong> del array. Si quieres agregar al inicio, usa <code>unshift()</code>. Para quitar el último, <code>pop()</code>. Son las herramientas básicas de una lista.</p>
   </div>
 
+  <div class="caja-tip">
+    <h4>🧹 Limpiar el formulario</h4>
+    <p>Después de guardar la tarea, llama a <code>form.reset()</code>: borra todos los campos del formulario de una vez, sin recargar la página. Así el usuario puede escribir la siguiente tarea sin borrar a mano. El ciclo completo queda: capturar → validar → crear el objeto → <code>push()</code> → limpiar → renderizar.</p>
+  </div>
+
   <div class="quiz" data-quiz="5">
     <h3>🎯 Mini-Quiz del Módulo 5</h3>
     <div class="pregunta" data-correcta="c">
@@ -453,11 +458,11 @@ function agregarTarea(titulo, descripcion, categoria) {
 <!-- MÓDULO 6 -->
 <section class="modulo" data-modulo="6">
   <h2>🖼️ Renderizar la lista</h2>
-  <p class="meta-modulo">⏱️ 35 minutos · "Mostrar lo guardado" — pintar el array en el HTML con innerHTML</p>
+  <p class="meta-modulo">⏱️ 35 minutos · "Mostrar lo guardado" — pintar el array en el HTML con innerHTML o createElement</p>
 
   <div class="caja-concepto">
     <h3>🧠 La idea central</h3>
-    <p>Guardar datos en un array no sirve de nada si el usuario no los <strong>ve</strong>. <strong>Renderizar</strong> es convertir el array en HTML visible. Se hace recorriendo el array y construyendo una cadena de HTML que luego se inyecta con <code>innerHTML</code>.</p>
+    <p>Guardar datos en un array no sirve de nada si el usuario no los <strong>ve</strong>. <strong>Renderizar</strong> es convertir el array en HTML visible recorriéndolo y agregando el contenido de cada tarea a la página. Hay dos caminos: construir una cadena de HTML y inyectarla con <code>innerHTML</code>, o crear cada elemento con <code>createElement</code> y agregarlo con <code>append()</code>.</p>
     <p>Este es el "R" de CRUD (Read): el dato <strong>sale</strong> de tu programa y se muestra.</p>
   </div>
 
@@ -468,7 +473,7 @@ function agregarTarea(titulo, descripcion, categoria) {
       <button class="copy-btn" data-copy="render">📋 Copiar</button>
     </div>
     <pre><code>function renderizar() {
-  const lista = document.getElementById("lista");
+  const lista = document.getElementById("lista-tareas");
   let html = "";
 
   for (const tarea of tareas) {
@@ -491,13 +496,32 @@ function agregarTarea(titulo, descripcion, categoria) {
     <div id="tarea-lista" style="margin-top:1rem;display:grid;gap:0.5rem;"></div>
     <div class="caja-tip" id="render-vacio" style="margin-top:1rem;">
       <h4>👁️ Observa</h4>
-      <p>La lista está vacía. Agrega tareas en el módulo anterior (o aquí abajo) y pulsa "Renderizar lista".</p>
+      <p>La lista está vacía. Agrega tareas en el simulador del módulo anterior y vuelve aquí para pulsar «Renderizar lista».</p>
     </div>
   </div>
 
   <div class="caja-importante">
     <h4>⚠️ innerHTML reemplaza todo</h4>
     <p>Cuando asignas <code>lista.innerHTML = html</code>, <strong>borras</strong> lo que había y pones lo nuevo. Por eso siempre construyes el HTML completo del array, no solo el elemento nuevo. Si solo agregas, duplicarías la lista.</p>
+  </div>
+
+  <h3>🧱 La otra forma: createElement + append</h3>
+  <p>Construir una cadena de HTML es rápido, pero tiene un riesgo: si el texto del usuario trae etiquetas, el navegador las interpreta como HTML. La alternativa es crear cada elemento como objeto del DOM y agregarlo con <code>append()</code>. Es la misma técnica de la clase 15 y la que usarás en el miniproyecto de hoy:</p>
+  <div class="code-wrap">
+    <div class="code-header">
+      <div class="code-header-left"><div class="code-dots"><span></span><span></span><span></span></div>render-createElement.js</div>
+      <button class="copy-btn" data-copy="render-alt">📋 Copiar</button>
+    </div>
+    <pre><code>function renderizar() {
+  const lista = document.getElementById("lista-tareas");
+  lista.innerHTML = ''; // vaciar la lista antes de pintar
+
+  for (const tarea of tareas) {
+    const li = document.createElement('li');
+    li.textContent = tarea.titulo + ' — ' + tarea.categoria;
+    lista.append(li);
+  }
+}</code></pre>
   </div>
 
   <div class="quiz" data-quiz="6">
@@ -545,10 +569,10 @@ function agregarTarea(titulo, descripcion, categoria) {
         <button class="ws-chip" data-mid="1d">innerHTML</button>
       </div>
       <div class="ws-options" data-role="right">
-        <button class="ws-chip" data-mid="1A">Leer el texto de un campo</button>
-        <button class="ws-chip" data-mid="1B">Recoger todos los campos de una vez</button>
         <button class="ws-chip" data-mid="1C">Agregar un objeto al array</button>
+        <button class="ws-chip" data-mid="1A">Leer el texto de un campo</button>
         <button class="ws-chip" data-mid="1D">Pintar HTML en la página</button>
+        <button class="ws-chip" data-mid="1B">Recoger todos los campos de una vez</button>
       </div>
       <button class="btn primary" data-check-ws="1">✓ Validar Reto 1</button>
       <div class="resultado-ws" id="ws-fb-1"></div>
@@ -559,11 +583,11 @@ function agregarTarea(titulo, descripcion, categoria) {
     <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🗂️ Ordena el ciclo de vida de un dato</span></div>
     <div class="ws-block" data-ws-order="2">
       <div class="ws-order">
-        <div class="ws-order-item" data-oid="2capturar" draggable="true"><span class="ord-num">?</span> Capturar los datos del formulario</div>
         <div class="ws-order-item" data-oid="2validar" draggable="true"><span class="ord-num">?</span> Validar que no estén vacíos</div>
-        <div class="ws-order-item" data-oid="2objeto" draggable="true"><span class="ord-num">?</span> Crear el objeto tarea</div>
-        <div class="ws-order-item" data-oid="2push" draggable="true"><span class="ord-num">?</span> Agregarlo al array con push()</div>
         <div class="ws-order-item" data-oid="2render" draggable="true"><span class="ord-num">?</span> Renderizar la lista en el HTML</div>
+        <div class="ws-order-item" data-oid="2capturar" draggable="true"><span class="ord-num">?</span> Capturar los datos del formulario</div>
+        <div class="ws-order-item" data-oid="2push" draggable="true"><span class="ord-num">?</span> Agregarlo al array con push()</div>
+        <div class="ws-order-item" data-oid="2objeto" draggable="true"><span class="ord-num">?</span> Crear el objeto tarea</div>
       </div>
       <div class="btn-row">
         <button class="btn" data-ws-up>⬆ Subir</button>
@@ -648,17 +672,21 @@ function validar(titulo) {
     <div class="paso-head">
       <span class="paso-num">1</span>
       <div>
-        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-titulo">Abre tu proyecto en VS Code</span>
         <span class="paso-tiempo">⏱️ 2 min</span>
       </div>
     </div>
     <div class="paso-body">
-      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <p>Abre <strong>VS Code</strong> en tu computador. Luego <span class="ruta">Archivo → Abrir carpeta…</span> y elige la carpeta <code>herramientas-programacion</code> — el mismo repositorio que creaste en la clase 1. A la izquierda verás el <strong>Explorador</strong> con todos tus archivos.</p>
       <div class="caja-importante">
-        <h4>⚠️ No crees un Codespace nuevo</h4>
-        <p>Si crees otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+        <h4>⚠️ Trabaja siempre dentro de esa carpeta</h4>
+        <p>Todo lo que hagas hoy debe quedar dentro de <code>herramientas-programacion</code>. Si creas archivos fuera del repositorio, Git no los guardará y no se publicarán.</p>
       </div>
-      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+      <div class="caja-tip">
+        <h4>💡 ¿La carpeta aún no está en tu computador?</h4>
+        <p>Entra a github.com → tu repositorio → botón verde <span class="ruta">Code</span> → pestaña <span class="ruta">Local</span> → <span class="ruta">HTTPS</span> → copia la URL. Luego en VS Code: <span class="ruta">Ctrl + Shift + P</span> → escribe <em>Git: Clone</em> → pega la URL y elige una carpeta de tu equipo. Al terminar, abre esa carpeta clonada.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi proyecto está abierto en VS Code</button>
     </div>
   </div>
 
@@ -711,7 +739,7 @@ function validar(titulo) {
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
       </div>
-      <p>💡 El <code>&lt;select&gt;</code> es nuevo: es el menú desplegable de HTML. Su valor también se lee con <code>.value</code>, igual que un input.</p>
+      <p>💡 El <code>&lt;select&gt;</code> ya lo viste en la clase 4; aquí lo usamos para la categoría. Su valor también se lee con <code>.value</code>, igual que un input.</p>
       <button class="btn primary paso-check" data-paso-check="2">✓ Listo, mi base está creada</button>
     </div>
   </div>
@@ -762,13 +790,14 @@ form.addEventListener('submit', function (evento) {
   }
   error.textContent = '';
 
-  const tarea = { texto: texto, categoria: campoCategoria.value, completada: false };
+  const tarea = { titulo: texto, categoria: campoCategoria.value, completada: false };
   tareas.push(tarea);
   form.reset();
   renderizar();
 });</code></pre>
       </div>
       <p>Ojo: <code>renderizar()</code> se define en el bloque C, pero como es una <code>function</code>, JavaScript la encuentra aunque se escriba después.</p>
+      <p><code>.trim()</code> quita los espacios del inicio y del final del texto: por eso una tarea con solo espacios se considera vacía.</p>
 
       <h4>🧩 Bloque C — Pinta la lista sin recargar</h4>
       <p>Todo lo aprendido junto: <code>createElement</code> + <code>textContent</code> + <code>append</code> dentro de un <code>for...of</code> que recorre el array de objetos.</p>
@@ -782,7 +811,7 @@ function renderizar() {
   lista.innerHTML = '';
   for (const tarea of tareas) {
     const li = document.createElement('li');
-    li.textContent = tarea.texto + ' (' + tarea.categoria + ')';
+    li.textContent = tarea.titulo + ' (' + tarea.categoria + ')';
     lista.append(li);
   }
 }</code></pre>
@@ -797,15 +826,15 @@ function renderizar() {
         </div>
         <pre><code>// D. Dos tareas iniciales (¡cámbialas por las tuyas!)
 tareas = [
-  { texto: 'Estudiar JavaScript 15 minutos', categoria: 'estudio', completada: false },
-  { texto: 'Organizar mi cuarto', categoria: 'casa', completada: false }
+  { titulo: 'Estudiar JavaScript 15 minutos', categoria: 'estudio', completada: false },
+  { titulo: 'Organizar mi cuarto', categoria: 'casa', completada: false }
 ];
 renderizar();</code></pre>
       </div>
 
       <div class="caja-tip">
-        <h4>▶️ Pruébalo con Live Preview</h4>
-        <p>Clic derecho sobre tu <code>index.html</code> → <span class="ruta">Show Preview</span>. Al abrir deben verse tus dos tareas iniciales. Agrega una nueva desde el formulario: aparece <strong>al instante</strong>. Intenta enviar el formulario vacío: el mensaje de error te detiene. Todo sin recargar.</p>
+        <h4>▶️ Pruébalo en VS Code</h4>
+        <p>Clic derecho sobre tu <code>index.html</code> → <span class="ruta">Show Preview</span> (extensión Live Preview) o <span class="ruta">Open with Live Server</span>. También puedes abrirlo con doble clic desde el explorador de archivos. Al abrir deben verse tus dos tareas iniciales. Agrega una nueva desde el formulario: aparece <strong>al instante</strong>. Intenta enviar el formulario vacío: el mensaje de error te detiene. Todo sin recargar.</p>
       </div>
 
       <div class="caja-importante">
@@ -886,7 +915,7 @@ renderizar();</code></pre>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="1"><span>Mi formulario crea tareas sin recargar la página (<code>submit</code> + <code>preventDefault</code>).</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Leo los campos con <code>.value</code> y limpio el formulario con <code>form.reset()</code>.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Si el campo está vacío, muestro el mensaje de error y <strong>no agrego nada</strong>.</span></label>
-      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Creo objetos <code>{ texto, categoria, completada }</code> y los agrego con <code>push()</code>.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Creo objetos <code>{ titulo, categoria, completada }</code> y los agrego con <code>push()</code>.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>La lista se pinta sola cada vez que agrego una tarea, con <code>createElement</code> + <code>append</code>.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi miniproyecto abre desde la portada publicada.</span></label>
     </div>
@@ -896,7 +925,7 @@ renderizar();</code></pre>
     <table class="tabla-compara">
       <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
       <tbody>
-        <tr><td>Formulario y validación</td><td>Captura con <code>.value</code>, error si está vacío, <code>reset()</code> al final</td><td>2.0</td></tr>
+        <tr><td>Formulario y validación</td><td>Captura con <code>.value</code>, error si está vacío, <code>reset()</code> al final</td><td>1.5</td></tr>
         <tr><td>Create</td><td>Objeto tarea bien formado + <code>push()</code> al array</td><td>1.5</td></tr>
         <tr><td>Render dinámico</td><td><code>renderizar()</code> con <code>for...of</code> + <code>createElement</code> + <code>append</code></td><td>1.0</td></tr>
         <tr><td>Portada</td><td>Enlace a <code>clase17-formularios/</code> funcionando</td><td>0.5</td></tr>

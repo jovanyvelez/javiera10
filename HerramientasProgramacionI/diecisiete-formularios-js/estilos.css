@@ -1,6 +1,6 @@
 /* ============================================================
-   CLASE 1 — HERRAMIENTAS DE PROGRAMACIÓN I
-   (Introducción a la programación web)
+   CLASE 17 — HERRAMIENTAS DE PROGRAMACIÓN I
+   (Formularios con JavaScript y checkpoint de JS)
    Tema: "Editor cósmico" — oscuro + cian/morado/ámbar
    Sigue el patrón "course-as-trio" del currículo de décimo
 ============================================================ */
@@ -1347,6 +1347,9 @@ pre::-webkit-scrollbar-thumb { background: var(--tarjeta-borde); border-radius: 
 
 .ws-order-item:hover { border-color: var(--morado); }
 .ws-order-item.dragging { opacity: 0.5; }
+.ws-order-item.selected { border-color: var(--ambar); background: rgba(250, 204, 21, 0.1); }
+.ws-order-item.correct { border-color: var(--verde); background: rgba(0, 255, 157, 0.08); }
+.ws-order-item.wrong { border-color: var(--rosa); background: rgba(244, 63, 94, 0.08); }
 .ws-order-item .ord-num {
   width: 26px; height: 26px;
   background: var(--gradiente-cian);

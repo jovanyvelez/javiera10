@@ -35,6 +35,7 @@ const estado = {
 
 const XP_POR_MODULO = 30;
 const XP_POR_QUIZ_PERFECTO = 25;
+const MODULOS_COMPLETABLES = [1, 2, 3, 5, 6, 7];
 
 document.addEventListener('DOMContentLoaded', () => {
   cargarProgreso();
@@ -47,7 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
   configurarTrivia();
   configurarTeclado();
   inicializarSimuladores();
-  actualizarUI();
+  if (Object.keys(TALLER_MSGS).every(k => estado.talleres[k])) marcarCompletado(7);
+  irAModulo(estado.moduloActual);
 });
 
 function guardarProgreso() {
@@ -95,7 +97,10 @@ function configurarBotonesInternos() {
   document.querySelectorAll('.btn-anterior, .btn-siguiente').forEach(btn => {
     btn.addEventListener('click', () => {
       const m = parseInt(btn.dataset.ir, 10);
-      if (btn.classList.contains('btn-siguiente')) marcarCompletado(estado.moduloActual);
+      if (btn.classList.contains('btn-siguiente')) {
+        const origen = btn.closest('.modulo');
+        marcarCompletado(origen ? parseInt(origen.dataset.modulo, 10) : estado.moduloActual);
+      }
       irAModulo(m);
     });
   });
@@ -125,7 +130,7 @@ function marcarCompletado(n) {
   estado.completados.add(n);
   estado.xp = Math.min(XP_TOTAL, estado.xp + XP_POR_MODULO);
   if (BADGES_MODULO[n]) otorgarBadge(BADGES_MODULO[n]);
-  if (estado.completados.size === TOTAL_MODULOS) otorgarBadge('🏆 Curso Dominado');
+  if (MODULOS_COMPLETABLES.every(m => estado.completados.has(m))) otorgarBadge('🏆 Curso Dominado');
   mostrarToast(`🎉 ¡+${XP_POR_MODULO} XP! Módulo ${n} completado`);
   guardarProgreso();
 }
@@ -144,7 +149,7 @@ function addXP(cantidad) {
 }
 
 function actualizarUI() {
-  const completables = [1, 2, 3, 5, 6, 7];
+  const completables = MODULOS_COMPLETABLES;
   const total = completables.length;
   const completos = completables.filter(m => estado.completados.has(m)).length;
   const pct = Math.round((completos / total) * 100);
@@ -222,8 +227,10 @@ function verificarQuizCompleto(quiz, idQuiz) {
   let aciertos = 0;
   preguntas.forEach(p => { if (p.dataset.acierto === 'true') aciertos++; });
   const total = preguntas.length;
-  estado.quizzes[idQuiz] = { aciertos, total };
-  if (aciertos === total && !quiz.dataset.recompensado) {
+  const previo = estado.quizzes[idQuiz];
+  const yaPerfecto = !!(previo && (previo.perfecto || previo.aciertos === total));
+  estado.quizzes[idQuiz] = { aciertos, total, perfecto: yaPerfecto || aciertos === total };
+  if (aciertos === total && !yaPerfecto && !quiz.dataset.recompensado) {
     quiz.dataset.recompensado = 'true';
     addXP(XP_POR_QUIZ_PERFECTO);
   }
@@ -232,7 +239,7 @@ function verificarQuizCompleto(quiz, idQuiz) {
     res.classList.add('visible');
     if (aciertos === total) {
       res.classList.add('exito');
-      res.innerHTML = `🎉 ¡Perfecto! ${aciertos}/${total}. (+${XP_POR_QUIZ_PERFECTO} XP)`;
+      res.innerHTML = `🎉 ¡Perfecto! ${aciertos}/${total}.` + (yaPerfecto ? '' : ` (+${XP_POR_QUIZ_PERFECTO} XP)`);
     } else if (aciertos >= total / 2) {
       res.classList.add('parcial');
       res.textContent = `👍 ${aciertos}/${total} correctas. ¡Buen intento!`;
@@ -248,9 +255,10 @@ function configurarTrivia() {
   const opts = document.querySelectorAll('#triviaOpts .trivia-opt');
   const result = document.getElementById('triviaResult');
   if (!opts.length || !result) return;
+  const marcada = document.querySelector('#triviaOpts .trivia-opt[data-tcorrecta]');
+  const correcta = marcada ? marcada.dataset.tcorrecta : null;
   opts.forEach(op => {
     op.addEventListener('click', () => {
-      const correcta = op.dataset.tcorrecta;
       const elegida = op.dataset.top;
       opts.forEach(o => { o.disabled = true; if (o.dataset.top === correcta) o.classList.add('correcta'); });
       if (elegida === correcta) {
@@ -280,7 +288,7 @@ const TALLER_MSGS = {
   1: '¡Perfecto! .value=leer, FormData=recoger, push()=agregar, innerHTML=pintar.',
   2: '¡Excelente! capturar → validar → objeto → push() → renderizar.',
   3: '¡Bien! El método es push().',
-  4: '🏆 ¡JEFE FINAL VENCIDO! Debe usar === (comparación), no = (asignación).'
+  4: '🏆 ¡JEFE FINAL VENCIDO! Había que usar === (comparación), no = (asignación).'
 };
 const TALLER_HINTS = {
   1: 'Pista: .value lee, FormData recoge, push() agrega, innerHTML pinta.',
@@ -315,9 +323,22 @@ function configurarTaller() {
 
 function seleccionarMatchChip(id, chip, lado) {
   if (chip.classList.contains('correct')) return;
-  seleccionMatch[id][lado] = chip.dataset.mid;
   const block = chip.closest('.ws-block');
+  const previa = parejasMatch[id].findIndex(p => p[lado] === chip.dataset.mid);
+  if (previa !== -1) {
+    const pareja = parejasMatch[id][previa];
+    parejasMatch[id].splice(previa, 1);
+    const otroMid = pareja[lado === 'left' ? 'right' : 'left'];
+    const otroChip = block.querySelector(`[data-mid="${otroMid}"]`);
+    if (otroChip) {
+      otroChip.classList.remove('paired-temp', 'wrong', 'selected');
+      otroChip.style.opacity = '';
+    }
+  }
+  seleccionMatch[id][lado] = chip.dataset.mid;
   block.querySelectorAll(`[data-role="${lado}"] .ws-chip`).forEach(c => c.classList.remove('selected'));
+  chip.classList.remove('paired-temp', 'wrong');
+  chip.style.opacity = '';
   chip.classList.add('selected');
   if (seleccionMatch[id].left && seleccionMatch[id].right) {
     parejasMatch[id].push({ left: seleccionMatch[id].left, right: seleccionMatch[id].right });
@@ -362,6 +383,7 @@ function validarReto(id) {
   if (TALLER_ORDER[id]) {
     const cont = document.querySelector(`[data-ws-order="${id}"] .ws-order`);
     const items = cont.querySelectorAll('.ws-order-item');
+    cont.querySelectorAll('.ws-order-item.selected').forEach(it => it.classList.remove('selected'));
     const expected = TALLER_ORDER[id];
     items.forEach((it, i) => {
       const oid = it.dataset.oid;
@@ -397,13 +419,14 @@ function validarReto(id) {
     fb.className = 'resultado-ws visible ok';
     const msgs = TALLER_MSGS[id] || '¡Correcto!';
     const xpPorReto = TALLER_XP[id] || 25;
-    fb.innerHTML = `✅ ${msgs} <strong>+${xpPorReto} XP</strong>`;
-    if (!estado.talleres[id]) {
+    const yaHecho = !!estado.talleres[id];
+    fb.innerHTML = `✅ ${msgs}` + (yaHecho ? '' : ` <strong>+${xpPorReto} XP</strong>`);
+    if (!yaHecho) {
       estado.talleres[id] = true;
       addXP(xpPorReto);
     }
     if (Object.keys(TALLER_MSGS).every(k => estado.talleres[k])) {
-      otorgarBadge('🛠️ Maestro de Formularios Completado');
+      marcarCompletado(7);
     }
   } else {
     fb.className = 'resultado-ws visible no';
@@ -416,6 +439,7 @@ function configurarOrden(id) {
   const cont = document.querySelector(`[data-ws-order="${id}"] .ws-order`);
   if (!cont) return;
   const items = cont.querySelectorAll('.ws-order-item');
+  if (items.length) items[0].classList.add('selected');
   let dragSrc = null;
   items.forEach(it => {
     it.addEventListener('dragstart', e => {
@@ -448,11 +472,11 @@ function getDragAfterElement(container, y) {
 
 function moverOrden(id, dir) {
   const cont = document.querySelector(`[data-ws-order="${id}"] .ws-order`);
-  const selected = cont.querySelector('.ws-order-item.selected');
+  let selected = cont.querySelector('.ws-order-item.selected');
   if (!selected) {
-    const first = cont.querySelector('.ws-order-item');
-    if (first) first.classList.add('selected');
-    return;
+    selected = cont.querySelector('.ws-order-item');
+    if (!selected) return;
+    selected.classList.add('selected');
   }
   const items = [...cont.children];
   const i = items.indexOf(selected);
@@ -698,8 +722,10 @@ function verificarPublicacion() {
   if (repo && repo !== REPO_NOMBRE) {
     extra += `<br>💡 Tu repositorio se llama <code>${repo}</code> y en clase acordamos <code>${REPO_NOMBRE}</code>. Funciona, pero avísale a tu profesor/a.`;
   }
-  if (!resto.includes(CARPETA_CLASE)) {
-    extra += `<br>💡 Esa es tu portada. Comprueba también <code>${CARPETA_CLASE}/</code>, que es el miniproyecto de hoy.`;
+  const segmentos = resto.split('/');
+  if (!segmentos.includes(CARPETA_CLASE)) {
+    fallo(`❌ Esa dirección no apunta a tu miniproyecto. Debe terminar en <code>/${REPO_NOMBRE}/${CARPETA_CLASE}/</code>.`);
+    return;
   }
 
   fb.className = 'resultado-ws visible ok';

@@ -258,7 +258,7 @@ boton.addEventListener('click', function() {
     </div>
     <div class="compare-card b">
       <h4>✅ change</h4>
-      <p>Se dispara <strong>una sola vez</strong>, cuando el usuario termina y el campo pierde el foco. Ideal para validar al final.</p>
+      <p>En un campo de texto se dispara <strong>una sola vez</strong>, cuando el usuario termina y el campo pierde el foco. En <strong>checkboxes y selects</strong>, en cambio, se dispara apenas cambias el valor, sin esperar a salir del campo.</p>
     </div>
   </div>
 
@@ -327,10 +327,10 @@ campo.addEventListener('input', function() {
 <section class="modulo" data-modulo="4">
   <div class="descanso-hero">
     <h2>☕ ¡Hora del descanso!</h2>
-    <p class="lead">15 minutos para recargar. <strong>Obligatorios</strong>: pararse, mirar lejos y estirar.</p>
+    <p class="lead">15 minutos para recargar. <strong>Obligatorio</strong>: pararse, mirar lejos y estirar.</p>
   </div>
   <div class="descanso-grid">
-    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Mira a algo a 6 metros durante 20 segundos. Repítelo 3 veces.</p></div>
+    <div class="descanso-card"><span class="big-icon">👀</span><h3>Regla 20-20-20</h3><p>Cada 20 minutos, mira algo a 6 metros de distancia durante 20 segundos.</p></div>
     <div class="descanso-card"><span class="big-icon">🤸</span><h3>Estira el cuerpo</h3><p>Párate y estira brazos y cuello. Tu espalda lo agradecerá.</p></div>
     <div class="descanso-card"><span class="big-icon">💧</span><h3>Toma agua</h3><p>Un vaso de agua mejora la concentración. Bebe ahora.</p></div>
     <div class="descanso-card"><span class="big-icon">🗣️</span><h3>Habla con alguien</h3><p>Cuéntale a tu compañero/a un evento que aprendiste hoy.</p></div>
@@ -537,10 +537,10 @@ lista.addEventListener('click', function(evento) {
     <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">🖱️ Ordena los pasos para escuchar un clic</span></div>
     <div class="ws-block" data-ws-order="2">
       <div class="ws-order">
-        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> Seleccionar el elemento con querySelector</div>
-        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Llamar a addEventListener</div>
         <div class="ws-order-item" data-oid="2c" draggable="true"><span class="ord-num">?</span> Pasar el evento "click"</div>
+        <div class="ws-order-item" data-oid="2a" draggable="true"><span class="ord-num">?</span> Seleccionar el elemento con querySelector</div>
         <div class="ws-order-item" data-oid="2d" draggable="true"><span class="ord-num">?</span> Definir la función callback</div>
+        <div class="ws-order-item" data-oid="2b" draggable="true"><span class="ord-num">?</span> Llamar a addEventListener</div>
       </div>
       <div class="btn-row">
         <button class="btn" data-ws-up>⬆ Subir</button>
@@ -623,17 +623,21 @@ formulario.addEventListener('submit', function(evento) {
     <div class="paso-head">
       <span class="paso-num">1</span>
       <div>
-        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-titulo">Abre tu proyecto en VS Code</span>
         <span class="paso-tiempo">⏱️ 2 min</span>
       </div>
     </div>
     <div class="paso-body">
-      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <p>Abre <strong>VS Code</strong> en tu computador. Luego <span class="ruta">Archivo → Abrir carpeta…</span> y elige la carpeta <code>herramientas-programacion</code> — el mismo repositorio que creaste en la clase 1. A la izquierda verás el <strong>Explorador</strong> con todos tus archivos.</p>
       <div class="caja-importante">
-        <h4>⚠️ No crees un Codespace nuevo</h4>
-        <p>Si crees otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+        <h4>⚠️ Trabaja siempre dentro de esa carpeta</h4>
+        <p>Todo lo que hagas hoy debe quedar dentro de <code>herramientas-programacion</code>. Si creas archivos fuera del repositorio, Git no los guardará y no se publicarán.</p>
       </div>
-      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+      <div class="caja-tip">
+        <h4>💡 ¿La carpeta aún no está en tu computador?</h4>
+        <p>Entra a github.com → tu repositorio → botón verde <span class="ruta">Code</span> → pestaña <span class="ruta">Local</span> → <span class="ruta">HTTPS</span> → copia la URL. Luego en VS Code: <span class="ruta">Ctrl + Shift + P</span> → escribe <em>Git: Clone</em> → pega la URL y elige una carpeta de tu equipo. Al terminar, abre esa carpeta clonada.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi proyecto está abierto en VS Code</button>
     </div>
   </div>
 
@@ -772,8 +776,8 @@ chk.addEventListener('change', function () {
       </div>
 
       <div class="caja-tip">
-        <h4>▶️ Pruébalo con Live Preview</h4>
-        <p>Clic derecho sobre tu <code>index.html</code> → <span class="ruta">Show Preview</span> y comprueba los cuatro: el botón suma, el eco repite lo que escribes, el formulario envía <strong>sin recargar</strong> y el checkbox revela el secreto. ¿Un error rojo en la consola (<span class="ruta">F12 → Console</span>)? Ahí te dice la línea exacta.</p>
+        <h4>▶️ Pruébalo en VS Code</h4>
+        <p>Clic derecho sobre tu <code>index.html</code> → <span class="ruta">Show Preview</span> (extensión Live Preview) o <span class="ruta">Open with Live Server</span>. También puedes abrirlo con doble clic desde el explorador de archivos. Comprueba los cuatro: el botón suma, el eco repite lo que escribes, el formulario envía <strong>sin recargar</strong> y el checkbox revela el secreto. ¿Un error rojo en la consola (<span class="ruta">F12 → Console</span>)? Ahí te dice la línea exacta.</p>
       </div>
 
       <div class="caja-importante">
@@ -855,7 +859,7 @@ chk.addEventListener('change', function () {
       <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Mi input repite en vivo lo que escribo con el evento <code>'input'</code>.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>Mi formulario envía sin recargar la página: uso <code>'submit'</code> con <code>evento.preventDefault()</code>.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Mi checkbox muestra y oculta el secreto con <code>'change'</code> y <code>classList.toggle()</code>.</span></label>
-      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Probé los cuatro con Live Preview y todo reacciona sin errores rojos en la consola.</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Probé los cuatro en el navegador y todo reacciona sin errores rojos en la consola.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi miniproyecto abre desde la portada publicada.</span></label>
     </div>
   </div>
@@ -864,7 +868,7 @@ chk.addEventListener('change', function () {
     <table class="tabla-compara">
       <thead><tr><th>Criterio</th><th>Qué se revisa</th><th>Puntos</th></tr></thead>
       <tbody>
-        <tr><td>Contador y eco</td><td><code>click</code> que suma e <code>input</code> que muestra en vivo lo escrito</td><td>2.0</td></tr>
+        <tr><td>Contador y eco</td><td><code>click</code> que suma e <code>input</code> que muestra en vivo lo escrito</td><td>1.5</td></tr>
         <tr><td>Formulario sin recarga</td><td><code>submit</code> + <code>evento.preventDefault()</code> con mensaje en la página</td><td>1.5</td></tr>
         <tr><td>Interruptor</td><td><code>change</code> + <code>classList.toggle()</code> que muestra/oculta</td><td>1.0</td></tr>
         <tr><td>Portada</td><td>Enlace a <code>clase16-eventos/</code> funcionando</td><td>0.5</td></tr>
