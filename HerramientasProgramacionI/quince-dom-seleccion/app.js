@@ -280,13 +280,13 @@ const TALLER_MSGS = {
   1: '¡Perfecto! getElementById=por id, querySelectorAll=todos, createElement=crear.',
   2: '¡Correcto! Primero crear, luego dar contenido, luego agregar.',
   3: '¡Bien! La propiedad es textContent.',
-  4: '🏆 ¡JEFE FINAL VENCIDO! Falta el punto: debe ser ".item".'
+  4: '🏆 ¡JEFE FINAL VENCIDO! Faltaba el punto (".item") y, para traer todos, hay que usar querySelectorAll.'
 };
 const TALLER_HINTS = {
   1: 'Pista: getElementById=id, querySelectorAll=todos, createElement=crear.',
   2: 'Pista: crear → contenido → agregar.',
   3: 'Pista: la propiedad es "textContent".',
-  4: 'Pista: falta el punto antes de "item".'
+  4: 'Pista: los selectores de clase llevan punto, y querySelector solo devuelve el primero.'
 };
 const TALLER_XP = { 1: 25, 2: 30, 3: 30, 4: 55 };
 
@@ -315,9 +315,22 @@ function configurarTaller() {
 
 function seleccionarMatchChip(id, chip, lado) {
   if (chip.classList.contains('correct')) return;
-  seleccionMatch[id][lado] = chip.dataset.mid;
   const block = chip.closest('.ws-block');
+  const previa = parejasMatch[id].findIndex(p => p[lado] === chip.dataset.mid);
+  if (previa !== -1) {
+    const pareja = parejasMatch[id][previa];
+    parejasMatch[id].splice(previa, 1);
+    const otroMid = pareja[lado === 'left' ? 'right' : 'left'];
+    const otroChip = block.querySelector(`[data-mid="${otroMid}"]`);
+    if (otroChip) {
+      otroChip.classList.remove('paired-temp', 'wrong', 'selected');
+      otroChip.style.opacity = '';
+    }
+  }
+  seleccionMatch[id][lado] = chip.dataset.mid;
   block.querySelectorAll(`[data-role="${lado}"] .ws-chip`).forEach(c => c.classList.remove('selected'));
+  chip.classList.remove('paired-temp', 'wrong');
+  chip.style.opacity = '';
   chip.classList.add('selected');
   if (seleccionMatch[id].left && seleccionMatch[id].right) {
     parejasMatch[id].push({ left: seleccionMatch[id].left, right: seleccionMatch[id].right });
@@ -806,7 +819,11 @@ function inicializarSelector() {
       fbTxt.textContent = '❌ Ese selector no es válido. Prueba con h2, .item, #titulo o li.';
       return;
     }
-    demo.querySelectorAll('.sel-hit').forEach(el => el.classList.remove('sel-hit'));
+    demo.querySelectorAll('.sel-hit').forEach(el => {
+      el.classList.remove('sel-hit');
+      el.style.outline = '';
+      el.style.outlineOffset = '';
+    });
     matches.forEach(el => {
       el.classList.add('sel-hit');
       el.style.outline = '2px solid var(--verde)';

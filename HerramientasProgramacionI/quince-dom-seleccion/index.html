@@ -385,7 +385,7 @@ el.innerHTML = '&lt;strong&gt;Hola&lt;/strong&gt;';
     <div class="sim-head">🎨 Laboratorio de clases</div>
     <div class="state-panel">
       <div class="state-title">Elemento objetivo</div>
-      <div id="clase-demo" style="background:var(--fondo-claro);border:2px solid var(--tarjeta-borde);border-radius:10px;padding:1.2rem;text-align:center;font-size:1.1rem;color:var(--texto);transition:all 0.3s;">Soy un elemento</div>
+      <div id="clase-demo">Soy un elemento</div>
     </div>
     <div class="btn-row">
       <button class="btn primary" data-clase="destacado">➕ add('destacado')</button>
@@ -556,8 +556,8 @@ lista.append(li);</code></pre>
     <div class="challenge-head"><span class="challenge-badge">Reto 2</span><span class="challenge-title">➕ Ordena los pasos para crear un elemento</span></div>
     <div class="ws-block" data-ws-order="2">
       <div class="ws-order">
-        <div class="ws-order-item" data-oid="2create" draggable="true"><span class="ord-num">?</span> createElement('li')</div>
         <div class="ws-order-item" data-oid="2text" draggable="true"><span class="ord-num">?</span> li.textContent = 'Tarea'</div>
+        <div class="ws-order-item" data-oid="2create" draggable="true"><span class="ord-num">?</span> createElement('li')</div>
         <div class="ws-order-item" data-oid="2append" draggable="true"><span class="ord-num">?</span> lista.append(li)</div>
       </div>
       <div class="btn-row">
@@ -584,17 +584,17 @@ titulo.<input class="ws-input" data-ans="textContent" data-ws="3" placeholder="?
 
   <div class="challenge">
     <div class="challenge-head"><span class="challenge-badge adv">Jefe Final</span><span class="challenge-title">🏆 Escenario: revisa el código</span></div>
-    <p>Un compañero escribió este código para seleccionar todos los elementos con clase "item". ¿Qué error tiene?</p>
+    <p>Un compañero escribió este código para seleccionar <strong>todos</strong> los elementos con clase <code>item</code>:</p>
     <div class="ws-block" data-ws-match="4">
       <div class="code-live">
 const items = document.querySelector('item');
       </div>
       <div class="ws-options" data-role="left">
-        <button class="ws-chip" data-mid="4a">¿Qué error tiene el selector?</button>
+        <button class="ws-chip" data-mid="4a">¿Qué le falta para que funcione?</button>
       </div>
       <div class="ws-options" data-role="right">
-        <button class="ws-chip" data-mid="4A">Falta el punto: debería ser '.item'</button>
-        <button class="ws-chip" data-mid="4B">Debería usar getElementById</button>
+        <button class="ws-chip" data-mid="4A">Falta el punto ('.item') y debería usar querySelectorAll</button>
+        <button class="ws-chip" data-mid="4B">Debería usar getElementById('item')</button>
         <button class="ws-chip" data-mid="4C">El código está perfecto</button>
       </div>
       <button class="btn primary" data-check-ws="4">✓ Validar Jefe Final</button>
@@ -638,17 +638,21 @@ const items = document.querySelector('item');
     <div class="paso-head">
       <span class="paso-num">1</span>
       <div>
-        <span class="paso-titulo">Reabre tu Codespace</span>
+        <span class="paso-titulo">Abre tu proyecto en VS Code</span>
         <span class="paso-tiempo">⏱️ 2 min</span>
       </div>
     </div>
     <div class="paso-body">
-      <p>Entra a github.com → tu repositorio <code>herramientas-programacion</code> → <span class="ruta">Code → Codespaces</span> y pulsa el Codespace que <strong>ya tienes creado</strong>.</p>
+      <p>Abre <strong>VS Code</strong> en tu computador. Luego <span class="ruta">Archivo → Abrir carpeta…</span> y elige la carpeta <code>herramientas-programacion</code> — el mismo repositorio que creaste en la clase 1. A la izquierda verás el <strong>Explorador</strong> con todos tus archivos.</p>
       <div class="caja-importante">
-        <h4>⚠️ No crees un Codespace nuevo</h4>
-        <p>Si creas otro, empiezas de cero y gastas tus horas gratuitas. Reabre siempre el mismo: ahí está todo tu trabajo.</p>
+        <h4>⚠️ Trabaja siempre dentro de esa carpeta</h4>
+        <p>Todo lo que hagas hoy debe quedar dentro de <code>herramientas-programacion</code>. Si creas archivos fuera del repositorio, Git no los guardará y no se publicarán.</p>
       </div>
-      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi Codespace está abierto</button>
+      <div class="caja-tip">
+        <h4>💡 ¿La carpeta aún no está en tu computador?</h4>
+        <p>Entra a github.com → tu repositorio → botón verde <span class="ruta">Code</span> → pestaña <span class="ruta">Local</span> → <span class="ruta">HTTPS</span> → copia la URL. Luego en VS Code: <span class="ruta">Ctrl + Shift + P</span> → escribe <em>Git: Clone</em> → pega la URL y elige una carpeta de tu equipo. Al terminar, abre esa carpeta clonada.</p>
+      </div>
+      <button class="btn primary paso-check" data-paso-check="1">✓ Listo, mi proyecto está abierto en VS Code</button>
     </div>
   </div>
 
@@ -769,8 +773,8 @@ contador.textContent = 'Tienes ' + todas.length + ' tareas en total';</code></pr
       </div>
 
       <div class="caja-tip">
-        <h4>▶️ Pruébalo con Live Preview</h4>
-        <p>Clic derecho sobre tu <code>index.html</code> → <span class="ruta">Show Preview</span>. La lista debe aparecer <strong>sola</strong>, la primera tarea tachada y el contador diciendo el total. ¿No ves nada? Abre la consola (<span class="ruta">F12 → Console</span>): los errores de JavaScript se reportan ahí, con el número de línea.</p>
+        <h4>▶️ Pruébalo en VS Code</h4>
+        <p>Clic derecho sobre tu <code>index.html</code> → <span class="ruta">Show Preview</span> (extensión Live Preview) o <span class="ruta">Open with Live Server</span>. También puedes abrirlo con doble clic en el explorador de archivos. La lista debe aparecer <strong>sola</strong>, la primera tarea tachada y el contador diciendo el total. ¿No ves nada? Abre la consola (<span class="ruta">F12 → Console</span>): los errores de JavaScript se reportan ahí, con el número de línea.</p>
       </div>
 
       <div class="caja-importante">
@@ -852,7 +856,7 @@ contador.textContent = 'Tienes ' + todas.length + ' tareas en total';</code></pr
       <label class="autoeval-item"><input type="checkbox" data-autoeval="2"><span>Usé <code>getElementById</code> para el título, la lista y el contador, y <code>querySelector</code>/<code>querySelectorAll</code> para las tareas.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="3"><span>El título y el contador se actualizan con <code>textContent</code>, sin recargar la página.</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="4"><span>Una tarea queda tachada: ese es el efecto visible de <code>classList.add('completada')</code>.</span></label>
-      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Cambié el array por mis tareas reales y probé mi página con Live Preview (o revisé la consola si algo falló).</span></label>
+      <label class="autoeval-item"><input type="checkbox" data-autoeval="5"><span>Cambié el array por mis tareas reales y probé mi página en el navegador (o revisé la consola si algo falló).</span></label>
       <label class="autoeval-item"><input type="checkbox" data-autoeval="6"><span>Hice commit + push y mi miniproyecto abre desde la portada publicada.</span></label>
     </div>
   </div>
